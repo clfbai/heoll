@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.collarUse.ArqMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.collarUse.Arq">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="arq_num" jdbcType="VARCHAR" property="arqNum"/>
+        <result column="doc_date" jdbcType="DATE" property="docDate"/>
+        <result column="arq_type" jdbcType="VARCHAR" property="arqType"/>
+        <result column="dept_id" jdbcType="BIGINT" property="deptId"/>
+        <result column="deliv_wareh_id" jdbcType="BIGINT" property="delivWarehId"/>
+        <result column="arq_rsn" jdbcType="VARCHAR" property="arqRsn"/>
+        <result column="reqd_date" jdbcType="DATE" property="reqdDate"/>
+        <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled"/>
+        <result column="ttl_qty" jdbcType="DECIMAL" property="ttlQty"/>
+        <result column="ttl_box" jdbcType="BIGINT" property="ttlBox"/>
+        <result column="ttl_val" jdbcType="DECIMAL" property="ttlVal"/>
+        <result column="ttl_deliv_qty" jdbcType="DECIMAL" property="ttlDelivQty"/>
+        <result column="ttl_deliv_box" jdbcType="BIGINT" property="ttlDelivBox"/>
+        <result column="ttl_deliv_val" jdbcType="DECIMAL" property="ttlDelivVal"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="op_time" jdbcType="DATE" property="opTime"/>
+        <result column="chkr_id" jdbcType="BIGINT" property="chkrId"/>
+        <result column="chk_time" jdbcType="DATE" property="chkTime"/>
+        <result column="effective" jdbcType="CHAR" property="effective"/>
+        <result column="progress" jdbcType="CHAR" property="progress"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="cancelled" jdbcType="CHAR" property="cancelled"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapByArqVo" type="com.boyu.erp.platform.usercenter.vo.collarUse.ArqVo">
+        <result column="unit_id" property="unitId"/>
+        <result column="arq_num" property="arqNum"/>
+        <result column="docDate" property="docDate"/>
+        <result column="arq_type" property="arqType"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="deliv_wareh_id" property="delivWarehId"/>
+        <result column="arq_rsn" property="arqRsn"/>
+        <result column="reqd_date" property="reqdDate"/>
+        <result column="bxi_enabled" property="bxiEnabled"/>
+        <result column="ttl_qty" property="ttlQty"/>
+        <result column="ttl_box" property="ttlBox"/>
+        <result column="ttl_val" property="ttlVal"/>
+        <result column="ttl_deliv_qty" property="ttlDelivQty"/>
+        <result column="ttl_deliv_box" property="ttlDelivBox"/>
+        <result column="ttl_deliv_val" property="ttlDelivVal"/>
+        <result column="opr_id" property="oprId"/>
+        <result column="opTime" property="opTime"/>
+        <result column="chkr_id"  property="chkrId"/>
+        <result column="chkTime" property="chkTime"/>
+        <result column="effective" property="effective"/>
+        <result column="progress" property="progress"/>
+        <result column="suspended" property="suspended"/>
+        <result column="cancelled" property="cancelled"/>
+        <result column="remarks" property="remarks"/>
+        <result column="deptNum" property="deptNum"/>
+        <result column="deptName" property="deptName"/>
+        <result column="delivWarehNum" property="delivWarehNum"/>
+        <result column="delivWarehName" property="delivWarehName"/>
+        <result column="oprNum" property="oprNum"/>
+        <result column="oprName" property="oprName"/>
+        <result column="chkrNum" property="chkrNum"/>
+        <result column="chkrName" property="chkrName"/>
+
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    unit_id, arq_num, doc_date, arq_type, dept_id, deliv_wareh_id, arq_rsn, reqd_date, 
+    bxi_enabled, ttl_qty, ttl_box, ttl_val, ttl_deliv_qty, ttl_deliv_box, ttl_deliv_val, 
+    opr_id, op_time, chkr_id, chk_time, effective, progress, suspended, cancelled, remarks
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.collarUse.Arq"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from arq
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and arq_num = #{arqNum,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.collarUse.Arq">
+    delete from arq
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and arq_num = #{arqNum,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.collarUse.Arq">
+    insert into arq (unit_id, arq_num, doc_date, 
+      arq_type, dept_id, deliv_wareh_id, 
+      arq_rsn, reqd_date, bxi_enabled, 
+      ttl_qty, ttl_box, ttl_val, 
+      ttl_deliv_qty, ttl_deliv_box, ttl_deliv_val, 
+      opr_id, op_time, chkr_id, 
+      chk_time, effective, progress, 
+      suspended, cancelled, remarks
+      )
+    values (#{unitId,jdbcType=BIGINT}, #{arqNum,jdbcType=VARCHAR}, #{docDate,jdbcType=DATE}, 
+      #{arqType,jdbcType=VARCHAR}, #{deptId,jdbcType=BIGINT}, #{delivWarehId,jdbcType=BIGINT}, 
+      #{arqRsn,jdbcType=VARCHAR}, #{reqdDate,jdbcType=DATE}, #{bxiEnabled,jdbcType=CHAR}, 
+      #{ttlQty,jdbcType=DECIMAL}, #{ttlBox,jdbcType=BIGINT}, #{ttlVal,jdbcType=DECIMAL}, 
+      #{ttlDelivQty,jdbcType=DECIMAL}, #{ttlDelivBox,jdbcType=BIGINT}, #{ttlDelivVal,jdbcType=DECIMAL}, 
+      #{oprId,jdbcType=BIGINT}, #{opTime,jdbcType=TIMESTAMP}, #{chkrId,jdbcType=BIGINT}, 
+      #{chkTime,jdbcType=TIMESTAMP}, #{effective,jdbcType=CHAR}, #{progress,jdbcType=CHAR}, 
+      #{suspended,jdbcType=CHAR}, #{cancelled,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.vo.collarUse.ArqVo">
+        insert into arq
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null and unitId!=''  ">
+                unit_id,
+            </if>
+            <if test="arqNum != null and arqNum!='' ">
+                arq_num,
+            </if>
+                doc_date,
+            <if test="arqType != null and arqType!=''  ">
+                arq_type,
+            </if>
+            <if test="deptId != null and deptId!='' ">
+                dept_id,
+            </if>
+            <if test="delivWarehId != null and delivWarehId!=''  ">
+                deliv_wareh_id,
+            </if>
+            <if test="arqRsn != null and arqRsn!=''  ">
+                arq_rsn,
+            </if>
+            <if test="reqdDate != null and reqdDate!=''  ">
+                reqd_date,
+            </if>
+            <if test="bxiEnabled != null and bxiEnabled!=''  ">
+                bxi_enabled,
+            </if>
+            <if test="ttlQty != null and ttlQty!=''  ">
+                ttl_qty,
+            </if>
+            <if test="ttlBox != null and ttlBox!=''  ">
+                ttl_box,
+            </if>
+            <if test="ttlVal != null and ttlVal!=''  ">
+                ttl_val,
+            </if>
+            <if test="ttlDelivQty != null and ttlDelivQty!=''  ">
+                ttl_deliv_qty,
+            </if>
+            <if test="ttlDelivBox != null and ttlDelivBox!=''  ">
+                ttl_deliv_box,
+            </if>
+            <if test="ttlDelivVal != null and ttlDelivVal!=''  ">
+                ttl_deliv_val,
+            </if>
+            <if test="oprId != null and oprId!=''  ">
+                opr_id,
+                op_time,
+            </if>
+            <if test="chkrId != null and chkrId!=''  ">
+                chkr_id,
+                chk_time,
+            </if>
+            <if test="effective != null and effective!=''  ">
+                effective,
+            </if>
+            <if test="progress != null and progress!='' ">
+                progress,
+            </if>
+            <if test="suspended != null and suspended!=''  ">
+                suspended,
+            </if>
+            <if test="cancelled != null and cancelled!=''  ">
+                cancelled,
+            </if>
+            <if test="remarks != null and remarks!='' ">
+                remarks,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null and unitId!=''  ">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="arqNum != null and arqNum!=''  ">
+                #{arqNum,jdbcType=VARCHAR},
+            </if>
+            now(),
+            <if test="arqType != null and arqType!=''  ">
+                #{arqType,jdbcType=VARCHAR},
+            </if>
+            <if test="deptId != null and deptId!=''  ">
+                #{deptId,jdbcType=BIGINT},
+            </if>
+            <if test="delivWarehId != null and delivWarehId!=''  ">
+                #{delivWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="arqRsn != null and arqRsn!=''  ">
+                #{arqRsn,jdbcType=VARCHAR},
+            </if>
+            <if test="reqdDate != null and reqdDate!=''  ">
+                #{reqdDate,jdbcType=DATE},
+            </if>
+            <if test="bxiEnabled != null and bxiEnabled!=''  ">
+                #{bxiEnabled,jdbcType=CHAR},
+            </if>
+            <if test="ttlQty != null and ttlQty!=''  ">
+                #{ttlQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlBox != null and ttlBox!=''  ">
+                #{ttlBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlVal != null and ttlVal!=''  ">
+                #{ttlVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivQty != null and ttlDelivQty!=''  ">
+                #{ttlDelivQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivBox != null and ttlDelivBox!=''  ">
+                #{ttlDelivBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlDelivVal != null and ttlDelivVal!=''  ">
+                #{ttlDelivVal,jdbcType=DECIMAL},
+            </if>
+            <if test="oprId != null and oprId!=''  ">
+                #{oprId,jdbcType=BIGINT},
+                now(),
+            </if>
+            <if test="chkrId != null and chkrId!=''  ">
+                #{chkrId,jdbcType=BIGINT},
+                now(),
+            </if>
+            <if test="effective != null and effective!=''  ">
+                #{effective,jdbcType=CHAR},
+            </if>
+            <if test="progress != null and progress!=''  ">
+                #{progress,jdbcType=CHAR},
+            </if>
+            <if test="suspended != null and suspended!='' ">
+                #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="cancelled != null and cancelled!=''  ">
+                #{cancelled,jdbcType=CHAR},
+            </if>
+            <if test="remarks != null and remarks!='' ">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.vo.collarUse.ArqVo">
+        update arq
+        <set>
+            <if test="docDate != null">
+                doc_date = #{docDate,jdbcType=DATE},
+            </if>
+            <if test="arqType != null">
+                arq_type = #{arqType,jdbcType=VARCHAR},
+            </if>
+            <if test="deptId != null">
+                dept_id = #{deptId,jdbcType=BIGINT},
+            </if>
+            <if test="delivWarehId != null">
+                deliv_wareh_id = #{delivWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="arqRsn != null">
+                arq_rsn = #{arqRsn,jdbcType=VARCHAR},
+            </if>
+            <if test="reqdDate != null">
+                reqd_date = #{reqdDate,jdbcType=DATE},
+            </if>
+            <if test="bxiEnabled != null">
+                bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+            </if>
+            <if test="ttlQty != null">
+                ttl_qty = #{ttlQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlBox != null">
+                ttl_box = #{ttlBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlVal != null">
+                ttl_val = #{ttlVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivQty != null">
+                ttl_deliv_qty = #{ttlDelivQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivBox != null">
+                ttl_deliv_box = #{ttlDelivBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlDelivVal != null">
+                ttl_deliv_val = #{ttlDelivVal,jdbcType=DECIMAL},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId,jdbcType=BIGINT},
+            </if>
+                op_time = now(),
+            <if test="chkrId != null">
+                chkr_id = #{chkrId,jdbcType=BIGINT},
+            </if>
+            <if test="chkTime != null">
+                chk_time = #{chkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="effective != null">
+                effective = #{effective,jdbcType=CHAR},
+            </if>
+            <if test="progress != null">
+                progress = #{progress,jdbcType=CHAR},
+            </if>
+            <if test="suspended != null">
+                suspended = #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="cancelled != null">
+                cancelled = #{cancelled,jdbcType=CHAR},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and arq_num = #{arqNum,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.collarUse.Arq">
+    update arq
+    set doc_date = #{docDate,jdbcType=DATE},
+      arq_type = #{arqType,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=BIGINT},
+      deliv_wareh_id = #{delivWarehId,jdbcType=BIGINT},
+      arq_rsn = #{arqRsn,jdbcType=VARCHAR},
+      reqd_date = #{reqdDate,jdbcType=DATE},
+      bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+      ttl_qty = #{ttlQty,jdbcType=DECIMAL},
+      ttl_box = #{ttlBox,jdbcType=BIGINT},
+      ttl_val = #{ttlVal,jdbcType=DECIMAL},
+      ttl_deliv_qty = #{ttlDelivQty,jdbcType=DECIMAL},
+      ttl_deliv_box = #{ttlDelivBox,jdbcType=BIGINT},
+      ttl_deliv_val = #{ttlDelivVal,jdbcType=DECIMAL},
+      opr_id = #{oprId,jdbcType=BIGINT},
+      op_time = #{opTime,jdbcType=TIMESTAMP},
+      chkr_id = #{chkrId,jdbcType=BIGINT},
+      chk_time = #{chkTime,jdbcType=TIMESTAMP},
+      effective = #{effective,jdbcType=CHAR},
+      progress = #{progress,jdbcType=CHAR},
+      suspended = #{suspended,jdbcType=CHAR},
+      cancelled = #{cancelled,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and arq_num = #{arqNum,jdbcType=VARCHAR}
+  </update>
+
+    <select id="selectALL" parameterType="com.boyu.erp.platform.usercenter.vo.collarUse.ArqVo"
+            resultMap="BaseResultMapByArqVo">
+            SELECT
+            a.unit_id,
+            a.arq_num,
+            DATE_FORMAT(a.doc_date,'%Y-%m-%d') AS docDate,
+            a.arq_type,
+            a.dept_id,
+            suo.unit_num AS deptNum,
+            su.unit_name AS deptName,
+            a.deliv_wareh_id,
+            suo1.unit_num AS delivWarehNum,
+            su1.unit_name AS delivWarehName,
+            a.arq_rsn,
+            a.reqd_date,
+            a.bxi_enabled,
+            a.ttl_qty,
+            a.ttl_box,
+            a.ttl_val,
+            a.ttl_deliv_qty,
+            a.ttl_deliv_box,
+            a.ttl_deliv_val,
+            a.opr_id,
+            spo.prsnl_num AS oprNum,
+            sp.full_name AS oprName,
+            DATE_FORMAT(a.op_time,'%Y-%m-%d %H:%i') AS opTime,
+            a.chkr_id,
+            spo1.prsnl_num AS chkrNum,
+            sp1.full_name AS chkrName,
+            DATE_FORMAT(a.chk_time,'%Y-%m-%d %H:%i') AS chkTime,
+            a.effective,
+            a.progress,
+            a.suspended,
+            a.cancelled,
+            a.remarks
+        FROM
+            ( SELECT a.* FROM arq a WHERE 1 = 1
+            ) a
+            LEFT JOIN sys_unit su ON su.unit_id = a.dept_id
+            LEFT JOIN sys_unit_owner suo ON suo.UNIT_ID = a.dept_id
+            AND suo.owner_id = su.unit_id
+            LEFT JOIN sys_unit su1 ON su1.unit_id = a.deliv_wareh_id
+            LEFT JOIN sys_unit_owner suo1 ON suo1.UNIT_ID = a.deliv_wareh_id
+            AND suo1.owner_id = su1.unit_id
+            LEFT JOIN sys_prsnl sp ON sp.prsnl_id = a.opr_id
+            LEFT JOIN sys_prsnl_owner spo ON spo.prsnl_id = a.opr_id
+            AND spo.owner_id = a.unit_id
+            AND 'DELETE' = 'F'
+
+            LEFT JOIN sys_prsnl sp1 ON sp1.prsnl_id = a.chkr_id
+            LEFT JOIN sys_prsnl_owner spo1 ON spo1.prsnl_id = a.chkr_id
+            AND spo1.owner_id = a.unit_id
+            AND 'DELETE' = 'F'
+        WHERE 1=1
+            <if test="arqNum!=null and arqNum!='' and arqNum!='null' ">
+            AND a.arq_num = #{arqNum}
+            </if>
+            <if test="deptNum != null and deptNum != '' and deptNum != 'null'">
+                and suo.unit_num  like CONCAT( #{deptNum}, '%')
+            </if>
+            <if test="delivWarehNum != null and delivWarehNum != '' and delivWarehNum != 'null'">
+                and suo1.unit_num   like CONCAT( #{delivWarehNum}, '%')
+            </if>
+            <if test="progress != null and progress != '' and progress != 'null' ">
+                and a.progress  = #{progress}
+            </if>
+            <if test="startTime != null and startTime != '' ">
+                and  a.doc_date  &gt;= #{startTime}
+            </if>
+            <if test="endTime != null and endTime != '' ">
+                and  a.doc_date  &lt;= #{endTime}
+            </if>
+  </select>
+
+
+    <select id="selectByUnit" parameterType="com.boyu.erp.platform.usercenter.vo.collarUse.ArqVo"
+            resultMap="BaseResultMapByArqVo">
+        SELECT
+        a.unit_id,
+        a.arq_num,
+        DATE_FORMAT(a.doc_date,'%Y-%m-%d') AS docDate,
+        a.arq_type,
+        a.dept_id,
+        suo.unit_num AS deptNum,
+        su.unit_name AS deptName,
+        a.deliv_wareh_id,
+        suo1.unit_num AS delivWarehNum,
+        su1.unit_name AS delivWarehName,
+        a.arq_rsn,
+        a.reqd_date,
+        a.bxi_enabled,
+        a.ttl_qty,
+        a.ttl_box,
+        a.ttl_val,
+        a.ttl_deliv_qty,
+        a.ttl_deliv_box,
+        a.ttl_deliv_val,
+        a.opr_id,
+        spo.prsnl_num AS oprNum,
+        sp.full_name AS oprName,
+        DATE_FORMAT(a.op_time,'%Y-%m-%d %H:%i') AS opTime,
+        a.chkr_id,
+        spo1.prsnl_num AS chkrNum,
+        sp1.full_name AS chkrName,
+        DATE_FORMAT(a.chk_time,'%Y-%m-%d %H:%i') AS chkTime,
+        a.effective,
+        a.progress,
+        a.suspended,
+        a.cancelled,
+        a.remarks
+        FROM
+        ( SELECT a.* FROM arq a WHERE 1 = 1
+            and  a.unit_id = #{unitId}
+        ) a
+        LEFT JOIN sys_unit su ON su.unit_id = a.dept_id
+        LEFT JOIN sys_unit_owner suo ON suo.UNIT_ID = a.dept_id
+        AND suo.owner_id = su.unit_id
+        LEFT JOIN sys_unit su1 ON su1.unit_id = a.deliv_wareh_id
+        LEFT JOIN sys_unit_owner suo1 ON suo1.UNIT_ID = a.deliv_wareh_id
+        AND suo1.owner_id = su1.unit_id
+        LEFT JOIN sys_prsnl sp ON sp.prsnl_id = a.opr_id
+        LEFT JOIN sys_prsnl_owner spo ON spo.prsnl_id = a.opr_id
+        AND spo.owner_id = a.unit_id
+        AND 'DELETE' = 'F'
+
+        LEFT JOIN sys_prsnl sp1 ON sp1.prsnl_id = a.chkr_id
+        LEFT JOIN sys_prsnl_owner spo1 ON spo1.prsnl_id = a.chkr_id
+        AND spo1.owner_id = a.unit_id
+        AND 'DELETE' = 'F'
+        WHERE 1=1
+        <if test="arqNum!=null and arqNum!='' and arqNum!='null' ">
+            AND a.arq_num = #{arqNum}
+        </if>
+        <if test="deptNum != null and deptNum != '' and deptNum != 'null'">
+            and suo.unit_num  like CONCAT( #{deptNum}, '%')
+        </if>
+        <if test="delivWarehNum != null and delivWarehNum != '' and delivWarehNum != 'null'">
+            and suo1.unit_num   like CONCAT( #{delivWarehNum}, '%')
+        </if>
+        <if test="progress != null and progress != '' and progress != 'null' ">
+            and a.progress  = #{progress}
+        </if>
+        <if test="startTime != null and startTime != '' ">
+            and  a.doc_date  &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' ">
+            and  a.doc_date  &lt;= #{endTime}
+        </if>
+    </select>
+
+    <delete id="deleteByArqVo" parameterType="java.lang.String">
+    delete from arq
+    where unit_id = #{unitId}
+      and arq_num = #{arqNum}
+  </delete>
+</mapper>

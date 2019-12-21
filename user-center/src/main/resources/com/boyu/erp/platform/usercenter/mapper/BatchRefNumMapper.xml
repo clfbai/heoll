@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.BatchRefNumMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.BatchRefNum">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="prod_id" jdbcType="BIGINT" property="prodId"/>
+        <result column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <result column="step_size" jdbcType="BIGINT" property="stepSize"/>
+        <result column="max_num" jdbcType="BIGINT" property="maxNum"/>
+        <result column="batch_num" jdbcType="VARCHAR" property="batchNum"/>
+        <result column="batch_fill" jdbcType="VARCHAR" property="batchFill"/>
+        <result column="is_del" jdbcType="TINYINT" property="isDel"/>
+        <result column="create_by" jdbcType="BIGINT" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="BIGINT" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, prod_id, unit_id, step_size, max_num, batch_num, batch_fill, is_del, create_by, 
+    create_time, update_by, update_time
+  </sql>
+    <select id="selectBatchRefNum" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from batch_ref_num
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="getBatchRefNum" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.BatchRefNum"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        batch_ref_num
+        where
+        prod_id= #{prodId,jdbcType=BIGINT}
+        and
+        unit_id = #{unitId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteBatchRefNum" parameterType="java.lang.Long">
+    delete from batch_ref_num
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insertBatchRefNum" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.BatchRefNum">
+        insert into batch_ref_num
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="prodId != null">
+                prod_id,
+            </if>
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="stepSize != null">
+                step_size,
+            </if>
+            <if test="maxNum != null">
+                max_num,
+            </if>
+            <if test="batchNum != null">
+                batch_num,
+            </if>
+            <if test="batchFill != null">
+                batch_fill,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="prodId != null">
+                #{prodId,jdbcType=BIGINT},
+            </if>
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="stepSize != null">
+                #{stepSize,jdbcType=BIGINT},
+            </if>
+            <if test="maxNum != null">
+                #{maxNum,jdbcType=BIGINT},
+            </if>
+            <if test="batchNum != null">
+                #{batchNum,jdbcType=VARCHAR},
+            </if>
+            <if test="batchFill != null">
+                #{batchFill,jdbcType=VARCHAR},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateBatchRefNum" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.BatchRefNum">
+        update batch_ref_num
+        <set>
+            <if test="prodId != null">
+                prod_id = #{prodId,jdbcType=BIGINT},
+            </if>
+            <if test="unitId != null">
+                unit_id = #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="stepSize != null">
+                step_size = #{stepSize,jdbcType=BIGINT},
+            </if>
+            <if test="maxNum != null">
+                max_num = #{maxNum,jdbcType=BIGINT},
+            </if>
+            <if test="batchNum != null">
+                batch_num = #{batchNum,jdbcType=VARCHAR},
+            </if>
+            <if test="batchFill != null">
+                batch_fill = #{batchFill,jdbcType=VARCHAR},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

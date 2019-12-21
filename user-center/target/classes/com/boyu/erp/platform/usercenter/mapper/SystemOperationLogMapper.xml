@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SystemOperationLogMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SystemOperationLog">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="describe" jdbcType="VARCHAR" property="describe"/>
+        <result column="requestParameter" jdbcType="VARCHAR" property="requestparameter"/>
+        <result column="responseValue" jdbcType="VARCHAR" property="responsevalue"/>
+        <result column="creatTime" property="responsevalue"/>
+        <result column="ip" jdbcType="VARCHAR" property="ip"/>
+        <result column="cutDomainUserId" jdbcType="BIGINT" property="cutDomainUserId"/>
+        <result column="cutDomain" jdbcType="VARCHAR" property="cutDomain"/>
+        <result column="cutDomainUnitId" jdbcType="VARCHAR" property="cutDomainUnitId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, user_id, cutDomain,cutDomainUserId,unit_id, url, `describe`, requestParameter, responseValue,creatTime,ip,cutDomainUnitId
+  </sql>
+    <select id="selectBySystemLog" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from system_operation_log
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteSystemLog" parameterType="java.lang.Long">
+    delete from system_operation_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+    <insert id="insertLog" parameterType="com.boyu.erp.platform.usercenter.entity.system.SystemOperationLog">
+        insert into system_operation_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="cutDomainUnitId != null">
+                cutDomainUnitId,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="describe != null">
+                `describe`,
+            </if>
+            <if test="requestparameter != null">
+                requestParameter,
+            </if>
+            <if test="responsevalue != null">
+                responseValue,
+            </if>
+            <if test="ip != null">
+                ip ,
+            </if>
+            <if test="creatTime != null">
+                creatTime,
+            </if>
+            <if test="cutDomainUserId != null">
+                cutDomainUserId ,
+            </if>
+            <if test="cutDomain != null">
+                cutDomain,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="cutDomainUnitId != null">
+               #{cutDomainUnitId} ,
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="describe != null">
+                #{describe,jdbcType=VARCHAR},
+            </if>
+            <if test="requestparameter != null">
+                #{requestparameter,jdbcType=VARCHAR},
+            </if>
+            <if test="responsevalue != null">
+                #{responsevalue,jdbcType=VARCHAR},
+            </if>
+            <if test="ip != null">
+                #{ip},
+            </if>
+            <if test="creatTime != null">
+                #{creatTime},
+            </if>
+            <if test="cutDomainUserId != null">
+                #{cutDomainUserId} ,
+            </if>
+            <if test="cutDomain != null">
+                #{cutDomain},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateBySystemLog" parameterType="com.boyu.erp.platform.usercenter.entity.system.SystemOperationLog">
+        update system_operation_log
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="cutDomainUnitId != null">
+                cutDomainUnitId= #{cutDomainUnitId} ,
+            </if>
+            <if test="unitId != null">
+                unit_id = #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="describe != null">
+                `describe` = #{describe,jdbcType=VARCHAR},
+            </if>
+            <if test="requestparameter != null">
+                requestParameter = #{requestparameter,jdbcType=VARCHAR},
+            </if>
+            <if test="responsevalue != null">
+                responseValue = #{responsevalue,jdbcType=VARCHAR},
+            </if>
+            <if test="creatTime != null">
+                creatTime=now(),
+            </if>
+            <if test="ip != null">
+                ip=#{ip},
+            </if>
+            <if test="cutDomainUserId != null">
+                cutDomainUserId= #{cutDomainUserId} ,
+            </if>
+            <if test="cutDomain != null">
+                cutDomain= #{cutDomain},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+</mapper>

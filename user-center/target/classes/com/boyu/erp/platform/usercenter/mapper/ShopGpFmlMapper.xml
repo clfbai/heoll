@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.shop.ShopGpFmlMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.shop.ShopGpFml">
+        <id column="shop_id" jdbcType="BIGINT" property="shopId"/>
+        <id column="from_date" jdbcType="TIMESTAMP" property="fromDate"/>
+        <id column="to_date" jdbcType="TIMESTAMP" property="toDate"/>
+        <result column="gc_fml" jdbcType="VARCHAR" property="gcFml"/>
+        <result column="vip_disc_fml" jdbcType="VARCHAR" property="vipDiscFml"/>
+        <result column="pnt_acc_fml" jdbcType="VARCHAR" property="pntAccFml"/>
+        <result column="pnt_enc_fml" jdbcType="VARCHAR" property="pntEncFml"/>
+        <result column="egc_ps_fml" jdbcType="VARCHAR" property="egcPsFml"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    shop_id, from_date, to_date, gc_fml, vip_disc_fml, pnt_acc_fml, pnt_enc_fml, egc_ps_fml, 
+    remarks
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopGpFml"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from shop_gp_fml
+        where shop_id = #{shopId,jdbcType=BIGINT}
+        and from_date = #{fromDate,jdbcType=TIMESTAMP}
+        and to_date = #{toDate,jdbcType=TIMESTAMP}
+    </select>
+    <!--根据门店Id查询门店普通促销公式-->
+    <select id="getShopGpFml" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopGpFml"
+            resultType="com.boyu.erp.platform.usercenter.vo.shop.ShopGpFmlVo">
+        select
+        DATE_FORMAT(from_date, "%Y-%m-%d %T") AS fromDateCp,
+        DATE_FORMAT(to_date, "%Y-%m-%d %T") AS toDateCp,
+        shop_id as shopId,
+        gc_fml AS  gcFml,
+        vip_disc_fml as vipDiscFml,
+        pnt_acc_fml as pntAccFml,
+        pnt_enc_fml as pntEncFml,
+        egc_ps_fml as egcPsFml,
+        remarks as remarks
+        from shop_gp_fml
+        where shop_id = #{shopId,jdbcType=BIGINT}
+        <if test="fromDate!=null">
+            and from_date = #{fromDate}
+        </if>
+        <if test="toDate">
+            and to_date = #{toDate}
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopGpFml">
+    delete from shop_gp_fml
+    where shop_id = #{shopId,jdbcType=BIGINT}
+      and from_date = #{fromDate,jdbcType=TIMESTAMP}
+      and to_date = #{toDate,jdbcType=TIMESTAMP}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopGpFml">
+    insert into shop_gp_fml (shop_id, from_date, to_date, 
+      gc_fml, vip_disc_fml, pnt_acc_fml, 
+      pnt_enc_fml, egc_ps_fml, remarks
+      )
+    values (#{shopId,jdbcType=BIGINT}, #{fromDate,jdbcType=TIMESTAMP}, #{toDate,jdbcType=TIMESTAMP}, 
+      #{gcFml,jdbcType=VARCHAR}, #{vipDiscFml,jdbcType=VARCHAR}, #{pntAccFml,jdbcType=VARCHAR}, 
+      #{pntEncFml,jdbcType=VARCHAR}, #{egcPsFml,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopGpFml">
+        insert into shop_gp_fml
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">
+                shop_id,
+            </if>
+            <if test="fromDateCp != null">
+                from_date,
+            </if>
+            <if test="toDateCp != null">
+                to_date,
+            </if>
+            <if test="gcFml != null">
+                gc_fml,
+            </if>
+            <if test="vipDiscFml != null">
+                vip_disc_fml,
+            </if>
+            <if test="pntAccFml != null">
+                pnt_acc_fml,
+            </if>
+            <if test="pntEncFml != null">
+                pnt_enc_fml,
+            </if>
+            <if test="egcPsFml != null">
+                egc_ps_fml,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">
+                #{shopId,jdbcType=BIGINT},
+            </if>
+            <if test="fromDateCp != null">
+                #{fromDateCp},
+            </if>
+            <if test="toDateCp != null">
+                #{toDateCp},
+            </if>
+            <if test="gcFml != null">
+                #{gcFml,jdbcType=VARCHAR},
+            </if>
+            <if test="vipDiscFml != null">
+                #{vipDiscFml,jdbcType=VARCHAR},
+            </if>
+            <if test="pntAccFml != null">
+                #{pntAccFml,jdbcType=VARCHAR},
+            </if>
+            <if test="pntEncFml != null">
+                #{pntEncFml,jdbcType=VARCHAR},
+            </if>
+            <if test="egcPsFml != null">
+                #{egcPsFml,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopGpFml">
+        update shop_gp_fml
+        <set>
+            <if test="gcFml != null">
+                gc_fml = #{gcFml,jdbcType=VARCHAR},
+            </if>
+            <if test="vipDiscFml != null">
+                vip_disc_fml = #{vipDiscFml,jdbcType=VARCHAR},
+            </if>
+            <if test="pntAccFml != null">
+                pnt_acc_fml = #{pntAccFml,jdbcType=VARCHAR},
+            </if>
+            <if test="pntEncFml != null">
+                pnt_enc_fml = #{pntEncFml,jdbcType=VARCHAR},
+            </if>
+            <if test="egcPsFml != null">
+                egc_ps_fml = #{egcPsFml,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where shop_id = #{shopId,jdbcType=BIGINT}
+        and from_date = #{fromDate,jdbcType=TIMESTAMP}
+        and to_date = #{toDate,jdbcType=TIMESTAMP}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopGpFml">
+    update shop_gp_fml
+    set gc_fml = #{gcFml,jdbcType=VARCHAR},
+      vip_disc_fml = #{vipDiscFml,jdbcType=VARCHAR},
+      pnt_acc_fml = #{pntAccFml,jdbcType=VARCHAR},
+      pnt_enc_fml = #{pntEncFml,jdbcType=VARCHAR},
+      egc_ps_fml = #{egcPsFml,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where shop_id = #{shopId,jdbcType=BIGINT}
+      and from_date = #{fromDate,jdbcType=TIMESTAMP}
+      and to_date = #{toDate,jdbcType=TIMESTAMP}
+  </update>
+</mapper>

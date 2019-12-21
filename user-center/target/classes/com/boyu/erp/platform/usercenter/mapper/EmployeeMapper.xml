@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.employye.EmployeeMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.employee.Employee">
+        <id column="empl_id" jdbcType="BIGINT" property="emplId"/>
+        <id column="owner_id" jdbcType="BIGINT" property="ownerId"/>
+        <result column="dept_id" jdbcType="BIGINT" property="deptId"/>
+        <result column="portrait" jdbcType="VARCHAR" property="portrait"/>
+        <result column="job_pos" jdbcType="VARCHAR" property="jobPos"/>
+        <result column="station" jdbcType="VARCHAR" property="station"/>
+        <result column="workplace" jdbcType="VARCHAR" property="workplace"/>
+        <result column="enrl_date" jdbcType="TIMESTAMP" property="enrlDate"/>
+        <result column="dims_date" jdbcType="TIMESTAMP" property="dimsDate"/>
+        <result column="dims_rsn" jdbcType="VARCHAR" property="dimsRsn"/>
+        <result column="wtt_id" jdbcType="VARCHAR" property="wttId"/>
+        <result column="birthday" jdbcType="TIMESTAMP" property="birthday"/>
+        <result column="mrt_status" jdbcType="VARCHAR" property="mrtStatus"/>
+        <result column="party" jdbcType="VARCHAR" property="party"/>
+        <result column="folk" jdbcType="VARCHAR" property="folk"/>
+        <result column="natv_plc" jdbcType="VARCHAR" property="natvPlc"/>
+        <result column="reg_addr" jdbcType="VARCHAR" property="regAddr"/>
+        <result column="acad_deg" jdbcType="VARCHAR" property="acadDeg"/>
+        <result column="school" jdbcType="VARCHAR" property="school"/>
+        <result column="specialty" jdbcType="VARCHAR" property="specialty"/>
+        <result column="grad_date" jdbcType="DATE" property="gradDate"/>
+        <result column="tech_ttl" jdbcType="VARCHAR" property="techTtl"/>
+        <result column="skill" jdbcType="VARCHAR" property="skill"/>
+        <result column="bank" jdbcType="VARCHAR" property="bank"/>
+        <result column="bank_ac_num" jdbcType="VARCHAR" property="bankAcNum"/>
+        <result column="empl_status" jdbcType="CHAR" property="emplStatus"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="upd_time" jdbcType="TIMESTAMP" property="updTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    empl_id, owner_id, dept_id, portrait, job_pos, station, workplace, enrl_date, dims_date, 
+    dims_rsn, wtt_id, birthday, mrt_status, party, folk, natv_plc, reg_addr, acad_deg, 
+    school, specialty, grad_date, tech_ttl, skill, bank, bank_ac_num, empl_status, opr_id, 
+    upd_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmpKey"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from employee
+        where empl_id = #{emplId,jdbcType=BIGINT}
+        and owner_id = #{ownerId,jdbcType=BIGINT}
+    </select>
+    <!--查询员工集合-->
+    <select id="getEmpList" parameterType="com.boyu.erp.platform.usercenter.model.emp.EmployeeModel"
+            resultType="com.boyu.erp.platform.usercenter.vo.Emp.EmployeeVo">
+        SELECT
+        ow.`unit_num` as deptNum,
+        e.`empl_id` as emplId,
+        e.owner_id as ownerId,
+        p2.`prsnl_code` AS orpCode,
+        p2.`full_name` AS orpName,
+        ps.`prsnl_num` AS empNum,
+        d.`unit_name` AS deptName,
+        c.`description` AS prsnlStatusCp,
+        c2.`description` AS emplStatusCp,
+        c3.`description` AS genderCp,
+        c4.`description` AS idTypeCp,
+        c5.`description` AS sharedCp,
+        DATE_FORMAT(e.birthday, "%Y-%m-%d") AS birthdayCp,
+        DATE_FORMAT(e.upd_time, "%Y-%m-%d %T") AS updTime,
+        DATE_FORMAT(e.grad_date, "%Y-%m-%d") AS gradDateCp,
+        DATE_FORMAT(e.dims_date, "%Y-%m-%d") AS dimsDateCp,
+        DATE_FORMAT(e.enrl_date, "%Y-%m-%d") AS enrlDateCp,
+        e.specialty AS specialty,
+        e.empl_status AS emplStatus,
+        e.reg_addr AS regAddr,
+        e.bank AS bank,
+        e.school AS school,
+        e.skill AS skill,
+        e.station AS station,
+        e.bank_ac_num AS bankAcNum,
+        e.dept_id AS deptId,
+        e.portrait AS portrait,
+        e.mrt_status AS mrtStatus,
+        e.acad_deg AS acadDeg,
+        e.wtt_id AS wttId,
+        e.dims_rsn AS dimsRsn,
+        e.folk AS folk,
+        e.tech_ttl AS techTtl,
+        e.job_pos AS jobPos,
+        e.opr_id AS oprId,
+        e.workplace AS workplace,
+        e.party AS party,
+        e.natv_plc AS natvPlc,
+        p.unit_hierarchy AS unitHierarchy,
+        p.shared AS shared,
+        p.gender AS gender,
+        p.office_num AS officeNum,
+        p.city AS city,
+        p.home_num AS homeNum,
+        p.ctrl_unit_id AS ctrlUnitId,
+        p.province AS province,
+        p.prsnl_status AS prsnlStatus,
+        p.prsnl_code AS prsnlCode,
+        p.surname AS surname,
+        p.tlgp_num AS tlgpNum,
+        p.id_num AS idNum,
+        p.prsnl_id AS prsnlId,
+        p.input_code AS inputCode,
+        p.id_type AS idType,
+        p.address AS address,
+        p.seq_num AS seqNum,
+        p.given_name AS givenName,
+        p.postcode AS postcode,
+        p.full_name AS fullName,
+        p.im_id AS imId,
+        p.mobile_num AS mobileNum,
+        p.fax_num AS faxNum,
+        p.email_addr AS emailAddr,
+        p.district AS district,
+        p.remarks AS remarks
+        FROM
+        employee e
+        INNER JOIN sys_prsnl p
+        on p.`prsnl_id` = e.`empl_id`
+        left join sys_prsnl_owner ps
+        on e.`empl_id` = ps.`prsnl_id`
+        and e.`owner_id` = ps.`owner_id`
+        left join sys_unit d
+        on e.`dept_id` = d.`unit_id`
+        left join sys_code_dtl c
+        on p.`prsnl_status` = c.`code`
+        and c.`code_type` = 'PRSNL_STATUS'
+        LEFT JOIN sys_code_dtl c2
+        ON e.`empl_status` = c2.`code`
+        AND c2.`code_type` = 'PRSNL_STATUS'
+        left join sys_code_dtl c3
+        ON p.`gender` = c3.`code`
+        AND c3.`code_type` = 'GENDER'
+        LEFT JOIN sys_code_dtl c4
+        ON p.`id_type` = c4.`code`
+        AND c4.`code_type` = 'ID_TYPE'
+        LEFT JOIN sys_code_dtl c5
+        ON p.`shared` = c5.`code`
+        AND c5.`code_type` = 'TandF'
+        left join sys_prsnl p2
+        on e.`opr_id` = p2.`prsnl_id`
+        /*部门信息*/
+        left join department dept
+        on dept.`dept_id` = e.`dept_id`
+        left join sys_unit_owner ow
+        on dept.dept_id = ow.`unit_id`
+        and dept.`owner_id` = ow.`owner_id`
+        where e.`empl_status`!='D'
+        <if test="ownerId!=null">
+            and e.`owner_id` = #{ownerId}
+        </if>
+        <if test="empNum!=null">
+            AND INSTR(ps.`prsnl_num`, #{empNum}) > 0
+        </if>
+        <if test="empStatus!=null and empStatus!=''">
+            AND e.`empl_status` =#{empStatus}
+        </if>
+        <if test="empName!=null and empName!=''">
+            AND INSTR(p.`full_name`,#{empName}) > 0
+        </if>
+        <if test="deptId!=null ">
+            AND e.`dept_id` = #{deptId}
+        </if>
+
+    </select>
+
+    <select id="selectEmpMsg" resultType="com.boyu.erp.platform.usercenter.entity.mq.emp.EmpMsg">
+        select
+        e.`empl_id` as empId,
+        p.`prsnl_code` as accountNo,
+        p.`full_name` as `name`,
+        emp.`shop_id` as shop,
+        DATE_FORMAT(e.`upd_time`, "%Y-%m-%d") AS createTime,
+        p.`province` as province,
+        p.`city` AS city,
+        p.`district` as `district`,
+        p.`address` AS address,
+        emp.`smpd_code` as number,
+        DATE_FORMAT(e.enrl_date, "%Y-%m-%d") AS entryDate,
+        p.mobile_num as phone
+        FROM
+        shop_emp emp
+        inner join `employee` e
+        on e.`empl_id` = emp.`empl_id`
+        INNER JOIN sys_prsnl p
+        ON e.`empl_id` = p.`prsnl_id`
+        INNER JOIN sys_unit u
+        ON e.`owner_id` = u.`unit_id`
+        where
+        emp.`empl_id` = #{emplId}
+        and emp.`shop_id` = #{shopId}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmpKey">
+    delete from employee
+    where empl_id = #{emplId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+  </delete>
+    <!-- /* /**
+     * 入职日期String格式
+     */
+     private String enrlDateCp;
+
+     /**
+     * 离职日期String格式
+     */
+     private String dimsDateCp;
+     /**
+     * 生日String格式
+     */
+     private String birthdayCp;
+
+     毕业日期String格式
+
+     private String gradDateCp;-->
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.employee.Employee">
+
+        insert into employee
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="emplId != null">
+                empl_id,
+            </if>
+            <if test="ownerId != null">
+                owner_id,
+            </if>
+            <if test="deptId != null">
+                dept_id,
+            </if>
+            <if test="portrait != null">
+                portrait,
+            </if>
+            <if test="jobPos != null">
+                job_pos,
+            </if>
+            <if test="station != null">
+                station,
+            </if>
+            <if test="workplace != null">
+                workplace,
+            </if>
+
+            <if test="dimsRsn != null">
+                dims_rsn,
+            </if>
+            <if test="wttId != null">
+                wtt_id,
+            </if>
+
+            <if test="mrtStatus != null">
+                mrt_status,
+            </if>
+            <if test="party != null">
+                party,
+            </if>
+            <if test="folk != null">
+                folk,
+            </if>
+            <if test="natvPlc != null">
+                natv_plc,
+            </if>
+            <if test="regAddr != null">
+                reg_addr,
+            </if>
+            <if test="acadDeg != null">
+                acad_deg,
+            </if>
+            <if test="school != null">
+                school,
+            </if>
+            <if test="specialty != null">
+                specialty,
+            </if>
+
+            <if test="techTtl != null">
+                tech_ttl,
+            </if>
+            <if test="skill != null">
+                skill,
+            </if>
+            <if test="bank != null">
+                bank,
+            </if>
+            <if test="bankAcNum != null">
+                bank_ac_num,
+            </if>
+            <if test="emplStatus != null">
+                empl_status,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+            <if test="updTime != null">
+                upd_time,
+            </if>
+            <if test="enrlDateCp != null and enrlDateCp !=''">
+                enrl_date,
+            </if>
+            <if test="dimsDateCp != null and dimsDateCp !=''">
+                dims_date,
+            </if>
+            <if test="gradDateCp != null and gradDateCp !=''">
+                grad_date,
+            </if>
+            <if test="birthdayCp != null and birthdayCp !=''">
+                birthday,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="emplId != null">
+                #{emplId,jdbcType=BIGINT},
+            </if>
+            <if test="ownerId != null">
+                #{ownerId,jdbcType=BIGINT},
+            </if>
+            <if test="deptId != null">
+                #{deptId,jdbcType=BIGINT},
+            </if>
+            <if test="portrait != null">
+                #{portrait,jdbcType=VARCHAR},
+            </if>
+            <if test="jobPos != null">
+                #{jobPos,jdbcType=VARCHAR},
+            </if>
+            <if test="station != null">
+                #{station,jdbcType=VARCHAR},
+            </if>
+            <if test="workplace != null">
+                #{workplace,jdbcType=VARCHAR},
+            </if>
+
+            <if test="dimsRsn != null">
+                #{dimsRsn,jdbcType=VARCHAR},
+            </if>
+            <if test="wttId != null">
+                #{wttId,jdbcType=VARCHAR},
+            </if>
+
+            <if test="mrtStatus != null">
+                #{mrtStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="party != null">
+                #{party,jdbcType=VARCHAR},
+            </if>
+            <if test="folk != null">
+                #{folk,jdbcType=VARCHAR},
+            </if>
+            <if test="natvPlc != null">
+                #{natvPlc,jdbcType=VARCHAR},
+            </if>
+            <if test="regAddr != null">
+                #{regAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="acadDeg != null">
+                #{acadDeg,jdbcType=VARCHAR},
+            </if>
+            <if test="school != null">
+                #{school,jdbcType=VARCHAR},
+            </if>
+            <if test="specialty != null">
+                #{specialty,jdbcType=VARCHAR},
+            </if>
+
+            <if test="techTtl != null">
+                #{techTtl,jdbcType=VARCHAR},
+            </if>
+            <if test="skill != null">
+                #{skill,jdbcType=VARCHAR},
+            </if>
+            <if test="bank != null">
+                #{bank,jdbcType=VARCHAR},
+            </if>
+            <if test="bankAcNum != null">
+                #{bankAcNum,jdbcType=VARCHAR},
+            </if>
+            <if test="emplStatus != null">
+                #{emplStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="updTime != null">
+                #{updTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enrlDateCp != null and enrlDateCp !=''">
+                #{enrlDateCp},
+            </if>
+            <if test="dimsDateCp != null and dimsDateCp !=''">
+                #{dimsDateCp},
+            </if>
+            <if test="gradDateCp != null and gradDateCp !=''">
+                #{gradDateCp},
+            </if>
+            <if test="birthdayCp != null and birthdayCp !=''">
+                #{birthdayCp},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateEmployee" parameterType="com.boyu.erp.platform.usercenter.entity.employee.Employee">
+        update employee
+        <set>
+            <if test="deptId != null">
+                dept_id = #{deptId,jdbcType=BIGINT},
+            </if>
+            <if test="portrait != null">
+                portrait = #{portrait,jdbcType=VARCHAR},
+            </if>
+            <if test="jobPos != null">
+                job_pos = #{jobPos,jdbcType=VARCHAR},
+            </if>
+            <if test="station != null">
+                station = #{station,jdbcType=VARCHAR},
+            </if>
+            <if test="workplace != null">
+                workplace = #{workplace,jdbcType=VARCHAR},
+            </if>
+            <if test="enrlDate != null">
+                enrl_date = #{enrlDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dimsDate != null">
+                dims_date = #{dimsDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dimsRsn != null">
+                dims_rsn = #{dimsRsn,jdbcType=VARCHAR},
+            </if>
+            <if test="wttId != null">
+                wtt_id = #{wttId,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="mrtStatus != null">
+                mrt_status = #{mrtStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="party != null">
+                party = #{party,jdbcType=VARCHAR},
+            </if>
+            <if test="folk != null">
+                folk = #{folk,jdbcType=VARCHAR},
+            </if>
+            <if test="natvPlc != null">
+                natv_plc = #{natvPlc,jdbcType=VARCHAR},
+            </if>
+            <if test="regAddr != null">
+                reg_addr = #{regAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="acadDeg != null">
+                acad_deg = #{acadDeg,jdbcType=VARCHAR},
+            </if>
+            <if test="school != null">
+                school = #{school,jdbcType=VARCHAR},
+            </if>
+            <if test="specialty != null">
+                specialty = #{specialty,jdbcType=VARCHAR},
+            </if>
+            <if test="gradDate != null">
+                grad_date = #{gradDate,jdbcType=DATE},
+            </if>
+            <if test="techTtl != null">
+                tech_ttl = #{techTtl,jdbcType=VARCHAR},
+            </if>
+            <if test="skill != null">
+                skill = #{skill,jdbcType=VARCHAR},
+            </if>
+            <if test="bank != null">
+                bank = #{bank,jdbcType=VARCHAR},
+            </if>
+            <if test="bankAcNum != null">
+                bank_ac_num = #{bankAcNum,jdbcType=VARCHAR},
+            </if>
+            <if test="emplStatus != null">
+                empl_status = #{emplStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="updTime != null">
+                upd_time = #{updTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where empl_id = #{emplId,jdbcType=BIGINT}
+        and owner_id = #{ownerId,jdbcType=BIGINT}
+    </update>
+
+</mapper>

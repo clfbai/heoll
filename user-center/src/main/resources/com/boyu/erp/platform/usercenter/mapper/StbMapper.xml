@@ -1,0 +1,1360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.StbMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.Stb">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="stb_num" jdbcType="VARCHAR" property="stbNum"/>
+        <result column="doc_date" jdbcType="DATE" property="docDate"/>
+        <result column="fscl_date" jdbcType="DATE" property="fsclDate"/>
+        <result column="wareh_id" jdbcType="BIGINT" property="warehId"/>
+        <result column="fscl_unit_id" jdbcType="BIGINT" property="fsclUnitId"/>
+        <result column="cost_grp_id" jdbcType="BIGINT" property="costGrpId"/>
+        <result column="tran_unit_id" jdbcType="BIGINT" property="tranUnitId"/>
+        <result column="hldn_wareh_id" jdbcType="BIGINT" property="hldnWarehId"/>
+        <result column="hldn_cost_grp_id" jdbcType="BIGINT" property="hldnCostGrpId"/>
+        <result column="lgc_wareh_id" jdbcType="BIGINT" property="lgcWarehId"/>
+        <result column="dr_type" jdbcType="CHAR" property="drType"/>
+        <result column="src_doc_type" jdbcType="CHAR" property="srcDocType"/>
+        <result column="src_doc_unit_id" jdbcType="BIGINT" property="srcDocUnitId"/>
+        <result column="src_doc_num" jdbcType="VARCHAR" property="srcDocNum"/>
+        <result column="cntr_num" jdbcType="VARCHAR" property="cntrNum"/>
+        <result column="ldg_stb_num" jdbcType="VARCHAR" property="ldgStbNum"/>
+        <result column="loc_adopted" jdbcType="CHAR" property="locAdopted"/>
+        <result column="loc_id" jdbcType="BIGINT" property="locId"/>
+        <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled"/>
+        <result column="box_reqd" jdbcType="CHAR" property="boxReqd"/>
+        <result column="box_schd" jdbcType="CHAR" property="boxSchd"/>
+        <result column="ttl_expd_qty" jdbcType="DECIMAL" property="ttlExpdQty"/>
+        <result column="ttl_expd_box" jdbcType="BIGINT" property="ttlExpdBox"/>
+        <result column="ttl_qty" jdbcType="DECIMAL" property="ttlQty"/>
+        <result column="ttl_box" jdbcType="BIGINT" property="ttlBox"/>
+        <result column="ttl_pack" jdbcType="BIGINT" property="ttlPack"/>
+        <result column="ttl_val" jdbcType="DECIMAL" property="ttlVal"/>
+        <result column="ttl_rwd" jdbcType="DECIMAL" property="ttlRwd"/>
+        <result column="ttl_tax" jdbcType="DECIMAL" property="ttlTax"/>
+        <result column="ttl_mkv" jdbcType="DECIMAL" property="ttlMkv"/>
+        <result column="ttl_cost" jdbcType="DECIMAL" property="ttlCost"/>
+        <result column="fscl_date_aptd" jdbcType="CHAR" property="fsclDateAptd"/>
+        <result column="inst_stl" jdbcType="CHAR" property="instStl"/>
+        <result column="brdg_mode" jdbcType="CHAR" property="brdgMode"/>
+        <result column="cost_chg" jdbcType="CHAR" property="costChg"/>
+        <result column="post_ctrl" jdbcType="CHAR" property="postCtrl"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="op_time" jdbcType="TIMESTAMP" property="opTime"/>
+        <result column="effective" jdbcType="CHAR" property="effective"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="cancelled" jdbcType="CHAR" property="cancelled"/>
+        <result column="reversed" jdbcType="CHAR" property="reversed"/>
+        <result column="is_rev" jdbcType="CHAR" property="isRev"/>
+        <result column="org_stb_num" jdbcType="VARCHAR" property="orgStbNum"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="cln_area_id" jdbcType="BIGINT" property="clnAreaId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    unit_id, stb_num, doc_date, fscl_date, wareh_id, fscl_unit_id, cost_grp_id, tran_unit_id, 
+    hldn_wareh_id, hldn_cost_grp_id, lgc_wareh_id, dr_type, src_doc_type, src_doc_unit_id, 
+    src_doc_num, cntr_num, ldg_stb_num, loc_adopted, loc_id, bxi_enabled, box_reqd, box_schd, 
+    ttl_expd_qty, ttl_expd_box, ttl_qty, ttl_box, ttl_pack, ttl_val, ttl_rwd, ttl_tax, 
+    ttl_mkv, ttl_cost, fscl_date_aptd, inst_stl, brdg_mode, cost_chg, post_ctrl, opr_id, 
+    op_time, effective, suspended, cancelled, reversed, is_rev, org_stb_num, remarks, 
+    cln_area_id
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Stb"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from stb
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and stb_num = #{stbNum,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getNum" parameterType="java.lang.Long" resultType="Map">
+        SELECT
+        s.`stb_num`
+        FROM
+        `stb` s
+        WHERE s.`unit_id` = #{unitId}
+    </select>
+    <select id="querySonStbNum" resultType="java.lang.String">
+        select stb_num from stb where ldg_stb_num=#{stbNum}
+    </select>
+
+    <select id="queryDetailsByStbNum" resultType="com.boyu.erp.platform.usercenter.vo.warehouse.GdnListVO">
+        SELECT
+        stb.unit_id AS unitId,
+        stb.stb_num AS stbNum,
+        stb.doc_date AS docDate,
+        stb.fscl_date AS fsclDate,
+        stb.wareh_id AS warehId,
+        stb.fscl_unit_id AS fsclUnitId,
+        stb.cost_grp_id AS costGrpId,
+        stb.tran_unit_id AS tranUnitId,
+        stb.hldn_wareh_id AS hldnWarehId,
+        stb.hldn_cost_grp_id AS hldnCostGrpId,
+        stb.lgc_wareh_id AS lgcWarehId,
+        stb.dr_type AS drType,
+        stb.src_doc_type AS srcDocType,
+        stb.src_doc_unit_id AS srcDocUnitId,
+        stb.src_doc_num AS srcDocNum,
+        stb.cntr_num AS cntrNum,
+        stb.ldg_stb_num AS ldgStbNum,
+        stb.loc_adopted AS locAdopted,
+        stb.loc_id AS locId,
+        stb.bxi_enabled AS bxiEnabled,
+        stb.box_reqd AS boxReqd,
+        stb.box_schd AS boxSchd,
+        stb.ttl_expd_qty AS ttlExpdQty,
+        stb.ttl_expd_box AS ttlExpdBox,
+        stb.ttl_qty AS ttlQty,
+        stb.ttl_box AS ttlBox,
+        stb.ttl_pack AS ttlPack,
+        stb.ttl_val AS ttlVal,
+        stb.ttl_rwd AS ttlRwd,
+        stb.ttl_tax AS ttlTax,
+        stb.ttl_mkv AS ttlMkv,
+        stb.ttl_cost AS ttlCost,
+        stb.fscl_date_aptd AS fsclDateAptd,
+        stb.inst_stl AS instStl,
+        stb.brdg_mode AS brdgMode,
+        stb.cost_chg AS costChg,
+        stb.post_ctrl AS postCtrl,
+        stb.opr_id AS oprId,
+        stb.op_time AS opTime,
+        stb.effective,
+        stb.suspended,
+        stb.cancelled,
+        stb.reversed,
+        stb.is_rev AS isRev,
+        stb.org_stb_num AS orgStbNum,
+        stb.remarks,
+        stb.cln_area_id AS clnAreaId
+        FROM
+        stb
+        WHERE
+        stb.stb_num = #{stbNum}
+    </select>
+
+    <select id="queryStbIsTotal" resultType="java.lang.String">
+        select stb_num from stb where ldg_stb_num=#{stbNum} and unit_id=#{ownerId}
+    </select>
+    <select id="queryGdnListVOByStbNum" resultType="com.boyu.erp.platform.usercenter.vo.warehouse.GdnListVO">
+    SELECT
+	stb.stb_num AS stbNum,
+	stb.fscl_date AS fsclDate,
+	stb.doc_date AS docDate,
+	stb.src_doc_num AS srcDocNum,
+	stb.ldg_stb_num AS ldgStbNum,
+	stb.loc_adopted AS locAdopted,
+	stb.brdg_mode AS brdgMode,
+	stb.loc_id AS locId,
+	stb.bxi_enabled AS bxiEnabled,
+	stb.box_reqd AS boxReqd,
+	stb.ttl_expd_qty AS ttlExpdQty,
+	stb.ttl_qty AS ttlQty,
+	stb.ttl_expd_box AS ttlExpdBox,
+	stb.ttl_box AS ttlBox,
+	stb.ttl_pack AS ttlPack,
+	stb.ttl_mkv AS ttlMkv,
+	stb.ttl_tax AS ttlTax,
+	stb.ttl_rwd AS ttlRwd,
+	stb.ttl_val AS ttlVal,
+	stb.ttl_cost AS ttlCost,
+	stb.opr_id AS oprId,
+	sp3.prsnl_code AS oprCode,
+	sp3.full_name AS oprName,
+	stb.op_time AS opTime,
+	stb.effective,
+	stb.suspended,
+	stb.cancelled,
+	stb.remarks,
+	gdn.gdn_num AS gdnNum,
+	gdn.deliv_mode AS delivMode,
+	gdn.fscl_deliv_mode AS fsclDelivMode,
+	gdn.deliv_mthd AS delivMthd,
+	stb.fscl_date_aptd AS fsclDateAptd,
+	gdn.deliv_pstd AS delivPstd,
+	gdn.deliv_addr AS delivAddr,
+	gdn.pick_reqd AS pickReqd,
+	gdn.rck_reqd AS rckReqd,
+	stb.inst_stl AS instStl,
+	stb.box_schd AS boxSchd,
+	gdn.veh_reqd AS vehReqd,
+	gdn.vwc_num AS vwcNum,
+	gdn.cnsn_reqd AS cnsnReqd,
+	gdn.csb_num AS csbNum,
+	gdn.ftch_st_time AS ftchStTime,
+	gdn.ftch_fin_time AS ftchFinTime,
+	gdn.deliv_time AS delivTime,
+	gdn.cnsn_time AS cnsnTime,
+	gdn.rcv_fscl_unit_id AS rcvFsclUnitId,
+	su6.unit_code AS rcvFsclUnitCode,
+	su6.unit_name AS rcvFsclUnitName,
+	gdn.end_unit_id AS endUnitId,
+	su7.unit_code AS endUnitCode,
+	su7.unit_name AS endUnitName,
+	gdn.end_wareh_id AS endWarehId,
+	su8.unit_code AS endWarehCode,
+	su8.unit_name AS endWarehName,
+	gdn.ftchr_id AS ftchrId,
+	sp.prsnl_code AS ftchrCode,
+	sp.full_name AS ftchrName,
+	gdn.dlvr_id AS dlvrId,
+	sp1.prsnl_code AS dlvrCode,
+	sp1.full_name AS dlvrName,
+	gdn.cngnr_id AS cngnrId,
+	sp2.prsnl_code AS cngnrCode,
+	sp2.full_name AS cngnrName,
+	gdn.progress,
+	stb.wareh_id AS warehId,
+	su2.unit_code AS warehCode,
+	su2.unit_name AS warehName,
+	stb.fscl_unit_id AS fsclUnitId,
+	su3.unit_code AS fsclUnitCode,
+	su3.unit_name AS fsclUnitName,
+	stb.src_doc_type AS srcDocType,
+	stb.lgc_wareh_id AS lgcWarehId,
+	su4.unit_code AS lgcWarehCode,
+	su4.unit_name AS lgcWarehName,
+	su.unit_name AS rcvUnitName,
+	su.unit_code AS rcvUnitCode,
+	su1.unit_code AS rcvWarehCode,
+	su1.unit_name AS rcvWarehName,
+	stb.tran_unit_id AS tranUnitId,
+	su5.unit_code AS tranUnitCode,
+	su5.unit_name AS tranUnitName
+FROM
+	gdn
+	INNER JOIN stb ON gdn.gdn_num = stb.stb_num
+	LEFT JOIN sys_unit AS su ON gdn.rcv_unit_id = su.unit_id
+	LEFT JOIN sys_unit AS su1 ON gdn.rcv_wareh_id = su1.unit_id
+	LEFT JOIN sys_unit AS su2 ON stb.wareh_id = su2.unit_id
+	LEFT JOIN sys_prsnl AS sp ON gdn.ftchr_id = sp.prsnl_id
+	LEFT JOIN sys_prsnl AS sp1 ON gdn.dlvr_id = sp1.prsnl_id
+	LEFT JOIN sys_prsnl AS sp2 ON gdn.cngnr_id = sp2.prsnl_id
+	LEFT JOIN sys_prsnl AS sp3 ON stb.opr_id = sp3.prsnl_id
+	LEFT JOIN sys_unit AS su3 ON stb.fscl_unit_id = su3.unit_id
+	LEFT JOIN sys_unit AS su4 ON stb.lgc_wareh_id = su4.unit_id
+	LEFT JOIN sys_unit AS su5 ON stb.tran_unit_id = su5.unit_id
+	LEFT JOIN sys_unit AS su6 ON gdn.rcv_fscl_unit_id = su6.unit_id
+	LEFT JOIN sys_unit AS su7 ON gdn.end_unit_id = su7.unit_id
+	LEFT JOIN sys_unit AS su8 ON gdn.end_wareh_id = su8.unit_id
+	where stb.stb_num=#{stbNum} and stb.unit_id=#{ownerId}
+    </select>
+    <select id="queryCountByErc" resultType="java.lang.Long">
+        select count(1) from stb where
+        src_doc_type=#{srcDocType} and src_doc_unit_id=#{srcDocUnitId} and src_doc_num=#{srcDocNum}
+        and cancelled='F'
+    </select>
+
+
+
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Stb">
+    delete from stb
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and stb_num = #{stbNum,jdbcType=VARCHAR}
+  </delete>
+    <delete id="delStb">
+        delete from stb where stb_num in (
+        <foreach collection="list" item="stbNum" separator=",">
+            #{stbNum}
+        </foreach>
+        )
+    </delete>
+    <delete id="delAStb">
+        delete from stb where thjdb.stb.stb_num=#{stbNum}
+    </delete>
+
+    <insert id="insertStb" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Stb">
+        insert into stb
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="stbNum != null">
+                stb_num,
+            </if>
+            <if test="docDate != null">
+                doc_date,
+            </if>
+            <if test="fsclDate != null">
+                fscl_date,
+            </if>
+            <if test="warehId != null">
+                wareh_id,
+            </if>
+            <if test="fsclUnitId != null">
+                fscl_unit_id,
+            </if>
+            <if test="costGrpId != null">
+                cost_grp_id,
+            </if>
+            <if test="tranUnitId != null">
+                tran_unit_id,
+            </if>
+            <if test="hldnWarehId != null">
+                hldn_wareh_id,
+            </if>
+            <if test="hldnCostGrpId != null">
+                hldn_cost_grp_id,
+            </if>
+            <if test="lgcWarehId != null">
+                lgc_wareh_id,
+            </if>
+            <if test="drType != null">
+                dr_type,
+            </if>
+            <if test="srcDocType != null">
+                src_doc_type,
+            </if>
+            <if test="srcDocUnitId != null">
+                src_doc_unit_id,
+            </if>
+            <if test="srcDocNum != null">
+                src_doc_num,
+            </if>
+            <if test="cntrNum != null">
+                cntr_num,
+            </if>
+            <if test="ldgStbNum != null">
+                ldg_stb_num,
+            </if>
+            <if test="locAdopted != null">
+                loc_adopted,
+            </if>
+            <if test="locId != null">
+                loc_id,
+            </if>
+            <if test="bxiEnabled != null">
+                bxi_enabled,
+            </if>
+            <if test="boxReqd != null">
+                box_reqd,
+            </if>
+            <if test="boxSchd != null">
+                box_schd,
+            </if>
+            <if test="ttlExpdQty != null">
+                ttl_expd_qty,
+            </if>
+            <if test="ttlExpdBox != null">
+                ttl_expd_box,
+            </if>
+            <if test="ttlQty != null">
+                ttl_qty,
+            </if>
+            <if test="ttlBox != null">
+                ttl_box,
+            </if>
+            <if test="ttlPack != null">
+                ttl_pack,
+            </if>
+            <if test="ttlVal != null">
+                ttl_val,
+            </if>
+            <if test="ttlRwd != null">
+                ttl_rwd,
+            </if>
+            <if test="ttlTax != null">
+                ttl_tax,
+            </if>
+            <if test="ttlMkv != null">
+                ttl_mkv,
+            </if>
+            <if test="ttlCost != null">
+                ttl_cost,
+            </if>
+            <if test="fsclDateAptd != null">
+                fscl_date_aptd,
+            </if>
+            <if test="instStl != null">
+                inst_stl,
+            </if>
+            <if test="brdgMode != null">
+                brdg_mode,
+            </if>
+            <if test="costChg != null">
+                cost_chg,
+            </if>
+            <if test="postCtrl != null">
+                post_ctrl,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+            <if test="opTime != null">
+                op_time,
+            </if>
+            <if test="effective != null">
+                effective,
+            </if>
+            <if test="suspended != null">
+                suspended,
+            </if>
+            <if test="cancelled != null">
+                cancelled,
+            </if>
+            <if test="reversed != null">
+                reversed,
+            </if>
+            <if test="isRev != null">
+                is_rev,
+            </if>
+            <if test="orgStbNum != null">
+                org_stb_num,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+            <if test="clnAreaId != null">
+                cln_area_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="stbNum != null">
+                #{stbNum,jdbcType=VARCHAR},
+            </if>
+            <if test="docDate != null">
+                now() ,
+            </if>
+            <if test="fsclDate != null">
+                #{fsclDate,jdbcType=DATE},
+            </if>
+            <if test="warehId != null">
+                #{warehId,jdbcType=BIGINT},
+            </if>
+            <if test="fsclUnitId != null">
+                #{fsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="costGrpId != null">
+                #{costGrpId,jdbcType=BIGINT},
+            </if>
+            <if test="tranUnitId != null">
+                #{tranUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="hldnWarehId != null">
+                #{hldnWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="hldnCostGrpId != null">
+                #{hldnCostGrpId,jdbcType=BIGINT},
+            </if>
+            <if test="lgcWarehId != null">
+                #{lgcWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="drType != null">
+                #{drType,jdbcType=CHAR},
+            </if>
+            <if test="srcDocType != null">
+                #{srcDocType,jdbcType=CHAR},
+            </if>
+            <if test="srcDocUnitId != null">
+                #{srcDocUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="srcDocNum != null">
+                #{srcDocNum,jdbcType=VARCHAR},
+            </if>
+            <if test="cntrNum != null">
+                #{cntrNum,jdbcType=VARCHAR},
+            </if>
+            <if test="ldgStbNum != null">
+                #{ldgStbNum,jdbcType=VARCHAR},
+            </if>
+            <if test="locAdopted != null">
+                #{locAdopted,jdbcType=CHAR},
+            </if>
+            <if test="locId != null">
+                #{locId,jdbcType=BIGINT},
+            </if>
+            <if test="bxiEnabled != null">
+                #{bxiEnabled,jdbcType=CHAR},
+            </if>
+            <if test="boxReqd != null">
+                #{boxReqd,jdbcType=CHAR},
+            </if>
+            <if test="boxSchd != null">
+                #{boxSchd,jdbcType=CHAR},
+            </if>
+            <if test="ttlExpdQty != null">
+                #{ttlExpdQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlExpdBox != null">
+                #{ttlExpdBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlQty != null">
+                #{ttlQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlBox != null">
+                #{ttlBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlPack != null">
+                #{ttlPack,jdbcType=BIGINT},
+            </if>
+            <if test="ttlVal != null">
+                #{ttlVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRwd != null">
+                #{ttlRwd,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlTax != null">
+                #{ttlTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlMkv != null">
+                #{ttlMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlCost != null">
+                #{ttlCost,jdbcType=DECIMAL},
+            </if>
+            <if test="fsclDateAptd != null">
+                #{fsclDateAptd,jdbcType=CHAR},
+            </if>
+            <if test="instStl != null">
+                #{instStl,jdbcType=CHAR},
+            </if>
+            <if test="brdgMode != null">
+                #{brdgMode,jdbcType=CHAR},
+            </if>
+            <if test="costChg != null">
+                #{costChg,jdbcType=CHAR},
+            </if>
+            <if test="postCtrl != null">
+                #{postCtrl,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="opTime != null">
+                #{opTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="effective != null">
+                #{effective,jdbcType=CHAR},
+            </if>
+            <if test="suspended != null">
+                #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="cancelled != null">
+                #{cancelled,jdbcType=CHAR},
+            </if>
+            <if test="reversed != null">
+                #{reversed,jdbcType=CHAR},
+            </if>
+            <if test="isRev != null">
+                #{isRev,jdbcType=CHAR},
+            </if>
+            <if test="orgStbNum != null">
+                #{orgStbNum,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="clnAreaId != null">
+                #{clnAreaId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateStb" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Stb">
+        update stb
+        <set>
+            <if test="docDate != null">
+                doc_date = #{docDate,jdbcType=DATE},
+            </if>
+            <if test="fsclDate != null">
+                fscl_date = #{fsclDate,jdbcType=DATE},
+            </if>
+            <if test="warehId != null">
+                wareh_id = #{warehId,jdbcType=BIGINT},
+            </if>
+            <if test="fsclUnitId != null">
+                fscl_unit_id = #{fsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="costGrpId != null">
+                cost_grp_id = #{costGrpId,jdbcType=BIGINT},
+            </if>
+            <if test="tranUnitId != null">
+                tran_unit_id = #{tranUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="hldnWarehId != null">
+                hldn_wareh_id = #{hldnWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="hldnCostGrpId != null">
+                hldn_cost_grp_id = #{hldnCostGrpId,jdbcType=BIGINT},
+            </if>
+            <if test="lgcWarehId != null">
+                lgc_wareh_id = #{lgcWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="drType != null">
+                dr_type = #{drType,jdbcType=CHAR},
+            </if>
+            <if test="srcDocType != null">
+                src_doc_type = #{srcDocType,jdbcType=CHAR},
+            </if>
+            <if test="srcDocUnitId != null">
+                src_doc_unit_id = #{srcDocUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="srcDocNum != null">
+                src_doc_num = #{srcDocNum,jdbcType=VARCHAR},
+            </if>
+            <if test="cntrNum != null">
+                cntr_num = #{cntrNum,jdbcType=VARCHAR},
+            </if>
+            <if test="ldgStbNum != null">
+                ldg_stb_num = #{ldgStbNum,jdbcType=VARCHAR},
+            </if>
+            <if test="locAdopted != null">
+                loc_adopted = #{locAdopted,jdbcType=CHAR},
+            </if>
+            <if test="locId != null">
+                loc_id = #{locId,jdbcType=BIGINT},
+            </if>
+            <if test="bxiEnabled != null">
+                bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+            </if>
+            <if test="boxReqd != null">
+                box_reqd = #{boxReqd,jdbcType=CHAR},
+            </if>
+            <if test="boxSchd != null">
+                box_schd = #{boxSchd,jdbcType=CHAR},
+            </if>
+            <if test="ttlExpdQty != null">
+                ttl_expd_qty = #{ttlExpdQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlExpdBox != null">
+                ttl_expd_box = #{ttlExpdBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlQty != null">
+                ttl_qty = #{ttlQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlBox != null">
+                ttl_box = #{ttlBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlPack != null">
+                ttl_pack = #{ttlPack,jdbcType=BIGINT},
+            </if>
+            <if test="ttlVal != null">
+                ttl_val = #{ttlVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRwd != null">
+                ttl_rwd = #{ttlRwd,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlTax != null">
+                ttl_tax = #{ttlTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlMkv != null">
+                ttl_mkv = #{ttlMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlCost != null">
+                ttl_cost = #{ttlCost,jdbcType=DECIMAL},
+            </if>
+            <if test="fsclDateAptd != null">
+                fscl_date_aptd = #{fsclDateAptd,jdbcType=CHAR},
+            </if>
+            <if test="instStl != null">
+                inst_stl = #{instStl,jdbcType=CHAR},
+            </if>
+            <if test="brdgMode != null">
+                brdg_mode = #{brdgMode,jdbcType=CHAR},
+            </if>
+            <if test="costChg != null">
+                cost_chg = #{costChg,jdbcType=CHAR},
+            </if>
+            <if test="postCtrl != null">
+                post_ctrl = #{postCtrl,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="opTime != null">
+                op_time = #{opTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="effective != null">
+                effective = #{effective,jdbcType=CHAR},
+            </if>
+            <if test="suspended != null">
+                suspended = #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="cancelled != null">
+                cancelled = #{cancelled,jdbcType=CHAR},
+            </if>
+            <if test="reversed != null">
+                reversed = #{reversed,jdbcType=CHAR},
+            </if>
+            <if test="isRev != null">
+                is_rev = #{isRev,jdbcType=CHAR},
+            </if>
+            <if test="orgStbNum != null">
+                org_stb_num = #{orgStbNum,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="clnAreaId != null">
+                cln_area_id = #{clnAreaId,jdbcType=BIGINT},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and stb_num = #{stbNum,jdbcType=VARCHAR}
+    </update>
+
+
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.vo.warehouse.GrnVo">
+    insert into stb (unit_id, stb_num, doc_date,
+      fscl_date, wareh_id, fscl_unit_id,
+      cost_grp_id, tran_unit_id, hldn_wareh_id,
+      hldn_cost_grp_id, lgc_wareh_id, dr_type,
+      src_doc_type, src_doc_unit_id, src_doc_num,
+      cntr_num, ldg_stb_num, loc_adopted,
+      loc_id, bxi_enabled, box_reqd,
+      box_schd, ttl_expd_qty, ttl_expd_box,
+      ttl_qty, ttl_box, ttl_pack,
+      ttl_val, ttl_rwd, ttl_tax,
+      ttl_mkv, ttl_cost, fscl_date_aptd,
+      inst_stl, brdg_mode, cost_chg,
+      post_ctrl, opr_id, op_time,
+      effective, suspended, cancelled,
+      reversed, is_rev, org_stb_num,
+      remarks, cln_area_id)
+    values (#{unitId,jdbcType=BIGINT}, #{stbNum,jdbcType=VARCHAR}, #{docDate,jdbcType=DATE},
+      #{fsclDate,jdbcType=DATE}, #{warehId,jdbcType=BIGINT}, #{fsclUnitId,jdbcType=BIGINT},
+      #{costGrpId,jdbcType=BIGINT}, #{tranUnitId,jdbcType=BIGINT}, #{hldnWarehId,jdbcType=BIGINT},
+      #{hldnCostGrpId,jdbcType=BIGINT}, #{lgcWarehId,jdbcType=BIGINT}, #{drType,jdbcType=CHAR},
+      #{srcDocType,jdbcType=CHAR}, #{srcDocUnitId,jdbcType=BIGINT}, #{srcDocNum,jdbcType=VARCHAR},
+      #{cntrNum,jdbcType=VARCHAR}, #{ldgStbNum,jdbcType=VARCHAR}, #{locAdopted,jdbcType=CHAR},
+      #{locId,jdbcType=BIGINT}, #{bxiEnabled,jdbcType=CHAR}, #{boxReqd,jdbcType=CHAR},
+      #{boxSchd,jdbcType=CHAR}, #{ttlExpdQty,jdbcType=DECIMAL}, #{ttlExpdBox,jdbcType=BIGINT},
+      #{ttlQty,jdbcType=DECIMAL}, #{ttlBox,jdbcType=BIGINT}, #{ttlPack,jdbcType=BIGINT},
+      #{ttlVal,jdbcType=DECIMAL}, #{ttlRwd,jdbcType=DECIMAL}, #{ttlTax,jdbcType=DECIMAL},
+      #{ttlMkv,jdbcType=DECIMAL}, #{ttlCost,jdbcType=DECIMAL}, #{fsclDateAptd,jdbcType=CHAR},
+      #{instStl,jdbcType=CHAR}, #{brdgMode,jdbcType=CHAR}, #{costChg,jdbcType=CHAR},
+      #{postCtrl,jdbcType=CHAR}, #{oprId,jdbcType=BIGINT}, #{opTime,jdbcType=TIMESTAMP},
+      #{effective,jdbcType=CHAR}, #{suspended,jdbcType=CHAR}, #{cancelled,jdbcType=CHAR},
+      #{reversed,jdbcType=CHAR}, #{isRev,jdbcType=CHAR}, #{orgStbNum,jdbcType=VARCHAR},
+      #{remarks,jdbcType=VARCHAR}, #{clnAreaId,jdbcType=BIGINT})
+  </insert>
+
+    <insert id="insertStbGdn">
+        insert into stb
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="stbNum != null">
+                stb_num,
+            </if>
+            <if test="docDate != null">
+                doc_date,
+            </if>
+            <if test="fsclDate != null">
+                fscl_date,
+            </if>
+            <if test="warehId != null">
+                wareh_id,
+            </if>
+            <if test="fsclUnitId != null">
+                fscl_unit_id,
+            </if>
+            <if test="costGrpId != null">
+                cost_grp_id,
+            </if>
+            <if test="tranUnitId != null">
+                tran_unit_id,
+            </if>
+            <if test="hldnWarehId != null">
+                hldn_wareh_id,
+            </if>
+            <if test="hldnCostGrpId != null">
+                hldn_cost_grp_id,
+            </if>
+            <if test="lgcWarehId != null">
+                lgc_wareh_id,
+            </if>
+            <if test="drType != null">
+                dr_type,
+            </if>
+            <if test="srcDocType != null">
+                src_doc_type,
+            </if>
+            <if test="srcDocUnitId != null">
+                src_doc_unit_id,
+            </if>
+            <if test="srcDocNum != null">
+                src_doc_num,
+            </if>
+            <if test="cntrNum != null">
+                cntr_num,
+            </if>
+            <if test="ldgStbNum != null">
+                ldg_stb_num,
+            </if>
+            <if test="locAdopted != null">
+                loc_adopted,
+            </if>
+            <if test="locId != null">
+                loc_id,
+            </if>
+            <if test="bxiEnabled != null">
+                bxi_enabled,
+            </if>
+            <if test="boxReqd != null">
+                box_reqd,
+            </if>
+            <if test="boxSchd != null">
+                box_schd,
+            </if>
+            <if test="ttlExpdQty != null">
+                ttl_expd_qty,
+            </if>
+            <if test="ttlExpdBox != null">
+                ttl_expd_box,
+            </if>
+            <if test="ttlQty != null">
+                ttl_qty,
+            </if>
+            <if test="ttlBox != null">
+                ttl_box,
+            </if>
+            <if test="ttlPack != null">
+                ttl_pack,
+            </if>
+            <if test="ttlVal != null">
+                ttl_val,
+            </if>
+            <if test="ttlRwd != null">
+                ttl_rwd,
+            </if>
+            <if test="ttlTax != null">
+                ttl_tax,
+            </if>
+            <if test="ttlMkv != null">
+                ttl_mkv,
+            </if>
+            <if test="ttlCost != null">
+                ttl_cost,
+            </if>
+            <if test="fsclDateAptd != null">
+                fscl_date_aptd,
+            </if>
+            <if test="instStl != null">
+                inst_stl,
+            </if>
+            <if test="brdgMode != null">
+                brdg_mode,
+            </if>
+            <if test="costChg != null">
+                cost_chg,
+            </if>
+            <if test="postCtrl != null">
+                post_ctrl,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+            <if test="opTime != null">
+                op_time,
+            </if>
+            <if test="effective != null">
+                effective,
+            </if>
+            <if test="suspended != null">
+                suspended,
+            </if>
+            <if test="cancelled != null">
+                cancelled,
+            </if>
+            <if test="reversed != null">
+                reversed,
+            </if>
+            <if test="isRev != null">
+                is_rev,
+            </if>
+            <if test="orgStbNum != null">
+                org_stb_num,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+            <if test="clnAreaId != null">
+                cln_area_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="stbNum != null">
+                #{stbNum,jdbcType=VARCHAR},
+            </if>
+            <if test="docDate != null">
+                now() ,
+            </if>
+            <if test="fsclDate != null">
+                #{fsclDate,jdbcType=DATE},
+            </if>
+            <if test="warehId != null">
+                #{warehId,jdbcType=BIGINT},
+            </if>
+            <if test="fsclUnitId != null">
+                #{fsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="costGrpId != null">
+                #{costGrpId,jdbcType=BIGINT},
+            </if>
+            <if test="tranUnitId != null">
+                #{tranUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="hldnWarehId != null">
+                #{hldnWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="hldnCostGrpId != null">
+                #{hldnCostGrpId,jdbcType=BIGINT},
+            </if>
+            <if test="lgcWarehId != null">
+                #{lgcWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="drType != null">
+                #{drType,jdbcType=CHAR},
+            </if>
+            <if test="srcDocType != null">
+                #{srcDocType,jdbcType=CHAR},
+            </if>
+            <if test="srcDocUnitId != null">
+                #{srcDocUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="srcDocNum != null">
+                #{srcDocNum,jdbcType=VARCHAR},
+            </if>
+            <if test="cntrNum != null">
+                #{cntrNum,jdbcType=VARCHAR},
+            </if>
+            <if test="ldgStbNum != null">
+                #{ldgStbNum,jdbcType=VARCHAR},
+            </if>
+            <if test="locAdopted != null">
+                #{locAdopted,jdbcType=CHAR},
+            </if>
+            <if test="locId != null">
+                #{locId,jdbcType=BIGINT},
+            </if>
+            <if test="bxiEnabled != null">
+                #{bxiEnabled,jdbcType=CHAR},
+            </if>
+            <if test="boxReqd != null">
+                #{boxReqd,jdbcType=CHAR},
+            </if>
+            <if test="boxSchd != null">
+                #{boxSchd,jdbcType=CHAR},
+            </if>
+            <if test="ttlExpdQty != null">
+                #{ttlExpdQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlExpdBox != null">
+                #{ttlExpdBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlQty != null">
+                #{ttlQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlBox != null">
+                #{ttlBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlPack != null">
+                #{ttlPack,jdbcType=BIGINT},
+            </if>
+            <if test="ttlVal != null">
+                #{ttlVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRwd != null">
+                #{ttlRwd,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlTax != null">
+                #{ttlTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlMkv != null">
+                #{ttlMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlCost != null">
+                #{ttlCost,jdbcType=DECIMAL},
+            </if>
+            <if test="fsclDateAptd != null">
+                #{fsclDateAptd,jdbcType=CHAR},
+            </if>
+            <if test="instStl != null">
+                #{instStl,jdbcType=CHAR},
+            </if>
+            <if test="brdgMode != null">
+                #{brdgMode,jdbcType=CHAR},
+            </if>
+            <if test="costChg != null">
+                #{costChg,jdbcType=CHAR},
+            </if>
+            <if test="postCtrl != null">
+                #{postCtrl,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="opTime != null">
+                #{opTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="effective != null">
+                #{effective,jdbcType=CHAR},
+            </if>
+            <if test="suspended != null">
+                #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="cancelled != null">
+                #{cancelled,jdbcType=CHAR},
+            </if>
+            <if test="reversed != null">
+                #{reversed,jdbcType=CHAR},
+            </if>
+            <if test="isRev != null">
+                #{isRev,jdbcType=CHAR},
+            </if>
+            <if test="orgStbNum != null">
+                #{orgStbNum,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="clnAreaId != null">
+                #{clnAreaId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Stb">
+    update stb
+        <set>
+            <if test="docDate != null">
+                doc_date = #{docDate,jdbcType=DATE},
+            </if>
+            <if test="fsclDate != null">
+                fscl_date = #{fsclDate,jdbcType=DATE},
+            </if>
+            <if test="warehId != null">
+                wareh_id = #{warehId,jdbcType=BIGINT},
+            </if>
+            <if test="fsclUnitId != null">
+                fscl_unit_id = #{fsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="costGrpId != null">
+                cost_grp_id = #{costGrpId,jdbcType=BIGINT},
+            </if>
+            <if test="tranUnitId != null">
+                tran_unit_id = #{tranUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="hldnWarehId != null">
+                hldn_wareh_id = #{hldnWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="hldnCostGrpId != null">
+                hldn_cost_grp_id = #{hldnCostGrpId,jdbcType=BIGINT},
+            </if>
+            <if test="lgcWarehId != null">
+                lgc_wareh_id = #{lgcWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="drType != null">
+                dr_type = #{drType,jdbcType=CHAR},
+            </if>
+            <if test="srcDocType != null">
+                src_doc_type = #{srcDocType,jdbcType=CHAR},
+            </if>
+            <if test="srcDocUnitId != null">
+                src_doc_unit_id = #{srcDocUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="srcDocNum != null">
+                src_doc_num = #{srcDocNum,jdbcType=VARCHAR},
+            </if>
+            <if test="cntrNum != null">
+                cntr_num = #{cntrNum,jdbcType=VARCHAR},
+            </if>
+            <if test="ldgStbNum != null">
+                ldg_stb_num = #{ldgStbNum,jdbcType=VARCHAR},
+            </if>
+            <if test="locAdopted != null">
+                loc_adopted = #{locAdopted,jdbcType=CHAR},
+            </if>
+            <if test="locId != null">
+                loc_id = #{locId,jdbcType=BIGINT},
+            </if>
+            <if test="bxiEnabled != null">
+                bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+            </if>
+            <if test="boxReqd != null">
+                box_reqd = #{boxReqd,jdbcType=CHAR},
+            </if>
+            <if test="boxSchd != null">
+                box_schd = #{boxSchd,jdbcType=CHAR},
+            </if>
+            <if test="ttlExpdQty != null">
+                ttl_expd_qty = #{ttlExpdQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlExpdBox != null">
+                ttl_expd_box = #{ttlExpdBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlQty != null">
+                ttl_qty = #{ttlQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlBox != null">
+                ttl_box = #{ttlBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlPack != null">
+                ttl_pack = #{ttlPack,jdbcType=BIGINT},
+            </if>
+            <if test="ttlVal != null">
+                ttl_val = #{ttlVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRwd != null">
+                ttl_rwd = #{ttlRwd,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlTax != null">
+                ttl_tax = #{ttlTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlMkv != null">
+                ttl_mkv = #{ttlMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlCost != null">
+                ttl_cost = #{ttlCost,jdbcType=DECIMAL},
+            </if>
+            <if test="fsclDateAptd != null">
+                fscl_date_aptd = #{fsclDateAptd,jdbcType=CHAR},
+            </if>
+            <if test="instStl != null">
+                inst_stl = #{instStl,jdbcType=CHAR},
+            </if>
+            <if test="brdgMode != null">
+                brdg_mode = #{brdgMode,jdbcType=CHAR},
+            </if>
+            <if test="costChg != null">
+                cost_chg = #{costChg,jdbcType=CHAR},
+            </if>
+            <if test="postCtrl != null">
+                post_ctrl = #{postCtrl,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="opTime != null">
+                op_time = #{opTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="effective != null">
+                effective = #{effective,jdbcType=CHAR},
+            </if>
+            <if test="suspended != null">
+                suspended = #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="cancelled != null">
+                cancelled = #{cancelled,jdbcType=CHAR},
+            </if>
+            <if test="reversed != null">
+                reversed = #{reversed,jdbcType=CHAR},
+            </if>
+            <if test="isRev != null">
+                is_rev = #{isRev,jdbcType=CHAR},
+            </if>
+            <if test="orgStbNum != null">
+                org_stb_num = #{orgStbNum,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="clnAreaId != null">
+                cln_area_id = #{clnAreaId,jdbcType=BIGINT},
+            </if>
+        </set>
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and stb_num = #{stbNum,jdbcType=VARCHAR}
+  </update>
+    <update id="updateStbGdnVO">
+        update stb
+        <set>
+            <if test="docDate != null">
+                doc_date = #{docDate,jdbcType=DATE},
+            </if>
+            <if test="fsclDate != null">
+                fscl_date = #{fsclDate,jdbcType=DATE},
+            </if>
+            <if test="warehId != null">
+                wareh_id = #{warehId,jdbcType=BIGINT},
+            </if>
+            <if test="fsclUnitId != null">
+                fscl_unit_id = #{fsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="costGrpId != null">
+                cost_grp_id = #{costGrpId,jdbcType=BIGINT},
+            </if>
+            <if test="tranUnitId != null">
+                tran_unit_id = #{tranUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="hldnWarehId != null">
+                hldn_wareh_id = #{hldnWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="hldnCostGrpId != null">
+                hldn_cost_grp_id = #{hldnCostGrpId,jdbcType=BIGINT},
+            </if>
+            <if test="lgcWarehId != null">
+                lgc_wareh_id = #{lgcWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="drType != null">
+                dr_type = #{drType,jdbcType=CHAR},
+            </if>
+            <if test="srcDocType != null">
+                src_doc_type = #{srcDocType,jdbcType=CHAR},
+            </if>
+            <if test="srcDocUnitId != null">
+                src_doc_unit_id = #{srcDocUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="srcDocNum != null">
+                src_doc_num = #{srcDocNum,jdbcType=VARCHAR},
+            </if>
+            <if test="cntrNum != null">
+                cntr_num = #{cntrNum,jdbcType=VARCHAR},
+            </if>
+            <if test="ldgStbNum != null">
+                ldg_stb_num = #{ldgStbNum,jdbcType=VARCHAR},
+            </if>
+            <if test="locAdopted != null">
+                loc_adopted = #{locAdopted,jdbcType=CHAR},
+            </if>
+            <if test="locId != null">
+                loc_id = #{locId,jdbcType=BIGINT},
+            </if>
+            <if test="bxiEnabled != null">
+                bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+            </if>
+            <if test="boxReqd != null">
+                box_reqd = #{boxReqd,jdbcType=CHAR},
+            </if>
+            <if test="boxSchd != null">
+                box_schd = #{boxSchd,jdbcType=CHAR},
+            </if>
+            <if test="ttlExpdQty != null">
+                ttl_expd_qty = #{ttlExpdQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlExpdBox != null">
+                ttl_expd_box = #{ttlExpdBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlQty != null">
+                ttl_qty = #{ttlQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlBox != null">
+                ttl_box = #{ttlBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlPack != null">
+                ttl_pack = #{ttlPack,jdbcType=BIGINT},
+            </if>
+            <if test="ttlVal != null">
+                ttl_val = #{ttlVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRwd != null">
+                ttl_rwd = #{ttlRwd,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlTax != null">
+                ttl_tax = #{ttlTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlMkv != null">
+                ttl_mkv = #{ttlMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlCost != null">
+                ttl_cost = #{ttlCost,jdbcType=DECIMAL},
+            </if>
+            <if test="fsclDateAptd != null">
+                fscl_date_aptd = #{fsclDateAptd,jdbcType=CHAR},
+            </if>
+            <if test="instStl != null">
+                inst_stl = #{instStl,jdbcType=CHAR},
+            </if>
+            <if test="brdgMode != null">
+                brdg_mode = #{brdgMode,jdbcType=CHAR},
+            </if>
+            <if test="costChg != null">
+                cost_chg = #{costChg,jdbcType=CHAR},
+            </if>
+            <if test="postCtrl != null">
+                post_ctrl = #{postCtrl,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="opTime != null">
+                op_time = #{opTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="effective != null">
+                effective = #{effective,jdbcType=CHAR},
+            </if>
+            <if test="suspended != null">
+                suspended = #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="cancelled != null">
+                cancelled = #{cancelled,jdbcType=CHAR},
+            </if>
+            <if test="reversed != null">
+                reversed = #{reversed,jdbcType=CHAR},
+            </if>
+            <if test="isRev != null">
+                is_rev = #{isRev,jdbcType=CHAR},
+            </if>
+            <if test="orgStbNum != null">
+                org_stb_num = #{orgStbNum,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="clnAreaId != null">
+                cln_area_id = #{clnAreaId,jdbcType=BIGINT},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and stb_num = #{stbNum,jdbcType=VARCHAR}
+    </update>
+    <update id="updateTotStb">
+        update stb
+        <set>
+            doc_date = #{docDate,jdbcType=DATE},
+            fscl_date = #{fsclDate,jdbcType=DATE},
+            wareh_id = #{warehId,jdbcType=BIGINT},
+            fscl_unit_id = #{fsclUnitId,jdbcType=BIGINT},
+            cost_grp_id = #{costGrpId,jdbcType=BIGINT},
+            tran_unit_id = #{tranUnitId,jdbcType=BIGINT},
+            hldn_wareh_id = #{hldnWarehId,jdbcType=BIGINT},
+            hldn_cost_grp_id = #{hldnCostGrpId,jdbcType=BIGINT},
+            lgc_wareh_id = #{lgcWarehId,jdbcType=BIGINT},
+            dr_type = #{drType,jdbcType=CHAR},
+            src_doc_type = #{srcDocType,jdbcType=CHAR},
+            src_doc_unit_id = #{srcDocUnitId,jdbcType=BIGINT},
+            src_doc_num = #{srcDocNum,jdbcType=VARCHAR},
+            cntr_num = #{cntrNum,jdbcType=VARCHAR},
+            ldg_stb_num = #{ldgStbNum,jdbcType=VARCHAR},
+            loc_adopted = #{locAdopted,jdbcType=CHAR},
+            loc_id = #{locId,jdbcType=BIGINT},
+            bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+            box_reqd = #{boxReqd,jdbcType=CHAR},
+            box_schd = #{boxSchd,jdbcType=CHAR},
+            ttl_expd_qty = #{ttlExpdQty,jdbcType=DECIMAL},
+            ttl_expd_box = #{ttlExpdBox,jdbcType=BIGINT},
+            ttl_qty = #{ttlQty,jdbcType=DECIMAL},
+            ttl_box = #{ttlBox,jdbcType=BIGINT},
+            ttl_pack = #{ttlPack,jdbcType=BIGINT},
+            ttl_val = #{ttlVal,jdbcType=DECIMAL},
+            ttl_rwd = #{ttlRwd,jdbcType=DECIMAL},
+            ttl_tax = #{ttlTax,jdbcType=DECIMAL},
+            ttl_mkv = #{ttlMkv,jdbcType=DECIMAL},
+            ttl_cost = #{ttlCost,jdbcType=DECIMAL},
+            fscl_date_aptd = #{fsclDateAptd,jdbcType=CHAR},
+            inst_stl = #{instStl,jdbcType=CHAR},
+            brdg_mode = #{brdgMode,jdbcType=CHAR},
+            cost_chg = #{costChg,jdbcType=CHAR},
+            post_ctrl = #{postCtrl,jdbcType=CHAR},
+            opr_id = #{oprId,jdbcType=BIGINT},
+            op_time = #{opTime,jdbcType=TIMESTAMP},
+            effective = #{effective,jdbcType=CHAR},
+            suspended = #{suspended,jdbcType=CHAR},
+            cancelled = #{cancelled,jdbcType=CHAR},
+            reversed = #{reversed,jdbcType=CHAR},
+            is_rev = #{isRev,jdbcType=CHAR},
+            org_stb_num = #{orgStbNum,jdbcType=VARCHAR},
+            remarks = #{remarks,jdbcType=VARCHAR},
+            cln_area_id = #{clnAreaId,jdbcType=BIGINT}
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and stb_num = #{stbNum,jdbcType=VARCHAR}
+    </update>
+</mapper>

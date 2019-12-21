@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysRoleScopeMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysRoleScope">
+        <id column="role_id" jdbcType="VARCHAR" property="roleId"/>
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <result column="role_scope" jdbcType="VARCHAR" property="roleScope"/>
+        <result column="role_belong_unit" jdbcType="VARCHAR" property="roleBelongUnit"/>
+        <result column="is_del" jdbcType="TINYINT" property="isDel"/>
+        <result column="create_by" jdbcType="BIGINT" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="BIGINT" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    role_id, unit_id, role_scope, role_belong_unit, is_del, create_by, create_time, update_by, 
+    update_time
+  </sql>
+    <!--查询用户角色范围-->
+    <select id="selectUserRoleScope" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUser"
+            resultMap="BaseResultMap">
+        SELECT
+        p.`role_belong_unit` as `role_belong_unit`,
+        p.`role_scope` as `role_scope`,
+        p.`unit_id` as `unit_id`
+        FROM
+        sys_user_role r
+        INNER JOIN sys_role_scope p
+        ON r.`owner_id` = p.`unit_id`
+        AND r.`role_id` = p.`role_id`
+        WHERE r.`user_id` = #{userId}
+        AND p.`is_del` = 1
+    </select>
+
+    <select id="selectRoleScope" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysRoleScope"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role_scope
+        where role_id = #{roleId,jdbcType=VARCHAR}
+        and unit_id = #{unitId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysRoleScope">
+    delete from sys_role_scope
+    where role_id = #{roleId,jdbcType=VARCHAR}
+      and unit_id = #{unitId,jdbcType=BIGINT}
+  </delete>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysRoleScope">
+        insert into sys_role_scope
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="roleScope != null">
+                role_scope,
+            </if>
+            <if test="roleBelongUnit != null">
+                role_belong_unit,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                #{roleId,jdbcType=VARCHAR},
+            </if>
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="roleScope != null">
+                #{roleScope,jdbcType=VARCHAR},
+            </if>
+            <if test="roleBelongUnit != null">
+                #{roleBelongUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.boyu.erp.platform.usercenter.entity.system.SysRoleScope">
+        update sys_role_scope
+        <set>
+            <if test="roleScope != null">
+                role_scope = #{roleScope,jdbcType=VARCHAR},
+            </if>
+            <if test="roleBelongUnit != null">
+                role_belong_unit = #{roleBelongUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = now(),
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = now(),
+            </if>
+        </set>
+        where role_id = #{roleId,jdbcType=VARCHAR}
+        and unit_id = #{unitId,jdbcType=BIGINT}
+    </update>
+
+    <!--查询组织角色是否存在范围-->
+    <select id="counts" resultType="integer"
+            parameterType="com.boyu.erp.platform.usercenter.entity.system.SysRoleScope">
+        select count(*) from
+        sys_role_scope
+        WHERE
+        role_id = #{roleId}
+        AND
+        unit_id = #{unitId}
+    </select>
+
+    <!--物理删除角色时删除角色对应的角色范围-->
+    <delete id="deletRoleScope" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysRole">
+         delete from sys_role_scope
+    where role_id = #{roleId,jdbcType=VARCHAR}
+    </delete>
+</mapper>

@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.WarehDelivTaskMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.WarehDelivTask">
+        <id column="unit_id" jdbcType="INTEGER" property="unitId"/>
+        <id column="task_doc_type" jdbcType="CHAR" property="taskDocType"/>
+        <id column="task_doc_unit_id" jdbcType="INTEGER" property="taskDocUnitId"/>
+        <id column="task_doc_num" jdbcType="VARCHAR" property="taskDocNum"/>
+        <result column="task_doc_date" jdbcType="DATE" property="taskDocDate"/>
+        <result column="wareh_id" jdbcType="INTEGER" property="warehId"/>
+        <result column="deliv_mode" jdbcType="CHAR" property="delivMode"/>
+        <result column="rcv_unit_id" jdbcType="INTEGER" property="rcvUnitId"/>
+        <result column="rcv_wareh_id" jdbcType="INTEGER" property="rcvWarehId"/>
+        <result column="ttl_qty" jdbcType="DOUBLE" property="ttlQty"/>
+        <result column="ttl_val" jdbcType="DOUBLE" property="ttlVal"/>
+        <result column="multi_impl" jdbcType="CHAR" property="multiImpl"/>
+        <result column="impl_times" jdbcType="INTEGER" property="implTimes"/>
+        <result column="join_time" jdbcType="TIMESTAMP" property="joinTime"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+    <resultMap id="BaseResultMapVO" type="com.boyu.erp.platform.usercenter.vo.warehouse.WarehDelivTaskVO">
+        <id column="unit_id" jdbcType="INTEGER" property="unitId"/>
+        <id column="task_doc_type" jdbcType="CHAR" property="taskDocType"/>
+        <id column="task_doc_unit_id" jdbcType="INTEGER" property="taskDocUnitId"/>
+        <id column="task_doc_num" jdbcType="VARCHAR" property="taskDocNum"/>
+        <result column="task_doc_date" jdbcType="DATE" property="taskDocDate"/>
+        <result column="wareh_id" jdbcType="INTEGER" property="warehId"/>
+        <result column="deliv_mode" jdbcType="CHAR" property="delivMode"/>
+        <result column="rcv_unit_id" jdbcType="INTEGER" property="rcvUnitId"/>
+        <result column="rcv_wareh_id" jdbcType="INTEGER" property="rcvWarehId"/>
+        <result column="ttl_qty" jdbcType="DOUBLE" property="ttlQty"/>
+        <result column="ttl_val" jdbcType="DOUBLE" property="ttlVal"/>
+        <result column="multi_impl" jdbcType="CHAR" property="multiImpl"/>
+        <result column="impl_times" jdbcType="INTEGER" property="implTimes"/>
+        <result column="join_time" jdbcType="TIMESTAMP" property="joinTime"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="rcv_wareh_num" jdbcType="VARCHAR" property="rcvWarehNum"/>
+        <result column="rcv_wareh_name" jdbcType="VARCHAR" property="rcvWarehName"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+    unit_id, task_doc_type, task_doc_unit_id, task_doc_num, task_doc_date, wareh_id,
+    deliv_mode, rcv_unit_id, rcv_wareh_id, ttl_qty, ttl_val, multi_impl, impl_times,
+    join_time, suspended, remarks
+  </sql>
+    <!--  vo类补充字段  -->
+    <sql id="Base_Column_List_vo">
+    ws.unit_id, ws.task_doc_type, ws.task_doc_unit_id, ws.task_doc_num, ws.task_doc_date, ws.wareh_id,
+    ws.deliv_mode, ws.rcv_unit_id, ws.rcv_wareh_id, ws.ttl_qty, ws.ttl_val, ws.multi_impl, ws.impl_times,
+    ws.join_time, ws.suspended, ws.remarks, su.unit_name AS rcv_wareh_name, suo.unit_num AS rcv_wareh_num
+    </sql>
+
+    <select id="selectWarehDelivTask"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        wareh_deliv_task
+        WHERE
+        TASK_DOC_NUM = #{taskDocNum}
+        and TASK_DOC_TYPE = #{taskDocType}
+        and UNIT_ID = #{unitId}
+        and TASK_DOC_UNIT_ID = #{taskDocUnitId}
+    </select>
+
+    <delete id="deleteByBill"
+            parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehDelivTask">
+        delete FROM
+        wareh_deliv_task
+        WHERE
+        task_doc_num = #{taskDocNum}
+        and task_doc_type = #{taskDocType}
+        and task_doc_unit_id = #{taskDocUnitId}
+    </delete>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehDelivTask">
+        insert into wareh_deliv_task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                UNIT_ID,
+            </if>
+            <if test="taskDocType != null">
+                TASK_DOC_TYPE,
+            </if>
+            <if test="taskDocUnitId != null">
+                TASK_DOC_UNIT_ID,
+            </if>
+            <if test="taskDocNum != null">
+                TASK_DOC_NUM,
+            </if>
+            <if test="taskDocDate != null">
+                TASK_DOC_DATE,
+            </if>
+            <if test="warehId != null">
+                WAREH_ID,
+            </if>
+            <if test="delivMode != null">
+                DELIV_MODE,
+            </if>
+            <if test="rcvUnitId != null">
+                RCV_UNIT_ID,
+            </if>
+            <if test="rcvWarehId != null">
+                RCV_WAREH_ID,
+            </if>
+            <if test="ttlQty != null">
+                TTL_QTY,
+            </if>
+            <if test="ttlVal != null">
+                TTL_VAL,
+            </if>
+            <if test="multiImpl != null">
+                MULTI_IMPL,
+            </if>
+            <if test="implTimes != null">
+                IMPL_TIMES,
+            </if>
+            <if test="joinTime != null">
+                JOIN_TIME,
+            </if>
+            <if test="suspended != null">
+                SUSPENDED,
+            </if>
+            <if test="remarks != null">
+                REMARKS,
+            </if>
+            <if test="progress != null">
+                progress,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=INTEGER},
+            </if>
+            <if test="taskDocType != null">
+                #{taskDocType,jdbcType=CHAR},
+            </if>
+            <if test="taskDocUnitId != null">
+                #{taskDocUnitId,jdbcType=INTEGER},
+            </if>
+            <if test="taskDocNum != null">
+                #{taskDocNum,jdbcType=VARCHAR},
+            </if>
+            <if test="taskDocDate != null">
+                #{taskDocDate,jdbcType=DATE},
+            </if>
+            <if test="warehId != null">
+                #{warehId,jdbcType=INTEGER},
+            </if>
+            <if test="delivMode != null">
+                #{delivMode,jdbcType=CHAR},
+            </if>
+            <if test="rcvUnitId != null">
+                #{rcvUnitId,jdbcType=INTEGER},
+            </if>
+            <if test="rcvWarehId != null">
+                #{rcvWarehId,jdbcType=INTEGER},
+            </if>
+            <if test="ttlQty != null">
+                #{ttlQty,jdbcType=DOUBLE},
+            </if>
+            <if test="ttlVal != null">
+                #{ttlVal,jdbcType=DOUBLE},
+            </if>
+            <if test="multiImpl != null">
+                #{multiImpl,jdbcType=CHAR},
+            </if>
+            <if test="implTimes != null">
+                #{implTimes,jdbcType=INTEGER},
+            </if>
+            <if test="joinTime != null">
+                #{joinTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="suspended != null">
+                #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="progress != null">
+                #{progress},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertUpdateTask">
+        insert into wareh_deliv_task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                UNIT_ID,
+            </if>
+            <if test="taskDocType != null">
+                TASK_DOC_TYPE,
+            </if>
+            <if test="taskDocUnitId != null">
+                TASK_DOC_UNIT_ID,
+            </if>
+            <if test="taskDocNum != null">
+                TASK_DOC_NUM,
+            </if>
+            <if test="taskDocDate != null">
+                TASK_DOC_DATE,
+            </if>
+            <if test="warehId != null">
+                WAREH_ID,
+            </if>
+            <if test="delivMode != null">
+                DELIV_MODE,
+            </if>
+            <if test="rcvUnitId != null">
+                RCV_UNIT_ID,
+            </if>
+            <if test="rcvWarehId != null">
+                RCV_WAREH_ID,
+            </if>
+            <if test="ttlQty != null">
+                TTL_QTY,
+            </if>
+            <if test="ttlVal != null">
+                TTL_VAL,
+            </if>
+            <if test="multiImpl != null">
+                MULTI_IMPL,
+            </if>
+            <if test="implTimes != null">
+                IMPL_TIMES,
+            </if>
+            <if test="joinTime != null">
+                JOIN_TIME,
+            </if>
+            <if test="suspended != null">
+                SUSPENDED,
+            </if>
+            <if test="remarks != null">
+                REMARKS,
+            </if>
+            <if test="progress != null">
+                progress,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=INTEGER},
+            </if>
+            <if test="taskDocType != null">
+                #{taskDocType,jdbcType=CHAR},
+            </if>
+            <if test="taskDocUnitId != null">
+                #{taskDocUnitId,jdbcType=INTEGER},
+            </if>
+            <if test="taskDocNum != null">
+                #{taskDocNum,jdbcType=VARCHAR},
+            </if>
+            <if test="taskDocDate != null">
+                #{taskDocDate,jdbcType=DATE},
+            </if>
+            <if test="warehId != null">
+                #{warehId,jdbcType=INTEGER},
+            </if>
+            <if test="delivMode != null">
+                #{delivMode,jdbcType=CHAR},
+            </if>
+            <if test="rcvUnitId != null">
+                #{rcvUnitId,jdbcType=INTEGER},
+            </if>
+            <if test="rcvWarehId != null">
+                #{rcvWarehId,jdbcType=INTEGER},
+            </if>
+            <if test="ttlQty != null">
+                #{ttlQty,jdbcType=DOUBLE},
+            </if>
+            <if test="ttlVal != null">
+                #{ttlVal,jdbcType=DOUBLE},
+            </if>
+            <if test="multiImpl != null">
+                #{multiImpl,jdbcType=CHAR},
+            </if>
+            <if test="implTimes != null">
+                #{implTimes,jdbcType=INTEGER},
+            </if>
+            <if test="joinTime != null">
+                #{joinTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="suspended != null">
+                #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="progress != null">
+                #{progress},
+            </if>
+        </trim>
+        ON DUPLICATE KEY UPDATE ttl_qty=values(ttl_qty),ttl_val=values(ttl_val),join_time=values(join_time),remarks=values(remarks)
+    </insert>
+    <update id="updateDelivTask">
+    update wareh_deliv_task
+    <set>
+        <if test="taskDocDate != null">
+            TASK_DOC_DATE=#{taskDocDate},
+        </if>
+        <if test="warehId != null">
+            WAREH_ID=#{warehId},
+        </if>
+        <if test="delivMode != null">
+            DELIV_MODE=#{delivMode},
+        </if>
+        <if test="rcvUnitId != null">
+            RCV_UNIT_ID=#{rcvUnitId},
+        </if>
+        <if test="rcvWarehId != null">
+            RCV_WAREH_ID=#{rcvWarehId},
+        </if>
+        <if test="ttlQty != null">
+            TTL_QTY=#{ttlQty},
+        </if>
+        <if test="ttlVal != null">
+            TTL_VAL=#{ttlVal},
+        </if>
+        <if test="multiImpl != null">
+            MULTI_IMPL=#{multiImpl},
+        </if>
+        <if test="implTimes != null">
+            IMPL_TIMES=#{implTimes},
+        </if>
+        <if test="joinTime != null">
+            JOIN_TIME=#{joinTime},
+        </if>
+        <if test="suspended != null">
+            SUSPENDED=#{suspended},
+        </if>
+        <if test="remarks != null">
+            REMARKS=#{remarks},
+        </if>
+        <if test="progress != null">
+            progress=#{progress},
+        </if>
+    </set>
+    where task_doc_type=#{taskDocType} and task_doc_unit_id=#{taskDocUnitId} and task_doc_num=#{taskDocNum}
+  </update>
+    <update id="updateDelivTaskProgress">
+      update wareh_deliv_task set progress=#{yg} where task_doc_unit_id=#{taskDocUnitId} and task_doc_num=#{taskDocNum} and task_doc_type=#{taskDocType}
+    </update>
+    <select id="queryDelivTaskIsNull"
+            resultMap="BaseResultMap">
+      SELECT UNIT_ID,TASK_DOC_TYPE,TASK_DOC_UNIT_ID,TASK_DOC_NUM,TASK_DOC_DATE,WAREH_ID,DELIV_MODE,RCV_UNIT_ID,RCV_WAREH_ID,TTL_QTY,
+TTL_VAL,MULTI_IMPL,IMPL_TIMES,JOIN_TIME,SUSPENDED,REMARKS
+    FROM
+	wareh_deliv_task
+    WHERE
+	TASK_DOC_NUM = #{delivTask.taskDocNum}
+	and TASK_DOC_TYPE = #{delivTask.taskDocType}
+	and RCV_UNIT_ID = #{delivTask.rcvUnitId}
+	and WAREH_ID = #{delivTask.warehId}
+    </select>
+<!--    <select id="selectAll" resultMap="BaseResultMapVO">-->
+<!--        select <include refid="Base_Column_List"></include> from wareh_deliv_task-->
+<!--        <trim prefix="where" prefixOverrides="and | or">-->
+<!--            <if test="warehIdList!=null and warehIdList.size()&gt;0">-->
+<!--                and wareh_id in (-->
+<!--                <foreach collection="warehIdList" item="warehId" separator=",">-->
+<!--                    #{warehId}-->
+<!--                </foreach>-->
+<!--                )-->
+<!--            </if>-->
+<!--            <if test="startJoinTime!=null">-->
+<!--                and join_time &gt; #{startJoinTime}-->
+<!--            </if>-->
+<!--            <if test="endJoinTime!=null">-->
+<!--                and join_time &lt; #{endJoinTime}-->
+<!--            </if>-->
+<!--            <if test="rcvUnitNum!=null and rcvUnitNum!=''">-->
+<!--                and deliv_mode = #{delivMode}-->
+<!--            </if>-->
+<!--            <if test="rcvUnitIdList!=null and rcvUnitIdList.size()>0">-->
+<!--                and rcv_unit_id in (-->
+<!--                <foreach collection="rcvUnitIdList" item="rcvUnitId" separator=",">-->
+<!--                    #{rcvUnitId}-->
+<!--                </foreach>-->
+<!--                )-->
+<!--            </if>-->
+<!--            <if test="rcvWarehIdList!=null and rcvWarehIdList!=''">-->
+<!--                and rcv_wareh_id in(-->
+<!--                <foreach collection="rcvWarehIdList" item="rcvWarehId" separator=",">-->
+<!--                    #{rcvWarehId}-->
+<!--                </foreach>-->
+<!--                )-->
+<!--            </if>-->
+<!--            <if test="taskDocNum!=null and taskDocNum!=''">-->
+<!--                and task_doc_num LIKE CONCAT(#{taskDocNum},"%")-->
+<!--            </if>-->
+<!--            <if test="suspended!=null and suspended!=''">-->
+<!--                and suspended=#{suspended}-->
+<!--            </if>-->
+<!--            <if test="ugWarehIds!=null and ugWarehIds.size()>0">-->
+<!--                and wareh_id in (-->
+<!--                <foreach collection="ugWarehIds" item="ugWarehId" separator=",">-->
+<!--                    #{ugWarehId}-->
+<!--                </foreach>-->
+<!--                )-->
+<!--            </if>-->
+<!--            order by join_time desc-->
+<!--        </trim>-->
+<!--    </select>-->
+    <select id="selectDelivByUnitId" resultMap="BaseResultMapVO">
+        select <include refid="Base_Column_List_vo"></include> from wareh_deliv_task AS ws
+        left join sys_unit_owner AS suo ON ws.rcv_wareh_id=suo.unit_id and ws.rcv_unit_id=suo.owner_id
+        left join sys_unit AS su ON ws.rcv_wareh_id=su.unit_id
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="warehIdList!=null and warehIdList.size()&gt;0">
+                and ws.wareh_id in (
+                <foreach collection="warehIdList" item="warehId" separator=",">
+                    #{warehId}
+                </foreach>
+                )
+            </if>
+            <if test="minJoinTime!='' and minJoinTime!=null">
+                and ws.join_time &gt;= #{minJoinTime}
+            </if>
+            <if test="maxJoinTime!='' and maxJoinTime!=null">
+                and ws.join_time &lt;= #{maxJoinTime}
+            </if>
+            <if test="rcvUnitNum!=null and rcvUnitNum!=''">
+                and ws.deliv_mode = #{delivMode}
+            </if>
+            <if test="rcvUnitIdList!=null and rcvUnitIdList.size()>0">
+            and ws.rcv_unit_id in (
+            <foreach collection="rcvUnitIdList" item="rcvUnitId" separator=",">
+                #{rcvUnitId}
+            </foreach>
+            )
+        </if>
+            <if test="rcvWarehIdList!=null and rcvWarehIdList.size()>0">
+                and ws.rcv_wareh_id in(
+                <foreach collection="rcvWarehIdList" item="rcvWarehId" separator=",">
+                    #{rcvWarehId}
+                </foreach>
+                )
+            </if>
+            <if test="taskDocNum!=null and taskDocNum!=''">
+                and ws.task_doc_num LIKE CONCAT(#{taskDocNum},"%")
+            </if>
+            <if test="suspended!=null and suspended!=''">
+                and ws.suspended=#{suspended}
+            </if>
+            <if test="ugWarehIds!=null and ugWarehIds.size()>0">
+                and ws.wareh_id in (
+                <foreach collection="ugWarehIds" item="ugWarehId" separator=",">
+                    #{ugWarehId}
+                </foreach>
+                )
+            </if>
+            and ws.unit_id=#{sUnitId} order by join_time desc
+        </trim>
+    </select>
+    <select id="queryDelivTaskByBill"
+            resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from wareh_deliv_task where
+        task_doc_type=#{taskDocType} and task_doc_unit_id=#{taskDocUnitId} and task_doc_num=#{taskDocNum}
+    </select>
+    <select id="getListTotal" resultType="java.util.Map">
+        select SUM(ws.ttl_qty) AS ttlQty,SUM(ws.ttl_val) AS ttlVal from wareh_deliv_task AS ws
+        inner join sys_unit_owner AS suo ON ws.rcv_wareh_id=suo.unit_id and ws.rcv_unit_id=suo.owner_id
+        inner join sys_unit AS su ON ws.rcv_wareh_id=su.unit_id
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="warehIdList!=null and warehIdList.size()&gt;0">
+                and ws.wareh_id in (
+                <foreach collection="warehIdList" item="warehId" separator=",">
+                    #{warehId}
+                </foreach>
+                )
+            </if>
+            <if test="minJoinTime!='' and minJoinTime!=null">
+                and ws.join_time &gt;= #{minJoinTime}
+            </if>
+            <if test="maxJoinTime!='' and maxJoinTime!=null">
+                and ws.join_time &lt;= #{maxJoinTime}
+            </if>
+            <if test="rcvUnitNum!=null and rcvUnitNum!=''">
+                and ws.deliv_mode = #{delivMode}
+            </if>
+            <if test="rcvUnitIdList!=null and rcvUnitIdList.size()>0">
+                and ws.rcv_unit_id in (
+                <foreach collection="rcvUnitIdList" item="rcvUnitId" separator=",">
+                    #{rcvUnitId}
+                </foreach>
+                )
+            </if>
+            <if test="rcvWarehIdList!=null and rcvWarehIdList.size()>0">
+                and ws.rcv_wareh_id in(
+                <foreach collection="rcvWarehIdList" item="rcvWarehId" separator=",">
+                    #{rcvWarehId}
+                </foreach>
+                )
+            </if>
+            <if test="taskDocNum!=null and taskDocNum!=''">
+                and ws.task_doc_num LIKE CONCAT(#{taskDocNum},"%")
+            </if>
+            <if test="suspended!=null and suspended!=''">
+                and ws.suspended=#{suspended}
+            </if>
+            <if test="ugWarehIds!=null and ugWarehIds.size()>0">
+                and ws.wareh_id in (
+                <foreach collection="ugWarehIds" item="ugWarehId" separator=",">
+                    #{ugWarehId}
+                </foreach>
+                )
+            </if>
+            and ws.unit_id=#{sUnitId}
+        </trim>
+    </select>
+    <select id="queryDelivTaskByList"
+            resultMap="BaseResultMap">
+        <foreach collection="delivTaskList" item="delivTask" separator=" UNION ALL ">
+            select <include refid="Base_Column_List"></include> from wareh_deliv_task
+            where unit_id=#{unitId} and task_doc_type=#{delivTask.taskDocType} and task_doc_unit_id=#{delivTask.taskDocUnitId} and task_doc_num=#{delivTask.taskDocNum}
+        </foreach>
+    </select>
+</mapper>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.TfnBxiMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.TfnBxi">
+    <result column="unit_id" jdbcType="DECIMAL" property="unitId" />
+    <result column="tfn_num" jdbcType="VARCHAR" property="tfnNum" />
+    <result column="prod_cls_id" jdbcType="DECIMAL" property="prodClsId" />
+    <result column="color_id" jdbcType="DECIMAL" property="colorId" />
+    <result column="edition" jdbcType="VARCHAR" property="edition" />
+    <result column="egn_str" jdbcType="VARCHAR" property="egnStr" />
+    <result column="line_num" jdbcType="DECIMAL" property="lineNum" />
+    <result column="sat_id" jdbcType="DECIMAL" property="satId" />
+    <result column="unit_qty" jdbcType="DECIMAL" property="unitQty" />
+    <result column="box" jdbcType="DECIMAL" property="box" />
+    <result column="deliv_box" jdbcType="DECIMAL" property="delivBox" />
+    <result column="rcv_box" jdbcType="DECIMAL" property="rcvBox" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <resultMap id="BaseTfnBxiMap" type="com.boyu.erp.platform.usercenter.vo.warehouse.TfnBxiVo">
+    <result column="unit_id" jdbcType="DECIMAL" property="unitId" />
+    <result column="tfn_num" jdbcType="VARCHAR" property="tfnNum" />
+    <result column="prod_cls_id" jdbcType="DECIMAL" property="prodClsId" />
+    <result column="color_id" jdbcType="DECIMAL" property="colorId" />
+    <result column="edition" jdbcType="VARCHAR" property="edition" />
+    <result column="egn_str" jdbcType="VARCHAR" property="egnStr" />
+    <result column="line_num" jdbcType="DECIMAL" property="lineNum" />
+    <result column="sat_id" jdbcType="DECIMAL" property="satId" />
+    <result column="unit_qty" jdbcType="DECIMAL" property="unitQty" />
+    <result column="box" jdbcType="DECIMAL" property="box" />
+    <result column="deliv_box" jdbcType="DECIMAL" property="delivBox" />
+    <result column="rcv_box" jdbcType="DECIMAL" property="rcvBox" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="prodClsCode" jdbcType="VARCHAR" property="prodClsCode" />
+    <result column="inputCode" jdbcType="VARCHAR" property="inputCode" />
+    <result column="seqNum" jdbcType="VARCHAR" property="seqNum" />
+    <result column="uom" jdbcType="VARCHAR" property="uom" />
+    <result column="colorCode" jdbcType="VARCHAR" property="colorCode" />
+    <result column="colorName" jdbcType="VARCHAR" property="colorName" />
+    <result column="editionCmt" jdbcType="VARCHAR" property="editionCmt" />
+
+  </resultMap>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.TfnBxi">
+    insert into tfn_bxi (unit_id, tfn_num, prod_cls_id, 
+      color_id, edition, egn_str, 
+      line_num, sat_id, unit_qty, 
+      box, deliv_box, rcv_box, 
+      remarks)
+    values (#{unitId,jdbcType=DECIMAL}, #{tfnNum,jdbcType=VARCHAR}, #{prodClsId,jdbcType=DECIMAL}, 
+      #{colorId,jdbcType=DECIMAL}, #{edition,jdbcType=VARCHAR}, #{egnStr,jdbcType=VARCHAR}, 
+      #{lineNum,jdbcType=DECIMAL}, #{satId,jdbcType=DECIMAL}, #{unitQty,jdbcType=DECIMAL}, 
+      #{box,jdbcType=DECIMAL}, #{delivBox,jdbcType=DECIMAL}, #{rcvBox,jdbcType=DECIMAL}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <select id="getTfnBxiList" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.TfnBxi" resultMap="BaseTfnBxiMap">
+    SELECT
+      t.*,
+      t1.prod_cls_code as prodClsCode,
+      t1.prod_name as prodName,
+      t1.input_code as inputCode,
+      t1.seq_num as seqNum,
+      t1.uom as uom,
+      t2.color_code as colorCode,
+      t2.color_name as colorName,
+      t1.edition_cmt as editionCmt
+    FROM
+      tfn_bxi t
+      left join prod_cls t1 ON t.prod_cls_id = t1.prod_cls_id
+      left join color t2 on t.color_id = t2.color_id
+    WHERE 1 = 1
+    <if test="unitId != 0">
+      and t.unit_id  =  #{unitId,jdbcType=DECIMAL}
+    </if>
+    <if test="tfnNum !=null and tfnNum !=''">
+      and t.tfn_num = #{tfnNum,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <delete id="delete" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.TfnBxi">
+    delete from tfn_bxi
+    where unit_id = #{unitId,jdbcType=DECIMAL}
+    and tfn_num = #{tfnNum,jdbcType=VARCHAR}
+    <if test="prodClsId != 0">
+      and prod_cls_id = #{prodClsId,jdbcType=DECIMAL}
+    </if>
+    <if test="colorId != 0">
+      and color_id = #{colorId,jdbcType=DECIMAL}
+    </if>
+    <if test="edition != null and edition !=''">
+      and edition = #{edition,jdbcType=VARCHAR}
+    </if>
+    <if test="egnStr != null and egnStr !=''">
+      and egn_str = #{egnStr,jdbcType=VARCHAR}
+    </if>
+  </delete>
+  <update id="update" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.TfnBxi">
+    update tfn_bxi
+    set line_num = #{lineNum,jdbcType=DECIMAL},
+      sat_id = #{satId,jdbcType=DECIMAL},
+      unit_qty = #{unitQty,jdbcType=DECIMAL},
+      box = #{box,jdbcType=DECIMAL},
+      deliv_box = #{delivBox,jdbcType=DECIMAL},
+      rcv_box = #{rcvBox,jdbcType=DECIMAL},
+      remarks = #{remarks,jdbcType=DECIMAL}
+    where unit_id = #{unitId,jdbcType=DECIMAL}
+      and tfn_num = #{tfnNum,jdbcType=VARCHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=DECIMAL}
+      and color_id = #{colorId,jdbcType=DECIMAL}
+      and edition = #{edition,jdbcType=VARCHAR}
+      and egn_str = #{egnStr,jdbcType=VARCHAR}
+  </update>
+</mapper>

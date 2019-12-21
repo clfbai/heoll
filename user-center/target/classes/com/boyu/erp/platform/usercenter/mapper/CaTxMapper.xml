@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.basic.CaTxMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.basic.CaTx">
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <id column="ca_tx_id" jdbcType="BIGINT" property="caTxId" />
+    <result column="fscl_date" jdbcType="DATE" property="fsclDate" />
+    <result column="tx_time" jdbcType="TIMESTAMP" property="txTime" />
+    <result column="ca_id" jdbcType="BIGINT" property="caId" />
+    <result column="doc_type" jdbcType="CHAR" property="docType" />
+    <result column="doc_unit_id" jdbcType="BIGINT" property="docUnitId" />
+    <result column="doc_num" jdbcType="VARCHAR" property="docNum" />
+    <result column="ca_tx_kind" jdbcType="CHAR" property="caTxKind" />
+    <result column="ca_tx_type" jdbcType="VARCHAR" property="caTxType" />
+    <result column="ca_val_form" jdbcType="CHAR" property="caValForm" />
+    <result column="is_memo" jdbcType="CHAR" property="isMemo" />
+    <result column="db_val" jdbcType="DECIMAL" property="dbVal" />
+    <result column="cr_val" jdbcType="DECIMAL" property="crVal" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    unit_id, ca_tx_id, fscl_date, tx_time, ca_id, doc_type, doc_unit_id, doc_num, ca_tx_kind, 
+    ca_tx_type, ca_val_form, is_memo, db_val, cr_val, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.CaTx" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ca_tx
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and ca_tx_id = #{caTxId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.CaTx">
+    delete from ca_tx
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and ca_tx_id = #{caTxId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.basic.CaTx">
+    insert into ca_tx (unit_id, ca_tx_id, fscl_date, 
+      tx_time, ca_id, doc_type, 
+      doc_unit_id, doc_num, ca_tx_kind, 
+      ca_tx_type, ca_val_form, is_memo, 
+      db_val, cr_val, remarks
+      )
+    values (#{unitId,jdbcType=BIGINT}, #{caTxId,jdbcType=BIGINT}, #{fsclDate,jdbcType=DATE}, 
+      #{txTime,jdbcType=TIMESTAMP}, #{caId,jdbcType=BIGINT}, #{docType,jdbcType=CHAR}, 
+      #{docUnitId,jdbcType=BIGINT}, #{docNum,jdbcType=VARCHAR}, #{caTxKind,jdbcType=CHAR}, 
+      #{caTxType,jdbcType=VARCHAR}, #{caValForm,jdbcType=CHAR}, #{isMemo,jdbcType=CHAR}, 
+      #{dbVal,jdbcType=DECIMAL}, #{crVal,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.CaTx">
+    insert into ca_tx
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="caTxId != null">
+        ca_tx_id,
+      </if>
+      <if test="fsclDate != null">
+        fscl_date,
+      </if>
+      <if test="txTime != null">
+        tx_time,
+      </if>
+      <if test="caId != null">
+        ca_id,
+      </if>
+      <if test="docType != null">
+        doc_type,
+      </if>
+      <if test="docUnitId != null">
+        doc_unit_id,
+      </if>
+      <if test="docNum != null">
+        doc_num,
+      </if>
+      <if test="caTxKind != null">
+        ca_tx_kind,
+      </if>
+      <if test="caTxType != null">
+        ca_tx_type,
+      </if>
+      <if test="caValForm != null">
+        ca_val_form,
+      </if>
+      <if test="isMemo != null">
+        is_memo,
+      </if>
+      <if test="dbVal != null">
+        db_val,
+      </if>
+      <if test="crVal != null">
+        cr_val,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="caTxId != null">
+        #{caTxId,jdbcType=BIGINT},
+      </if>
+      <if test="fsclDate != null">
+        #{fsclDate,jdbcType=DATE},
+      </if>
+      <if test="txTime != null">
+        #{txTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="caId != null">
+        #{caId,jdbcType=BIGINT},
+      </if>
+      <if test="docType != null">
+        #{docType,jdbcType=CHAR},
+      </if>
+      <if test="docUnitId != null">
+        #{docUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="docNum != null">
+        #{docNum,jdbcType=VARCHAR},
+      </if>
+      <if test="caTxKind != null">
+        #{caTxKind,jdbcType=CHAR},
+      </if>
+      <if test="caTxType != null">
+        #{caTxType,jdbcType=VARCHAR},
+      </if>
+      <if test="caValForm != null">
+        #{caValForm,jdbcType=CHAR},
+      </if>
+      <if test="isMemo != null">
+        #{isMemo,jdbcType=CHAR},
+      </if>
+      <if test="dbVal != null">
+        #{dbVal,jdbcType=DECIMAL},
+      </if>
+      <if test="crVal != null">
+        #{crVal,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.CaTx">
+    update ca_tx
+    <set>
+      <if test="fsclDate != null">
+        fscl_date = #{fsclDate,jdbcType=DATE},
+      </if>
+      <if test="txTime != null">
+        tx_time = #{txTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="caId != null">
+        ca_id = #{caId,jdbcType=BIGINT},
+      </if>
+      <if test="docType != null">
+        doc_type = #{docType,jdbcType=CHAR},
+      </if>
+      <if test="docUnitId != null">
+        doc_unit_id = #{docUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="docNum != null">
+        doc_num = #{docNum,jdbcType=VARCHAR},
+      </if>
+      <if test="caTxKind != null">
+        ca_tx_kind = #{caTxKind,jdbcType=CHAR},
+      </if>
+      <if test="caTxType != null">
+        ca_tx_type = #{caTxType,jdbcType=VARCHAR},
+      </if>
+      <if test="caValForm != null">
+        ca_val_form = #{caValForm,jdbcType=CHAR},
+      </if>
+      <if test="isMemo != null">
+        is_memo = #{isMemo,jdbcType=CHAR},
+      </if>
+      <if test="dbVal != null">
+        db_val = #{dbVal,jdbcType=DECIMAL},
+      </if>
+      <if test="crVal != null">
+        cr_val = #{crVal,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and ca_tx_id = #{caTxId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.CaTx">
+    update ca_tx
+    set fscl_date = #{fsclDate,jdbcType=DATE},
+      tx_time = #{txTime,jdbcType=TIMESTAMP},
+      ca_id = #{caId,jdbcType=BIGINT},
+      doc_type = #{docType,jdbcType=CHAR},
+      doc_unit_id = #{docUnitId,jdbcType=BIGINT},
+      doc_num = #{docNum,jdbcType=VARCHAR},
+      ca_tx_kind = #{caTxKind,jdbcType=CHAR},
+      ca_tx_type = #{caTxType,jdbcType=VARCHAR},
+      ca_val_form = #{caValForm,jdbcType=CHAR},
+      is_memo = #{isMemo,jdbcType=CHAR},
+      db_val = #{dbVal,jdbcType=DECIMAL},
+      cr_val = #{crVal,jdbcType=DECIMAL},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and ca_tx_id = #{caTxId,jdbcType=BIGINT}
+  </update>
+</mapper>

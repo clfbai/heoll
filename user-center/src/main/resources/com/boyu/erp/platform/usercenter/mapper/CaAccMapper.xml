@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.basic.CaAccMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.basic.CaAcc">
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <id column="ca_id" jdbcType="BIGINT" property="caId" />
+    <id column="doc_type" jdbcType="CHAR" property="docType" />
+    <id column="doc_unit_id" jdbcType="BIGINT" property="docUnitId" />
+    <id column="doc_num" jdbcType="VARCHAR" property="docNum" />
+    <result column="db_acc_val" jdbcType="DECIMAL" property="dbAccVal" />
+    <result column="cr_acc_val" jdbcType="DECIMAL" property="crAccVal" />
+    <result column="bnd_doc_type" jdbcType="CHAR" property="bndDocType" />
+    <result column="bnd_doc_unit_id" jdbcType="BIGINT" property="bndDocUnitId" />
+    <result column="bnd_doc_num" jdbcType="VARCHAR" property="bndDocNum" />
+    <result column="docTypeCp" property="docTypeCp" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    unit_id, ca_id, doc_type, doc_unit_id, doc_num, db_acc_val, cr_acc_val, bnd_doc_type, 
+    bnd_doc_unit_id, bnd_doc_num
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.CaAcc" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ca_acc
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and ca_id = #{caId,jdbcType=BIGINT}
+      and doc_type = #{docType,jdbcType=CHAR}
+      and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.CaAcc">
+    delete from ca_acc
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and ca_id = #{caId,jdbcType=BIGINT}
+      and doc_type = #{docType,jdbcType=CHAR}
+      and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.basic.CaAcc">
+    insert into ca_acc (unit_id, ca_id, doc_type, 
+      doc_unit_id, doc_num, db_acc_val, 
+      cr_acc_val, bnd_doc_type, bnd_doc_unit_id, 
+      bnd_doc_num)
+    values (#{unitId,jdbcType=BIGINT}, #{caId,jdbcType=BIGINT}, #{docType,jdbcType=CHAR}, 
+      #{docUnitId,jdbcType=BIGINT}, #{docNum,jdbcType=VARCHAR}, #{dbAccVal,jdbcType=DECIMAL}, 
+      #{crAccVal,jdbcType=DECIMAL}, #{bndDocType,jdbcType=CHAR}, #{bndDocUnitId,jdbcType=BIGINT}, 
+      #{bndDocNum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.CaAcc">
+    insert into ca_acc
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="caId != null">
+        ca_id,
+      </if>
+      <if test="docType != null">
+        doc_type,
+      </if>
+      <if test="docUnitId != null">
+        doc_unit_id,
+      </if>
+      <if test="docNum != null">
+        doc_num,
+      </if>
+      <if test="dbAccVal != null">
+        db_acc_val,
+      </if>
+      <if test="crAccVal != null">
+        cr_acc_val,
+      </if>
+      <if test="bndDocType != null">
+        bnd_doc_type,
+      </if>
+      <if test="bndDocUnitId != null">
+        bnd_doc_unit_id,
+      </if>
+      <if test="bndDocNum != null">
+        bnd_doc_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="caId != null">
+        #{caId,jdbcType=BIGINT},
+      </if>
+      <if test="docType != null">
+        #{docType,jdbcType=CHAR},
+      </if>
+      <if test="docUnitId != null">
+        #{docUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="docNum != null">
+        #{docNum,jdbcType=VARCHAR},
+      </if>
+      <if test="dbAccVal != null">
+        #{dbAccVal,jdbcType=DECIMAL},
+      </if>
+      <if test="crAccVal != null">
+        #{crAccVal,jdbcType=DECIMAL},
+      </if>
+      <if test="bndDocType != null">
+        #{bndDocType,jdbcType=CHAR},
+      </if>
+      <if test="bndDocUnitId != null">
+        #{bndDocUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="bndDocNum != null">
+        #{bndDocNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.CaAcc">
+    update ca_acc
+    <set>
+      <if test="dbAccVal != null">
+        db_acc_val = #{dbAccVal,jdbcType=DECIMAL},
+      </if>
+      <if test="crAccVal != null">
+        cr_acc_val = #{crAccVal,jdbcType=DECIMAL},
+      </if>
+      <if test="bndDocType != null">
+        bnd_doc_type = #{bndDocType,jdbcType=CHAR},
+      </if>
+      <if test="bndDocUnitId != null">
+        bnd_doc_unit_id = #{bndDocUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="bndDocNum != null">
+        bnd_doc_num = #{bndDocNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and ca_id = #{caId,jdbcType=BIGINT}
+      and doc_type = #{docType,jdbcType=CHAR}
+      and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.CaAcc">
+    update ca_acc
+    set db_acc_val = #{dbAccVal,jdbcType=DECIMAL},
+      cr_acc_val = #{crAccVal,jdbcType=DECIMAL},
+      bnd_doc_type = #{bndDocType,jdbcType=CHAR},
+      bnd_doc_unit_id = #{bndDocUnitId,jdbcType=BIGINT},
+      bnd_doc_num = #{bndDocNum,jdbcType=VARCHAR}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and ca_id = #{caId,jdbcType=BIGINT}
+      and doc_type = #{docType,jdbcType=CHAR}
+      and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectByDoc" parameterType="com.boyu.erp.platform.usercenter.entity.basic.CaAcc" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ca_acc
+    where doc_type = #{docType,jdbcType=CHAR}
+    and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+    and doc_num = #{docNum,jdbcType=VARCHAR}
+    <if test="caId!=null and caId!='' and caId!=0 ">
+        and ca_id = #{caId,jdbcType=BIGINT}
+    </if>
+  </select>
+
+  <delete id="deleteByRevoke" parameterType="java.util.List">
+    <foreach collection="list" item="item" index="index" separator=";">
+      delete from ca_acc
+      where unit_id = #{item.unitId}
+        and ca_id = #{item.caId}
+        and doc_type = #{item.docType}
+        and doc_unit_id = #{item.docUnitId}
+        and doc_num = #{item.docNum}
+    </foreach>
+  </delete>
+
+  <select id="selectALL" parameterType="com.boyu.erp.platform.usercenter.vo.system.CaVo" resultMap="BaseResultMap">
+    select
+    ca.*,scd.description AS docTypeCp
+    from ca_acc ca LEFT JOIN sys_code_dtl scd ON scd.`code` = ca.doc_type AND code_type='DOC_TYPE'
+    where ca.unit_id = #{unitId,jdbcType=BIGINT}
+    and ca.ca_id = #{caId,jdbcType=BIGINT}
+  </select>
+</mapper>

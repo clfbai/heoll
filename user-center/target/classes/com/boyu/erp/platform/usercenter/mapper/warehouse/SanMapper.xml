@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.SanMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.San">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="san_num" jdbcType="VARCHAR" property="sanNum"/>
+        <result column="doc_date" jdbcType="DATE" property="docDate"/>
+        <result column="fscl_date" jdbcType="DATE" property="fsclDate"/>
+        <result column="wareh_id" jdbcType="BIGINT" property="warehId"/>
+        <result column="fscl_unit_id" jdbcType="BIGINT" property="fsclUnitId"/>
+        <result column="loc_adopted" jdbcType="CHAR" property="locAdopted"/>
+        <result column="stk_form" jdbcType="CHAR" property="stkForm"/>
+        <result column="sad_type" jdbcType="VARCHAR" property="sadType"/>
+        <result column="ttl_qty" jdbcType="DECIMAL" property="ttlQty"/>
+        <result column="ttl_box" jdbcType="INTEGER" property="ttlBox"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="op_time" jdbcType="TIMESTAMP" property="opTime"/>
+        <result column="chkr_id" jdbcType="BIGINT" property="chkrId"/>
+        <result column="chk_time" jdbcType="TIMESTAMP" property="chkTime"/>
+        <result column="acck_id" jdbcType="BIGINT" property="acckId"/>
+        <result column="post_time" jdbcType="TIMESTAMP" property="postTime"/>
+        <result column="effective" jdbcType="CHAR" property="effective"/>
+        <result column="progress" jdbcType="CHAR" property="progress"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="cancelled" jdbcType="CHAR" property="cancelled"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+    <resultMap id="BaseResultMapVO" type="com.boyu.erp.platform.usercenter.vo.warehouse.SanVO">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="san_num" jdbcType="VARCHAR" property="sanNum"/>
+        <result column="doc_date" jdbcType="DATE" property="docDate"/>
+        <result column="fscl_date" jdbcType="DATE" property="fsclDate"/>
+        <result column="wareh_id" jdbcType="BIGINT" property="warehId"/>
+        <result column="fscl_unit_id" jdbcType="BIGINT" property="fsclUnitId"/>
+        <result column="loc_adopted" jdbcType="CHAR" property="locAdopted"/>
+        <result column="stk_form" jdbcType="CHAR" property="stkForm"/>
+        <result column="sad_type" jdbcType="VARCHAR" property="sadType"/>
+        <result column="ttl_qty" jdbcType="DECIMAL" property="ttlQty"/>
+        <result column="ttl_box" jdbcType="INTEGER" property="ttlBox"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="op_time" jdbcType="TIMESTAMP" property="opTime"/>
+        <result column="chkr_id" jdbcType="BIGINT" property="chkrId"/>
+        <result column="chk_time" jdbcType="TIMESTAMP" property="chkTime"/>
+        <result column="acck_id" jdbcType="BIGINT" property="acckId"/>
+        <result column="post_time" jdbcType="TIMESTAMP" property="postTime"/>
+        <result column="effective" jdbcType="CHAR" property="effective"/>
+        <result column="progress" jdbcType="CHAR" property="progress"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="cancelled" jdbcType="CHAR" property="cancelled"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    unit_id, san_num, doc_date, fscl_date, wareh_id, fscl_unit_id, loc_adopted, stk_form, 
+    sad_type, ttl_qty, ttl_box, opr_id, op_time, chkr_id, chk_time, acck_id, post_time, 
+    effective, progress, suspended, cancelled, remarks
+  </sql>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.San">
+    insert into san (unit_id, san_num, doc_date, 
+      fscl_date, wareh_id, fscl_unit_id, 
+      loc_adopted, stk_form, sad_type, 
+      ttl_qty, ttl_box, opr_id, 
+      op_time, chkr_id, chk_time, 
+      acck_id, post_time, effective, 
+      progress, suspended, cancelled, 
+      remarks)
+    values (#{unitId,jdbcType=BIGINT}, #{sanNum,jdbcType=VARCHAR}, #{docDate,jdbcType=DATE}, 
+      #{fsclDate,jdbcType=DATE}, #{warehId,jdbcType=BIGINT}, #{fsclUnitId,jdbcType=BIGINT}, 
+      #{locAdopted,jdbcType=CHAR}, #{stkForm,jdbcType=CHAR}, #{sadType,jdbcType=VARCHAR}, 
+      #{ttlQty,jdbcType=DECIMAL}, #{ttlBox,jdbcType=INTEGER}, #{oprId,jdbcType=BIGINT}, 
+      #{opTime,jdbcType=TIMESTAMP}, #{chkrId,jdbcType=BIGINT}, #{chkTime,jdbcType=TIMESTAMP}, 
+      #{acckId,jdbcType=BIGINT}, #{postTime,jdbcType=TIMESTAMP}, #{effective,jdbcType=CHAR}, 
+      #{progress,jdbcType=CHAR}, #{suspended,jdbcType=CHAR}, #{cancelled,jdbcType=CHAR}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.San">
+        insert into san
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="sanNum != null">
+                san_num,
+            </if>
+            <if test="docDate != null">
+                doc_date,
+            </if>
+            <if test="fsclDate != null">
+                fscl_date,
+            </if>
+            <if test="warehId != null">
+                wareh_id,
+            </if>
+            <if test="fsclUnitId != null">
+                fscl_unit_id,
+            </if>
+            <if test="locAdopted != null">
+                loc_adopted,
+            </if>
+            <if test="stkForm != null">
+                stk_form,
+            </if>
+            <if test="sadType != null">
+                sad_type,
+            </if>
+            <if test="ttlQty != null">
+                ttl_qty,
+            </if>
+            <if test="ttlBox != null">
+                ttl_box,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+            <if test="opTime != null">
+                op_time,
+            </if>
+            <if test="chkrId != null">
+                chkr_id,
+            </if>
+            <if test="chkTime != null">
+                chk_time,
+            </if>
+            <if test="acckId != null">
+                acck_id,
+            </if>
+            <if test="postTime != null">
+                post_time,
+            </if>
+            <if test="effective != null">
+                effective,
+            </if>
+            <if test="progress != null">
+                progress,
+            </if>
+            <if test="suspended != null">
+                suspended,
+            </if>
+            <if test="cancelled != null">
+                cancelled,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="sanNum != null">
+                #{sanNum,jdbcType=VARCHAR},
+            </if>
+            <if test="docDate != null">
+                #{docDate,jdbcType=DATE},
+            </if>
+            <if test="fsclDate != null">
+                #{fsclDate,jdbcType=DATE},
+            </if>
+            <if test="warehId != null">
+                #{warehId,jdbcType=BIGINT},
+            </if>
+            <if test="fsclUnitId != null">
+                #{fsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="locAdopted != null">
+                #{locAdopted,jdbcType=CHAR},
+            </if>
+            <if test="stkForm != null">
+                #{stkForm,jdbcType=CHAR},
+            </if>
+            <if test="sadType != null">
+                #{sadType,jdbcType=VARCHAR},
+            </if>
+            <if test="ttlQty != null">
+                #{ttlQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlBox != null">
+                #{ttlBox,jdbcType=INTEGER},
+            </if>
+            <if test="oprId != null">
+                #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="opTime != null">
+                #{opTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="chkrId != null">
+                #{chkrId,jdbcType=BIGINT},
+            </if>
+            <if test="chkTime != null">
+                #{chkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="acckId != null">
+                #{acckId,jdbcType=BIGINT},
+            </if>
+            <if test="postTime != null">
+                #{postTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="effective != null">
+                #{effective,jdbcType=CHAR},
+            </if>
+            <if test="progress != null">
+                #{progress,jdbcType=CHAR},
+            </if>
+            <if test="suspended != null">
+                #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="cancelled != null">
+                #{cancelled,jdbcType=CHAR},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.San">
+        update san
+        <set>
+            <if test="docDate != null">
+                doc_date = #{docDate,jdbcType=DATE},
+            </if>
+            <if test="fsclDate != null">
+                fscl_date = #{fsclDate,jdbcType=DATE},
+            </if>
+            <if test="warehId != null">
+                wareh_id = #{warehId,jdbcType=BIGINT},
+            </if>
+            <if test="fsclUnitId != null">
+                fscl_unit_id = #{fsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="locAdopted != null">
+                loc_adopted = #{locAdopted,jdbcType=CHAR},
+            </if>
+            <if test="stkForm != null">
+                stk_form = #{stkForm,jdbcType=CHAR},
+            </if>
+            <if test="sadType != null">
+                sad_type = #{sadType,jdbcType=VARCHAR},
+            </if>
+            <if test="ttlQty != null">
+                ttl_qty = #{ttlQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlBox != null">
+                ttl_box = #{ttlBox,jdbcType=INTEGER},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="opTime != null">
+                op_time = #{opTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="chkrId != null">
+                chkr_id = #{chkrId,jdbcType=BIGINT},
+            </if>
+            <if test="chkTime != null">
+                chk_time = #{chkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="acckId != null">
+                acck_id = #{acckId,jdbcType=BIGINT},
+            </if>
+            <if test="postTime != null">
+                post_time = #{postTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="effective != null">
+                effective = #{effective,jdbcType=CHAR},
+            </if>
+            <if test="progress != null">
+                progress = #{progress,jdbcType=CHAR},
+            </if>
+            <if test="suspended != null">
+                suspended = #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="cancelled != null">
+                cancelled = #{cancelled,jdbcType=CHAR},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and san_num = #{sanNum,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.San">
+    update san
+    set doc_date = #{docDate,jdbcType=DATE},
+      fscl_date = #{fsclDate,jdbcType=DATE},
+      wareh_id = #{warehId,jdbcType=BIGINT},
+      fscl_unit_id = #{fsclUnitId,jdbcType=BIGINT},
+      loc_adopted = #{locAdopted,jdbcType=CHAR},
+      stk_form = #{stkForm,jdbcType=CHAR},
+      sad_type = #{sadType,jdbcType=VARCHAR},
+      ttl_qty = #{ttlQty,jdbcType=DECIMAL},
+      ttl_box = #{ttlBox,jdbcType=INTEGER},
+      opr_id = #{oprId,jdbcType=BIGINT},
+      op_time = #{opTime,jdbcType=TIMESTAMP},
+      chkr_id = #{chkrId,jdbcType=BIGINT},
+      chk_time = #{chkTime,jdbcType=TIMESTAMP},
+      acck_id = #{acckId,jdbcType=BIGINT},
+      post_time = #{postTime,jdbcType=TIMESTAMP},
+      effective = #{effective,jdbcType=CHAR},
+      progress = #{progress,jdbcType=CHAR},
+      suspended = #{suspended,jdbcType=CHAR},
+      cancelled = #{cancelled,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and san_num = #{sanNum,jdbcType=VARCHAR}
+  </update>
+    <delete id="delSan">
+        delete from san
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="san.sanNum!=null and san.san.sanNum!=''">
+                and san_num = #{san.sanNum}
+            </if>
+            and unit_id = #{unitId}
+        </trim>
+    </delete>
+    <select id="queryList" resultMap="BaseResultMapVO">
+        select <include refid="Base_Column_List"></include> from san
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="sanFilterModel.sanNum!=null and sanFilterModel.sanNum != ''">
+                and san_num LIKE CONCAT(#{sanFilterModel.sanNum},"%")
+            </if>
+            <if test="sanFilterModel.minDocDate!=null">
+                and doc_date &gt;= #{sanFilterModel.minDocDate}
+            </if>
+            <if test="sanFilterModel.maxDocDate!=null">
+                and doc_date &lt;= #{sanFilterModel.maxDocDate}
+            </if>
+            <if test="sanFilterModel.warehIds!=null and sanFilterModel.warehIds.size()>0">
+                and wareh_id in (
+                <foreach collection="sanFilterModel.warehIds" item="warehId" separator="," open="" close="">
+                    #{warehId}
+                </foreach>
+                )
+            </if>
+            <if test="sanFilterModel.progress!=null and sanFilterModel.progress!=''">
+                and progress = #{sanFilterModel.progress}
+            </if>
+            and unit_id = #{unitId}
+        </trim>
+    </select>
+    <select id="querySanByNumAndUnit" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from san where san_num=#{sanNum} and unit_id = #{unitId}
+    </select>
+    <select id="querySanByProp" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from san
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="san.sanNum!=null and san.sanNum!=''">
+                and san_num = #{san.sanNum}
+            </if>
+            and unit_id = #{unitId}
+        </trim>
+    </select>
+</mapper>

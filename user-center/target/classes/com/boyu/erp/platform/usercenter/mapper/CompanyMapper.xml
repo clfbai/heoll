@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.basic.CompanyMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.basic.Company">
+    <id column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="nat_tax_num" jdbcType="VARCHAR" property="natTaxNum" />
+    <result column="loc_tax_num" jdbcType="VARCHAR" property="locTaxNum" />
+    <result column="reg_fund" jdbcType="DECIMAL" property="regFund" />
+    <result column="bank" jdbcType="VARCHAR" property="bank" />
+    <result column="bank_ac_num" jdbcType="VARCHAR" property="bankAcNum" />
+    <result column="sd_plcy_id" jdbcType="VARCHAR" property="sdPlcyId" />
+    <result column="dflt_pu_wareh_id" jdbcType="BIGINT" property="dfltPuWarehId" />
+    <result column="dflt_rp_wareh_id" jdbcType="BIGINT" property="dfltRpWarehId" />
+    <result column="dflt_sl_wareh_id" jdbcType="BIGINT" property="dfltSlWarehId" />
+    <result column="dflt_rs_wareh_id" jdbcType="BIGINT" property="dfltRsWarehId" />
+    <result column="dflt_inf_wareh_id" jdbcType="BIGINT" property="dfltInfWarehId" />
+    <result column="dflt_tran_wareh_id" jdbcType="BIGINT" property="dfltTranWarehId" />
+    <result column="dflt_rep_wareh_id" jdbcType="BIGINT" property="dfltRepWarehId" />
+    <result column="dflt_rhd_wareh_id" jdbcType="BIGINT" property="dfltRhdWarehId" />
+    <result column="fscl_unit_id" jdbcType="BIGINT" property="fsclUnitId" />
+    <result column="opr_id" jdbcType="BIGINT" property="oprId" />
+    <result column="upd_time" jdbcType="TIMESTAMP" property="updTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    company_id, nat_tax_num, loc_tax_num, reg_fund, bank, bank_ac_num, sd_plcy_id, dflt_pu_wareh_id, 
+    dflt_rp_wareh_id, dflt_sl_wareh_id, dflt_rs_wareh_id, dflt_inf_wareh_id, dflt_tran_wareh_id, 
+    dflt_rep_wareh_id, dflt_rhd_wareh_id, fscl_unit_id, opr_id, upd_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from company
+    where company_id = #{companyId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from company
+    where company_id = #{companyId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Company">
+    insert into company (company_id, nat_tax_num, loc_tax_num, 
+      reg_fund, bank, bank_ac_num, 
+      sd_plcy_id, dflt_pu_wareh_id, dflt_rp_wareh_id, 
+      dflt_sl_wareh_id, dflt_rs_wareh_id, dflt_inf_wareh_id, 
+      dflt_tran_wareh_id, dflt_rep_wareh_id, dflt_rhd_wareh_id, 
+      fscl_unit_id, opr_id, upd_time
+      )
+    values (#{companyId,jdbcType=BIGINT}, #{natTaxNum,jdbcType=VARCHAR}, #{locTaxNum,jdbcType=VARCHAR}, 
+      #{regFund,jdbcType=DECIMAL}, #{bank,jdbcType=VARCHAR}, #{bankAcNum,jdbcType=VARCHAR}, 
+      #{sdPlcyId,jdbcType=VARCHAR}, #{dfltPuWarehId,jdbcType=BIGINT}, #{dfltRpWarehId,jdbcType=BIGINT}, 
+      #{dfltSlWarehId,jdbcType=BIGINT}, #{dfltRsWarehId,jdbcType=BIGINT}, #{dfltInfWarehId,jdbcType=BIGINT}, 
+      #{dfltTranWarehId,jdbcType=BIGINT}, #{dfltRepWarehId,jdbcType=BIGINT}, #{dfltRhdWarehId,jdbcType=BIGINT}, 
+      #{fsclUnitId,jdbcType=BIGINT}, #{oprId,jdbcType=BIGINT}, #{updTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Company">
+    insert into company
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="natTaxNum != null">
+        nat_tax_num,
+      </if>
+      <if test="locTaxNum != null">
+        loc_tax_num,
+      </if>
+      <if test="regFund != null">
+        reg_fund,
+      </if>
+      <if test="bank != null">
+        bank,
+      </if>
+      <if test="bankAcNum != null">
+        bank_ac_num,
+      </if>
+      <if test="sdPlcyId != null">
+        sd_plcy_id,
+      </if>
+      <if test="dfltPuWarehId != null">
+        dflt_pu_wareh_id,
+      </if>
+      <if test="dfltRpWarehId != null">
+        dflt_rp_wareh_id,
+      </if>
+      <if test="dfltSlWarehId != null">
+        dflt_sl_wareh_id,
+      </if>
+      <if test="dfltRsWarehId != null">
+        dflt_rs_wareh_id,
+      </if>
+      <if test="dfltInfWarehId != null">
+        dflt_inf_wareh_id,
+      </if>
+      <if test="dfltTranWarehId != null">
+        dflt_tran_wareh_id,
+      </if>
+      <if test="dfltRepWarehId != null">
+        dflt_rep_wareh_id,
+      </if>
+      <if test="dfltRhdWarehId != null">
+        dflt_rhd_wareh_id,
+      </if>
+      <if test="fsclUnitId != null">
+        fscl_unit_id,
+      </if>
+      <if test="oprId != null">
+        opr_id,
+      </if>
+      <if test="updTime != null">
+        upd_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="companyId != null">
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="natTaxNum != null">
+        #{natTaxNum,jdbcType=VARCHAR},
+      </if>
+      <if test="locTaxNum != null">
+        #{locTaxNum,jdbcType=VARCHAR},
+      </if>
+      <if test="regFund != null">
+        #{regFund,jdbcType=DECIMAL},
+      </if>
+      <if test="bank != null">
+        #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAcNum != null">
+        #{bankAcNum,jdbcType=VARCHAR},
+      </if>
+      <if test="sdPlcyId != null">
+        #{sdPlcyId,jdbcType=VARCHAR},
+      </if>
+      <if test="dfltPuWarehId != null">
+        #{dfltPuWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="dfltRpWarehId != null">
+        #{dfltRpWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="dfltSlWarehId != null">
+        #{dfltSlWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="dfltRsWarehId != null">
+        #{dfltRsWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="dfltInfWarehId != null">
+        #{dfltInfWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="dfltTranWarehId != null">
+        #{dfltTranWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="dfltRepWarehId != null">
+        #{dfltRepWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="dfltRhdWarehId != null">
+        #{dfltRhdWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="fsclUnitId != null">
+        #{fsclUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="oprId != null">
+        #{oprId,jdbcType=BIGINT},
+      </if>
+      <if test="updTime != null">
+        #{updTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Company">
+    update company
+    <set>
+      <if test="natTaxNum != null">
+        nat_tax_num = #{natTaxNum,jdbcType=VARCHAR},
+      </if>
+      <if test="locTaxNum != null">
+        loc_tax_num = #{locTaxNum,jdbcType=VARCHAR},
+      </if>
+      <if test="regFund != null">
+        reg_fund = #{regFund,jdbcType=DECIMAL},
+      </if>
+      <if test="bank != null">
+        bank = #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAcNum != null">
+        bank_ac_num = #{bankAcNum,jdbcType=VARCHAR},
+      </if>
+      <if test="sdPlcyId != null">
+        sd_plcy_id = #{sdPlcyId,jdbcType=VARCHAR},
+      </if>
+      <if test="dfltPuWarehId != null">
+        dflt_pu_wareh_id = #{dfltPuWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="dfltRpWarehId != null">
+        dflt_rp_wareh_id = #{dfltRpWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="dfltSlWarehId != null">
+        dflt_sl_wareh_id = #{dfltSlWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="dfltRsWarehId != null">
+        dflt_rs_wareh_id = #{dfltRsWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="dfltInfWarehId != null">
+        dflt_inf_wareh_id = #{dfltInfWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="dfltTranWarehId != null">
+        dflt_tran_wareh_id = #{dfltTranWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="dfltRepWarehId != null">
+        dflt_rep_wareh_id = #{dfltRepWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="dfltRhdWarehId != null">
+        dflt_rhd_wareh_id = #{dfltRhdWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="fsclUnitId != null">
+        fscl_unit_id = #{fsclUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="oprId != null">
+        opr_id = #{oprId,jdbcType=BIGINT},
+      </if>
+      <if test="updTime != null">
+        upd_time = #{updTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where company_id = #{companyId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Company">
+    update company
+    set nat_tax_num = #{natTaxNum,jdbcType=VARCHAR},
+      loc_tax_num = #{locTaxNum,jdbcType=VARCHAR},
+      reg_fund = #{regFund,jdbcType=DECIMAL},
+      bank = #{bank,jdbcType=VARCHAR},
+      bank_ac_num = #{bankAcNum,jdbcType=VARCHAR},
+      sd_plcy_id = #{sdPlcyId,jdbcType=VARCHAR},
+      dflt_pu_wareh_id = #{dfltPuWarehId,jdbcType=BIGINT},
+      dflt_rp_wareh_id = #{dfltRpWarehId,jdbcType=BIGINT},
+      dflt_sl_wareh_id = #{dfltSlWarehId,jdbcType=BIGINT},
+      dflt_rs_wareh_id = #{dfltRsWarehId,jdbcType=BIGINT},
+      dflt_inf_wareh_id = #{dfltInfWarehId,jdbcType=BIGINT},
+      dflt_tran_wareh_id = #{dfltTranWarehId,jdbcType=BIGINT},
+      dflt_rep_wareh_id = #{dfltRepWarehId,jdbcType=BIGINT},
+      dflt_rhd_wareh_id = #{dfltRhdWarehId,jdbcType=BIGINT},
+      fscl_unit_id = #{fsclUnitId,jdbcType=BIGINT},
+      opr_id = #{oprId,jdbcType=BIGINT},
+      upd_time = #{updTime,jdbcType=TIMESTAMP}
+    where company_id = #{companyId,jdbcType=BIGINT}
+  </update>
+  <!-- 供应商中添加公司 -->
+  <insert id="insertByCom" parameterType="java.util.Map">
+    insert into company
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vo.unitId != null">
+        company_id,
+      </if>
+      <if test="vo.natTaxNum != null">
+        nat_tax_num,
+      </if>
+      <if test="vo.locTaxNum != null">
+        loc_tax_num,
+      </if>
+      <if test="vo.regFund != null">
+        reg_fund,
+      </if>
+      <if test="vo.bank != null">
+        bank,
+      </if>
+      <if test="vo.bankAcNum != null">
+        bank_ac_num,
+      </if>
+      <if test="vo.sdPlcyId != null">
+        sd_plcy_id,
+      </if>
+      <if test="vo.oprId != null">
+        opr_id,
+      </if>
+
+      upd_time,
+      <if test="vo.unitId != null">
+        fscl_unit_id,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vo.unitId != null">
+        #{vo.unitId},
+      </if>
+      <if test="vo.natTaxNum != null">
+        #{vo.natTaxNum,jdbcType=VARCHAR},
+      </if>
+      <if test="vo.locTaxNum != null">
+        #{vo.locTaxNum,jdbcType=VARCHAR},
+      </if>
+      <if test="vo.regFund != null">
+        #{vo.regFund,jdbcType=DECIMAL},
+      </if>
+      <if test="vo.bank != null">
+        #{vo.bank,jdbcType=VARCHAR},
+      </if>
+      <if test="vo.bankAcNum != null">
+        #{vo.bankAcNum,jdbcType=VARCHAR},
+      </if>
+      <if test="vo.sdPlcyId != null">
+        #{vo.sdPlcyId,jdbcType=VARCHAR},
+      </if>
+      <if test="vo.oprId != null">
+        #{vo.oprId,jdbcType=BIGINT},
+      </if>
+      now(),
+      <if test="vo.unitId != null">
+        #{vo.unitId},
+      </if>
+    </trim>
+  </insert>
+
+  <!--供应商页面的修改-->
+  <update id="updateByCom" parameterType="java.util.Map">
+    update company
+    set nat_tax_num = #{vo.natTaxNum,jdbcType=VARCHAR},
+      loc_tax_num = #{vo.locTaxNum,jdbcType=VARCHAR},
+      reg_fund = #{vo.regFund,jdbcType=DECIMAL},
+      bank = #{vo.bank,jdbcType=VARCHAR},
+      bank_ac_num = #{vo.bankAcNum,jdbcType=VARCHAR},
+      sd_plcy_id = #{vo.sdPlcyId,jdbcType=VARCHAR},
+      opr_id = #{vo.oprId,jdbcType=BIGINT},
+      upd_time = now()
+    where company_id = #{vo.unitId,jdbcType=BIGINT}
+  </update>
+</mapper>

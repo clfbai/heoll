@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.basic.RtqQtaPgMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.basic.RtqQtaPg">
+    <id column="vender_id" jdbcType="BIGINT" property="venderId" />
+    <id column="vendee_id" jdbcType="BIGINT" property="vendeeId" />
+    <id column="psa_ctlr" jdbcType="CHAR" property="psaCtlr" />
+    <id column="prod_cls_id" jdbcType="BIGINT" property="prodClsId" />
+    <id column="doc_type" jdbcType="CHAR" property="docType" />
+    <id column="doc_unit_id" jdbcType="BIGINT" property="docUnitId" />
+    <id column="doc_num" jdbcType="VARCHAR" property="docNum" />
+    <result column="frz_qty" jdbcType="DECIMAL" property="frzQty" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    vender_id, vendee_id, psa_ctlr, prod_cls_id, doc_type, doc_unit_id, doc_num, frz_qty
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.RtqQtaPg" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rtq_qta_pg
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+      and doc_type = #{docType,jdbcType=CHAR}
+      and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.RtqQtaPg">
+    delete from rtq_qta_pg
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+      and doc_type = #{docType,jdbcType=CHAR}
+      and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.basic.RtqQtaPg">
+    insert into rtq_qta_pg (vender_id, vendee_id, psa_ctlr,
+      prod_cls_id, doc_type, doc_unit_id,
+      doc_num, frz_qty)
+    values (#{venderId,jdbcType=BIGINT}, #{vendeeId,jdbcType=BIGINT}, #{psaCtlr,jdbcType=CHAR},
+      #{prodClsId,jdbcType=BIGINT}, #{docType,jdbcType=CHAR}, #{docUnitId,jdbcType=BIGINT},
+      #{docNum,jdbcType=VARCHAR}, #{frzQty,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.RtqQtaPg">
+    insert into rtq_qta_pg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="venderId != null">
+        vender_id,
+      </if>
+      <if test="vendeeId != null">
+        vendee_id,
+      </if>
+      <if test="psaCtlr != null">
+        psa_ctlr,
+      </if>
+      <if test="prodClsId != null">
+        prod_cls_id,
+      </if>
+      <if test="docType != null">
+        doc_type,
+      </if>
+      <if test="docUnitId != null">
+        doc_unit_id,
+      </if>
+      <if test="docNum != null">
+        doc_num,
+      </if>
+      <if test="frzQty != null">
+        frz_qty,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="venderId != null">
+        #{venderId,jdbcType=BIGINT},
+      </if>
+      <if test="vendeeId != null">
+        #{vendeeId,jdbcType=BIGINT},
+      </if>
+      <if test="psaCtlr != null">
+        #{psaCtlr,jdbcType=CHAR},
+      </if>
+      <if test="prodClsId != null">
+        #{prodClsId,jdbcType=BIGINT},
+      </if>
+      <if test="docType != null">
+        #{docType,jdbcType=CHAR},
+      </if>
+      <if test="docUnitId != null">
+        #{docUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="docNum != null">
+        #{docNum,jdbcType=VARCHAR},
+      </if>
+      <if test="frzQty != null">
+        #{frzQty,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.RtqQtaPg">
+    update rtq_qta_pg
+    <set>
+      <if test="frzQty != null">
+        frz_qty = #{frzQty,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+      and doc_type = #{docType,jdbcType=CHAR}
+      and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.RtqQtaPg">
+    update rtq_qta_pg
+    set frz_qty = #{frzQty,jdbcType=DECIMAL}
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+      and doc_type = #{docType,jdbcType=CHAR}
+      and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="insertByBill" parameterType="java.util.Map">
+    <foreach collection="dtlList" item="item" separator=";">
+      insert into rtq_qta_pg (vender_id, vendee_id, psa_ctlr,
+        prod_cls_id, doc_type, doc_unit_id,
+        doc_num, frz_qty)
+      values (#{psa.venderId}, #{psa.vendeeId}, #{psa.psaCtlr},
+        #{item.prodClsId}, #{docType}, #{unitId},
+        #{docNum}, #{item.qty})
+    </foreach>
+  </insert>
+
+  <select id="selectByUpdateRtqQta" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from rtq_qta_pg
+    where vender_id = #{psa.venderId,jdbcType=BIGINT}
+    and vendee_id = #{psa.vendeeId,jdbcType=BIGINT}
+    and psa_ctlr = #{psa.psaCtlr,jdbcType=CHAR}
+    and doc_type = #{docType}
+    and doc_unit_id = #{unitId}
+    and doc_num = #{docNum}
+    and prod_cls_id in
+    <foreach collection="dtlList" open="(" close=")" item="item" separator=",">
+        #{item.prodClsId}
+    </foreach>
+  </select>
+
+  <delete id="deleteByList" parameterType="java.util.List">
+    <foreach collection="dtlList" item="item" separator=";">
+      delete from rtq_qta_pg
+      where vender_id = #{item.venderId,jdbcType=BIGINT}
+        and vendee_id = #{item.vendeeId,jdbcType=BIGINT}
+        and psa_ctlr = #{item.psaCtlr,jdbcType=CHAR}
+        and prod_cls_id = #{item.prodClsId,jdbcType=BIGINT}
+        and doc_type = #{item.docType,jdbcType=CHAR}
+        and doc_unit_id = #{item.docUnitId,jdbcType=BIGINT}
+        and doc_num = #{item.docNum,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+
+</mapper>

@@ -1,0 +1,741 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysPrsnlMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysPrsnl">
+        <id column="prsnl_id" property="prsnlId"/>
+        <result column="prsnl_code" property="prsnlCode"/>
+        <result column="surname" property="surname"/>
+        <result column="unit_hierarchy" property="unitHierarchy"/>
+        <result column="given_name" property="givenName"/>
+        <result column="full_name" property="fullName"/>
+        <result column="gender" property="gender"/>
+        <result column="id_type" property="idType"/>
+        <result column="id_num" property="idNum"/>
+        <result column="office_num" property="officeNum"/>
+        <result column="mobile_num" property="mobileNum"/>
+        <result column="home_num" property="homeNum"/>
+        <result column="fax_num" property="faxNum"/>
+        <result column="tlgp_num" property="tlgpNum"/>
+        <result column="email_addr" property="emailAddr"/>
+        <result column="im_id" property="imId"/>
+        <result column="postcode" property="postcode"/>
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="district" property="district"/>
+        <result column="address" property="address"/>
+        <result column="ctrl_unit_id" property="ctrlUnitId"/>
+        <result column="shared" property="shared"/>
+        <result column="input_code" property="inputCode"/>
+        <result column="seq_num" property="seqNum"/>
+        <result column="prsnl_status" property="prsnlStatus"/>
+        <result column="opr_id" property="oprId"/>
+        <result column="upd_time" property="updTime"/>
+        <result column="remarks" property="remarks"/>
+        <result column="ctrlUnitCode" property="ctrlUnitCode"/>
+        <result column="ctrlUnitName" property="ctrlUnitName"/>
+    </resultMap>
+
+    <sql id="Base_Column_Listnoa">
+    prsnl_id, prsnl_code, surname,unit_hierarchy, given_name, full_name, gender, id_type, id_num, office_num,
+    mobile_num, home_num, fax_num, tlgp_num, email_addr, im_id, postcode, province, city,
+    district, address, ctrl_unit_id, shared, input_code, seq_num, prsnl_status, opr_id,
+    upd_time, remarks
+  </sql>
+    <sql id="Base_Column_List">
+    a.prsnl_id, a.prsnl_code, a.surname,a.unit_hierarchy, a.given_name, a.full_name, a.gender, a.id_type, a.id_num, a.office_num,
+    a.mobile_num, a.home_num, a.fax_num, a.tlgp_num, a.email_addr, a.im_id, a.postcode, a.province, a.city,
+    a.district, a.address, a.ctrl_unit_id, a.shared, a.input_code, a.seq_num, a.prsnl_status, a.opr_id,
+    a.upd_time, a.remarks
+  </sql>
+
+    <select id="findByDesign" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysPrsnl"
+            resultMap="BaseResultMap">
+        SELECT
+        /*s.`prsnl_id` AS `prsnlId`,
+        s.`full_name` as `fullName`,
+        s.`prsnl_code` as `prsnlCode`,
+        s.`office_num` as `officeNum`,
+        s.`mobile_num` as `mobileNum`,
+        s.`prsnl_status` as prsnlStatus*/
+        *
+        FROM
+        <if test="fullName!=null and fullName!=''">
+            sys_prsnl s
+            where 1=1
+            <if test="mobileNum!=null and mobileNum!=''">
+                and instr (s.`mobile_num`,#{mobileNum})>0
+            </if>
+            <if test="prsnlCode!=null and prsnlCode!=''">
+                and instr (s.`prsnl_code`,#{prsnlCode})>0
+            </if>
+            and instr (s.`full_name`,#{fullName})>0
+        </if>
+        <if test="prsnlStatus!=null and prsnlStatus!=''">
+            and s.`prsnl_status`=#{prsnlStatus}
+        </if>
+        and instr (s.`unit_hierarchy`,#{unitHierarchy}) > 0
+    </select>
+
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_prsnl a
+        where prsnl_id = #{prsnlId}
+    </select>
+    <!--通过prsnlCode查prsnl-->
+    <select id="selectByPrsnlCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_prsnl a where prsnl_code=#{prsnlCode}
+    </select>
+
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>,b.unit_code as ctrlUnitCode,b.unit_name as ctrlUnitName
+        from sys_prsnl a INNER JOIN sys_unit b ON(a.`ctrl_unit_id`=b.`unit_id`) where prsnl_id=#{prsnlId}
+    </select>
+
+
+    <insert id="insertPrsnl" useGeneratedKeys="true" keyProperty="prsnlId" parameterType="SysPrsnl">
+        insert into sys_prsnl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            <if test="prsnlCode != null">
+                prsnl_code,
+            </if>
+            <if test="surname != null">
+                surname,
+            </if>
+            <if test="unitHierarchy != null">
+                unit_hierarchy,
+            </if>
+            <if test="givenName != null">
+                given_name,
+            </if>
+            <if test="fullName != null">
+                full_name,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="idType != null">
+                id_type,
+            </if>
+            <if test="idNum != null">
+                id_num,
+            </if>
+            <if test="officeNum != null">
+                office_num,
+            </if>
+            <if test="mobileNum != null">
+                mobile_num,
+            </if>
+            <if test="homeNum != null">
+                home_num,
+            </if>
+            <if test="faxNum != null">
+                fax_num,
+            </if>
+            <if test="tlgpNum != null">
+                tlgp_num,
+            </if>
+            <if test="emailAddr != null">
+                email_addr,
+            </if>
+            <if test="imId != null">
+                im_id,
+            </if>
+            <if test="postcode != null">
+                postcode,
+            </if>
+            <if test="province != null">
+                province,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="district != null">
+                district,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="ctrlUnitId != null">
+                ctrl_unit_id,
+            </if>
+            <if test="shared != null">
+                shared,
+            </if>
+            <if test="inputCode != null">
+                input_code,
+            </if>
+            <if test="seqNum != null">
+                seq_num,
+            </if>
+            <if test="prsnlStatus != null">
+                prsnl_status,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+            <if test="updTime != null">
+                upd_time,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+
+            <if test="prsnlCode != null">
+                #{prsnlCode},
+            </if>
+            <if test="surname != null">
+                #{surname},
+            </if>
+            <if test="unitHierarchy != null">
+                #{unitHierarchy},
+            </if>
+            <if test="givenName != null">
+                #{givenName},
+            </if>
+            <if test="fullName != null">
+                #{fullName},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=CHAR},
+            </if>
+            <if test="idType != null">
+                #{idType,jdbcType=CHAR},
+            </if>
+            <if test="idNum != null">
+                #{idNum},
+            </if>
+            <if test="officeNum != null">
+                #{officeNum},
+            </if>
+            <if test="mobileNum != null">
+                #{mobileNum},
+            </if>
+            <if test="homeNum != null">
+                #{homeNum},
+            </if>
+            <if test="faxNum != null">
+                #{faxNum},
+            </if>
+            <if test="tlgpNum != null">
+                #{tlgpNum},
+            </if>
+            <if test="emailAddr != null">
+                #{emailAddr},
+            </if>
+            <if test="imId != null">
+                #{imId},
+            </if>
+            <if test="postcode != null">
+                #{postcode},
+            </if>
+            <if test="province != null">
+                #{province},
+            </if>
+            <if test="city != null">
+                #{city},
+            </if>
+            <if test="district != null">
+                #{district},
+            </if>
+            <if test="address != null">
+                #{address},
+            </if>
+            <if test="ctrlUnitId != null">
+                #{ctrlUnitId},
+            </if>
+            <if test="shared != null">
+                #{shared,jdbcType=CHAR},
+            </if>
+            <if test="inputCode != null">
+                #{inputCode},
+            </if>
+            <if test="seqNum != null">
+                #{seqNum},
+            </if>
+            <if test="prsnlStatus != null">
+                #{prsnlStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                #{oprId},
+            </if>
+            <if test="updTime != null">
+                #{updTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remarks != null">
+                #{remarks},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="SysPrsnl">
+        update sys_prsnl
+        <trim prefix="set" suffixOverrides=",">
+            <if test="prsnlCode != null prsnlCode !=''">
+                prsnl_code = #{prsnlCode},
+            </if>
+            <if test="surname != null ">
+                surname = #{surname},
+            </if>
+            <if test="unitHierarchy != null unitHierarchy !=''">
+                unit_hierarchy=#{unitHierarchy} ,
+            </if>
+            <if test="givenName != null">
+                given_name = #{givenName},
+            </if>
+            <if test="fullName != null ">
+                full_name = #{fullName},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=CHAR},
+            </if>
+            <if test="idType != null">
+                id_type = #{idType,jdbcType=CHAR},
+            </if>
+            <if test="idNum != null">
+                id_num = #{idNum},
+            </if>
+            <if test="officeNum != null">
+                office_num = #{officeNum},
+            </if>
+            <if test="mobileNum != null">
+                mobile_num = #{mobileNum},
+            </if>
+            <if test="homeNum != null">
+                home_num = #{homeNum},
+            </if>
+            <if test="faxNum != null">
+                fax_num = #{faxNum},
+            </if>
+            <if test="tlgpNum != null">
+                tlgp_num = #{tlgpNum},
+            </if>
+            <if test="emailAddr != null">
+                email_addr = #{emailAddr},
+            </if>
+            <if test="imId != null">
+                im_id = #{imId},
+            </if>
+            <if test="postcode != null">
+                postcode = #{postcode},
+            </if>
+            <if test="province != null">
+                province = #{province},
+            </if>
+            <if test="city != null">
+                city = #{city},
+            </if>
+            <if test="district != null">
+                district = #{district},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="ctrlUnitId != null and ctrlUnitId!=0">
+                ctrl_unit_id = #{ctrlUnitId},
+            </if>
+            <if test="shared != null">
+                shared = #{shared,jdbcType=CHAR},
+            </if>
+            <if test="inputCode != null">
+                input_code = #{inputCode},
+            </if>
+            <if test="seqNum != null">
+                seq_num = #{seqNum},
+            </if>
+            <if test="prsnlStatus != null">
+                prsnl_status = #{prsnlStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId},
+            </if>
+            <if test="updTime != null">
+                upd_time = #{updTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks},
+            </if>
+        </trim>
+        where prsnl_id = #{prsnlId}
+    </update>
+
+
+    <!--查询人员-->
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="SysPrsnl">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        sys_prsnl a
+        where 1=1
+        <if test="prsnlCode != null and prsnlCode !=''">
+            and prsnl_code like CONCAT('%', #{prsnlCode}, '%')
+        </if>
+        <if test="surname != null">
+            and surname = #{surname}
+        </if>
+        <if test="givenName != null">
+            and given_name = #{givenName}
+        </if>
+        <if test="fullName != null and fullName!=''">
+            and full_name like CONCAT('%', #{fullName}, '%')
+        </if>
+        <if test="gender != null">
+            and gender = #{gender}
+        </if>
+        <if test="idType != null">
+            and id_type = #{idType}
+        </if>
+        <if test="idNum != null">
+            and id_num = #{idNum}
+        </if>
+        <if test="officeNum != null and officeNum!=''">
+            and office_num = #{officeNum}
+        </if>
+        <if test="mobileNum != null and mobileNum!=''">
+            and mobile_num like CONCAT('%', #{mobileNum}, '%')
+        </if>
+        <if test="homeNum != null">
+            and home_num = #{homeNum}
+        </if>
+        <if test="faxNum != null">
+            and fax_num = #{faxNum}
+        </if>
+        <if test="tlgpNum != null">
+            and tlgp_num = #{tlgpNum}
+        </if>
+        <if test="emailAddr != null">
+            and email_addr = #{emailAddr}
+        </if>
+        <if test="imId != null">
+            and im_id = #{imId}
+        </if>
+        <if test="postcode != null">
+            and postcode = #{postcode}
+        </if>
+        <if test="province != null">
+            and province = #{province}
+        </if>
+        <if test="city != null">
+            and city = #{city}
+        </if>
+        <if test="district != null">
+            and district = #{district}
+        </if>
+        <if test="address != null">
+            and address = #{address}
+        </if>
+        <if test="ctrlUnitId != null and ctrlUnitId!=''">
+            and ctrl_unit_id = #{ctrlUnitId}
+        </if>
+        <if test="shared != null">
+            and shared = #{shared,jdbcType=CHAR}
+        </if>
+        <if test="inputCode != null">
+            and input_code = #{inputCode}
+        </if>
+        <if test="seqNum != null">
+            and seq_num = #{seqNum}
+        </if>
+        <if test="prsnlStatus != null and prsnlStatus!='null' and prsnlStatus!=''">
+            and prsnl_status = #{prsnlStatus,jdbcType=CHAR}
+        </if>
+        <if test="oprId != null and oprId!=0">
+            and opr_id = #{oprId}
+        </if>
+        <if test="updTime != null">
+            and upd_time = #{updTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="remarks != null">
+            and remarks = #{remarks}
+        </if>
+
+    </select>
+
+
+    <select id="selectPrsnlAndUser" resultType="com.boyu.erp.platform.usercenter.vo.system.SysPrsnlVo"
+            parameterType="com.boyu.erp.platform.usercenter.vo.system.SysPrsnlVo">
+        SELECT
+        d.`domain_id`,
+        (CASE
+        WHEN (b.`user_id` = d.`sa_id` AND d.`opr_id`=-1)
+        THEN 'A'
+        WHEN (b.`user_id` = d.`sa_id` AND d.`opr_id`!=-1)
+        THEN 'L'
+        WHEN (b.`user_id` != d.`sa_id` AND b.`owner_id` = d.`unit_id` AND d.`opr_id`=-1)
+        THEN 'AS'
+        ELSE 'S'
+        END
+        ) AS `isType` ,
+        a.prsnl_id AS prsnlId,
+        b.user_id AS userId,
+        b.owner_id as ownerId,
+        c.`unit_id` AS unitId,
+        c.`ctrl_unit_id` AS shuunitId,
+        a.prsnl_code AS prsnlCode,
+        a.full_name AS fullName,
+        b.up_expd_date AS upExpdDate,
+        b.up_flt_tms AS upFltTms,
+        b.up_act_time AS upActTime,
+        b.ip_addr AS ipAddr,
+        b.mach_ctrl AS machCtrl,
+        b.menu_id AS menuId,
+        b.user_type AS userType,
+        b.user_status AS userStatus,
+        a.surname AS surname,
+        a.given_name AS givenName,
+        a.gender AS gender,
+        a.id_type AS idType,
+        a.id_num AS idNum,
+        a.office_num AS officeNum,
+        a.mobile_num AS mobileNum,
+        a.home_num AS homeNum,
+        a.fax_num AS faxNum,
+        a.tlgp_num AS tlgpNum,
+        a.email_addr AS emailAddr,
+        a.im_id AS imId,
+        a.postcode AS postcode,
+        a.province AS province,
+        a.city AS city,
+        a.district AS district,
+        a.address AS address,
+        a.ctrl_unit_id AS ctrlUnitId,
+        c.unit_name AS unitName,
+        c.unit_code as unitCode,
+        a.shared AS shared,
+        a.input_code AS inputCode,
+        a.seq_num AS seqNum,
+        a.prsnl_status AS prsnlStatus,
+        a.remarks AS remarks,
+        a.opr_id AS oprId,
+        a.full_name AS fullName,
+        a.upd_time AS updTime
+        FROM
+        sys_prsnl a
+        INNER JOIN sys_user b
+        ON (a.`prsnl_id` = b.`user_id`)
+        INNER JOIN sys_unit c
+        ON (c.`unit_id` =b.`owner_id`)
+        LEFT JOIN sys_domain d
+        ON b.`owner_id` = d.`unit_id`
+        where
+        a.`prsnl_status`='A'
+        <if test="userStatus != null and userStatus != '' and userStatus != 'null' ">
+            and b.user_status=#{userStatus}
+        </if>
+        <if test="prsnlCode != null and prsnlCode!= '' ">
+            and INSTR(a.prsnl_code,#{prsnlCode})>0
+        </if>
+        <if test="fullName != null and fullName !=''">
+            and INSTR(a.full_name,#{fullName})>0
+        </if>
+        <if test="gender != null and gender!='' and gender!='null'">
+            and a.gender=#{gender}
+        </if>
+        <if test="prsnlStatus != null and prsnlStatus!='' and prsnlStatus!='null'">
+            and a.prsnl_status=#{prsnlStatus}
+        </if>
+        <if test="mobileNum != null and mobileNum!='' ">
+            and a.mobile_num like CONCAT('%', #{mobileNum}, '%')
+        </if>
+        /*根据组织查询人员*/
+        <if test="unitId != null and unitId!=0 ">
+            and b.`owner_id`=#{unitId}
+        </if>
+    </select>
+
+    <!--删除组织所有人员-->
+    <update id="deletePrsnlAndUser" parameterType="com.boyu.erp.platform.usercenter.vo.system.SysPrsnlVo">
+        update sys_prsnl
+        <trim prefix="set" suffixOverrides=",">
+            <if test="prsnlStatus != null">
+                prsnl_status = #{prsnlStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId},
+            </if>
+            <if test="updTime != null">
+                upd_time = now() ,
+            </if>
+        </trim>
+        where `ctrl_unit_id`= #{ctrlUnitId}
+    </update>
+
+    <select id="selectPrsnlAndUserByid" resultType="com.boyu.erp.platform.usercenter.vo.system.SysPrsnlVo"
+            parameterType="com.boyu.erp.platform.usercenter.vo.system.SysPrsnlVo">
+        SELECT
+        a.prsnl_id AS prsnlId,
+        b.user_id AS userId,
+        b.owner_id as ownerId,
+        a.prsnl_code AS prsnlCode,
+        a.full_name AS fullName,
+        b.up_expd_date AS upExpdDate,
+        b.up_flt_tms AS upFltTms,
+        b.up_act_time AS upActTime,
+        b.ip_addr AS ipAddr,
+        b.mach_ctrl AS machCtrl,
+        b.menu_id AS menuId,
+        b.user_type AS userType,
+        b.user_status AS userStatus,
+        a.surname AS surname,
+        a.given_name AS givenName,
+        a.gender AS gender,
+        a.id_type AS idType,
+        a.id_num AS idNum,
+        a.office_num AS officeNum,
+        a.mobile_num AS mobileNum,
+        a.home_num AS homeNum,
+        a.fax_num AS faxNum,
+        a.tlgp_num AS tlgpNum,
+        a.email_addr AS emailAddr,
+        a.im_id AS imId,
+        a.postcode AS postcode,
+        a.province AS province,
+        a.city AS city,
+        a.district AS district,
+        a.address AS address,
+        a.ctrl_unit_id AS ctrlUnitId,
+        c.unit_name AS unitName,
+        c.unit_code as unitCode,
+        a.shared AS shared,
+        a.input_code AS inputCode,
+        a.seq_num AS seqNum,
+        a.prsnl_status AS prsnlStatus,
+        a.remarks AS remarks,
+        a.opr_id AS oprId,
+        a.full_name AS fullName,
+        a.upd_time AS updTime
+        FROM
+        sys_prsnl a
+        INNER JOIN sys_user b
+        ON (a.`prsnl_id` = b.`user_id`)
+        INNER JOIN sys_unit c
+        ON (c.`unit_id` = a.ctrl_unit_id)
+        where b.user_status !="D"
+        <if test="userStatus != null and userStatus != '' and userStatus != 'null'">
+            OR b.user_status=#{userStatus}
+        </if>
+
+        <if test="userId != null and userId!='' ">
+            and b.user_id=#{userId}
+        </if>
+        <if test="prsnlId != null and prsnlId!='' ">
+            and a.prsnl_id=#{prsnlId}
+        </if>
+
+    </select>
+    <select id="selectAllICN" resultType="com.boyu.erp.platform.usercenter.vo.system.SysPrsnlPgVO">
+        SELECT
+        prsnl_id AS `prsnlId`,prsnl_code as `prsnlCode`,full_name as `fullName`
+        FROM
+        sys_prsnl
+    </select>
+    <!-- 查询人员（通用 可组织筛选）-->
+    <select id="getOwnerPrsnl" resultType="com.boyu.erp.platform.usercenter.model.option.PrsnlOptionModel">
+        SELECT
+        s.`prsnl_id` AS `prsnlId`,
+        s.`full_name` as `fullName`,
+        s.`prsnl_code` as `prsnlCode`,
+        s.`office_num` as `officeNum`,
+        s.`mobile_num` as `mobileNum`,
+        s.`prsnl_status` as prsnlStatus
+        FROM
+        sys_prsnl s
+        where 1=1
+        <if test="mobileNum!=null and mobileNum!=''">
+            and instr (s.`mobile_num`,#{mobileNum})>0
+        </if>
+        <if test="prsnlCode!=null and prsnlCode!=''">
+            and instr (s.`prsnl_code`,#{prsnlCode})>0
+        </if>
+        <if test="fullName!=null and fullName!=''">
+            and instr (s.`full_name`,#{fullName})>0
+        </if>
+        <if test="prsnlStatus!=null and prsnlStatus!=''">
+            and s.`prsnl_status`=#{prsnlStatus}
+        </if>
+        and s.`unit_hierarchy`=#{unitHierarchy}
+    </select>
+
+    <!--用户装入人员查询-->
+    <select id="selectPrsnlUserList" parameterType="com.boyu.erp.platform.usercenter.vo.system.SysPrsnlVo"
+            resultType="com.boyu.erp.platform.usercenter.vo.system.SysPrsnlVo">
+        SELECT
+        a.prsnl_id AS prsnlId,
+        b.user_id AS userId,
+        b.owner_id as ownerId,
+        c.`unit_id` AS unitId,
+        a.prsnl_code AS prsnlCode,
+        a.full_name AS fullName,
+        b.user_status AS userStatus,
+        a.mobile_num AS mobileNum,
+        a.fax_num AS faxNum,
+        a.input_code AS inputCode,
+        a.seq_num AS seqNum,
+        a.prsnl_status AS prsnlStatus,
+        a.full_name AS fullName
+        FROM
+        sys_prsnl a
+        INNER JOIN sys_user b
+        ON (a.`prsnl_id` = b.`user_id`)
+        INNER JOIN sys_unit c
+        ON (c.`unit_id` =b.`owner_id`)
+        where 1=1
+        <if test="userStatus != null and userStatus != '' and userStatus != 'null' ">
+            and b.user_status=#{userStatus}
+        </if>
+        <if test="prsnlCode != null and prsnlCode!= '' ">
+            and INSTR(a.prsnl_code,#{prsnlCode})>0
+        </if>
+        <if test="fullName != null and fullName !=''">
+            and INSTR(a.full_name,#{fullName})>0
+        </if>
+        <if test="prsnlStatus != null and prsnlStatus!='' and prsnlStatus!='null'">
+            and a.prsnl_status=#{prsnlStatus}
+        </if>
+        <if test="mobileNum != null and mobileNum!='' ">
+            and a.mobile_num like CONCAT('%', #{mobileNum}, '%')
+        </if>
+        /*根据组织查询人员*/
+        <if test="unitId != null and unitId!=0 ">
+            and b.`owner_id`=#{unitId}
+        </if>
+    </select>
+    <select id="queryPrsnlByIds" resultMap="BaseResultMap">
+        select <include refid="Base_Column_Listnoa"></include> from sys_prsnl
+        <where>
+        <if test="sysPrsnls!=null and sysPrsnls.size()>0">
+            prsnl_id in(
+            <foreach collection="sysPrsnls" item="sysPrsnl" separator=",">
+                #{sysPrsnl}
+            </foreach>
+            )
+        </if>
+        <if test="sysPrsnls==null or sysPrsnls.size()&lt;0">
+            1=-1
+        </if>
+        </where>
+    </select>
+
+    <select id="selectObject" parameterType="com.boyu.erp.platform.usercenter.model.system.CommonWindowModel"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_Listnoa"/>
+        from sys_prsnl  ${tableNameAliase}
+        <where>
+            <if test="sql!='' and sql!=null">
+                ${sql}
+            </if>
+        </where>
+
+    </select>
+
+
+</mapper>

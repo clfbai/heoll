@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysMenuDtlMapper">
+
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysMenuDtl">
+        <id column="node_id" jdbcType="BIGINT" property="nodeId"/>
+        <result column="menu_id" jdbcType="VARCHAR" property="menuId"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="parn_node_id" jdbcType="BIGINT" property="parnNodeId"/>
+        <result column="hierarchy" jdbcType="VARCHAR" property="hierarchy"/>
+        <result column="is_path" jdbcType="VARCHAR" property="isPath"/>
+        <result column="func_id" jdbcType="VARCHAR" property="funcId"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="seq_num" jdbcType="INTEGER" property="seqNum"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    node_id, menu_id, description, parn_node_id, `hierarchy`, is_path, func_id, url,
+    seq_num, remarks
+  </sql>
+
+
+    <select id="getMenuTree" parameterType="SysMenu" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_menu_dtl
+        where menu_id = #{menuId,jdbcType=BIGINT}
+        and is_del='T'
+    </select>
+    <!--根据功能Id删除目录-->
+    <delete id="deleteByPrimaryKey" parameterType="SysMenudtl">
+    delete from sys_menu_dtl
+    where func_id = #{funcId,jdbcType=VARCHAR}
+  </delete>
+
+    <delete id="deleteById" parameterType="com.boyu.erp.platform.usercenter.vo.system.TreeModel">
+        delete from sys_menu_dtl
+        where `node_id` = #{nodeId,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysMenuDtl">
+        insert into sys_menu_dtl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="nodeId != null">
+                node_id,
+            </if>
+            <if test="menuId != null">
+                menu_id,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="parnNodeId != null">
+                parn_node_id,
+            </if>
+            <if test="hierarchy != null">
+                `hierarchy`,
+            </if>
+            <if test="isPath != null">
+                is_path,
+            </if>
+            <if test="funcId != null">
+                func_id,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="seqNum != null">
+                seq_num,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="nodeId != null">
+                #{nodeId,jdbcType=BIGINT},
+            </if>
+            <if test="menuId != null">
+                #{menuId,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="parnNodeId != null">
+                #{parnNodeId,jdbcType=BIGINT},
+            </if>
+            <if test="hierarchy != null">
+                #{hierarchy,jdbcType=VARCHAR},
+            </if>
+            <if test="isPath != null">
+                #{isPath,jdbcType=VARCHAR},
+            </if>
+            <if test="funcId != null">
+                #{funcId,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="seqNum != null">
+                #{seqNum,jdbcType=INTEGER},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysMenuDtl">
+        update sys_menu_dtl
+        <set>
+            <if test="menuId != null">
+                menu_id = #{menuId,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null and description !=''">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="parnNodeId != null">
+                parn_node_id = #{parnNodeId,jdbcType=BIGINT},
+            </if>
+            <if test="hierarchy != null and hierarchy !=''">
+                `hierarchy` = #{hierarchy,jdbcType=VARCHAR},
+            </if>
+            <if test="isPath != null">
+                `is_path` = #{isPath,jdbcType=VARCHAR},
+            </if>
+            <if test="funcId != null and funcId !=''">
+                `func_id` = #{funcId,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null and url!=''">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="seqNum != null">
+                seq_num = #{seqNum,jdbcType=INTEGER},
+            </if>
+            <if test="remarks != null and remarks !=''">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="isDel != null and isDel!=''">
+                is_del = #{isDel,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where node_id = #{nodeId,jdbcType=BIGINT}
+    </update>
+
+    <select id="findById" parameterType="com.boyu.erp.platform.usercenter.vo.system.TreeModel"
+            resultType="com.boyu.erp.platform.usercenter.vo.system.TreeModel">
+        SELECT
+        d.`node_id` AS nodeId,
+        d.`menu_id` AS menuId,
+        d.`description` AS description,
+        d.`parn_node_id` AS parnNodeId,
+        d.`hierarchy` AS hierarchy,
+        d.`is_path` AS isPath,
+        d.`func_id` AS funcId,
+        d.`url` AS url,
+        d.`seq_num` AS seqNum,
+        d.`remarks` AS remarks
+        FROM
+        (SELECT
+        *
+        FROM
+        sys_menu_dtl
+        WHERE
+        node_id = #{nodeId}
+         and is_del='T'
+         ) m
+        INNER JOIN sys_menu_dtl d
+        ON m.node_id = d.`parn_node_id`
+    </select>
+
+    <!--查询用户菜单Tree-->
+    <select id="getUserTree" parameterType="SysUser" resultType="com.boyu.erp.platform.usercenter.vo.system.TreeVo">
+        SELECT
+        dtl.`node_id` AS nodeId,
+        dtl.`menu_id` AS menuId,
+        dtl.`description` AS description,
+        dtl.`parn_node_id` AS parnNodeId,
+        dtl.`is_path` AS isPath,
+        dtl.`func_id` AS funcId,
+        dtl.`url` AS url,
+        sf.`priv_id` AS privId
+        FROM
+        (select
+        dep.`dep_priv_id` as privId
+        from
+        (SELECT DISTINCT
+        p2.`priv_id` AS privId
+        FROM
+        sys_user_role r
+        INNER JOIN sys_role_priv p
+        ON r.`role_id` = p.`role_id`
+        INNER JOIN sys_privilege p2
+        ON p.`priv_id` = p2.`priv_id`
+        WHERE   r.`user_id` = #{userId}
+        AND r.`owner_id` = #{ownerId}
+        AND r.`unit_id` =  #{ownerId}
+        UNION
+        SELECT DISTINCT
+        p2.`priv_id` AS privId
+        FROM
+        sys_user_priv r
+        INNER JOIN sys_privilege p2
+        ON r.`priv_id` = p2.`priv_id`
+        WHERE   r.`user_id` = #{userId}
+        AND r.`owner_id` = #{ownerId}
+        AND r.`unit_id` =  #{ownerId}
+        union
+        SELECT DISTINCT
+        p2.`priv_id` AS privId
+        FROM
+        sys_ug u
+        INNER JOIN sys_ug_dtl ud
+        ON u.`ug_id` = ud.`ug_id`
+        inner join sys_user_priv r
+        on u.`ug_id` = r.`ug_id`
+        inner join sys_privilege p2
+        on r.`priv_id` = p2.`priv_id`
+        where r.`user_id` = #{userId}
+        AND r.`owner_id` = #{ownerId}
+        and ud.`mbr_id` =#{ownerId}
+        union
+        SELECT DISTINCT
+        p2.`priv_id` AS privId
+        FROM
+        sys_ug u
+        INNER JOIN sys_ug_dtl ud
+        ON u.`ug_id` = ud.`ug_id`
+        inner join sys_user_role r
+        on u.`ug_id` = r.`ug_id`
+        inner join sys_role_priv p
+        on r.role_id = p.role_id
+        inner join sys_privilege p2
+        on p2.`priv_id` = p.priv_id
+        where
+       r.`user_id` = #{userId}
+        AND r.`owner_id` = #{ownerId}
+        and ud.`mbr_id` =#{ownerId}
+        ) s
+        inner join sys_priv_dep dep
+        on s.privId = dep.`priv_id`
+        union
+        SELECT DISTINCT
+        p2.`priv_id` AS privId
+        FROM
+        sys_user_role r
+        INNER JOIN sys_role_priv p
+        ON r.`role_id` = p.`role_id`
+        INNER JOIN sys_privilege p2
+        ON p.`priv_id` = p2.`priv_id`
+        WHERE  r.`user_id` = #{userId}
+        AND r.`owner_id` = #{ownerId}
+        AND r.`unit_id` =  #{ownerId}
+        UNION
+        SELECT DISTINCT
+        p2.`priv_id` AS privId
+        FROM
+        sys_user_priv r
+        INNER JOIN sys_privilege p2
+        ON r.`priv_id` = p2.`priv_id`
+        WHERE
+        r.`user_id` = #{userId}
+        AND r.`owner_id` = #{ownerId}
+        AND r.`unit_id` =  #{ownerId}
+        union
+        SELECT DISTINCT
+        p2.`priv_id` AS privId
+        FROM
+        sys_ug u
+        INNER JOIN sys_ug_dtl ud
+        ON u.`ug_id` = ud.`ug_id`
+        inner join sys_user_priv r
+        on u.`ug_id` = r.`ug_id`
+        inner join sys_privilege p2
+        on r.`priv_id` = p2.`priv_id`
+        where
+       r.`user_id` = #{userId}
+        AND r.`owner_id` = #{ownerId}
+        and ud.`mbr_id` =#{ownerId}
+        union
+        SELECT DISTINCT
+        p2.`priv_id` AS privId
+        FROM
+        sys_ug u
+        INNER JOIN sys_ug_dtl ud
+        ON u.`ug_id` = ud.`ug_id`
+        inner join sys_user_role r
+        on u.`ug_id` = r.`ug_id`
+        inner join sys_role_priv p
+        on r.role_id = p.role_id
+        inner join sys_privilege p2
+        on p2.`priv_id` = p.priv_id
+        where
+        r.`user_id` = #{userId}
+        AND r.`owner_id` = #{ownerId}
+        and ud.`mbr_id` =#{ownerId}
+        ) li
+        INNER JOIN sys_privilege oos
+        ON oos.priv_id = li.privId
+        INNER JOIN sys_function sf
+        ON oos.`priv_id` = sf.`priv_id`
+        INNER JOIN sys_menu_dtl dtl
+        ON sf.`func_id` = dtl.`func_id`
+        where dtl.`is_del` = 'T'
+        UNION
+        ALL
+        SELECT
+        dt.`node_id` AS nodeId,
+        dt.`menu_id` AS menuId,
+        dt.`description` AS description,
+        dt.`parn_node_id` AS parnNodeId,
+        dt.`is_path` AS isPath,
+        dt.`func_id` AS funcId,
+        dt.`url` AS url,
+         f.priv_id AS privId
+        FROM
+        sys_menu_dtl dt
+         LEFT JOIN
+         sys_function f ON  dt.func_id=f.func_id
+        WHERE dt.func_id IS NULL
+        and dt.is_del = 'T'
+    </select>
+    <!--系统管理员菜单Tree-->
+    <select id="adminTree" parameterType="SysUser" resultType="com.boyu.erp.platform.usercenter.vo.system.TreeVo">
+        SELECT
+        dt.`node_id` AS nodeId,
+        dt.`menu_id` AS menuId,
+        dt.`description` AS description,
+        dt.`parn_node_id` AS parnNodeId,
+        dt.`is_path` AS isPath,
+        dt.`func_id` AS funcId,
+        dt.`url` AS url,
+        f.`priv_id` AS privId
+        FROM
+        sys_user u
+        INNER JOIN sys_menu m
+        ON u.`menu_id` = m.`menu_id`
+        INNER JOIN sys_menu_dtl dt
+        ON m.`menu_id`=dt.`menu_id`
+        LEFT JOIN sys_function f
+        ON dt.`func_id` = f.`func_id`
+        WHERE
+         u.`user_id` = #{userId}
+        and
+         dt.is_del='T'
+    </select>
+    <!--组织管理员菜单-->
+    <select id="unitTree" parameterType="SysUser" resultType="com.boyu.erp.platform.usercenter.vo.system.TreeVo">
+        SELECT
+        dtl.`node_id` AS nodeId,
+        dtl.`menu_id` AS menuId,
+        dtl.`description` AS description,
+        dtl.`parn_node_id` AS parnNodeId,
+        dtl.`is_path` AS isPath,
+        dtl.`func_id` AS funcId,
+        dtl.`url` AS url,
+        sf.`priv_id` AS privId
+        FROM
+        (SELECT
+        B.PRIV_ID AS priv_id
+        FROM
+        (
+        /* 直接获取的权限 */
+        SELECT
+        A.UNIT_ID,
+        A.PRIV_ID
+        FROM
+        SYS_UNIT_PRIV A
+        UNION
+        /* 通过权限依赖间接获取的权限 */
+        SELECT
+        A.UNIT_ID,
+        B.DEP_PRIV_ID AS PRIV_ID
+        FROM
+        SYS_UNIT_PRIV A
+        INNER JOIN SYS_PRIV_DEP B
+        ON (A.PRIV_ID = B.PRIV_ID)
+        UNION
+        /* 通过角色间接获取的权限 */
+        SELECT
+        A.UNIT_ID,
+        B.PRIV_ID
+        FROM
+        SYS_UNIT_ROLE A
+        INNER JOIN SYS_ROLE_PRIV B
+        ON (A.ROLE_ID = B.ROLE_ID)
+        UNION
+        /* 通过角色和权限依赖间接获取的权限 */
+        SELECT
+        A.UNIT_ID,
+        C.DEP_PRIV_ID AS PRIV_ID
+        FROM
+        (
+        SYS_UNIT_ROLE A
+        INNER JOIN SYS_ROLE_PRIV B
+        ON (A.ROLE_ID = B.ROLE_ID)
+        )
+        INNER JOIN SYS_PRIV_DEP C
+        ON (B.PRIV_ID = C.PRIV_ID)) M
+        INNER JOIN SYS_PRIVILEGE B
+        ON (M.PRIV_ID = B.PRIV_ID)
+        WHERE M.UNIT_ID = #{ownerId}) oos
+        INNER JOIN sys_function sf
+        ON oos.`priv_id` = sf.`priv_id`
+        INNER JOIN sys_menu_dtl dtl
+        ON sf.`func_id` = dtl.`func_id`
+        where dtl.`is_del`='T'
+        UNION
+        ALL
+        SELECT
+        dt.`node_id` AS nodeId,
+        dt.`menu_id` AS menuId,
+        dt.`description` AS description,
+        dt.`parn_node_id` AS parnNodeId,
+        dt.`is_path` AS isPath,
+        dt.`func_id` AS funcId,
+        dt.`url` AS url,
+        f.priv_id AS privId
+        FROM
+        sys_menu_dtl dt
+        LEFT JOIN
+        sys_function f
+        ON  dt.func_id=f.func_id
+        WHERE
+        dt.is_del='T'
+         AND
+        dt.func_id IS NULL
+    </select>
+
+    <select id="findByMenudtl" parameterType="SysMenuDtl" resultMap="BaseResultMap">
+       SELECT *  FROM sys_menu_dtl WHERE node_id=#{nodeId}
+   </select>
+
+    <select id="getAll" resultMap="BaseResultMap">
+        SELECT *  FROM sys_menu_dtl
+    </select>
+
+</mapper>

@@ -1,0 +1,17 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.boyu.erp.platform.sso.baseUtils.properties.SecurityProperties",
+      "name": "dkd.security",
+      "type": "com.boyu.erp.platform.sso.baseUtils.properties.SecurityProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.boyu.erp.platform.sso.baseUtils.properties.SecurityProperties",
+      "name": "dkd.security.browser",
+      "type": "com.boyu.erp.platform.sso.baseUtils.properties.BrowserProperties"
+    }
+  ]
+}

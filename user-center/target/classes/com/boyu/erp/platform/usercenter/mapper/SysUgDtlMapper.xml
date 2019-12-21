@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysUgDtlMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysUgDtl">
+        <id column="mbr_id" jdbcType="BIGINT" property="mbrId"/>
+        <id column="ug_id" jdbcType="BIGINT" property="ugId"/>
+        <id column="unit_code" jdbcType="VARCHAR" property="unitCode"/>
+        <id column="unit_name" jdbcType="VARCHAR" property="unitName"/>
+    </resultMap>
+    <select id="getUgDtl" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        d.`ug_id` as `ug_id`,
+        d.`mbr_id` as `mbr_id`,
+        u.`unit_code` as `unit_code`,
+        u.`unit_name` as  `unit_name`
+        from
+        `sys_ug_dtl` d
+        left join sys_unit u
+        on d.`mbr_id` = u.`unit_id`
+        where d.`ug_id` =#{ugId}
+    </select>
+    <!--功能描述: 通过组织Id查询有多少下级组织、 (主要用来判断分组内组织能否授予用户)-->
+    <select id="getUgList" parameterType="java.lang.Long"
+            resultType="com.boyu.erp.platform.usercenter.entity.system.SysUnit">
+        select
+        u.`unit_id` as  unitId
+        from
+        sys_unit u
+        where 1 = 1
+        and instr(u.`unit_hierarchy`,(SELECT  s.`unit_hierarchy` FROM sys_unit s WHERE s.`unit_id` = #{unitId})) > 0
+    </select>
+    <!--判断分组是否授予给用户-->
+    <select id="getCountUg" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUg"
+            resultType="java.lang.Integer">
+        SELECT
+        COUNT(s.user_id)
+        FROM
+        (
+        SELECT
+        *
+        FROM
+        sys_user_role
+        WHERE ug_id = #{ugId}
+        UNION
+        SELECT
+        *
+        FROM
+        sys_user_priv
+        WHERE ug_id = #{ugId}
+        ) s
+    </select>
+    <select id="queryMkrIdsByUgIds" resultType="java.lang.Long">
+        select mbr_id from sys_ug_dtl where ug_id in(
+        <foreach collection="unitUgIds" item="unitUgId" separator=",">
+            #{unitUgId}
+        </foreach>
+        )
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUgDtl">
+    delete from sys_ug_dtl
+    where mbr_id = #{mbrId,jdbcType=BIGINT}
+      and ug_id = #{ugId,jdbcType=BIGINT}
+  </delete>
+    <!--批量插入-->
+    <insert id="addUgDtlList">
+        insert into
+        sys_ug_dtl (mbr_id, ug_id)
+        values
+        <foreach collection="list" item="ugDtl" index="index" separator=",">
+            (#{ugDtl.mbrId},#{ugDtl.ugId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteUg" parameterType="java.lang.Long">
+          delete from sys_ug_dtl
+          where ug_id = #{ugId,jdbcType=BIGINT}
+    </delete>
+
+
+    <!--批量删除 -->
+    <delete id="deleteUgDtlList">
+        <foreach collection="list" item="dtl" index="index" open="" close="" separator=";">
+            delete from sys_ug_dtl
+            where mbr_id = #{dtl.mbrId,jdbcType=BIGINT}
+            and ug_id = #{dtl.ugId,jdbcType=BIGINT}
+        </foreach>
+    </delete>
+
+    <delete id="deleteUgPriv" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUg">
+  delete from sys_user_role where ug_id =#{ugId};
+  delete from sys_user_priv where ug_id =#{ugId};
+    </delete>
+
+
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUgDtl">
+    insert into sys_ug_dtl (mbr_id, ug_id)
+    values (#{mbrId,jdbcType=BIGINT}, #{ugId,jdbcType=BIGINT})
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUgDtl">
+        insert into sys_ug_dtl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="mbrId != null">
+                mbr_id,
+            </if>
+            <if test="ugId != null">
+                ug_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="mbrId != null">
+                #{mbrId,jdbcType=BIGINT},
+            </if>
+            <if test="ugId != null">
+                #{ugId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>

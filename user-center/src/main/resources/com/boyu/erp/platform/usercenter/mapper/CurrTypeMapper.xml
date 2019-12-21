@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.shop.CurrTypeMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.shop.CurrType">
+    <id column="curr_id" jdbcType="INTEGER" property="currId" />
+    <result column="curr_code" jdbcType="VARCHAR" property="currCode" />
+    <result column="curr_name" jdbcType="VARCHAR" property="currName" />
+    <result column="exch_rate" jdbcType="REAL" property="exchRate" />
+    <result column="deleted" jdbcType="CHAR" property="deleted" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    curr_id, curr_code, curr_name, exch_rate, deleted
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from curr_type
+    where curr_id = #{currId,jdbcType=INTEGER}
+  </select>
+  <select id="getCurrTyrp" parameterType="com.boyu.erp.platform.usercenter.entity.shop.CurrType"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from curr_type
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from curr_type
+    where curr_id = #{currId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.shop.CurrType">
+    insert into curr_type (curr_id, curr_code, curr_name, 
+      exch_rate, deleted)
+    values (#{currId,jdbcType=INTEGER}, #{currCode,jdbcType=VARCHAR}, #{currName,jdbcType=VARCHAR}, 
+      #{exchRate,jdbcType=REAL}, #{deleted,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.shop.CurrType">
+    insert into curr_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="currId != null">
+        curr_id,
+      </if>
+      <if test="currCode != null">
+        curr_code,
+      </if>
+      <if test="currName != null">
+        curr_name,
+      </if>
+      <if test="exchRate != null">
+        exch_rate,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="currId != null">
+        #{currId,jdbcType=INTEGER},
+      </if>
+      <if test="currCode != null">
+        #{currCode,jdbcType=VARCHAR},
+      </if>
+      <if test="currName != null">
+        #{currName,jdbcType=VARCHAR},
+      </if>
+      <if test="exchRate != null">
+        #{exchRate,jdbcType=REAL},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.shop.CurrType">
+    update curr_type
+    <set>
+      <if test="currCode != null">
+        curr_code = #{currCode,jdbcType=VARCHAR},
+      </if>
+      <if test="currName != null">
+        curr_name = #{currName,jdbcType=VARCHAR},
+      </if>
+      <if test="exchRate != null">
+        exch_rate = #{exchRate,jdbcType=REAL},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=CHAR},
+      </if>
+    </set>
+    where curr_id = #{currId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.shop.CurrType">
+    update curr_type
+    set curr_code = #{currCode,jdbcType=VARCHAR},
+      curr_name = #{currName,jdbcType=VARCHAR},
+      exch_rate = #{exchRate,jdbcType=REAL},
+      deleted = #{deleted,jdbcType=CHAR}
+    where curr_id = #{currId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.brand.BgMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.Bg">
+        <id column="bg_id" property="bgId"/>
+        <result column="bg_name" jdbcType="VARCHAR" property="bgName"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="upd_time" jdbcType="TIMESTAMP" property="updTime"/>
+    </resultMap>
+
+
+    <resultMap id="BgVoMap" type="com.boyu.erp.platform.usercenter.vo.BgVo">
+        <id column="bg_id" jdbcType="BIGINT" property="bgId"/>
+        <result column="bg_name" jdbcType="VARCHAR" property="bgName"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="oprCode" property="oprCode"/>
+        <result column="oprName" property="oprName"/>
+        <result column="upd_time" jdbcType="TIMESTAMP" property="updTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    bg_id, bg_name, opr_id, upd_time
+  </sql>
+
+    <select id="selectAll" parameterType="Bg" resultMap="BgVoMap">
+        SELECT a.*,
+        b.`full_name` AS oprName,
+        b.`prsnl_code` AS oprCode
+        FROM
+        bg a LEFT JOIN sys_prsnl b
+        ON(a.`opr_id`=b.`prsnl_id`)
+        where 1=1
+        <if test="bgId!=null">
+            and a.bg_id like CONCAT('%', #{bgId}, '%')
+        </if>
+        <if test="bgName!=null and bgName!=''">
+            and a.bg_name like CONCAT('%', #{bgName}, '%')
+        </if>
+    </select>
+
+    <select id="getUnitBg" parameterType="com.boyu.erp.platform.usercenter.model.UnitBgModel" resultMap="BaseResultMap">
+        SELECT
+        a.`bg_id` AS bg_id,
+        a.`bg_name` AS `bg_name`
+        FROM
+        unit_bg bg
+        INNER JOIN bg a
+        ON bg.`bg_id` = a.`bg_id`
+        LEFT JOIN sys_prsnl b
+        ON (a.`opr_id` = b.`prsnl_id`)
+        WHERE 1 = 1
+        AND
+        bg.is_del=1
+        and
+         bg.`unit_id` =#{unitId}
+    </select>
+
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bg
+        where bg_id = #{bgId}
+    </select>
+
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.system.Bg">
+    insert into bg (bg_id, bg_name, opr_id, 
+      upd_time)
+    values (#{bgId}, #{bgName}, #{oprId,jdbcType=BIGINT},
+      #{updTime,jdbcType=TIMESTAMP})
+  </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="Bg">
+        update bg
+        <set>
+            <if test="bgName != null">
+                bg_name = #{bgName,jdbcType=VARCHAR},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="updTime != null">
+                upd_time = #{updTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where bg_id = #{bgId}
+    </update>
+
+    <delete id="deleteBg" parameterType="Bg">
+        delete from bg
+        where bg_id=#{bgId}
+    </delete>
+
+</mapper>

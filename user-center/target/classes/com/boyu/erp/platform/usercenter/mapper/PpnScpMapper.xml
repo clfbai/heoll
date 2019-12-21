@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PpnScpMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.PpnScp">
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <id column="ppn_num" jdbcType="VARCHAR" property="ppnNum" />
+    <id column="vender_id" jdbcType="BIGINT" property="venderId" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapByPpnScpVo" type="com.boyu.erp.platform.usercenter.vo.price.PpnScpVo">
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <id column="ppn_num" jdbcType="VARCHAR" property="ppnNum" />
+    <id column="vender_id" jdbcType="BIGINT" property="venderId" />
+    <id column="venderNum" property="venderNum" />
+    <id column="venderName" property="venderName" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapByPrice" type="com.boyu.erp.platform.usercenter.vo.purchase.PnScpVo">
+    <id column="unitPrice" property="unitPrice" />
+    <id column="discRate" property="discRate" />
+    <id column="taxRate" property="taxRate" />
+  </resultMap>
+
+  <select id="selectByPrice" parameterType="java.lang.Long" resultMap="BaseResultMapByPrice">
+
+    SELECT
+    A.unit_price AS unitPrice,
+    A.disc_rate AS discRate,
+    A.tax_rate AS taxRate
+    FROM
+    (
+    SELECT
+    ps.ppn_num,
+    pd.unit_price,
+    pd.disc_rate,
+    pd.tax_rate
+    FROM
+    ppn_scp ps
+    INNER JOIN ppn p ON p.ppn_num = ps.ppn_num
+    AND p.unit_id = ps.unit_id
+    INNER JOIN ppn_dtl pd ON pd.ppn_num = p.ppn_num
+    AND pd.unit_id = p.unit_id
+    WHERE
+    ps.unit_id = #{unitId}
+    AND ps.vender_id = #{venderId}
+    AND p.progress = 'EX'
+    AND p.prc_scp = 'U'
+    AND pd.prod_cls_id = #{prodClsId}
+    AND ( p.eff_date IS NULL OR p.eff_date &lt;	 now( ) )
+    AND ( p.expd_date IS NULL OR p.expd_date &gt; now( ) ) UNION ALL
+    SELECT
+    ps.ppn_num,
+    pd.unit_price,
+    pd.disc_rate,
+    pd.tax_rate
+    FROM
+    ppn_scp ps
+    INNER JOIN ppn p ON p.ppn_num = ps.ppn_num
+    AND p.unit_id = ps.unit_id
+    INNER JOIN ppn_dtl pd ON pd.ppn_num = p.ppn_num
+    AND pd.unit_id = p.unit_id
+    WHERE
+    ps.unit_id = #{unitId}
+    AND p.progress = 'EX'
+    AND p.prc_scp = 'D'
+    AND pd.prod_cls_id = #{prodClsId}
+    AND ( p.eff_date IS NULL OR p.eff_date &lt;  now( ) )
+    AND ( p.expd_date IS NULL OR p.expd_date &gt; now( ) )
+    ) A
+    ORDER BY
+    A.ppn_num DESC
+    LIMIT 1
+
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PpnScp">
+    delete from ppn_scp
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and ppn_num = #{ppnNum,jdbcType=VARCHAR}
+      and vender_id = #{venderId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PpnScp">
+    insert into ppn_scp (unit_id, ppn_num, vender_id
+      )
+    values (#{unitId,jdbcType=BIGINT}, #{ppnNum,jdbcType=VARCHAR}, #{venderId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PpnScp">
+    insert into ppn_scp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="ppnNum != null">
+        ppn_num,
+      </if>
+      <if test="venderId != null">
+        vender_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="ppnNum != null">
+        #{ppnNum,jdbcType=VARCHAR},
+      </if>
+      <if test="venderId != null">
+        #{venderId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPpn" parameterType="java.lang.String">
+    delete from ppn_scp
+    where unit_id = #{unitId}
+      and ppn_num = #{ppnNum}
+  </delete>
+
+  <select id="selectByPpn" parameterType="com.boyu.erp.platform.usercenter.vo.price.PpnScpVo" resultMap="BaseResultMapByPpnScpVo">
+    SELECT
+        ps.*,
+        suo.unit_num AS venderNum,
+        su.unit_name AS venderName
+    FROM
+        ppn_scp ps
+        LEFT JOIN sys_unit su ON su.unit_id = ps.vender_id
+        LEFT JOIN sys_unit_owner suo ON suo.unit_id = ps.vender_id
+        AND suo.owner_id = ps.unit_id AND suo.deleted = 'F'
+    WHERE
+        ps.unit_id = #{unitId}
+        AND ps.ppn_num = #{ppnNum}
+  </select>
+
+  <insert id="insertByList" parameterType="java.util.List">
+    insert into ppn_scp (unit_id, ppn_num, vender_id
+      )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (#{item.unitId,jdbcType=BIGINT}, #{item.ppnNum,jdbcType=VARCHAR}, #{item.venderId,jdbcType=BIGINT}
+      )
+    </foreach>
+  </insert>
+
+  <delete id="deleteByList" parameterType="java.util.List">
+    <foreach collection="list" open="" close="" item="item" separator=";">
+    delete from ppn_scp
+    where unit_id = #{item.unitId,jdbcType=BIGINT}
+      and ppn_num = #{item.ppnNum,jdbcType=VARCHAR}
+      and vender_id = #{item.venderId,jdbcType=BIGINT}
+    </foreach>
+  </delete>
+
+  <insert id="insertByMap" parameterType="java.util.Map">
+    insert into ppn_scp (unit_id, ppn_num, vender_id
+    )
+    values
+    <foreach collection="scpList" item="item" index="index" separator=",">
+      (#{item.unitId,jdbcType=BIGINT}, #{ppnNum,jdbcType=VARCHAR}, #{item.venderId,jdbcType=BIGINT}
+      )
+    </foreach>
+  </insert>
+</mapper>

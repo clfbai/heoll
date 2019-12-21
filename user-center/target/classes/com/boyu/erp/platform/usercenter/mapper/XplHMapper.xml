@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.Price.XplHMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.Price.XplH">
+    <id column="vender_id" jdbcType="BIGINT" property="venderId" />
+    <id column="vendee_id" jdbcType="BIGINT" property="vendeeId" />
+    <id column="prc_ctlr" jdbcType="CHAR" property="prcCtlr" />
+    <id column="xp_type" jdbcType="CHAR" property="xpType" />
+    <id column="prod_cls_id" jdbcType="BIGINT" property="prodClsId" />
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <id column="xpn_num" jdbcType="VARCHAR" property="xpnNum" />
+    <result column="prc_opr" jdbcType="CHAR" property="prcOpr" />
+    <result column="exec_time" jdbcType="TIMESTAMP" property="execTime" />
+    <result column="prc_plcy" jdbcType="CHAR" property="prcPlcy" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="disc_rate" jdbcType="DECIMAL" property="discRate" />
+    <result column="fnl_price" jdbcType="DECIMAL" property="fnlPrice" />
+    <result column="tax_rate" jdbcType="DECIMAL" property="taxRate" />
+    <result column="spec_ofr" jdbcType="CHAR" property="specOfr" />
+    <result column="expd_date" jdbcType="DATE" property="expdDate" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapByXplHVo" type="com.boyu.erp.platform.usercenter.vo.price.XplHVo">
+    <result column="unitId" property="unitId" />
+    <result column="prodClsCode" property="prodClsCode" />
+    <result column="prodName" property="prodName" />
+    <result column="unitCode" property="unitCode" />
+    <result column="unitName" property="unitName" />
+    <result column="xpnNum" property="xpnNum" />
+    <result column="prcOpr" property="prcOpr" />
+    <result column="execTime" property="execTime" />
+    <result column="prcPlcy" property="prcPlcy" />
+    <result column="unitPrice" property="unitPrice" />
+    <result column="discRate" property="discRate" />
+    <result column="fnlPrice" property="fnlPrice" />
+    <result column="taxRate" property="taxRate" />
+    <result column="specOfr" property="specOfr" />
+    <result column="expdDate" property="expdDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    vender_id, vendee_id, prc_ctlr, xp_type, prod_cls_id, unit_id, xpn_num, prc_opr, 
+    exec_time, prc_plcy, unit_price, disc_rate, fnl_price, tax_rate, spec_ofr, expd_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.Price.XplH" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from xpl_h
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and prc_ctlr = #{prcCtlr,jdbcType=CHAR}
+      and xp_type = #{xpType,jdbcType=CHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+      and unit_id = #{unitId,jdbcType=BIGINT}
+      and xpn_num = #{xpnNum,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.Price.XplH">
+    delete from xpl_h
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and prc_ctlr = #{prcCtlr,jdbcType=CHAR}
+      and xp_type = #{xpType,jdbcType=CHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+      and unit_id = #{unitId,jdbcType=BIGINT}
+      and xpn_num = #{xpnNum,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.Price.XplH">
+    insert into xpl_h (vender_id, vendee_id, prc_ctlr, 
+      xp_type, prod_cls_id, unit_id, 
+      xpn_num, prc_opr, exec_time, 
+      prc_plcy, unit_price, disc_rate, 
+      fnl_price, tax_rate, spec_ofr, 
+      expd_date)
+    values (#{venderId,jdbcType=BIGINT}, #{vendeeId,jdbcType=BIGINT}, #{prcCtlr,jdbcType=CHAR}, 
+      #{xpType,jdbcType=CHAR}, #{prodClsId,jdbcType=BIGINT}, #{unitId,jdbcType=BIGINT}, 
+      #{xpnNum,jdbcType=VARCHAR}, #{prcOpr,jdbcType=CHAR}, #{execTime,jdbcType=TIMESTAMP}, 
+      #{prcPlcy,jdbcType=CHAR}, #{unitPrice,jdbcType=DECIMAL}, #{discRate,jdbcType=DECIMAL}, 
+      #{fnlPrice,jdbcType=DECIMAL}, #{taxRate,jdbcType=DECIMAL}, #{specOfr,jdbcType=CHAR}, 
+      #{expdDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.Price.XplH">
+    insert into xpl_h
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="venderId != null">
+        vender_id,
+      </if>
+      <if test="vendeeId != null">
+        vendee_id,
+      </if>
+      <if test="prcCtlr != null">
+        prc_ctlr,
+      </if>
+      <if test="xpType != null">
+        xp_type,
+      </if>
+      <if test="prodClsId != null">
+        prod_cls_id,
+      </if>
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="xpnNum != null">
+        xpn_num,
+      </if>
+      <if test="prcOpr != null">
+        prc_opr,
+      </if>
+      <if test="execTime != null">
+        exec_time,
+      </if>
+      <if test="prcPlcy != null">
+        prc_plcy,
+      </if>
+      <if test="unitPrice != null">
+        unit_price,
+      </if>
+      <if test="discRate != null">
+        disc_rate,
+      </if>
+      <if test="fnlPrice != null">
+        fnl_price,
+      </if>
+      <if test="taxRate != null">
+        tax_rate,
+      </if>
+      <if test="specOfr != null">
+        spec_ofr,
+      </if>
+      <if test="expdDate != null">
+        expd_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="venderId != null">
+        #{venderId,jdbcType=BIGINT},
+      </if>
+      <if test="vendeeId != null">
+        #{vendeeId,jdbcType=BIGINT},
+      </if>
+      <if test="prcCtlr != null">
+        #{prcCtlr,jdbcType=CHAR},
+      </if>
+      <if test="xpType != null">
+        #{xpType,jdbcType=CHAR},
+      </if>
+      <if test="prodClsId != null">
+        #{prodClsId,jdbcType=BIGINT},
+      </if>
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="xpnNum != null">
+        #{xpnNum,jdbcType=VARCHAR},
+      </if>
+      <if test="prcOpr != null">
+        #{prcOpr,jdbcType=CHAR},
+      </if>
+      <if test="execTime != null">
+        #{execTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="prcPlcy != null">
+        #{prcPlcy,jdbcType=CHAR},
+      </if>
+      <if test="unitPrice != null">
+        #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discRate != null">
+        #{discRate,jdbcType=DECIMAL},
+      </if>
+      <if test="fnlPrice != null">
+        #{fnlPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="taxRate != null">
+        #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="specOfr != null">
+        #{specOfr,jdbcType=CHAR},
+      </if>
+      <if test="expdDate != null">
+        #{expdDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.Price.XplH">
+    update xpl_h
+    <set>
+      <if test="prcOpr != null">
+        prc_opr = #{prcOpr,jdbcType=CHAR},
+      </if>
+      <if test="execTime != null">
+        exec_time = #{execTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="prcPlcy != null">
+        prc_plcy = #{prcPlcy,jdbcType=CHAR},
+      </if>
+      <if test="unitPrice != null">
+        unit_price = #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discRate != null">
+        disc_rate = #{discRate,jdbcType=DECIMAL},
+      </if>
+      <if test="fnlPrice != null">
+        fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="taxRate != null">
+        tax_rate = #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="specOfr != null">
+        spec_ofr = #{specOfr,jdbcType=CHAR},
+      </if>
+      <if test="expdDate != null">
+        expd_date = #{expdDate,jdbcType=DATE},
+      </if>
+    </set>
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and prc_ctlr = #{prcCtlr,jdbcType=CHAR}
+      and xp_type = #{xpType,jdbcType=CHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+      and unit_id = #{unitId,jdbcType=BIGINT}
+      and xpn_num = #{xpnNum,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.Price.XplH">
+    update xpl_h
+    set prc_opr = #{prcOpr,jdbcType=CHAR},
+      exec_time = #{execTime,jdbcType=TIMESTAMP},
+      prc_plcy = #{prcPlcy,jdbcType=CHAR},
+      unit_price = #{unitPrice,jdbcType=DECIMAL},
+      disc_rate = #{discRate,jdbcType=DECIMAL},
+      fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+      tax_rate = #{taxRate,jdbcType=DECIMAL},
+      spec_ofr = #{specOfr,jdbcType=CHAR},
+      expd_date = #{expdDate,jdbcType=DATE}
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and prc_ctlr = #{prcCtlr,jdbcType=CHAR}
+      and xp_type = #{xpType,jdbcType=CHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+      and unit_id = #{unitId,jdbcType=BIGINT}
+      and xpn_num = #{xpnNum,jdbcType=VARCHAR}
+  </update>
+
+<!-- 执行采购价格单时添加历史数据 -->
+  <insert id="insertByMap" parameterType="java.util.Map">
+    insert into xpl_h (vender_id, vendee_id, prc_ctlr,
+      xp_type, prod_cls_id, unit_id,
+      xpn_num, prc_opr, exec_time,
+      prc_plcy, unit_price, disc_rate,
+      fnl_price, tax_rate, spec_ofr,
+      expd_date)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (#{item.venderId,jdbcType=BIGINT}, #{item.vendeeId,jdbcType=BIGINT}, #{item.prcCtlr,jdbcType=CHAR},
+      #{item.xpType,jdbcType=CHAR}, #{item.prodClsId,jdbcType=BIGINT}, #{unitId},
+      #{xpnNum}, #{prcOpr}, #{execTime},
+      #{item.prcPlcy,jdbcType=CHAR}, #{item.unitPrice,jdbcType=DECIMAL}, #{item.discRate,jdbcType=DECIMAL},
+      #{item.fnlPrice,jdbcType=DECIMAL}, #{item.taxRate,jdbcType=DECIMAL}, #{item.specOfr,jdbcType=CHAR},
+      #{item.expdDate,jdbcType=DATE})
+    </foreach>
+  </insert>
+
+  <insert id="insertByList" parameterType="java.util.Map">
+    insert into xpl_h (vender_id, vendee_id, prc_ctlr,
+    xp_type, prod_cls_id, unit_id,
+    xpn_num, prc_opr, exec_time,
+    prc_plcy, unit_price, disc_rate,
+    fnl_price, tax_rate, spec_ofr,
+    expd_date)
+    values
+    <foreach collection="scpList" item="scpItem" index="index" separator=",">
+      <foreach collection="dtlList" item="dtlItem" index="index" separator=",">
+        (#{scpItem.venderId,jdbcType=BIGINT}, #{unitId,jdbcType=BIGINT}, 'E',
+        #{xpType,jdbcType=CHAR}, #{dtlItem.prodClsId,jdbcType=BIGINT}, #{unitId},
+        #{xpnNum}, 'M', #{execTime},
+        #{dtlItem.prcPlcy,jdbcType=CHAR}, #{dtlItem.unitPrice,jdbcType=DECIMAL}, #{dtlItem.discRate,jdbcType=DECIMAL},
+        #{dtlItem.fnlPrice,jdbcType=DECIMAL}, #{dtlItem.taxRate,jdbcType=DECIMAL}, #{dtlItem.specOfr,jdbcType=CHAR},
+        #{expdDate})
+      </foreach>
+    </foreach>
+  </insert>
+
+  <insert id="insertByHierList" parameterType="java.util.Map">
+    insert into xpl_h (vender_id, vendee_id, prc_ctlr,
+    xp_type, prod_cls_id, unit_id,
+    xpn_num, prc_opr, exec_time,
+    prc_plcy, unit_price, disc_rate,
+    fnl_price, tax_rate, spec_ofr,
+    expd_date)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      <foreach collection="dtlList" item="dtlItem" index="index" separator=",">
+        (#{item.venderId,jdbcType=BIGINT}, #{unitId,jdbcType=BIGINT}, 'E',
+        #{xpType,jdbcType=CHAR}, #{dtlItem.prodClsId,jdbcType=BIGINT}, #{unitId},
+        #{xpnNum}, 'M', #{execTime},
+        #{dtlItem.prcPlcy,jdbcType=CHAR}, #{dtlItem.unitPrice,jdbcType=DECIMAL}, #{dtlItem.discRate,jdbcType=DECIMAL},
+        #{dtlItem.fnlPrice,jdbcType=DECIMAL}, #{dtlItem.taxRate,jdbcType=DECIMAL}, #{dtlItem.specOfr,jdbcType=CHAR},
+        #{expdDate})
+      </foreach>
+    </foreach>
+  </insert>
+
+  <select id="selectALL" parameterType="com.boyu.erp.platform.usercenter.vo.price.XplHVo" resultMap="BaseResultMapByXplHVo">
+    SELECT
+        pc.prod_cls_code AS prodClsCode,
+        pc.prod_name AS prodName,
+        su.unit_code AS unitCode,
+        su.unit_name AS unitName,
+        xh.xpn_num AS xpnNum,
+        xh.prc_opr AS prcOpr,
+        DATE_FORMAT( xh.exec_time, '%Y-%m-%d %H:%i:%S' ) AS execTime,
+        xh.prc_plcy AS prcPlcy,
+        xh.unit_price AS unitPrice,
+        xh.disc_rate AS discRate,
+        xh.tax_rate AS taxRate,
+        xh.fnl_price AS fnlPrice,
+        xh.spec_ofr AS specOfr,
+        xh.expd_date AS expdDate
+    FROM
+        xpl_h xh
+        INNER JOIN ${type} pn ON
+        <choose>
+          <when test=" type=='ppn' ">
+            pn.ppn_num = xh.xpn_num
+          </when>
+          <when test=" type=='spn' ">
+            pn.spn_num = xh.xpn_num
+          </when>
+        </choose>
+        LEFT JOIN prod_cls pc ON pc.prod_cls_id = xh.prod_cls_id
+        LEFT JOIN sys_unit su ON su.unit_id = pn.unit_id
+        WHERE 1=1
+        <choose>
+          <when test=" type=='ppn' ">
+            AND xh.prc_ctlr = 'E'
+          </when>
+          <when test=" type=='spn' ">
+            AND xh.prc_ctlr = 'R'
+          </when>
+        </choose>
+        <if test="xpType!=null and xpType!='' ">
+        AND xh.xp_type = #{xpType}
+        </if>
+        <if test="prcScp!=null and prcScp!='' ">
+        AND pn.prc_scp = #{prcScp}
+        </if>
+        <if test="effDate!=null and effDate!='' ">
+        AND pn.eff_date &gt;= #{effDate,jdbcType=DATE}
+        </if>
+        <if test="expdDate!=null and expdDate!='' ">
+        AND pn.expd_date &lt;= #{expdDate,jdbcType=DATE}
+        </if>
+        <if test="prodClsCode!=null and prodClsCode!='' ">
+        AND pc.prod_cls_code like CONCAT( #{prodClsCode}, '%')
+        </if>
+  </select>
+
+  <select id="selectByUnit" parameterType="com.boyu.erp.platform.usercenter.vo.price.XplHVo" resultMap="BaseResultMapByXplHVo">
+    SELECT
+    pc.prod_cls_code AS prodClsCode,
+    pc.prod_name AS prodName,
+    su.unit_code AS unitCode,
+    su.unit_name AS unitName,
+    xh.xpn_num AS xpnNum,
+    xh.prc_opr AS prcOpr,
+    DATE_FORMAT( xh.exec_time, '%Y-%m-%d %H:%i:%S' ) AS execTime,
+    xh.prc_plcy AS prcPlcy,
+    xh.unit_price AS unitPrice,
+    xh.disc_rate AS discRate,
+    xh.tax_rate AS taxRate,
+    xh.fnl_price AS fnlPrice,
+    xh.spec_ofr AS specOfr,
+    xh.expd_date AS expdDate
+    FROM
+    xpl_h xh
+    INNER JOIN (SELECT * FROM ${type} a WHERE 1=1 AND a.unit_id = #{unitId}) pn ON
+    <choose>
+      <when test=" type=='ppn' ">
+        pn.ppn_num = xh.xpn_num
+      </when>
+      <when test=" type=='spn' ">
+        pn.spn_num = xh.xpn_num
+      </when>
+    </choose>
+    LEFT JOIN prod_cls pc ON pc.prod_cls_id = xh.prod_cls_id
+    LEFT JOIN sys_unit su ON su.unit_id = pn.unit_id
+    WHERE 1=1
+    <choose>
+      <when test=" type=='ppn' ">
+        AND xh.prc_ctlr = 'E'
+      </when>
+      <when test=" type=='spn' ">
+        AND xh.prc_ctlr = 'R'
+      </when>
+    </choose>
+    <if test="xpType!=null and xpType!='' ">
+      AND xh.xp_type = #{xpType}
+    </if>
+    <if test="prcScp!=null and prcScp!='' ">
+      AND pn.prc_scp = #{prcScp}
+    </if>
+    <if test="effDate!=null and effDate!='' ">
+      AND pn.eff_date &gt;= #{effDate}
+    </if>
+    <if test="expdDate!=null and expdDate!='' ">
+      AND pn.expd_date &lt;= #{expdDate}
+    </if>
+    <if test="prodClsCode!=null and prodClsCode!='' ">
+      AND pc.prod_cls_code like CONCAT( #{prodClsCode}, '%')
+    </if>
+
+  </select>
+
+</mapper>

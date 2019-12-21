@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PsaDrMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.PsaDr">
+    <id column="vender_id" jdbcType="BIGINT" property="venderId" />
+    <id column="vendee_id" jdbcType="BIGINT" property="vendeeId" />
+    <id column="psa_ctlr" jdbcType="CHAR" property="psaCtlr" />
+    <id column="psc_type" jdbcType="VARCHAR" property="pscType" />
+    <id column="prod_cat_id" jdbcType="VARCHAR" property="prodCatId" />
+    <id column="min_price" jdbcType="DECIMAL" property="minPrice" />
+    <id column="max_price" jdbcType="DECIMAL" property="maxPrice" />
+    <result column="disc_rate" jdbcType="DECIMAL" property="discRate" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapPsa" type="com.boyu.erp.platform.usercenter.vo.purchase.PsaRateVo">
+    <id column="vender_id" jdbcType="BIGINT" property="venderId" />
+    <id column="vendee_id" jdbcType="BIGINT" property="vendeeId" />
+    <id column="psa_ctlr" jdbcType="CHAR" property="psaCtlr" />
+    <id column="prod_cat_id" jdbcType="VARCHAR" property="prodCatId" />
+    <id column="min_price" jdbcType="DECIMAL" property="minPrice" />
+    <id column="max_price" jdbcType="DECIMAL" property="maxPrice" />
+    <result column="disc_rate" jdbcType="DECIMAL" property="discRate" />
+    <result column="pscType"  property="pscType" />
+    <result column="prodCatName"  property="prodCatName" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    vender_id, vendee_id, psa_ctlr, psc_type, prod_cat_id, min_price, max_price, disc_rate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsaDr" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from psa_dr
+    where vender_id = #{venderId,jdbcType=BIGINT}
+    and vendee_id = #{vendeeId,jdbcType=BIGINT}
+    and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+    and psc_type = #{pscType,jdbcType=VARCHAR}
+    <if test="prodCatId != null">
+    and prod_cat_id = #{prodCatId,jdbcType=VARCHAR}
+    </if>
+    <if test="minPrice != null">
+    and min_price = #{minPrice,jdbcType=DECIMAL}
+    </if>
+    <if test="maxPrice != null">
+    and max_price = #{maxPrice,jdbcType=DECIMAL}
+    </if>
+  </select>
+
+  <select id="selectByPsa" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaRateVo" resultMap="BaseResultMapPsa">
+    SELECT
+    pd.vender_id,
+    pd.vendee_id,
+    pd.psa_ctlr,
+	pd.psc_type AS pscType,
+	pd.disc_rate,
+	pd.prod_cat_id,
+	pd.min_price,
+	pd.max_price,
+	pc.PROD_CAT_NAME AS prodCatName
+    FROM
+	PSA_DR pd
+	LEFT JOIN PROD_CAT pc ON pc.PROD_CAT_ID = pd.prod_cat_id
+    where pd.vender_id = #{venderId,jdbcType=BIGINT}
+    and pd.vendee_id = #{vendeeId,jdbcType=BIGINT}
+    and pd.psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+  </select>
+  <!-- 查询是否有记录 -->
+  <select id="selectByPsaDr" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaRateVo" resultMap="BaseResultMapPsa">
+    SELECT
+    pd.vender_id,
+    pd.vendee_id,
+    pd.psa_ctlr,
+	pt.DESCRIPTION AS pscType,
+	pd.disc_rate
+    FROM
+	PSA_DR pd
+	LEFT JOIN PSC_TYPE pt ON pt.PSC_TYPE = pd.PSC_TYPE
+    where pd.vender_id = #{venderId,jdbcType=BIGINT}
+    and pd.vendee_id = #{vendeeId,jdbcType=BIGINT}
+    and pd.psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+    and pd.psc_type = #{pscType,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsaDr">
+    insert into psa_dr (vender_id, vendee_id, psa_ctlr, 
+      psc_type, prod_cat_id, min_price, 
+      max_price, disc_rate)
+    values (#{venderId,jdbcType=BIGINT}, #{vendeeId,jdbcType=BIGINT}, #{psaCtlr,jdbcType=CHAR}, 
+      #{pscType,jdbcType=VARCHAR}, #{prodCatId,jdbcType=VARCHAR}, #{minPrice,jdbcType=DECIMAL}, 
+      #{maxPrice,jdbcType=DECIMAL}, #{discRate,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsaDr">
+    insert into psa_dr
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="venderId != null">
+        vender_id,
+      </if>
+      <if test="vendeeId != null">
+        vendee_id,
+      </if>
+      <if test="psaCtlr != null">
+        psa_ctlr,
+      </if>
+      <if test="pscType != null">
+        psc_type,
+      </if>
+      <if test="prodCatId != null">
+        prod_cat_id,
+      </if>
+      <if test="minPrice != null">
+        min_price,
+      </if>
+      <if test="maxPrice != null">
+        max_price,
+      </if>
+      <if test="discRate != null">
+        disc_rate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="venderId != null">
+        #{venderId,jdbcType=BIGINT},
+      </if>
+      <if test="vendeeId != null">
+        #{vendeeId,jdbcType=BIGINT},
+      </if>
+      <if test="psaCtlr != null">
+        #{psaCtlr,jdbcType=CHAR},
+      </if>
+      <if test="pscType != null">
+        #{pscType,jdbcType=VARCHAR},
+      </if>
+      <if test="prodCatId != null">
+        #{prodCatId,jdbcType=VARCHAR},
+      </if>
+      <if test="minPrice != null">
+        #{minPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="maxPrice != null">
+        #{maxPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discRate != null">
+        #{discRate,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsaDr">
+    update psa_dr
+    <set>
+      <if test="discRate != null">
+        disc_rate = #{discRate,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where vender_id = #{venderId,jdbcType=BIGINT}
+    and vendee_id = #{vendeeId,jdbcType=BIGINT}
+    and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+    and psc_type = #{pscType,jdbcType=VARCHAR}
+    and prod_cat_id = #{prodCatId,jdbcType=VARCHAR}
+    and min_price = #{minPrice,jdbcType=DECIMAL}
+    and max_price = #{maxPrice,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsaDr">
+    update psa_dr
+    set disc_rate = #{discRate,jdbcType=DECIMAL}
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+      and psc_type = #{pscType,jdbcType=VARCHAR}
+      and prod_cat_id = #{prodCatId,jdbcType=VARCHAR}
+      and min_price = #{minPrice,jdbcType=DECIMAL}
+      and max_price = #{maxPrice,jdbcType=DECIMAL}
+  </update>
+
+  <insert id="insertByPsa" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaRateVo">
+    insert into psa_dr
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="venderId != null">
+        vender_id,
+      </if>
+      <if test="vendeeId != null">
+        vendee_id,
+      </if>
+      <if test="psaCtlr != null">
+        psa_ctlr,
+      </if>
+      <if test="pscType != null">
+        psc_type,
+      </if>
+      <if test="prodCatId != null">
+        prod_cat_id,
+      </if>
+      <if test="minPrice != null">
+        min_price,
+      </if>
+      <if test="maxPrice != null">
+        max_price,
+      </if>
+      <if test="discRate != null">
+        disc_rate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="venderId != null">
+        #{venderId,jdbcType=BIGINT},
+      </if>
+      <if test="vendeeId != null">
+        #{vendeeId,jdbcType=BIGINT},
+      </if>
+      <if test="psaCtlr != null">
+        #{psaCtlr,jdbcType=CHAR},
+      </if>
+      <if test="pscType != null">
+        #{pscType,jdbcType=VARCHAR},
+      </if>
+      <if test="prodCatId != null">
+        #{prodCatId,jdbcType=VARCHAR},
+      </if>
+      <if test="minPrice != null">
+        #{minPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="maxPrice != null">
+        #{maxPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discRate != null">
+        #{discRate,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+
+  <!--修改折率-->
+  <update id="updateByPsa" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaRateVo">
+    update psa_dr
+    set disc_rate = #{discRate,jdbcType=DECIMAL}
+    <if test="upPscType != null">
+     , psc_type = #{upPscType,jdbcType=VARCHAR}
+    </if>
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+      and psc_type = #{pscType,jdbcType=VARCHAR}
+      and prod_cat_id = #{prodCatId,jdbcType=VARCHAR}
+      and min_price = #{minPrice,jdbcType=DECIMAL}
+      and max_price = #{maxPrice,jdbcType=DECIMAL}
+  </update>
+  <!--删除单条折率 -->
+  <delete id="deleteByPsaDr" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaRateVo">
+    delete from psa_dr
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+      and psc_type = #{pscType,jdbcType=VARCHAR}
+  </delete>
+
+  <!--购销协议中的删除 -->
+  <delete id="deleteByPsa" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaVo">
+    delete from psa_dr
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+  </delete>
+</mapper>

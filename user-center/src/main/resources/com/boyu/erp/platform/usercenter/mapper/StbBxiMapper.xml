@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.StbBxiMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.StbBxi">
+    <result column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <result column="stb_num" jdbcType="VARCHAR" property="stbNum" />
+    <result column="prod_cls_id" jdbcType="BIGINT" property="prodClsId" />
+    <result column="color_id" jdbcType="BIGINT" property="colorId" />
+    <result column="edition" jdbcType="VARCHAR" property="edition" />
+    <result column="egn_str" jdbcType="VARCHAR" property="egnStr" />
+    <result column="line_num" jdbcType="INTEGER" property="lineNum" />
+    <result column="sat_id" jdbcType="BIGINT" property="satId" />
+    <result column="unit_qty" jdbcType="REAL" property="unitQty" />
+    <result column="expd_box" jdbcType="BIGINT" property="expdBox" />
+    <result column="box" jdbcType="BIGINT" property="box" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbBxi">
+    insert into stb_bxi (unit_id, stb_num, prod_cls_id, 
+      color_id, edition, egn_str, 
+      line_num, sat_id, unit_qty, 
+      expd_box, box, remarks
+      )
+    values (#{unitId,jdbcType=BIGINT}, #{stbNum,jdbcType=VARCHAR}, #{prodClsId,jdbcType=BIGINT}, 
+      #{colorId,jdbcType=BIGINT}, #{edition,jdbcType=VARCHAR}, #{egnStr,jdbcType=VARCHAR}, 
+      #{lineNum,jdbcType=INTEGER}, #{satId,jdbcType=BIGINT}, #{unitQty,jdbcType=REAL}, 
+      #{expdBox,jdbcType=BIGINT}, #{box,jdbcType=BIGINT}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbBxi">
+    insert into stb_bxi
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="stbNum != null">
+        stb_num,
+      </if>
+      <if test="prodClsId != null">
+        prod_cls_id,
+      </if>
+      <if test="colorId != null">
+        color_id,
+      </if>
+      <if test="edition != null">
+        edition,
+      </if>
+      <if test="egnStr != null">
+        egn_str,
+      </if>
+      <if test="lineNum != null">
+        line_num,
+      </if>
+      <if test="satId != null">
+        sat_id,
+      </if>
+      <if test="unitQty != null">
+        unit_qty,
+      </if>
+      <if test="expdBox != null">
+        expd_box,
+      </if>
+      <if test="box != null">
+        box,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="stbNum != null">
+        #{stbNum,jdbcType=VARCHAR},
+      </if>
+      <if test="prodClsId != null">
+        #{prodClsId,jdbcType=BIGINT},
+      </if>
+      <if test="colorId != null">
+        #{colorId,jdbcType=BIGINT},
+      </if>
+      <if test="edition != null">
+        #{edition,jdbcType=VARCHAR},
+      </if>
+      <if test="egnStr != null">
+        #{egnStr,jdbcType=VARCHAR},
+      </if>
+      <if test="lineNum != null">
+        #{lineNum,jdbcType=INTEGER},
+      </if>
+      <if test="satId != null">
+        #{satId,jdbcType=BIGINT},
+      </if>
+      <if test="unitQty != null">
+        #{unitQty,jdbcType=REAL},
+      </if>
+      <if test="expdBox != null">
+        #{expdBox,jdbcType=BIGINT},
+      </if>
+      <if test="box != null">
+        #{box,jdbcType=BIGINT},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.StbBoxMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.StbBox">
+    <result column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <result column="stb_num" jdbcType="VARCHAR" property="stbNum" />
+    <result column="box_code" jdbcType="VARCHAR" property="boxCode" />
+    <result column="line_num" jdbcType="INTEGER" property="lineNum" />
+    <result column="expd_box" jdbcType="INTEGER" property="expdBox" />
+    <result column="box" jdbcType="INTEGER" property="box" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    unit_id, stb_num, box_code, line_num, expd_box, box
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbBox" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from stb_box
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and stb_num = #{stbNum,jdbcType=VARCHAR}
+      and box_code = #{boxCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbBox">
+    delete from stb_box
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and stb_num = #{stbNum,jdbcType=VARCHAR}
+    <if test="boxCode != null and boxCode != ''">
+      and box_code = #{boxCode,jdbcType=VARCHAR}
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbBox">
+    insert into stb_box (unit_id, stb_num, box_code, 
+      line_num, expd_box, box
+      )
+    values (#{unitId,jdbcType=BIGINT}, #{stbNum,jdbcType=VARCHAR}, #{boxCode,jdbcType=VARCHAR}, 
+      #{lineNum,jdbcType=INTEGER}, #{expdBox,jdbcType=INTEGER}, #{box,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbBox">
+    update stb_box
+    set line_num = #{lineNum,jdbcType=INTEGER},
+      expd_box = #{expdBox,jdbcType=INTEGER},
+      box = #{box,jdbcType=INTEGER}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and stb_num = #{stbNum,jdbcType=VARCHAR}
+      and box_code = #{boxCode,jdbcType=VARCHAR}
+  </update>
+  <select id="getStbBoxList" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbBox" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from stb_box
+    where unit_id = #{unitId,jdbcType=BIGINT}
+    and stb_num = #{stbNum,jdbcType=VARCHAR}
+  </select>
+</mapper>

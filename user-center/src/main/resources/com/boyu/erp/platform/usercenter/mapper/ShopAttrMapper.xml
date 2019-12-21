@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.shop.ShopAttrMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.shop.ShopAttr">
+        <id column="shop_id" jdbcType="BIGINT" property="shopId"/>
+        <id column="attr_type" jdbcType="VARCHAR" property="attrType"/>
+        <result column="attr_val" jdbcType="VARCHAR" property="attrVal"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    shop_id, attr_type, attr_val
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopAttr"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from shop_attr
+        where shop_id = #{shopId,jdbcType=BIGINT}
+        and attr_type = #{attrType,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getShopAttr" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopAttr"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from shop_attr
+        <if test="shopId!=null and shopId!=0L">
+         and  shop_id= #{shopId}
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopAttr">
+    delete from shop_attr
+    where shop_id = #{shopId,jdbcType=BIGINT}
+      and attr_type = #{attrType,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopAttr">
+    insert into shop_attr (shop_id, attr_type, attr_val
+      )
+    values (#{shopId,jdbcType=BIGINT}, #{attrType,jdbcType=VARCHAR}, #{attrVal,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopAttr">
+        insert into shop_attr
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">
+                shop_id,
+            </if>
+            <if test="attrType != null">
+                attr_type,
+            </if>
+            <if test="attrVal != null">
+                attr_val,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">
+                #{shopId,jdbcType=BIGINT},
+            </if>
+            <if test="attrType != null">
+                #{attrType,jdbcType=VARCHAR},
+            </if>
+            <if test="attrVal != null">
+                #{attrVal,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <!--批量添加门店属性-->
+    <insert id="addList">
+        insert into
+        shop_attr (shop_id, attr_type, attr_val)
+        values
+        <foreach collection="list" item="role" index="index" separator=",">
+            (#{role.shopId},#{role.attrType},#{role.attrVal})
+        </foreach>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopAttr">
+        update shop_attr
+        <set>
+            <if test="attrVal != null">
+                attr_val = #{attrVal,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where shop_id = #{shopId,jdbcType=BIGINT}
+        and attr_type = #{attrType,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopAttr">
+    update shop_attr
+    set attr_val = #{attrVal,jdbcType=VARCHAR}
+    where shop_id = #{shopId,jdbcType=BIGINT}
+      and attr_type = #{attrType,jdbcType=VARCHAR}
+  </update>
+</mapper>

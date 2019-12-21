@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.WarehCostMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.WarehCost">
+    <id column="wareh_id" jdbcType="BIGINT" property="warehId" />
+    <id column="prod_cls_id" jdbcType="BIGINT" property="prodClsId" />
+    <result column="owner_id" jdbcType="BIGINT" property="ownerId" />
+    <result column="wareh_cost" jdbcType="DECIMAL" property="warehCost" />
+    <result column="tot_qty" jdbcType="DECIMAL" property="totQty" />
+    <result column="tot_val" jdbcType="DECIMAL" property="totVal" />
+    <result column="pg_val" jdbcType="DECIMAL" property="pgVal" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    wareh_id, prod_cls_id, owner_id, wareh_cost, tot_qty, tot_val,pg_val
+  </sql>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehCost">
+    insert into wareh_cost (wareh_id, prod_cls_id, owner_id, 
+      wareh_cost, tot_qty, tot_val
+      )
+    values (#{warehId,jdbcType=BIGINT}, #{prodClsId,jdbcType=BIGINT}, #{ownerId,jdbcType=BIGINT}, 
+      #{warehCost,jdbcType=DECIMAL}, #{totQty,jdbcType=DECIMAL}, #{totVal,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehCost">
+    insert into wareh_cost
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="warehId != null">
+        wareh_id,
+      </if>
+      <if test="prodClsId != null">
+        prod_cls_id,
+      </if>
+      <if test="ownerId != null">
+        owner_id,
+      </if>
+      <if test="warehCost != null">
+        wareh_cost,
+      </if>
+      <if test="totQty != null">
+        tot_qty,
+      </if>
+      <if test="totVal != null">
+        tot_val,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="warehId != null">
+        #{warehId,jdbcType=BIGINT},
+      </if>
+      <if test="prodClsId != null">
+        #{prodClsId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="warehCost != null">
+        #{warehCost,jdbcType=DECIMAL},
+      </if>
+      <if test="totQty != null">
+        #{totQty,jdbcType=DECIMAL},
+      </if>
+      <if test="totVal != null">
+        #{totVal,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertUpdateWarehCost">
+    insert into wareh_cost(wareh_id,owner_id,prod_cls_id,wareh_cost,tot_qty,tot_val,pg_val) values
+    <foreach collection="countCosts" item="countCost" separator=",">
+      (#{warehId},#{fsclUnitId},#{countCost.prodClsId},#{countCost.warehCost},#{countCost.warehQty},#{countCost.warehVal},#{countCost.warehPgVal})
+    </foreach>
+    ON DUPLICATE KEY UPDATE wareh_cost=values(wareh_cost),tot_qty=values(tot_qty),tot_val=values(tot_val),pg_val=values(pg_val)
+  </insert>
+
+  <insert id="addUpadteWarehCostList">
+    insert into wareh_cost(wareh_id,prod_cls_id,wareh_cost,tot_qty,tot_val,pg_val) values
+    <foreach collection="list" item="list" separator=",">
+      (#{list.warehId},#{list.prodClsId},#{list.warehCost},#{list.totQty},#{list.totVal},#{list.pgVal})
+    </foreach>
+    ON DUPLICATE KEY UPDATE wareh_cost=values(wareh_cost),tot_qty=values(tot_qty),tot_val=values(tot_val),pg_val=values(pg_val)
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehCost">
+    update wareh_cost
+    <set>
+      <if test="ownerId != null">
+        owner_id = #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="warehCost != null">
+        wareh_cost = #{warehCost,jdbcType=DECIMAL},
+      </if>
+      <if test="totQty != null">
+        tot_qty = #{totQty,jdbcType=DECIMAL},
+      </if>
+      <if test="totVal != null">
+        tot_val = #{totVal,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehCost">
+    update wareh_cost
+    set owner_id = #{ownerId,jdbcType=BIGINT},
+      wareh_cost = #{warehCost,jdbcType=DECIMAL},
+      tot_qty = #{totQty,jdbcType=DECIMAL},
+      tot_val = #{totVal,jdbcType=DECIMAL}
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByQty">
+    <foreach collection="countCostModels" item="countCostModel" separator=";">
+      update wareh_cost set tot_qty=tot_qty+#{countCostModel.qty},tot_val=tot_val+#{countCostModel.val} where
+      wareh_id=#{warehId} and prod_cls_id=#{countCostModel.prodClsId}
+    </foreach>
+  </update>
+  <update id="updateByWarehStk">
+      <foreach collection="warehStkList" item="warehStk" separator=",">
+        update wareh_cost set tot_qty=tot_qty+#{warehStk.stkOnHand} where wareh_id=#{warehId} and
+      </foreach>
+    </update>
+
+  <select id="queryWarehCostListByClsAndWareh"
+            resultMap="BaseResultMap">
+      select <include refid="Base_Column_List"></include>
+       from wareh_cost
+       where wareh_id=#{warehId}
+        and prod_cls_id in(
+      <foreach collection="prodClsIds" item="prodClsId" separator=",">
+        #{prodClsId}
+      </foreach>
+      )
+    </select>
+
+</mapper>

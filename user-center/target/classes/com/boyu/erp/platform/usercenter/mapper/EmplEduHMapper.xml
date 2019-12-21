@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.employye.EmplEduHMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.employee.EmplEduH">
+    <id column="empl_id" jdbcType="BIGINT" property="emplId" />
+    <id column="owner_id" jdbcType="BIGINT" property="ownerId" />
+    <id column="line_num" jdbcType="INTEGER" property="lineNum" />
+    <result column="from_date" jdbcType="DATE" property="fromDate" />
+    <result column="to_date" jdbcType="DATE" property="toDate" />
+    <result column="edu_org" jdbcType="VARCHAR" property="eduOrg" />
+    <result column="edu_cnt" jdbcType="VARCHAR" property="eduCnt" />
+    <result column="opr_id" jdbcType="BIGINT" property="oprId" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="fromDateCp" jdbcType="VARCHAR" property="fromDateCp" />
+    <result column="toDateCp" jdbcType="VARCHAR" property="toDateCp" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    empl_id, owner_id, line_num, from_date, to_date, edu_org, edu_cnt, opr_id, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmpKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from empl_edu_h
+    where empl_id = #{emplId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+      and line_num = #{lineNum,jdbcType=INTEGER}
+  </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />,
+      DATE_FORMAT(from_date, "%Y-%m-%d %T") AS fromDateCp,
+      DATE_FORMAT(to_date, "%Y-%m-%d %T") AS toDateCp
+      from empl_edu_h
+      where empl_id = #{emplId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmpKey">
+    delete from empl_edu_h
+    where empl_id = #{emplId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+      and line_num = #{lineNum,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmplEduH">
+    insert into empl_edu_h (empl_id, owner_id, line_num, 
+      from_date, to_date, edu_org, 
+      edu_cnt, opr_id, remarks
+      )
+    values (#{emplId,jdbcType=BIGINT}, #{ownerId,jdbcType=BIGINT}, #{lineNum,jdbcType=INTEGER}, 
+      #{fromDate,jdbcType=DATE}, #{toDate,jdbcType=DATE}, #{eduOrg,jdbcType=VARCHAR}, 
+      #{eduCnt,jdbcType=VARCHAR}, #{oprId,jdbcType=BIGINT}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmplEduH">
+    insert into empl_edu_h
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="emplId != null">
+        empl_id,
+      </if>
+      <if test="ownerId != null">
+        owner_id,
+      </if>
+      <if test="lineNum != null">
+        line_num,
+      </if>
+      <if test="fromDate != null">
+        from_date,
+      </if>
+      <if test="toDate != null">
+        to_date,
+      </if>
+      <if test="eduOrg != null">
+        edu_org,
+      </if>
+      <if test="eduCnt != null">
+        edu_cnt,
+      </if>
+      <if test="oprId != null">
+        opr_id,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="emplId != null">
+        #{emplId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="lineNum != null">
+        #{lineNum,jdbcType=INTEGER},
+      </if>
+      <if test="fromDate != null">
+        #{fromDate,jdbcType=DATE},
+      </if>
+      <if test="toDate != null">
+        #{toDate,jdbcType=DATE},
+      </if>
+      <if test="eduOrg != null">
+        #{eduOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="eduCnt != null">
+        #{eduCnt,jdbcType=VARCHAR},
+      </if>
+      <if test="oprId != null">
+        #{oprId,jdbcType=BIGINT},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmplEduH">
+    update empl_edu_h
+    <set>
+      <if test="fromDate != null">
+        from_date = #{fromDate,jdbcType=DATE},
+      </if>
+      <if test="toDate != null">
+        to_date = #{toDate,jdbcType=DATE},
+      </if>
+      <if test="eduOrg != null">
+        edu_org = #{eduOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="eduCnt != null">
+        edu_cnt = #{eduCnt,jdbcType=VARCHAR},
+      </if>
+      <if test="oprId != null">
+        opr_id = #{oprId,jdbcType=BIGINT},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where empl_id = #{emplId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+      and line_num = #{lineNum,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmplEduH">
+    update empl_edu_h
+    set from_date = #{fromDate,jdbcType=DATE},
+      to_date = #{toDate,jdbcType=DATE},
+      edu_org = #{eduOrg,jdbcType=VARCHAR},
+      edu_cnt = #{eduCnt,jdbcType=VARCHAR},
+      opr_id = #{oprId,jdbcType=BIGINT},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where empl_id = #{emplId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+      and line_num = #{lineNum,jdbcType=INTEGER}
+  </update>
+</mapper>

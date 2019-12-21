@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.SpecGrpMapper">
+
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.SpecGrp">
+        <id column="spec_grp_id" jdbcType="VARCHAR" property="specGrpId"/>
+        <result column="spec_grp_name" jdbcType="VARCHAR" property="specGrpName"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      spec_grp_id, spec_grp_name,description
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.SpecGrp"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from spec_grp
+        where spec_grp_id = #{specGrpId,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 分页查询规格组 -->
+    <select id="selectAll" parameterType="com.boyu.erp.platform.usercenter.entity.SpecGrp" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from spec_grp
+        where 1=1
+        <if test="specGrpId != null">
+            and spec_grp_id like CONCAT('%', #{specGrpId}, '%')
+        </if>
+        <if test="specGrpName != null">
+            and spec_grp_name like CONCAT('%', #{specGrpName}, '%')
+        </if>
+        <if test="description != null">
+            and description like CONCAT('%', #{description}, '%')
+        </if>
+    </select>
+
+    <!-- 插入规则组 -->
+    <insert id="insertSpecGrp" parameterType="com.boyu.erp.platform.usercenter.entity.SpecGrp">
+        insert into spec_grp
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="specGrpId != null">
+                spec_grp_id,
+            </if>
+            <if test="specGrpName != null">
+                spec_grp_name,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="specGrpId != null">
+                #{specGrpId,jdbcType=VARCHAR},
+            </if>
+            <if test="specGrpName != null">
+                #{specGrpName,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 更新规则组 -->
+    <update id="updateSpecGrp" parameterType="com.boyu.erp.platform.usercenter.entity.SpecGrp">
+        update spec_grp
+        <set>
+            <if test="specGrpName != null">
+                spec_grp_name = #{specGrpName,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where spec_grp_id = #{specGrpId,jdbcType=VARCHAR}
+    </update>
+
+
+    <!-- 删除规格组-->
+    <delete id="deleteSpecGrp" parameterType="com.boyu.erp.platform.usercenter.entity.SpecGrp">
+        delete from spec_grp where spec_grp_id = #{specGrpId,jdbcType=VARCHAR}
+  </delete>
+
+
+    <select id="getSpecAndSpecGrp" parameterType="com.boyu.erp.platform.usercenter.entity.Spec"
+            resultMap="BaseResultMap">
+        SELECT
+        g.*
+        FROM
+        `spec` s
+        INNER JOIN `spec_grp` g
+        ON s.`spec_grp_id` = g.`spec_grp_id`
+        WHERE s.`spec_id`=#{specId}
+    </select>
+</mapper>

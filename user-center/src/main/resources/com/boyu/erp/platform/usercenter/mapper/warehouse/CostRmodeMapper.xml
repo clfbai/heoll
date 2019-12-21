@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.CostRmodeMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.CostRmode">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="rcv_mode" jdbcType="CHAR" property="rcvMode"/>
+    </resultMap>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.CostRmode">
+    delete from cost_rmode
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and rcv_mode = #{rcvMode,jdbcType=CHAR}
+  </delete>
+
+    <select id="selectUnitId" resultType="com.boyu.erp.platform.usercenter.entity.warehouse.CostRmode">
+        seelct unit_id as unitId, rcv_mode as rcvMode from cost_rmode unit_id=#{unit_id}
+    </select>
+
+    <select id="selectCostRmode" resultType="com.boyu.erp.platform.usercenter.entity.warehouse.CostRmode">
+         seelct unit_id as unitId, rcv_mode as rcvMode from cost_rmode unit_id=#{unit_id} and rcv_mode=#{rcvMode,jdbcType=CHAR})
+    </select>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.CostRmode">
+    insert into cost_rmode (unit_id, rcv_mode)
+    values (#{unitId,jdbcType=BIGINT}, #{rcvMode,jdbcType=CHAR})
+  </insert>
+
+</mapper>

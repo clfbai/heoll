@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysParameterMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysParameter">
+        <id column="parm_id" jdbcType="VARCHAR" property="parmId"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="parm_val" jdbcType="VARCHAR" property="parmVal"/>
+        <result column="is_del" jdbcType="TINYINT" property="isDel"/>
+        <result column="create_by" jdbcType="BIGINT" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="BIGINT" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    parm_id, description, parm_val, is_del, create_by, create_time, update_by, update_time
+  </sql>
+    <select id="selectByLikePrimary" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysParameter"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_parameter
+        where
+        /*is_del 是否可用*/
+        is_del='1'
+        <if test="parmId !=null and parmId!=''">
+            AND INSTR(parm_id ,#{parmId,jdbcType=VARCHAR})>0
+        </if>
+        <if test="description !=null and description!=''">
+            AND INSTR(description,#{description,jdbcType=VARCHAR})>0
+        </if>
+        <if test="parmVal !=null and parmVal!=''">
+            AND INSTR(parm_val,#{parmVal,jdbcType=VARCHAR})>0
+        </if>
+    </select>
+
+    <!--根据参数Id查询指定参数-->
+    <select id="findById" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+        select
+         *
+        from
+        sys_parameter
+        where
+        parm_id =#{parmId,jdbcType=VARCHAR}
+    </select>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysParameter">
+        insert into sys_parameter
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parmId != null">
+                parm_id,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="parmVal != null">
+                parm_val,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="parmId != null">
+                #{parmId,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="parmVal != null">
+                #{parmVal,jdbcType=VARCHAR},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                now() ,
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                now() ,
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysParameter">
+        update sys_parameter
+        <set>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="parmVal != null">
+                parm_val = #{parmVal,jdbcType=VARCHAR},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = now() ,
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = now() ,
+            </if>
+        </set>
+        where parm_id = #{parmId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByType" parameterType="java.lang.String">
+        update sys_parameter
+        <set>
+
+                is_del = -1,
+                update_by = #{updateBy,jdbcType=BIGINT},
+                update_time = now()
+        </set>
+        where parm_id in (#{creatTableFileds},#{tableNotUpdate})
+    </update>
+</mapper>

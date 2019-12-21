@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysUnitPaMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysUnitPa">
+        <id column="unit_pa_id"  property="unitPaId"/>
+        <result column="unit_id" jdbcType="VARCHAR" property="unitId"/>
+        <result column="gr_rv" jdbcType="CHAR" property="grRv"/>
+        <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
+        <result column="priv_id" jdbcType="VARCHAR" property="privId"/>
+        <result column="opr_id" jdbcType="VARCHAR" property="oprId"/>
+        <result column="op_time" jdbcType="TIMESTAMP" property="opTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    unit_pa_id, unit_id, gr_rv, role_id, priv_id, opr_id, op_time
+  </sql>
+    <!--主键查询-->
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_unit_pa
+        where unit_pa_id = #{unitPaId}
+    </select>
+    <!--添加-->
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitPa">
+        insert into sys_unit_pa
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitPaId != null">
+                unit_pa_id,
+            </if>
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="grRv != null">
+                gr_rv,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="privId != null">
+                priv_id,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+                op_time,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitPaId != null">
+                #{unitPaId},
+            </if>
+            <if test="unitId != null">
+                #{unitId},
+            </if>
+            <if test="grRv != null">
+                #{grRv,jdbcType=CHAR},
+            </if>
+            <if test="roleId != null">
+                #{roleId},
+            </if>
+            <if test="privId != null">
+                #{privId},
+            </if>
+            <if test="oprId != null">
+                #{oprId},
+            </if>
+
+                now(),
+
+        </trim>
+    </insert>
+    <!--修改-->
+    <update id="updateByPrimaryKeySelective" parameterType="SysUnitPa">
+        update sys_unit_pa
+        <set>
+            <if test="unitId != null">
+                unit_id = #{unitId},
+            </if>
+            <if test="grRv != null">
+                gr_rv = #{grRv,jdbcType=CHAR},
+            </if>
+            <if test="roleId != null">
+                role_id = #{roleId},
+            </if>
+            <if test="privId != null">
+                priv_id = #{privId},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId},
+            </if>
+                op_time = now()
+        </set>
+        where unit_pa_id = #{unitPaId}
+    </update>
+
+    <!--授权回收-->
+    <update id="accreditRecycle" parameterType="SysUnitPa">
+        update sys_unit_pa
+        <set>
+            <if test="grRv != null">
+                gr_rv = #{grRv}
+            </if>
+            <if test="oprId != null">
+                ,opr_id = #{oprId}
+            </if>
+            <if test="opTime != null">
+                ,op_time = #{opTime}
+            </if>
+        </set>
+        where
+        unit_id = #{unitId}
+        <if test="roleId != null">
+            and role_id = #{roleId}
+        </if>
+        <if test="privId != null">
+            and priv_id = #{privId}
+        </if>
+    </update>
+
+    <!--条件查询-->
+    <select id="selectAll" parameterType="SysUnitPa" resultMap="BaseResultMap">
+
+        select
+        <include refid="Base_Column_List"/>
+        from sys_unit_pa
+        <where>
+            1=1
+            <if test="unitPaId != null">
+                and unit_pa_id = #{unitPaId}
+            </if>
+            <if test="unitId != null">
+                and unit_id = #{unitId}
+            </if>
+            <if test="grRv != null">
+                and gr_rv = #{grRv}
+            </if>
+            <if test="roleId != null">
+                and role_id = #{roleId}
+            </if>
+            <if test="privId != null">
+                and priv_id = #{privId}
+            </if>
+            <if test="oprId != null">
+                and opr_id = #{oprId}
+            </if>
+            <if test="opTime != null">
+                and op_time = #{opTime}
+            </if>
+        </where>
+
+    </select>
+
+
+</mapper>

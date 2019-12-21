@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.AccoCostMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.AccoCost">
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <id column="prod_cls_id" jdbcType="BIGINT" property="prodClsId" />
+    <result column="unit_cost" jdbcType="DECIMAL" property="unitCost" />
+    <result column="tot_val" jdbcType="DECIMAL" property="totVal" />
+    <result column="tot_qty" jdbcType="DECIMAL" property="totQty" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    unit_id, prod_cls_id, unit_cost, tot_val, tot_qty
+  </sql>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.AccoCost">
+    insert into acco_cost (unit_id, prod_cls_id, unit_cost, 
+      tot_val, tot_qty)
+    values (#{unitId,jdbcType=BIGINT}, #{prodClsId,jdbcType=BIGINT}, #{unitCost,jdbcType=DECIMAL}, 
+      #{totVal,jdbcType=DECIMAL}, #{totQty,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.AccoCost">
+    insert into acco_cost
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="prodClsId != null">
+        prod_cls_id,
+      </if>
+      <if test="unitCost != null">
+        unit_cost,
+      </if>
+      <if test="totVal != null">
+        tot_val,
+      </if>
+      <if test="totQty != null">
+        tot_qty,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="prodClsId != null">
+        #{prodClsId,jdbcType=BIGINT},
+      </if>
+      <if test="unitCost != null">
+        #{unitCost,jdbcType=DECIMAL},
+      </if>
+      <if test="totVal != null">
+        #{totVal,jdbcType=DECIMAL},
+      </if>
+      <if test="totQty != null">
+        #{totQty,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.AccoCost">
+    update acco_cost
+    <set>
+      <if test="unitCost != null">
+        unit_cost = #{unitCost,jdbcType=DECIMAL},
+      </if>
+      <if test="totVal != null">
+        tot_val = #{totVal,jdbcType=DECIMAL},
+      </if>
+      <if test="totQty != null">
+        tot_qty = #{totQty,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.AccoCost">
+    update acco_cost
+    set unit_cost = #{unitCost,jdbcType=DECIMAL},
+      tot_val = #{totVal,jdbcType=DECIMAL},
+      tot_qty = #{totQty,jdbcType=DECIMAL}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+  </update>
+  <select id="queryAccoCostListByClsAndUnit"
+          resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"></include> from acco_cost where unit_id = #{fsclUnitId} and prod_cls_id in(
+    <foreach collection="prodClsIds" item="prodClsId" separator=",">
+        #{prodClsId}
+    </foreach>
+    )
+  </select>
+</mapper>

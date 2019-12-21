@@ -1,0 +1,2082 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PscMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.Psc">
+        <id column="psc_num" jdbcType="VARCHAR" property="pscNum"/>
+        <result column="doc_date" jdbcType="DATE" property="docDate"/>
+        <result column="psc_type" jdbcType="VARCHAR" property="pscType"/>
+        <result column="vendee_id" jdbcType="BIGINT" property="vendeeId"/>
+        <result column="vde_fscl_unit_id" jdbcType="BIGINT" property="vdeFsclUnitId"/>
+        <result column="vde_wareh_id" jdbcType="BIGINT" property="vdeWarehId"/>
+        <result column="end_unit_id" jdbcType="BIGINT" property="endUnitId"/>
+        <result column="end_wareh_id" jdbcType="BIGINT" property="endWarehId"/>
+        <result column="vde_invd" jdbcType="CHAR" property="vdeInvd"/>
+        <result column="puc_auto_gen" jdbcType="CHAR" property="pucAutoGen"/>
+        <result column="puc_gen" jdbcType="CHAR" property="pucGen"/>
+        <result column="puc_auto_chk" jdbcType="CHAR" property="pucAutoChk"/>
+        <result column="is_pu_itmd" jdbcType="CHAR" property="isPuItmd"/>
+        <result column="vender_id" jdbcType="BIGINT" property="venderId"/>
+        <result column="vdr_fscl_unit_id" jdbcType="BIGINT" property="vdrFsclUnitId"/>
+        <result column="vdr_wareh_id" jdbcType="BIGINT" property="vdrWarehId"/>
+        <result column="st_unit_id" jdbcType="BIGINT" property="stUnitId"/>
+        <result column="st_wareh_id" jdbcType="BIGINT" property="stWarehId"/>
+        <result column="vdr_invd" jdbcType="CHAR" property="vdrInvd"/>
+        <result column="slc_auto_gen" jdbcType="CHAR" property="slcAutoGen"/>
+        <result column="slc_gen" jdbcType="CHAR" property="slcGen"/>
+        <result column="slc_auto_chk" jdbcType="CHAR" property="slcAutoChk"/>
+        <result column="is_sl_itmd" jdbcType="CHAR" property="isSlItmd"/>
+        <result column="tran_unit_id" jdbcType="BIGINT" property="tranUnitId"/>
+        <result column="dr_diff_jgd" jdbcType="CHAR" property="drDiffJgd"/>
+        <result column="impl_by_ins" jdbcType="CHAR" property="implByIns"/>
+        <result column="multi_impl" jdbcType="CHAR" property="multiImpl"/>
+        <result column="tasks_in_deliv" jdbcType="BIGINT" property="tasksInDeliv"/>
+        <result column="tasks_in_rcv" jdbcType="BIGINT" property="tasksInRcv"/>
+        <result column="is_spot" jdbcType="CHAR" property="isSpot"/>
+        <result column="prc_site" jdbcType="CHAR" property="prcSite"/>
+        <result column="rqd_ctrl" jdbcType="CHAR" property="rqdCtrl"/>
+        <result column="reqd_date" jdbcType="DATE" property="reqdDate"/>
+        <result column="spl_enabled" jdbcType="CHAR" property="splEnabled"/>
+        <result column="exbl_rate" jdbcType="DECIMAL" property="exblRate"/>
+        <result column="is_cms" jdbcType="CHAR" property="isCms"/>
+        <result column="ps_stl_mthd" jdbcType="CHAR" property="psStlMthd"/>
+        <result column="mfz_enabled" jdbcType="CHAR" property="mfzEnabled"/>
+        <result column="ps_mfz_site" jdbcType="CHAR" property="psMfzSite"/>
+        <result column="deposit" jdbcType="DECIMAL" property="deposit"/>
+        <result column="gm_enabled" jdbcType="CHAR" property="gmEnabled"/>
+        <result column="gua_mon" jdbcType="DECIMAL" property="guaMon"/>
+        <result column="plan_ctrl" jdbcType="CHAR" property="planCtrl"/>
+        <result column="tfr_num" jdbcType="VARCHAR" property="tfrNum"/>
+        <result column="src_doc_type" jdbcType="CHAR" property="srcDocType"/>
+        <result column="src_doc_unit_id" jdbcType="BIGINT" property="srcDocUnitId"/>
+        <result column="src_doc_num" jdbcType="VARCHAR" property="srcDocNum"/>
+        <result column="prod_cat_id" jdbcType="VARCHAR" property="prodCatId"/>
+        <result column="ord_type" jdbcType="VARCHAR" property="ordType"/>
+        <result column="expd_date" jdbcType="DATE" property="expdDate"/>
+        <result column="deliv_mthd" jdbcType="VARCHAR" property="delivMthd"/>
+        <result column="deliv_pstd" jdbcType="VARCHAR" property="delivPstd"/>
+        <result column="deliv_addr" jdbcType="VARCHAR" property="delivAddr"/>
+        <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled"/>
+        <result column="ttl_qty" jdbcType="DECIMAL" property="ttlQty"/>
+        <result column="ttl_box" jdbcType="BIGINT" property="ttlBox"/>
+        <result column="ttl_val" jdbcType="DECIMAL" property="ttlVal"/>
+        <result column="ttl_tax" jdbcType="DECIMAL" property="ttlTax"/>
+        <result column="ttl_mkv" jdbcType="DECIMAL" property="ttlMkv"/>
+        <result column="ttl_deliv_qty" jdbcType="DECIMAL" property="ttlDelivQty"/>
+        <result column="ttl_deliv_box" jdbcType="BIGINT" property="ttlDelivBox"/>
+        <result column="ttl_deliv_val" jdbcType="DECIMAL" property="ttlDelivVal"/>
+        <result column="ttl_deliv_tax" jdbcType="DECIMAL" property="ttlDelivTax"/>
+        <result column="ttl_deliv_mkv" jdbcType="DECIMAL" property="ttlDelivMkv"/>
+        <result column="ttl_rcv_qty" jdbcType="DECIMAL" property="ttlRcvQty"/>
+        <result column="ttl_rcv_box" jdbcType="BIGINT" property="ttlRcvBox"/>
+        <result column="ttl_rcv_val" jdbcType="DECIMAL" property="ttlRcvVal"/>
+        <result column="ttl_rcv_tax" jdbcType="DECIMAL" property="ttlRcvTax"/>
+        <result column="ttl_rcv_mkv" jdbcType="DECIMAL" property="ttlRcvMkv"/>
+        <result column="ttl_rs_qty" jdbcType="DECIMAL" property="ttlRsQty"/>
+        <result column="ttl_rs_box" jdbcType="BIGINT" property="ttlRsBox"/>
+        <result column="ttl_rs_val" jdbcType="DECIMAL" property="ttlRsVal"/>
+        <result column="ttl_rs_tax" jdbcType="DECIMAL" property="ttlRsTax"/>
+        <result column="ttl_rs_mkv" jdbcType="DECIMAL" property="ttlRsMkv"/>
+        <result column="ttl_rp_qty" jdbcType="DECIMAL" property="ttlRpQty"/>
+        <result column="ttl_rp_box" jdbcType="BIGINT" property="ttlRpBox"/>
+        <result column="ttl_rp_val" jdbcType="DECIMAL" property="ttlRpVal"/>
+        <result column="ttl_rp_tax" jdbcType="DECIMAL" property="ttlRpTax"/>
+        <result column="ttl_rp_mkv" jdbcType="DECIMAL" property="ttlRpMkv"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="op_time" jdbcType="TIMESTAMP" property="opTime"/>
+        <result column="effective" jdbcType="CHAR" property="effective"/>
+        <result column="progress" jdbcType="CHAR" property="progress"/>
+        <result column="cancelled" jdbcType="CHAR" property="cancelled"/>
+        <result column="renewed" jdbcType="CHAR" property="renewed"/>
+        <result column="exec_psc_num" jdbcType="VARCHAR" property="execPscNum"/>
+        <result column="itmd_psc_num" jdbcType="VARCHAR" property="itmdPscNum"/>
+        <result column="st_psc_num" jdbcType="VARCHAR" property="stPscNum"/>
+        <result column="end_psc_num" jdbcType="VARCHAR" property="endPscNum"/>
+        <result column="base_psc_num" jdbcType="VARCHAR" property="basePscNum"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="ttl_expd_rwd" jdbcType="DECIMAL" property="ttlExpdRwd"/>
+        <result column="ttl_deliv_rwd" jdbcType="DECIMAL" property="ttlDelivRwd"/>
+        <result column="ttl_rcv_rwd" jdbcType="DECIMAL" property="ttlRcvRwd"/>
+        <result column="puc_attr_1" jdbcType="VARCHAR" property="pucAttr1"/>
+        <result column="puc_attr_2" jdbcType="VARCHAR" property="pucAttr2"/>
+        <result column="slc_attr_1" jdbcType="VARCHAR" property="slcAttr1"/>
+        <result column="slc_attr_2" jdbcType="VARCHAR" property="slcAttr2"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    psc_num, doc_date, psc_type, vendee_id, vde_fscl_unit_id, vde_wareh_id, end_unit_id, 
+    end_wareh_id, vde_invd, puc_auto_gen, puc_gen, puc_auto_chk, is_pu_itmd, vender_id, 
+    vdr_fscl_unit_id, vdr_wareh_id, st_unit_id, st_wareh_id, vdr_invd, slc_auto_gen, 
+    slc_gen, slc_auto_chk, is_sl_itmd, tran_unit_id, dr_diff_jgd, impl_by_ins, multi_impl, 
+    tasks_in_deliv, tasks_in_rcv, is_spot, prc_site, rqd_ctrl, reqd_date, spl_enabled, 
+    exbl_rate, is_cms, ps_stl_mthd, mfz_enabled, ps_mfz_site, deposit, gm_enabled, gua_mon, 
+    plan_ctrl, tfr_num, src_doc_type, src_doc_unit_id, src_doc_num, prod_cat_id, ord_type, 
+    expd_date, deliv_mthd, deliv_pstd, deliv_addr, bxi_enabled, ttl_qty, ttl_box, ttl_val, 
+    ttl_tax, ttl_mkv, ttl_deliv_qty, ttl_deliv_box, ttl_deliv_val, ttl_deliv_tax, ttl_deliv_mkv, 
+    ttl_rcv_qty, ttl_rcv_box, ttl_rcv_val, ttl_rcv_tax, ttl_rcv_mkv, ttl_rs_qty, ttl_rs_box, 
+    ttl_rs_val, ttl_rs_tax, ttl_rs_mkv, ttl_rp_qty, ttl_rp_box, ttl_rp_val, ttl_rp_tax, 
+    ttl_rp_mkv, opr_id, op_time, effective, progress, cancelled, renewed, exec_psc_num, 
+    itmd_psc_num, st_psc_num, end_psc_num, base_psc_num, remarks, ttl_expd_rwd, ttl_deliv_rwd, 
+    ttl_rcv_rwd, puc_attr_1, puc_attr_2, slc_attr_1, slc_attr_2
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from psc
+        where psc_num = #{pscNum,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from psc
+    where psc_num = #{pscNum,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Psc">
+    insert into psc (psc_num, doc_date, psc_type, 
+      vendee_id, vde_fscl_unit_id, vde_wareh_id, 
+      end_unit_id, end_wareh_id, vde_invd, 
+      puc_auto_gen, puc_gen, puc_auto_chk, 
+      is_pu_itmd, vender_id, vdr_fscl_unit_id, 
+      vdr_wareh_id, st_unit_id, st_wareh_id, 
+      vdr_invd, slc_auto_gen, slc_gen, 
+      slc_auto_chk, is_sl_itmd, tran_unit_id, 
+      dr_diff_jgd, impl_by_ins, multi_impl, 
+      tasks_in_deliv, tasks_in_rcv, is_spot, 
+      prc_site, rqd_ctrl, reqd_date, 
+      spl_enabled, exbl_rate, is_cms, 
+      ps_stl_mthd, mfz_enabled, ps_mfz_site, 
+      deposit, gm_enabled, gua_mon, 
+      plan_ctrl, tfr_num, src_doc_type, 
+      src_doc_unit_id, src_doc_num, prod_cat_id, 
+      ord_type, expd_date, deliv_mthd, 
+      deliv_pstd, deliv_addr, bxi_enabled, 
+      ttl_qty, ttl_box, ttl_val, 
+      ttl_tax, ttl_mkv, ttl_deliv_qty, 
+      ttl_deliv_box, ttl_deliv_val, ttl_deliv_tax, 
+      ttl_deliv_mkv, ttl_rcv_qty, ttl_rcv_box, 
+      ttl_rcv_val, ttl_rcv_tax, ttl_rcv_mkv, 
+      ttl_rs_qty, ttl_rs_box, ttl_rs_val, 
+      ttl_rs_tax, ttl_rs_mkv, ttl_rp_qty, 
+      ttl_rp_box, ttl_rp_val, ttl_rp_tax, 
+      ttl_rp_mkv, opr_id, op_time, 
+      effective, progress, cancelled, 
+      renewed, exec_psc_num, itmd_psc_num, 
+      st_psc_num, end_psc_num, base_psc_num, 
+      remarks, ttl_expd_rwd, ttl_deliv_rwd, 
+      ttl_rcv_rwd, puc_attr_1, puc_attr_2, 
+      slc_attr_1, slc_attr_2)
+    values (#{pscNum,jdbcType=VARCHAR}, #{docDate,jdbcType=DATE}, #{pscType,jdbcType=VARCHAR}, 
+      #{vendeeId,jdbcType=BIGINT}, #{vdeFsclUnitId,jdbcType=BIGINT}, #{vdeWarehId,jdbcType=BIGINT}, 
+      #{endUnitId,jdbcType=BIGINT}, #{endWarehId,jdbcType=BIGINT}, #{vdeInvd,jdbcType=CHAR}, 
+      #{pucAutoGen,jdbcType=CHAR}, #{pucGen,jdbcType=CHAR}, #{pucAutoChk,jdbcType=CHAR}, 
+      #{isPuItmd,jdbcType=CHAR}, #{venderId,jdbcType=BIGINT}, #{vdrFsclUnitId,jdbcType=BIGINT}, 
+      #{vdrWarehId,jdbcType=BIGINT}, #{stUnitId,jdbcType=BIGINT}, #{stWarehId,jdbcType=BIGINT}, 
+      #{vdrInvd,jdbcType=CHAR}, #{slcAutoGen,jdbcType=CHAR}, #{slcGen,jdbcType=CHAR}, 
+      #{slcAutoChk,jdbcType=CHAR}, #{isSlItmd,jdbcType=CHAR}, #{tranUnitId,jdbcType=BIGINT}, 
+      #{drDiffJgd,jdbcType=CHAR}, #{implByIns,jdbcType=CHAR}, #{multiImpl,jdbcType=CHAR}, 
+      #{tasksInDeliv,jdbcType=BIGINT}, #{tasksInRcv,jdbcType=BIGINT}, #{isSpot,jdbcType=CHAR}, 
+      #{prcSite,jdbcType=CHAR}, #{rqdCtrl,jdbcType=CHAR}, #{reqdDate,jdbcType=DATE}, 
+      #{splEnabled,jdbcType=CHAR}, #{exblRate,jdbcType=DECIMAL}, #{isCms,jdbcType=CHAR}, 
+      #{psStlMthd,jdbcType=CHAR}, #{mfzEnabled,jdbcType=CHAR}, #{psMfzSite,jdbcType=CHAR}, 
+      #{deposit,jdbcType=DECIMAL}, #{gmEnabled,jdbcType=CHAR}, #{guaMon,jdbcType=DECIMAL}, 
+      #{planCtrl,jdbcType=CHAR}, #{tfrNum,jdbcType=VARCHAR}, #{srcDocType,jdbcType=CHAR}, 
+      #{srcDocUnitId,jdbcType=BIGINT}, #{srcDocNum,jdbcType=VARCHAR}, #{prodCatId,jdbcType=VARCHAR}, 
+      #{ordType,jdbcType=VARCHAR}, #{expdDate,jdbcType=DATE}, #{delivMthd,jdbcType=VARCHAR}, 
+      #{delivPstd,jdbcType=VARCHAR}, #{delivAddr,jdbcType=VARCHAR}, #{bxiEnabled,jdbcType=CHAR}, 
+      #{ttlQty,jdbcType=DECIMAL}, #{ttlBox,jdbcType=BIGINT}, #{ttlVal,jdbcType=DECIMAL}, 
+      #{ttlTax,jdbcType=DECIMAL}, #{ttlMkv,jdbcType=DECIMAL}, #{ttlDelivQty,jdbcType=DECIMAL}, 
+      #{ttlDelivBox,jdbcType=BIGINT}, #{ttlDelivVal,jdbcType=DECIMAL}, #{ttlDelivTax,jdbcType=DECIMAL}, 
+      #{ttlDelivMkv,jdbcType=DECIMAL}, #{ttlRcvQty,jdbcType=DECIMAL}, #{ttlRcvBox,jdbcType=BIGINT}, 
+      #{ttlRcvVal,jdbcType=DECIMAL}, #{ttlRcvTax,jdbcType=DECIMAL}, #{ttlRcvMkv,jdbcType=DECIMAL}, 
+      #{ttlRsQty,jdbcType=DECIMAL}, #{ttlRsBox,jdbcType=BIGINT}, #{ttlRsVal,jdbcType=DECIMAL}, 
+      #{ttlRsTax,jdbcType=DECIMAL}, #{ttlRsMkv,jdbcType=DECIMAL}, #{ttlRpQty,jdbcType=DECIMAL}, 
+      #{ttlRpBox,jdbcType=BIGINT}, #{ttlRpVal,jdbcType=DECIMAL}, #{ttlRpTax,jdbcType=DECIMAL}, 
+      #{ttlRpMkv,jdbcType=DECIMAL}, #{oprId,jdbcType=BIGINT}, #{opTime,jdbcType=TIMESTAMP}, 
+      #{effective,jdbcType=CHAR}, #{progress,jdbcType=CHAR}, #{cancelled,jdbcType=CHAR}, 
+      #{renewed,jdbcType=CHAR}, #{execPscNum,jdbcType=VARCHAR}, #{itmdPscNum,jdbcType=VARCHAR}, 
+      #{stPscNum,jdbcType=VARCHAR}, #{endPscNum,jdbcType=VARCHAR}, #{basePscNum,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{ttlExpdRwd,jdbcType=DECIMAL}, #{ttlDelivRwd,jdbcType=DECIMAL}, 
+      #{ttlRcvRwd,jdbcType=DECIMAL}, #{pucAttr1,jdbcType=VARCHAR}, #{pucAttr2,jdbcType=VARCHAR}, 
+      #{slcAttr1,jdbcType=VARCHAR}, #{slcAttr2,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Psc">
+        insert into psc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pscNum != null">
+                psc_num,
+            </if>
+            <if test="docDate != null">
+                doc_date,
+            </if>
+            <if test="pscType != null">
+                psc_type,
+            </if>
+            <if test="vendeeId != null">
+                vendee_id,
+            </if>
+            <if test="vdeFsclUnitId != null">
+                vde_fscl_unit_id,
+            </if>
+            <if test="vdeWarehId != null">
+                vde_wareh_id,
+            </if>
+            <if test="endUnitId != null">
+                end_unit_id,
+            </if>
+            <if test="endWarehId != null">
+                end_wareh_id,
+            </if>
+            <if test="vdeInvd != null">
+                vde_invd,
+            </if>
+            <if test="pucAutoGen != null">
+                puc_auto_gen,
+            </if>
+            <if test="pucGen != null">
+                puc_gen,
+            </if>
+            <if test="pucAutoChk != null">
+                puc_auto_chk,
+            </if>
+            <if test="isPuItmd != null">
+                is_pu_itmd,
+            </if>
+            <if test="venderId != null">
+                vender_id,
+            </if>
+            <if test="vdrFsclUnitId != null">
+                vdr_fscl_unit_id,
+            </if>
+            <if test="vdrWarehId != null">
+                vdr_wareh_id,
+            </if>
+            <if test="stUnitId != null">
+                st_unit_id,
+            </if>
+            <if test="stWarehId != null">
+                st_wareh_id,
+            </if>
+            <if test="vdrInvd != null">
+                vdr_invd,
+            </if>
+            <if test="slcAutoGen != null">
+                slc_auto_gen,
+            </if>
+            <if test="slcGen != null">
+                slc_gen,
+            </if>
+            <if test="slcAutoChk != null">
+                slc_auto_chk,
+            </if>
+            <if test="isSlItmd != null">
+                is_sl_itmd,
+            </if>
+            <if test="tranUnitId != null">
+                tran_unit_id,
+            </if>
+            <if test="drDiffJgd != null">
+                dr_diff_jgd,
+            </if>
+            <if test="implByIns != null">
+                impl_by_ins,
+            </if>
+            <if test="multiImpl != null">
+                multi_impl,
+            </if>
+            <if test="tasksInDeliv != null">
+                tasks_in_deliv,
+            </if>
+            <if test="tasksInRcv != null">
+                tasks_in_rcv,
+            </if>
+            <if test="isSpot != null">
+                is_spot,
+            </if>
+            <if test="prcSite != null">
+                prc_site,
+            </if>
+            <if test="rqdCtrl != null">
+                rqd_ctrl,
+            </if>
+            <if test="reqdDate != null">
+                reqd_date,
+            </if>
+            <if test="splEnabled != null">
+                spl_enabled,
+            </if>
+            <if test="exblRate != null">
+                exbl_rate,
+            </if>
+            <if test="isCms != null">
+                is_cms,
+            </if>
+            <if test="psStlMthd != null">
+                ps_stl_mthd,
+            </if>
+            <if test="mfzEnabled != null">
+                mfz_enabled,
+            </if>
+            <if test="psMfzSite != null">
+                ps_mfz_site,
+            </if>
+            <if test="deposit != null">
+                deposit,
+            </if>
+            <if test="gmEnabled != null">
+                gm_enabled,
+            </if>
+            <if test="guaMon != null">
+                gua_mon,
+            </if>
+            <if test="planCtrl != null">
+                plan_ctrl,
+            </if>
+            <if test="tfrNum != null">
+                tfr_num,
+            </if>
+            <if test="srcDocType != null">
+                src_doc_type,
+            </if>
+            <if test="srcDocUnitId != null">
+                src_doc_unit_id,
+            </if>
+            <if test="srcDocNum != null">
+                src_doc_num,
+            </if>
+            <if test="prodCatId != null">
+                prod_cat_id,
+            </if>
+            <if test="ordType != null">
+                ord_type,
+            </if>
+            <if test="expdDate != null">
+                expd_date,
+            </if>
+            <if test="delivMthd != null">
+                deliv_mthd,
+            </if>
+            <if test="delivPstd != null">
+                deliv_pstd,
+            </if>
+            <if test="delivAddr != null">
+                deliv_addr,
+            </if>
+            <if test="bxiEnabled != null">
+                bxi_enabled,
+            </if>
+            <if test="ttlQty != null">
+                ttl_qty,
+            </if>
+            <if test="ttlBox != null">
+                ttl_box,
+            </if>
+            <if test="ttlVal != null">
+                ttl_val,
+            </if>
+            <if test="ttlTax != null">
+                ttl_tax,
+            </if>
+            <if test="ttlMkv != null">
+                ttl_mkv,
+            </if>
+            <if test="ttlDelivQty != null">
+                ttl_deliv_qty,
+            </if>
+            <if test="ttlDelivBox != null">
+                ttl_deliv_box,
+            </if>
+            <if test="ttlDelivVal != null">
+                ttl_deliv_val,
+            </if>
+            <if test="ttlDelivTax != null">
+                ttl_deliv_tax,
+            </if>
+            <if test="ttlDelivMkv != null">
+                ttl_deliv_mkv,
+            </if>
+            <if test="ttlRcvQty != null">
+                ttl_rcv_qty,
+            </if>
+            <if test="ttlRcvBox != null">
+                ttl_rcv_box,
+            </if>
+            <if test="ttlRcvVal != null">
+                ttl_rcv_val,
+            </if>
+            <if test="ttlRcvTax != null">
+                ttl_rcv_tax,
+            </if>
+            <if test="ttlRcvMkv != null">
+                ttl_rcv_mkv,
+            </if>
+            <if test="ttlRsQty != null">
+                ttl_rs_qty,
+            </if>
+            <if test="ttlRsBox != null">
+                ttl_rs_box,
+            </if>
+            <if test="ttlRsVal != null">
+                ttl_rs_val,
+            </if>
+            <if test="ttlRsTax != null">
+                ttl_rs_tax,
+            </if>
+            <if test="ttlRsMkv != null">
+                ttl_rs_mkv,
+            </if>
+            <if test="ttlRpQty != null">
+                ttl_rp_qty,
+            </if>
+            <if test="ttlRpBox != null">
+                ttl_rp_box,
+            </if>
+            <if test="ttlRpVal != null">
+                ttl_rp_val,
+            </if>
+            <if test="ttlRpTax != null">
+                ttl_rp_tax,
+            </if>
+            <if test="ttlRpMkv != null">
+                ttl_rp_mkv,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+            <if test="opTime != null">
+                op_time,
+            </if>
+            <if test="effective != null">
+                effective,
+            </if>
+            <if test="progress != null">
+                progress,
+            </if>
+            <if test="cancelled != null">
+                cancelled,
+            </if>
+            <if test="renewed != null">
+                renewed,
+            </if>
+            <if test="execPscNum != null">
+                exec_psc_num,
+            </if>
+            <if test="itmdPscNum != null">
+                itmd_psc_num,
+            </if>
+            <if test="stPscNum != null">
+                st_psc_num,
+            </if>
+            <if test="endPscNum != null">
+                end_psc_num,
+            </if>
+            <if test="basePscNum != null">
+                base_psc_num,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+            <if test="ttlExpdRwd != null">
+                ttl_expd_rwd,
+            </if>
+            <if test="ttlDelivRwd != null">
+                ttl_deliv_rwd,
+            </if>
+            <if test="ttlRcvRwd != null">
+                ttl_rcv_rwd,
+            </if>
+            <if test="pucAttr1 != null">
+                puc_attr_1,
+            </if>
+            <if test="pucAttr2 != null">
+                puc_attr_2,
+            </if>
+            <if test="slcAttr1 != null">
+                slc_attr_1,
+            </if>
+            <if test="slcAttr2 != null">
+                slc_attr_2,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pscNum != null">
+                #{pscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="docDate != null">
+                #{docDate,jdbcType=DATE},
+            </if>
+            <if test="pscType != null">
+                #{pscType,jdbcType=VARCHAR},
+            </if>
+            <if test="vendeeId != null">
+                #{vendeeId,jdbcType=BIGINT},
+            </if>
+            <if test="vdeFsclUnitId != null">
+                #{vdeFsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="vdeWarehId != null">
+                #{vdeWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="endUnitId != null">
+                #{endUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="endWarehId != null">
+                #{endWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="vdeInvd != null">
+                #{vdeInvd,jdbcType=CHAR},
+            </if>
+            <if test="pucAutoGen != null">
+                #{pucAutoGen,jdbcType=CHAR},
+            </if>
+            <if test="pucGen != null">
+                #{pucGen,jdbcType=CHAR},
+            </if>
+            <if test="pucAutoChk != null">
+                #{pucAutoChk,jdbcType=CHAR},
+            </if>
+            <if test="isPuItmd != null">
+                #{isPuItmd,jdbcType=CHAR},
+            </if>
+            <if test="venderId != null">
+                #{venderId,jdbcType=BIGINT},
+            </if>
+            <if test="vdrFsclUnitId != null">
+                #{vdrFsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="vdrWarehId != null">
+                #{vdrWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="stUnitId != null">
+                #{stUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="stWarehId != null">
+                #{stWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="vdrInvd != null">
+                #{vdrInvd,jdbcType=CHAR},
+            </if>
+            <if test="slcAutoGen != null">
+                #{slcAutoGen,jdbcType=CHAR},
+            </if>
+            <if test="slcGen != null">
+                #{slcGen,jdbcType=CHAR},
+            </if>
+            <if test="slcAutoChk != null">
+                #{slcAutoChk,jdbcType=CHAR},
+            </if>
+            <if test="isSlItmd != null">
+                #{isSlItmd,jdbcType=CHAR},
+            </if>
+            <if test="tranUnitId != null">
+                #{tranUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="drDiffJgd != null">
+                #{drDiffJgd,jdbcType=CHAR},
+            </if>
+            <if test="implByIns != null">
+                #{implByIns,jdbcType=CHAR},
+            </if>
+            <if test="multiImpl != null">
+                #{multiImpl,jdbcType=CHAR},
+            </if>
+            <if test="tasksInDeliv != null">
+                #{tasksInDeliv,jdbcType=BIGINT},
+            </if>
+            <if test="tasksInRcv != null">
+                #{tasksInRcv,jdbcType=BIGINT},
+            </if>
+            <if test="isSpot != null">
+                #{isSpot,jdbcType=CHAR},
+            </if>
+            <if test="prcSite != null">
+                #{prcSite,jdbcType=CHAR},
+            </if>
+            <if test="rqdCtrl != null">
+                #{rqdCtrl,jdbcType=CHAR},
+            </if>
+            <if test="reqdDate != null">
+                #{reqdDate,jdbcType=DATE},
+            </if>
+            <if test="splEnabled != null">
+                #{splEnabled,jdbcType=CHAR},
+            </if>
+            <if test="exblRate != null">
+                #{exblRate,jdbcType=DECIMAL},
+            </if>
+            <if test="isCms != null">
+                #{isCms,jdbcType=CHAR},
+            </if>
+            <if test="psStlMthd != null">
+                #{psStlMthd,jdbcType=CHAR},
+            </if>
+            <if test="mfzEnabled != null">
+                #{mfzEnabled,jdbcType=CHAR},
+            </if>
+            <if test="psMfzSite != null">
+                #{psMfzSite,jdbcType=CHAR},
+            </if>
+            <if test="deposit != null">
+                #{deposit,jdbcType=DECIMAL},
+            </if>
+            <if test="gmEnabled != null">
+                #{gmEnabled,jdbcType=CHAR},
+            </if>
+            <if test="guaMon != null">
+                #{guaMon,jdbcType=DECIMAL},
+            </if>
+            <if test="planCtrl != null">
+                #{planCtrl,jdbcType=CHAR},
+            </if>
+            <if test="tfrNum != null">
+                #{tfrNum,jdbcType=VARCHAR},
+            </if>
+            <if test="srcDocType != null">
+                #{srcDocType,jdbcType=CHAR},
+            </if>
+            <if test="srcDocUnitId != null">
+                #{srcDocUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="srcDocNum != null">
+                #{srcDocNum,jdbcType=VARCHAR},
+            </if>
+            <if test="prodCatId != null">
+                #{prodCatId,jdbcType=VARCHAR},
+            </if>
+            <if test="ordType != null">
+                #{ordType,jdbcType=VARCHAR},
+            </if>
+            <if test="expdDate != null">
+                #{expdDate,jdbcType=DATE},
+            </if>
+            <if test="delivMthd != null">
+                #{delivMthd,jdbcType=VARCHAR},
+            </if>
+            <if test="delivPstd != null">
+                #{delivPstd,jdbcType=VARCHAR},
+            </if>
+            <if test="delivAddr != null">
+                #{delivAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="bxiEnabled != null">
+                #{bxiEnabled,jdbcType=CHAR},
+            </if>
+            <if test="ttlQty != null">
+                #{ttlQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlBox != null">
+                #{ttlBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlVal != null">
+                #{ttlVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlTax != null">
+                #{ttlTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlMkv != null">
+                #{ttlMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivQty != null">
+                #{ttlDelivQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivBox != null">
+                #{ttlDelivBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlDelivVal != null">
+                #{ttlDelivVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivTax != null">
+                #{ttlDelivTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivMkv != null">
+                #{ttlDelivMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvQty != null">
+                #{ttlRcvQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvBox != null">
+                #{ttlRcvBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlRcvVal != null">
+                #{ttlRcvVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvTax != null">
+                #{ttlRcvTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvMkv != null">
+                #{ttlRcvMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRsQty != null">
+                #{ttlRsQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRsBox != null">
+                #{ttlRsBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlRsVal != null">
+                #{ttlRsVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRsTax != null">
+                #{ttlRsTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRsMkv != null">
+                #{ttlRsMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRpQty != null">
+                #{ttlRpQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRpBox != null">
+                #{ttlRpBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlRpVal != null">
+                #{ttlRpVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRpTax != null">
+                #{ttlRpTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRpMkv != null">
+                #{ttlRpMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="oprId != null">
+                #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="opTime != null">
+                #{opTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="effective != null">
+                #{effective,jdbcType=CHAR},
+            </if>
+            <if test="progress != null">
+                #{progress,jdbcType=CHAR},
+            </if>
+            <if test="cancelled != null">
+                #{cancelled,jdbcType=CHAR},
+            </if>
+            <if test="renewed != null">
+                #{renewed,jdbcType=CHAR},
+            </if>
+            <if test="execPscNum != null">
+                #{execPscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="itmdPscNum != null">
+                #{itmdPscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="stPscNum != null">
+                #{stPscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="endPscNum != null">
+                #{endPscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="basePscNum != null">
+                #{basePscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="ttlExpdRwd != null">
+                #{ttlExpdRwd,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivRwd != null">
+                #{ttlDelivRwd,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvRwd != null">
+                #{ttlRcvRwd,jdbcType=DECIMAL},
+            </if>
+            <if test="pucAttr1 != null">
+                #{pucAttr1,jdbcType=VARCHAR},
+            </if>
+            <if test="pucAttr2 != null">
+                #{pucAttr2,jdbcType=VARCHAR},
+            </if>
+            <if test="slcAttr1 != null">
+                #{slcAttr1,jdbcType=VARCHAR},
+            </if>
+            <if test="slcAttr2 != null">
+                #{slcAttr2,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Psc">
+        update psc
+        <set>
+            <if test="docDate != null">
+                doc_date = #{docDate,jdbcType=DATE},
+            </if>
+            <if test="pscType != null">
+                psc_type = #{pscType,jdbcType=VARCHAR},
+            </if>
+            <if test="vendeeId != null">
+                vendee_id = #{vendeeId,jdbcType=BIGINT},
+            </if>
+            <if test="vdeFsclUnitId != null">
+                vde_fscl_unit_id = #{vdeFsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="vdeWarehId != null">
+                vde_wareh_id = #{vdeWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="endUnitId != null">
+                end_unit_id = #{endUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="endWarehId != null">
+                end_wareh_id = #{endWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="vdeInvd != null">
+                vde_invd = #{vdeInvd,jdbcType=CHAR},
+            </if>
+            <if test="pucAutoGen != null">
+                puc_auto_gen = #{pucAutoGen,jdbcType=CHAR},
+            </if>
+            <if test="pucGen != null">
+                puc_gen = #{pucGen,jdbcType=CHAR},
+            </if>
+            <if test="pucAutoChk != null">
+                puc_auto_chk = #{pucAutoChk,jdbcType=CHAR},
+            </if>
+            <if test="isPuItmd != null">
+                is_pu_itmd = #{isPuItmd,jdbcType=CHAR},
+            </if>
+            <if test="venderId != null">
+                vender_id = #{venderId,jdbcType=BIGINT},
+            </if>
+            <if test="vdrFsclUnitId != null">
+                vdr_fscl_unit_id = #{vdrFsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="vdrWarehId != null">
+                vdr_wareh_id = #{vdrWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="stUnitId != null">
+                st_unit_id = #{stUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="stWarehId != null">
+                st_wareh_id = #{stWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="vdrInvd != null">
+                vdr_invd = #{vdrInvd,jdbcType=CHAR},
+            </if>
+            <if test="slcAutoGen != null">
+                slc_auto_gen = #{slcAutoGen,jdbcType=CHAR},
+            </if>
+            <if test="slcGen != null">
+                slc_gen = #{slcGen,jdbcType=CHAR},
+            </if>
+            <if test="slcAutoChk != null">
+                slc_auto_chk = #{slcAutoChk,jdbcType=CHAR},
+            </if>
+            <if test="isSlItmd != null">
+                is_sl_itmd = #{isSlItmd,jdbcType=CHAR},
+            </if>
+            <if test="tranUnitId != null">
+                tran_unit_id = #{tranUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="drDiffJgd != null">
+                dr_diff_jgd = #{drDiffJgd,jdbcType=CHAR},
+            </if>
+            <if test="implByIns != null">
+                impl_by_ins = #{implByIns,jdbcType=CHAR},
+            </if>
+            <if test="multiImpl != null">
+                multi_impl = #{multiImpl,jdbcType=CHAR},
+            </if>
+            <if test="tasksInDeliv != null">
+                tasks_in_deliv = #{tasksInDeliv,jdbcType=BIGINT},
+            </if>
+            <if test="tasksInRcv != null">
+                tasks_in_rcv = #{tasksInRcv,jdbcType=BIGINT},
+            </if>
+            <if test="isSpot != null">
+                is_spot = #{isSpot,jdbcType=CHAR},
+            </if>
+            <if test="prcSite != null">
+                prc_site = #{prcSite,jdbcType=CHAR},
+            </if>
+            <if test="rqdCtrl != null">
+                rqd_ctrl = #{rqdCtrl,jdbcType=CHAR},
+            </if>
+            <if test="reqdDate != null">
+                reqd_date = #{reqdDate,jdbcType=DATE},
+            </if>
+            <if test="splEnabled != null">
+                spl_enabled = #{splEnabled,jdbcType=CHAR},
+            </if>
+            <if test="exblRate != null">
+                exbl_rate = #{exblRate,jdbcType=DECIMAL},
+            </if>
+            <if test="isCms != null">
+                is_cms = #{isCms,jdbcType=CHAR},
+            </if>
+            <if test="psStlMthd != null">
+                ps_stl_mthd = #{psStlMthd,jdbcType=CHAR},
+            </if>
+            <if test="mfzEnabled != null">
+                mfz_enabled = #{mfzEnabled,jdbcType=CHAR},
+            </if>
+            <if test="psMfzSite != null">
+                ps_mfz_site = #{psMfzSite,jdbcType=CHAR},
+            </if>
+            <if test="deposit != null">
+                deposit = #{deposit,jdbcType=DECIMAL},
+            </if>
+            <if test="gmEnabled != null">
+                gm_enabled = #{gmEnabled,jdbcType=CHAR},
+            </if>
+            <if test="guaMon != null">
+                gua_mon = #{guaMon,jdbcType=DECIMAL},
+            </if>
+            <if test="planCtrl != null">
+                plan_ctrl = #{planCtrl,jdbcType=CHAR},
+            </if>
+            <if test="tfrNum != null">
+                tfr_num = #{tfrNum,jdbcType=VARCHAR},
+            </if>
+            <if test="srcDocType != null">
+                src_doc_type = #{srcDocType,jdbcType=CHAR},
+            </if>
+            <if test="srcDocUnitId != null">
+                src_doc_unit_id = #{srcDocUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="srcDocNum != null">
+                src_doc_num = #{srcDocNum,jdbcType=VARCHAR},
+            </if>
+            <if test="prodCatId != null">
+                prod_cat_id = #{prodCatId,jdbcType=VARCHAR},
+            </if>
+            <if test="ordType != null">
+                ord_type = #{ordType,jdbcType=VARCHAR},
+            </if>
+            <if test="expdDate != null">
+                expd_date = #{expdDate,jdbcType=DATE},
+            </if>
+            <if test="delivMthd != null">
+                deliv_mthd = #{delivMthd,jdbcType=VARCHAR},
+            </if>
+            <if test="delivPstd != null">
+                deliv_pstd = #{delivPstd,jdbcType=VARCHAR},
+            </if>
+            <if test="delivAddr != null">
+                deliv_addr = #{delivAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="bxiEnabled != null">
+                bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+            </if>
+            <if test="ttlQty != null">
+                ttl_qty = #{ttlQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlBox != null">
+                ttl_box = #{ttlBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlVal != null">
+                ttl_val = #{ttlVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlTax != null">
+                ttl_tax = #{ttlTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlMkv != null">
+                ttl_mkv = #{ttlMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivQty != null">
+                ttl_deliv_qty = #{ttlDelivQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivBox != null">
+                ttl_deliv_box = #{ttlDelivBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlDelivVal != null">
+                ttl_deliv_val = #{ttlDelivVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivTax != null">
+                ttl_deliv_tax = #{ttlDelivTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivMkv != null">
+                ttl_deliv_mkv = #{ttlDelivMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvQty != null">
+                ttl_rcv_qty = #{ttlRcvQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvBox != null">
+                ttl_rcv_box = #{ttlRcvBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlRcvVal != null">
+                ttl_rcv_val = #{ttlRcvVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvTax != null">
+                ttl_rcv_tax = #{ttlRcvTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvMkv != null">
+                ttl_rcv_mkv = #{ttlRcvMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRsQty != null">
+                ttl_rs_qty = #{ttlRsQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRsBox != null">
+                ttl_rs_box = #{ttlRsBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlRsVal != null">
+                ttl_rs_val = #{ttlRsVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRsTax != null">
+                ttl_rs_tax = #{ttlRsTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRsMkv != null">
+                ttl_rs_mkv = #{ttlRsMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRpQty != null">
+                ttl_rp_qty = #{ttlRpQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRpBox != null">
+                ttl_rp_box = #{ttlRpBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlRpVal != null">
+                ttl_rp_val = #{ttlRpVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRpTax != null">
+                ttl_rp_tax = #{ttlRpTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRpMkv != null">
+                ttl_rp_mkv = #{ttlRpMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="opTime != null">
+                op_time = #{opTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="effective != null">
+                effective = #{effective,jdbcType=CHAR},
+            </if>
+            <if test="progress != null">
+                progress = #{progress,jdbcType=CHAR},
+            </if>
+            <if test="cancelled != null">
+                cancelled = #{cancelled,jdbcType=CHAR},
+            </if>
+            <if test="renewed != null">
+                renewed = #{renewed,jdbcType=CHAR},
+            </if>
+            <if test="execPscNum != null">
+                exec_psc_num = #{execPscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="itmdPscNum != null">
+                itmd_psc_num = #{itmdPscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="stPscNum != null">
+                st_psc_num = #{stPscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="endPscNum != null">
+                end_psc_num = #{endPscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="basePscNum != null">
+                base_psc_num = #{basePscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="ttlExpdRwd != null">
+                ttl_expd_rwd = #{ttlExpdRwd,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivRwd != null">
+                ttl_deliv_rwd = #{ttlDelivRwd,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvRwd != null">
+                ttl_rcv_rwd = #{ttlRcvRwd,jdbcType=DECIMAL},
+            </if>
+            <if test="pucAttr1 != null">
+                puc_attr_1 = #{pucAttr1,jdbcType=VARCHAR},
+            </if>
+            <if test="pucAttr2 != null">
+                puc_attr_2 = #{pucAttr2,jdbcType=VARCHAR},
+            </if>
+            <if test="slcAttr1 != null">
+                slc_attr_1 = #{slcAttr1,jdbcType=VARCHAR},
+            </if>
+            <if test="slcAttr2 != null">
+                slc_attr_2 = #{slcAttr2,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where psc_num = #{pscNum,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPscVo" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PscVo">
+        update psc
+        <set>
+            <if test="docDate != null and docDate != '' ">
+                doc_date = #{docDate,jdbcType=DATE},
+            </if>
+            <if test="pscType != null and pscType != '' ">
+                psc_type = #{pscType,jdbcType=VARCHAR},
+            </if>
+            <if test="vendeeId != null and vendeeId != '' ">
+                vendee_id = #{vendeeId,jdbcType=BIGINT},
+            </if>
+            <if test="vdeFsclUnitId != null and vdeFsclUnitId != '' ">
+                vde_fscl_unit_id = #{vdeFsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="vdeWarehId != null and vdeWarehId != '' ">
+                vde_wareh_id = #{vdeWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="endUnitId != null and endUnitId != '' ">
+                end_unit_id = #{endUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="endWarehId != null and endWarehId != '' ">
+                end_wareh_id = #{endWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="vdeInvd != null and vdeInvd != '' ">
+                vde_invd = #{vdeInvd,jdbcType=CHAR},
+            </if>
+            <if test="pucAutoGen != null and pucAutoGen != '' ">
+                puc_auto_gen = #{pucAutoGen,jdbcType=CHAR},
+            </if>
+            <if test="pucGen != null and pucGen != '' ">
+                puc_gen = #{pucGen,jdbcType=CHAR},
+            </if>
+            <if test="pucAutoChk != null and pucAutoChk != '' ">
+                puc_auto_chk = #{pucAutoChk,jdbcType=CHAR},
+            </if>
+            <if test="isPuItmd != null and isPuItmd != '' ">
+                is_pu_itmd = #{isPuItmd,jdbcType=CHAR},
+            </if>
+            <if test="venderId != null and venderId != '' ">
+                vender_id = #{venderId,jdbcType=BIGINT},
+            </if>
+            <if test="vdrFsclUnitId != null and vdrFsclUnitId != '' ">
+                vdr_fscl_unit_id = #{vdrFsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="vdrWarehId != null and vdrWarehId != '' ">
+                vdr_wareh_id = #{vdrWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="stUnitId != null and stUnitId != '' ">
+                st_unit_id = #{stUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="stWarehId != null and stWarehId != '' ">
+                st_wareh_id = #{stWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="vdrInvd != null and vdrInvd != '' ">
+                vdr_invd = #{vdrInvd,jdbcType=CHAR},
+            </if>
+            <if test="slcAutoGen != null and slcAutoGen != '' ">
+                slc_auto_gen = #{slcAutoGen,jdbcType=CHAR},
+            </if>
+            <if test="slcGen != null and slcGen != '' ">
+                slc_gen = #{slcGen,jdbcType=CHAR},
+            </if>
+            <if test="slcAutoChk != null and slcAutoChk != '' ">
+                slc_auto_chk = #{slcAutoChk,jdbcType=CHAR},
+            </if>
+            <if test="isSlItmd != null and isSlItmd != '' ">
+                is_sl_itmd = #{isSlItmd,jdbcType=CHAR},
+            </if>
+            <if test="tranUnitId != null and tranUnitId != '' ">
+                tran_unit_id = #{tranUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="drDiffJgd != null and drDiffJgd != '' ">
+                dr_diff_jgd = #{drDiffJgd,jdbcType=CHAR},
+            </if>
+            <if test="implByIns != null and implByIns != '' ">
+                impl_by_ins = #{implByIns,jdbcType=CHAR},
+            </if>
+            <if test="multiImpl != null and multiImpl != '' ">
+                multi_impl = #{multiImpl,jdbcType=CHAR},
+            </if>
+            <if test="tasksInDeliv != null and tasksInDeliv != '' ">
+                tasks_in_deliv = #{tasksInDeliv,jdbcType=BIGINT},
+            </if>
+            <if test="tasksInRcv != null and tasksInRcv != '' ">
+                tasks_in_rcv = #{tasksInRcv,jdbcType=BIGINT},
+            </if>
+            <if test="isSpot != null and isSpot != '' ">
+                is_spot = #{isSpot,jdbcType=CHAR},
+            </if>
+            <if test="prcSite != null and prcSite != '' ">
+                prc_site = #{prcSite,jdbcType=CHAR},
+            </if>
+            <if test="rqdCtrl != null and rqdCtrl != '' ">
+                rqd_ctrl = #{rqdCtrl,jdbcType=CHAR},
+            </if>
+            <if test="reqdDate != null and reqdDate != '' ">
+                reqd_date = #{reqdDate,jdbcType=DATE},
+            </if>
+            <if test="splEnabled != null and splEnabled != '' ">
+                spl_enabled = #{splEnabled,jdbcType=CHAR},
+            </if>
+            <if test="exblRate != null ">
+                exbl_rate = #{exblRate},
+            </if>
+            <if test="isCms != null and isCms != '' ">
+                is_cms = #{isCms,jdbcType=CHAR},
+            </if>
+            <if test="psStlMthd != null and psStlMthd != '' ">
+                ps_stl_mthd = #{psStlMthd,jdbcType=CHAR},
+            </if>
+            <if test="mfzEnabled != null and mfzEnabled != '' ">
+                mfz_enabled = #{mfzEnabled,jdbcType=CHAR},
+            </if>
+            <if test="psMfzSite != null and psMfzSite != '' ">
+                ps_mfz_site = #{psMfzSite,jdbcType=CHAR},
+            </if>
+            <if test="deposit != null and deposit != '' ">
+                deposit = #{deposit,jdbcType=DECIMAL},
+            </if>
+            <if test="gmEnabled != null and gmEnabled != '' ">
+                gm_enabled = #{gmEnabled,jdbcType=CHAR},
+            </if>
+            <if test="guaMon != null and guaMon != '' ">
+                gua_mon = #{guaMon,jdbcType=DECIMAL},
+            </if>
+            <if test="planCtrl != null and planCtrl != '' ">
+                plan_ctrl = #{planCtrl,jdbcType=CHAR},
+            </if>
+            <if test="tfrNum != null and tfrNum != '' ">
+                tfr_num = #{tfrNum,jdbcType=VARCHAR},
+            </if>
+            <if test="srcDocType != null and srcDocType != '' ">
+                src_doc_type = #{srcDocType,jdbcType=CHAR},
+            </if>
+            <if test="srcDocUnitId != null and srcDocUnitId != '' ">
+                src_doc_unit_id = #{srcDocUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="srcDocNum != null and srcDocNum != '' ">
+                src_doc_num = #{srcDocNum,jdbcType=VARCHAR},
+            </if>
+            <if test="prodCatId != null and prodCatId != '' ">
+                prod_cat_id = #{prodCatId,jdbcType=VARCHAR},
+            </if>
+            <if test="ordType != null and ordType != '' ">
+                ord_type = #{ordType,jdbcType=VARCHAR},
+            </if>
+            <if test="expdDate != null and expdDate != '' ">
+                expd_date = #{expdDate,jdbcType=DATE},
+            </if>
+            <if test="delivMthd != null and delivMthd != '' ">
+                deliv_mthd = #{delivMthd,jdbcType=VARCHAR},
+            </if>
+            <if test="delivPstd != null and delivPstd != '' ">
+                deliv_pstd = #{delivPstd,jdbcType=VARCHAR},
+            </if>
+            <if test="delivAddr != null and delivAddr != '' ">
+                deliv_addr = #{delivAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="bxiEnabled != null and bxiEnabled != '' ">
+                bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+            </if>
+            <if test="ttlQty != null and ttlQty != '' ">
+                ttl_qty = #{ttlQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlBox != null and ttlBox != '' ">
+                ttl_box = #{ttlBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlVal != null and ttlVal != '' ">
+                ttl_val = #{ttlVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlTax != null and ttlTax != '' ">
+                ttl_tax = #{ttlTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlMkv != null and ttlMkv != '' ">
+                ttl_mkv = #{ttlMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivQty != null and ttlDelivQty != '' ">
+                ttl_deliv_qty = #{ttlDelivQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivBox != null and ttlDelivBox != '' ">
+                ttl_deliv_box = #{ttlDelivBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlDelivVal != null and ttlDelivVal != '' ">
+                ttl_deliv_val = #{ttlDelivVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivTax != null and ttlDelivTax != '' ">
+                ttl_deliv_tax = #{ttlDelivTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivMkv != null and ttlDelivMkv != '' ">
+                ttl_deliv_mkv = #{ttlDelivMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvQty != null and ttlRcvQty != '' ">
+                ttl_rcv_qty = #{ttlRcvQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvBox != null and ttlRcvBox != '' ">
+                ttl_rcv_box = #{ttlRcvBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlRcvVal != null and ttlRcvVal != '' ">
+                ttl_rcv_val = #{ttlRcvVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvTax != null and ttlRcvTax != '' ">
+                ttl_rcv_tax = #{ttlRcvTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvMkv != null and ttlRcvMkv != '' ">
+                ttl_rcv_mkv = #{ttlRcvMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRsQty != null and ttlRsQty != '' ">
+                ttl_rs_qty = #{ttlRsQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRsBox != null and ttlRsBox != '' ">
+                ttl_rs_box = #{ttlRsBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlRsVal != null and ttlRsVal != '' ">
+                ttl_rs_val = #{ttlRsVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRsTax != null and ttlRsTax != '' ">
+                ttl_rs_tax = #{ttlRsTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRsMkv != null and ttlRsMkv != '' ">
+                ttl_rs_mkv = #{ttlRsMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRpQty != null and ttlRpQty != '' ">
+                ttl_rp_qty = #{ttlRpQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRpBox != null and ttlRpBox != '' ">
+                ttl_rp_box = #{ttlRpBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlRpVal != null and ttlRpVal != '' ">
+                ttl_rp_val = #{ttlRpVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRpTax != null and ttlRpTax != '' ">
+                ttl_rp_tax = #{ttlRpTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRpMkv != null and ttlRpMkv != '' ">
+                ttl_rp_mkv = #{ttlRpMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="oprId != null and oprId != '' ">
+                opr_id = #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="opTime != null and opTime != '' ">
+                op_time = #{opTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="effective != null and effective != '' ">
+                effective = #{effective,jdbcType=CHAR},
+            </if>
+            <if test="progress != null and progress != '' ">
+                progress = #{progress,jdbcType=CHAR},
+            </if>
+            <if test="cancelled != null and cancelled != '' ">
+                cancelled = #{cancelled,jdbcType=CHAR},
+            </if>
+            <if test="renewed != null and renewed != '' ">
+                renewed = #{renewed,jdbcType=CHAR},
+            </if>
+            <if test="execPscNum != null and execPscNum != '' ">
+                exec_psc_num = #{execPscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="itmdPscNum != null and itmdPscNum != '' ">
+                itmd_psc_num = #{itmdPscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="stPscNum != null and stPscNum != '' ">
+                st_psc_num = #{stPscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="endPscNum != null and endPscNum != '' ">
+                end_psc_num = #{endPscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="basePscNum != null and basePscNum != '' ">
+                base_psc_num = #{basePscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null and remarks != '' ">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="ttlExpdRwd != null and ttlExpdRwd != '' ">
+                ttl_expd_rwd = #{ttlExpdRwd,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivRwd != null and ttlDelivRwd != '' ">
+                ttl_deliv_rwd = #{ttlDelivRwd,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvRwd != null and ttlRcvRwd != '' ">
+                ttl_rcv_rwd = #{ttlRcvRwd,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where psc_num = #{pscNum,jdbcType=VARCHAR}
+    </update>
+
+
+    <!--采购合同添加购销合同-->
+    <insert id="insertByPscVo" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PscVo">
+        insert into psc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pscNum != null and pscNum != '' ">
+                psc_num,
+            </if>
+            doc_date,
+            <if test="pscType != null and pscType != '' ">
+                psc_type,
+            </if>
+            <if test="vendeeId != null and vendeeId != '' ">
+                vendee_id,
+            </if>
+            <if test="vdeFsclUnitId != null and vdeFsclUnitId != '' ">
+                vde_fscl_unit_id,
+            </if>
+            <if test="vdeWarehId != null and vdeWarehId != '' ">
+                vde_wareh_id,
+            </if>
+            <if test="endUnitId != null and endUnitId != '' ">
+                end_unit_id,
+            </if>
+            <if test="endWarehId != null and endWarehId != '' ">
+                end_wareh_id,
+            </if>
+            <if test="vdeInvd != null and vdeInvd != '' ">
+                vde_invd,
+            </if>
+            <if test="pucAutoGen != null and pucAutoGen != '' ">
+                puc_auto_gen,
+            </if>
+            <if test="pucGen != null and pucGen != '' ">
+                puc_gen,
+            </if>
+            <if test="pucAutoChk != null and pucAutoChk != '' ">
+                puc_auto_chk,
+            </if>
+            <if test="isPuItmd != null and isPuItmd != '' ">
+                is_pu_itmd,
+            </if>
+            <if test="venderId != null and venderId != '' ">
+                vender_id,
+            </if>
+            <if test="vdrFsclUnitId != null and vdrFsclUnitId != '' ">
+                vdr_fscl_unit_id,
+            </if>
+            <if test="vdrWarehId != null and vdrWarehId != '' ">
+                vdr_wareh_id,
+            </if>
+            <if test="stUnitId != null and stUnitId != '' ">
+                st_unit_id,
+            </if>
+            <if test="stWarehId != null and stWarehId != '' ">
+                st_wareh_id,
+            </if>
+            <if test="vdrInvd != null and vdrInvd != '' ">
+                vdr_invd,
+            </if>
+            <if test="slcAutoGen != null and slcAutoGen != '' ">
+                slc_auto_gen,
+            </if>
+            <if test="slcGen != null and slcGen != '' ">
+                slc_gen,
+            </if>
+            <if test="slcAutoChk != null and slcAutoChk != '' ">
+                slc_auto_chk,
+            </if>
+            <if test="isSlItmd != null and isSlItmd != '' ">
+                is_sl_itmd,
+            </if>
+            <if test="tranUnitId != null and tranUnitId != '' ">
+                tran_unit_id,
+            </if>
+            <if test="drDiffJgd != null and drDiffJgd != '' ">
+                dr_diff_jgd,
+            </if>
+            <if test="implByIns != null and implByIns != '' ">
+                impl_by_ins,
+            </if>
+            <if test="multiImpl != null and multiImpl != '' ">
+                multi_impl,
+            </if>
+            <if test="tasksInDeliv != null and tasksInDeliv != '' ">
+                tasks_in_deliv,
+            </if>
+            <if test="tasksInRcv != null and tasksInRcv != '' ">
+                tasks_in_rcv,
+            </if>
+            <if test="isSpot != null and isSpot != '' ">
+                is_spot,
+            </if>
+            <if test="prcSite != null and prcSite != '' ">
+                prc_site,
+            </if>
+            <if test="rqdCtrl != null and rqdCtrl != '' ">
+                rqd_ctrl,
+            </if>
+            <if test="reqdDate != null and reqdDate != '' ">
+                reqd_date,
+            </if>
+            <if test="splEnabled != null and splEnabled != '' ">
+                spl_enabled,
+            </if>
+            <if test="exblRate != null and exblRate != '' ">
+                exbl_rate,
+            </if>
+            <if test="isCms != null and isCms != '' ">
+                is_cms,
+            </if>
+            <if test="psStlMthd != null and psStlMthd != '' ">
+                ps_stl_mthd,
+            </if>
+            <if test="mfzEnabled != null and mfzEnabled != '' ">
+                mfz_enabled,
+            </if>
+            <if test="psMfzSite != null and psMfzSite != '' ">
+                ps_mfz_site,
+            </if>
+            <if test="deposit != null and deposit != '' ">
+                deposit,
+            </if>
+            <if test="gmEnabled != null and gmEnabled != '' ">
+                gm_enabled,
+            </if>
+            <if test="guaMon != null and guaMon != '' ">
+                gua_mon,
+            </if>
+            <if test="planCtrl != null and planCtrl != '' ">
+                plan_ctrl,
+            </if>
+            <if test="tfrNum != null and tfrNum != '' ">
+                tfr_num,
+            </if>
+            <if test="srcDocType != null and srcDocType != '' ">
+                src_doc_type,
+            </if>
+            <if test="srcDocUnitId != null and srcDocUnitId != '' ">
+                src_doc_unit_id,
+            </if>
+            <if test="srcDocNum != null and srcDocNum != '' ">
+                src_doc_num,
+            </if>
+            <if test="prodCatId != null and prodCatId != '' ">
+                prod_cat_id,
+            </if>
+            <if test="ordType != null and ordType != '' ">
+                ord_type,
+            </if>
+            <if test="expdDate != null and expdDate != '' ">
+                expd_date,
+            </if>
+            <if test="delivMthd != null and delivMthd != '' ">
+                deliv_mthd,
+            </if>
+            <if test="delivPstd != null and delivPstd != '' ">
+                deliv_pstd,
+            </if>
+            <if test="delivAddr != null and delivAddr != '' ">
+                deliv_addr,
+            </if>
+            <if test="bxiEnabled != null and bxiEnabled != '' ">
+                bxi_enabled,
+            </if>
+            <if test="ttlQty != null and ttlQty != '' ">
+                ttl_qty,
+            </if>
+            <if test="ttlBox != null and ttlBox != '' ">
+                ttl_box,
+            </if>
+            <if test="ttlVal != null and ttlVal != '' ">
+                ttl_val,
+            </if>
+            <if test="ttlTax != null and ttlTax != '' ">
+                ttl_tax,
+            </if>
+            <if test="ttlMkv != null and ttlMkv != '' ">
+                ttl_mkv,
+            </if>
+            <if test="ttlDelivQty != null and ttlDelivQty != '' ">
+                ttl_deliv_qty,
+            </if>
+            <if test="ttlDelivBox != null and ttlDelivBox != '' ">
+                ttl_deliv_box,
+            </if>
+            <if test="ttlDelivVal != null and ttlDelivVal != '' ">
+                ttl_deliv_val,
+            </if>
+            <if test="ttlDelivTax != null and ttlDelivTax != '' ">
+                ttl_deliv_tax,
+            </if>
+            <if test="ttlDelivMkv != null and ttlDelivMkv != '' ">
+                ttl_deliv_mkv,
+            </if>
+            <if test="ttlRcvQty != null and ttlRcvQty != '' ">
+                ttl_rcv_qty,
+            </if>
+            <if test="ttlRcvBox != null and ttlRcvBox != '' ">
+                ttl_rcv_box,
+            </if>
+            <if test="ttlRcvVal != null and ttlRcvVal != '' ">
+                ttl_rcv_val,
+            </if>
+            <if test="ttlRcvTax != null and ttlRcvTax != '' ">
+                ttl_rcv_tax,
+            </if>
+            <if test="ttlRcvMkv != null and ttlRcvMkv != '' ">
+                ttl_rcv_mkv,
+            </if>
+            <if test="ttlRsQty != null and ttlRsQty != '' ">
+                ttl_rs_qty,
+            </if>
+            <if test="ttlRsBox != null and ttlRsBox != '' ">
+                ttl_rs_box,
+            </if>
+            <if test="ttlRsVal != null and ttlRsVal != '' ">
+                ttl_rs_val,
+            </if>
+            <if test="ttlRsTax != null and ttlRsTax != '' ">
+                ttl_rs_tax,
+            </if>
+            <if test="ttlRsMkv != null and ttlRsMkv != '' ">
+                ttl_rs_mkv,
+            </if>
+            <if test="ttlRpQty != null and ttlRpQty != '' ">
+                ttl_rp_qty,
+            </if>
+            <if test="ttlRpBox != null and ttlRpBox != '' ">
+                ttl_rp_box,
+            </if>
+            <if test="ttlRpVal != null and ttlRpVal != '' ">
+                ttl_rp_val,
+            </if>
+            <if test="ttlRpTax != null and ttlRpTax != '' ">
+                ttl_rp_tax,
+            </if>
+            <if test="ttlRpMkv != null and ttlRpMkv != '' ">
+                ttl_rp_mkv,
+            </if>
+            <if test="oprId != null and oprId != '' ">
+                opr_id,
+                op_time,
+            </if>
+            <if test="effective != null and effective != '' ">
+                effective,
+            </if>
+            <if test="progress != null and progress != '' ">
+                progress,
+            </if>
+            <if test="cancelled != null and cancelled != '' ">
+                cancelled,
+            </if>
+            <if test="renewed != null and renewed != '' ">
+                renewed,
+            </if>
+            <if test="execPscNum != null and execPscNum != '' ">
+                exec_psc_num,
+            </if>
+            <if test="itmdPscNum != null and itmdPscNum != '' ">
+                itmd_psc_num,
+            </if>
+            <if test="stPscNum != null and stPscNum != '' ">
+                st_psc_num,
+            </if>
+            <if test="endPscNum != null and endPscNum != '' ">
+                end_psc_num,
+            </if>
+            <if test="basePscNum != null and basePscNum != '' ">
+                base_psc_num,
+            </if>
+            <if test="remarks != null and remarks != '' ">
+                remarks,
+            </if>
+            <if test="ttlExpdRwd != null and ttlExpdRwd != '' ">
+                ttl_expd_rwd,
+            </if>
+            <if test="ttlDelivRwd != null and ttlDelivRwd != '' ">
+                ttl_deliv_rwd,
+            </if>
+            <if test="ttlRcvRwd != null and ttlRcvRwd != '' ">
+                ttl_rcv_rwd,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pscNum != null and pscNum != '' ">
+                #{pscNum,jdbcType=VARCHAR},
+            </if>
+            now(),
+            <if test="pscType != null and pscType != '' ">
+                #{pscType,jdbcType=VARCHAR},
+            </if>
+            <if test="vendeeId != null and vendeeId != '' ">
+                #{vendeeId,jdbcType=BIGINT},
+            </if>
+            <if test="vdeFsclUnitId != null and vdeFsclUnitId != '' ">
+                #{vdeFsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="vdeWarehId != null and vdeWarehId != '' ">
+                #{vdeWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="endUnitId != null and endUnitId != ''">
+                #{endUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="endWarehId != null and endWarehId != ''">
+                #{endWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="vdeInvd != null and vdeInvd != '' ">
+                #{vdeInvd,jdbcType=CHAR},
+            </if>
+            <if test="pucAutoGen != null and pucAutoGen != '' ">
+                #{pucAutoGen,jdbcType=CHAR},
+            </if>
+            <if test="pucGen != null and pucGen != '' ">
+                #{pucGen,jdbcType=CHAR},
+            </if>
+            <if test="pucAutoChk != null and pucAutoChk != '' ">
+                #{pucAutoChk,jdbcType=CHAR},
+            </if>
+            <if test="isPuItmd != null and isPuItmd != '' ">
+                #{isPuItmd,jdbcType=CHAR},
+            </if>
+            <if test="venderId != null and venderId != ''">
+                #{venderId,jdbcType=BIGINT},
+            </if>
+            <if test="vdrFsclUnitId != null and vdrFsclUnitId != ''">
+                #{vdrFsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="vdrWarehId != null and vdrWarehId != ''">
+                #{vdrWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="stUnitId != null and stUnitId != ''">
+                #{stUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="stWarehId != null and stWarehId != ''">
+                #{stWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="vdrInvd != null and vdeInvd != '' ">
+                #{vdrInvd,jdbcType=CHAR},
+            </if>
+            <if test="slcAutoGen != null and slcAutoGen != '' ">
+                #{slcAutoGen,jdbcType=CHAR},
+            </if>
+            <if test="slcGen != null and slcGen != '' ">
+                #{slcGen,jdbcType=CHAR},
+            </if>
+            <if test="slcAutoChk != null and slcAutoChk != '' ">
+                #{slcAutoChk,jdbcType=CHAR},
+            </if>
+            <if test="isSlItmd != null and isSlItmd != '' ">
+                #{isSlItmd},
+            </if>
+            <if test="tranUnitId != null and tranUnitId != ''">
+                #{tranUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="drDiffJgd != null and drDiffJgd != '' ">
+                #{drDiffJgd,jdbcType=CHAR},
+            </if>
+            <if test="implByIns != null and implByIns != '' ">
+                #{implByIns,jdbcType=CHAR},
+            </if>
+            <if test="multiImpl != null and multiImpl != '' ">
+                #{multiImpl,jdbcType=CHAR},
+            </if>
+            <if test="tasksInDeliv != null and tasksInDeliv != ''">
+                #{tasksInDeliv,jdbcType=BIGINT},
+            </if>
+            <if test="tasksInRcv != null and tasksInRcv != ''">
+                #{tasksInRcv,jdbcType=BIGINT},
+            </if>
+            <if test="isSpot != null and isSpot != '' ">
+                #{isSpot,jdbcType=CHAR},
+            </if>
+            <if test="prcSite != null and prcSite != '' ">
+                #{prcSite,jdbcType=CHAR},
+            </if>
+            <if test="rqdCtrl != null and rqdCtrl != '' ">
+                #{rqdCtrl,jdbcType=CHAR},
+            </if>
+            <if test="reqdDate != null and reqdDate != '' ">
+                #{reqdDate,jdbcType=DATE},
+            </if>
+            <if test="splEnabled != null and splEnabled != '' ">
+                #{splEnabled,jdbcType=CHAR},
+            </if>
+            <if test="exblRate != null and exblRate != '' ">
+                #{exblRate,jdbcType=DECIMAL},
+            </if>
+            <if test="isCms != null and isCms != '' ">
+                #{isCms,jdbcType=CHAR},
+            </if>
+            <if test="psStlMthd != null and psStlMthd != '' ">
+                #{psStlMthd,jdbcType=CHAR},
+            </if>
+            <if test="mfzEnabled != null and mfzEnabled != '' ">
+                #{mfzEnabled,jdbcType=CHAR},
+            </if>
+            <if test="psMfzSite != null and psMfzSite != '' ">
+                #{psMfzSite,jdbcType=CHAR},
+            </if>
+            <if test="deposit != null and deposit != '' ">
+                #{deposit,jdbcType=DECIMAL},
+            </if>
+            <if test="gmEnabled != null and gmEnabled != '' ">
+                #{gmEnabled,jdbcType=CHAR},
+            </if>
+            <if test="guaMon != null and guaMon != '' ">
+                #{guaMon,jdbcType=DECIMAL},
+            </if>
+            <if test="planCtrl != null and planCtrl != '' ">
+                #{planCtrl,jdbcType=CHAR},
+            </if>
+            <if test="tfrNum != null and tfrNum != '' ">
+                #{tfrNum,jdbcType=VARCHAR},
+            </if>
+            <if test="srcDocType != null and srcDocType != '' ">
+                #{srcDocType,jdbcType=CHAR},
+            </if>
+            <if test="srcDocUnitId != null and srcDocUnitId != ''">
+                #{srcDocUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="srcDocNum != null and srcDocNum != ''">
+                #{srcDocNum,jdbcType=VARCHAR},
+            </if>
+            <if test="prodCatId != null and prodCatId != ''">
+                #{prodCatId,jdbcType=VARCHAR},
+            </if>
+            <if test="ordType != null and ordType != ''">
+                #{ordType,jdbcType=VARCHAR},
+            </if>
+            <if test="expdDate != null and expdDate != ''">
+                #{expdDate,jdbcType=DATE},
+            </if>
+            <if test="delivMthd != null and delivMthd != ''">
+                #{delivMthd,jdbcType=VARCHAR},
+            </if>
+            <if test="delivPstd != null and delivPstd != ''">
+                #{delivPstd,jdbcType=VARCHAR},
+            </if>
+            <if test="delivAddr != null and delivAddr != ''">
+                #{delivAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="bxiEnabled != null and bxiEnabled != '' ">
+                #{bxiEnabled,jdbcType=CHAR},
+            </if>
+            <if test="ttlQty != null and ttlQty != '' ">
+                #{ttlQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlBox != null and ttlBox != '' ">
+                #{ttlBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlVal != null and ttlVal != '' ">
+                #{ttlVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlTax != null and ttlTax != '' ">
+                #{ttlTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlMkv != null and ttlMkv != '' ">
+                #{ttlMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivQty != null and ttlDelivQty != '' ">
+                #{ttlDelivQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivBox != null and ttlDelivBox != ''">
+                #{ttlDelivBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlDelivVal != null and ttlDelivVal != '' ">
+                #{ttlDelivVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivTax != null and ttlDelivTax != '' ">
+                #{ttlDelivTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivMkv != null and ttlDelivMkv != '' ">
+                #{ttlDelivMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvQty != null and ttlRcvQty != '' ">
+                #{ttlRcvQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvBox != null and ttlRcvBox != ''">
+                #{ttlRcvBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlRcvVal != null and ttlRcvVal != '' ">
+                #{ttlRcvVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvTax != null and ttlRcvTax != '' ">
+                #{ttlRcvTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvMkv != null and ttlRcvMkv != '' ">
+                #{ttlRcvMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRsQty != null and ttlRsQty != '' ">
+                #{ttlRsQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRsBox != null and ttlRsBox != ''">
+                #{ttlRsBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlRsVal != null and ttlRsVal != '' ">
+                #{ttlRsVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRsTax != null and ttlRsTax != '' ">
+                #{ttlRsTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRsMkv != null and ttlRsMkv != '' ">
+                #{ttlRsMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRpQty != null and ttlRpQty != '' ">
+                #{ttlRpQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRpBox != null and ttlRpBox != ''">
+                #{ttlRpBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlRpVal != null and ttlRpVal != '' ">
+                #{ttlRpVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRpTax != null and ttlRpTax != '' ">
+                #{ttlRpTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRpMkv != null and ttlRpMkv != ''">
+                #{ttlRpMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="oprId != null and oprId != ''">
+                #{oprId,jdbcType=BIGINT},
+                now(),
+            </if>
+
+            <if test="effective != null and effective != '' ">
+                #{effective,jdbcType=CHAR},
+            </if>
+            <if test="progress != null and progress != '' ">
+                #{progress,jdbcType=CHAR},
+            </if>
+            <if test="cancelled != null and cancelled != '' ">
+                #{cancelled,jdbcType=CHAR},
+            </if>
+            <if test="renewed != null and renewed != '' ">
+                #{renewed,jdbcType=CHAR},
+            </if>
+            <if test="execPscNum != null and execPscNum != '' ">
+                #{execPscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="itmdPscNum != null and itmdPscNum != '' ">
+                #{itmdPscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="stPscNum != null and stPscNum != '' ">
+                #{stPscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="endPscNum != null and endPscNum != '' ">
+                #{endPscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="basePscNum != null and basePscNum != '' ">
+                #{basePscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null and remarks != '' ">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="ttlExpdRwd != null and ttlExpdRwd != '' ">
+                #{ttlExpdRwd,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivRwd != null and ttlDelivRwd != '' ">
+                #{ttlDelivRwd,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvRwd != null and ttlRcvRwd != '' ">
+                #{ttlRcvRwd,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+    <!--删除时更新数据-->
+    <update id="updeteByGen" parameterType="java.lang.String">
+        update psc
+        <set>
+            <if test="pucGen!=null and pucGen!='' ">
+                puc_gen = #{pucGen},
+            </if>
+            <if test="slcGen!=null and slcGen!='' ">
+                slc_gen = #{slcGen},
+            </if>
+        </set>
+        where psc_num = #{pscNum}
+    </update>
+
+    <update id="updateTaskAdd" parameterType="java.lang.String">
+    update psc
+    set
+    tasks_in_rcv=IFNULL(tasks_in_rcv,0)+1
+    where psc_num = #{pscNum}
+  </update>
+    <update id="updateTaskReduce" parameterType="java.lang.String">
+    update psc
+    set
+    tasks_in_rcv=IFNULL(tasks_in_rcv,0)-1
+    where psc_num = #{pscNum}
+  </update>
+
+    <update id="updateByState" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PscVo">
+        update psc
+        <set>
+            vde_fscl_unit_id = #{vdeFsclUnitId},
+            vdr_fscl_unit_id = #{vdrFsclUnitId},
+            <if test="pucGen != null and pucGen!= '' ">
+                puc_gen = #{pucGen,jdbcType=CHAR},
+            </if>
+            <if test="slcGen != null and slcGen!= '' ">
+                slc_gen = #{slcGen,jdbcType=CHAR},
+            </if>
+            <if test="effective != null">
+                effective = #{effective,jdbcType=CHAR},
+            </if>
+            <if test="progress != null">
+                progress = #{progress,jdbcType=CHAR},
+            </if>
+            <if test="cancelled != null">
+                cancelled = #{cancelled,jdbcType=CHAR},
+            </if>
+            <if test="renewed != null">
+                renewed = #{renewed,jdbcType=CHAR},
+            </if>
+            ttl_expd_rwd = #{ttlExpdRwd},
+        </set>
+        where psc_num = #{pscNum,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectBySrcDoc" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Psc"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from psc
+        where 1=1
+        and src_doc_type = #{srcDocType}
+        and src_doc_unit_id = #{srcDocUnitId}
+        and src_doc_num = #{srcDocNum}
+    </select>
+
+    <select id="findBySrcDoc" resultType="java.lang.Integer">
+    select
+    COUNT(1)
+    from ${srcType}
+    where unit_id=#{srcUnitId} and ${srcType}_num = #{srcNum}
+  </select>
+
+    <select id="findByPscNum" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Psc"
+            resultMap="BaseResultMap">
+        select
+        psc.psc_num
+        from psc psc
+        left join ${srcType} a on a.psc_num = psc.psc_num
+        where 1=1
+        and a.unit_id=#{srcUnitId} and a.${srcType}_num = #{srcNum}
+    </select>
+
+    <update id="updateByStbToRp">
+        UPDATE psc psc
+        INNER JOIN puc puc ON puc.psc_num = psc.psc_num
+        INNER JOIN stb stb ON stb.src_doc_unit_id = puc.unit_id
+        AND stb.src_doc_num = puc.puc_num
+        <set>
+            <choose>
+                <when test="flag">
+                    psc.ttl_rp_qty = IFNULL( psc.ttl_rp_qty, 0 ) + stb.ttl_qty,
+                    psc.ttl_rp_box = IFNULL( psc.ttl_rp_box, 0 ) + stb.ttl_box,
+                    psc.ttl_rp_val = IFNULL( psc.ttl_rp_val, 0 ) + stb.ttl_val,
+                    psc.ttl_rp_tax = IFNULL( psc.ttl_rp_tax, 0 ) + stb.ttl_tax,
+                    psc.ttl_rp_mkv = IFNULL( psc.ttl_rp_mkv, 0 ) + stb.ttl_mkv,
+                </when>
+                <otherwise>
+                    psc.ttl_rp_qty = IFNULL( psc.ttl_rp_qty, 0 ) - stb.ttl_qty,
+                    psc.ttl_rp_box = IFNULL( psc.ttl_rp_box, 0 ) - stb.ttl_box,
+                    psc.ttl_rp_val = IFNULL( psc.ttl_rp_val, 0 ) - stb.ttl_val,
+                    psc.ttl_rp_tax = IFNULL( psc.ttl_rp_tax, 0 ) - stb.ttl_tax,
+                    psc.ttl_rp_mkv = IFNULL( psc.ttl_rp_mkv, 0 ) - stb.ttl_mkv,
+                </otherwise>
+            </choose>
+        </set>
+        WHERE
+            puc.psc_num = #{pscNum}
+            AND stb.unit_id = #{docUnitId}
+            AND stb.stb_num = #{docNum}
+    </update>
+
+    <update id="updateByStbToRs">
+        UPDATE psc psc
+        INNER JOIN puc puc ON puc.psc_num = psc.psc_num
+        INNER JOIN stb stb ON stb.src_doc_unit_id = puc.unit_id
+        AND stb.src_doc_num = puc.puc_num
+        <set>
+            <choose>
+                <when test="flag">
+                    psc.ttl_rs_qty = IFNULL( psc.ttl_rs_qty, 0 ) + stb.ttl_qty,
+                    psc.ttl_rs_box = IFNULL( psc.ttl_rs_box, 0 ) + stb.ttl_box,
+                    psc.ttl_rs_val = IFNULL( psc.ttl_rs_val, 0 ) + stb.ttl_val,
+                    psc.ttl_rs_tax = IFNULL( psc.ttl_rs_tax, 0 ) + stb.ttl_tax,
+                    psc.ttl_rs_mkv = IFNULL( psc.ttl_rs_mkv, 0 ) + stb.ttl_mkv,
+                </when>
+                <otherwise>
+                    psc.ttl_rs_qty = IFNULL( psc.ttl_rs_qty, 0 ) - stb.ttl_qty,
+                    psc.ttl_rs_box = IFNULL( psc.ttl_rs_box, 0 ) - stb.ttl_box,
+                    psc.ttl_rs_val = IFNULL( psc.ttl_rs_val, 0 ) - stb.ttl_val,
+                    psc.ttl_rs_tax = IFNULL( psc.ttl_rs_tax, 0 ) - stb.ttl_tax,
+                    psc.ttl_rs_mkv = IFNULL( psc.ttl_rs_mkv, 0 ) - stb.ttl_mkv,
+                </otherwise>
+            </choose>
+        </set>
+        WHERE
+        puc.psc_num = #{pscNum}
+        AND stb.unit_id = #{docUnitId}
+        AND stb.stb_num = #{docNum}
+    </update>
+</mapper>

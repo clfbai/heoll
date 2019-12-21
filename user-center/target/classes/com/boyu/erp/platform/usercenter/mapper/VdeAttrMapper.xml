@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sales.VdeAttrMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.sales.VdeAttr">
+    <id column="vendee_id" jdbcType="BIGINT" property="vendeeId" />
+    <id column="owner_id" jdbcType="BIGINT" property="ownerId" />
+    <id column="attr_type" jdbcType="VARCHAR" property="attrType" />
+    <result column="attr_val" jdbcType="VARCHAR" property="attrVal" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    vendee_id, owner_id, attr_type, attr_val
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.sales.VdeAttr" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from vde_attr
+    where vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+      and attr_type = #{attrType,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.sales.VdeAttr">
+    delete from vde_attr
+    where vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+      and attr_type = #{attrType,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.sales.VdeAttr">
+    insert into vde_attr (vendee_id, owner_id, attr_type, 
+      attr_val)
+    values (#{vendeeId,jdbcType=BIGINT}, #{ownerId,jdbcType=BIGINT}, #{attrType,jdbcType=VARCHAR}, 
+      #{attrVal,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.sales.VdeAttr">
+    insert into vde_attr
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vendeeId != null">
+        vendee_id,
+      </if>
+      <if test="ownerId != null">
+        owner_id,
+      </if>
+      <if test="attrType != null">
+        attr_type,
+      </if>
+      <if test="attrVal != null">
+        attr_val,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vendeeId != null">
+        #{vendeeId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="attrType != null">
+        #{attrType,jdbcType=VARCHAR},
+      </if>
+      <if test="attrVal != null">
+        #{attrVal,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.sales.VdeAttr">
+    update vde_attr
+    <set>
+      <if test="attrVal != null">
+        attr_val = #{attrVal,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+      and attr_type = #{attrType,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.sales.VdeAttr">
+    update vde_attr
+    set attr_val = #{attrVal,jdbcType=VARCHAR}
+    where vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+      and attr_type = #{attrType,jdbcType=VARCHAR}
+  </update>
+
+  <!--map入参-->
+  <select id="vdeAttrList" parameterType="java.util.Map" resultType="java.util.Map">
+    SELECT
+    <trim suffixOverrides=",">
+      <if test="sql!=null">
+        ${sql}
+      </if>
+    </trim>
+    FROM
+    vde_attr va
+    WHERE
+    1=1 and
+    va.vendee_id = #{vendeeId}
+    AND va.owner_id =#{ownerId}
+  </select>
+</mapper>

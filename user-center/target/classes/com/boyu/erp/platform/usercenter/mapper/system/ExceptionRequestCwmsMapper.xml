@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.system.ExceptionRequestCwmsMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.ExceptionRequestCwms">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="requestMagess" jdbcType="VARCHAR" property="requestMagess"/>
+        <result column="excMagess" jdbcType="VARCHAR" property="excMagess"/>
+        <result column="exchange" jdbcType="VARCHAR" property="exchange"/>
+        <result column="requestData" jdbcType="DATE" property="requestData"/>
+        <result column="UUID" jdbcType="VARCHAR" property="uuid"/>
+        <result column="implTimes" jdbcType="INTEGER" property="impltimes"/>
+        <result column="statuss" jdbcType="CHAR" property="statuss"/>
+        <result column="isDel" jdbcType="CHAR" property="isDel"/>
+        <result column="rate" jdbcType="VARCHAR" property="rate"/>
+        <result column="requestParam" jdbcType="LONGVARCHAR" property="requestParam"/>
+        <result column="routingKey" jdbcType="VARCHAR" property="routingKey"/>
+        <result column="isMessage" jdbcType="CHAR" property="isMessage"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, url, requestMagess, excMagess, exchange, requestData, UUID, implTimes, statuss, 
+    isDel, rate, requestParam, routingKey,isMessage
+  </sql>
+
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from exception_request_cwms
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <!--根据主键查询当前记录-->
+    <select id="selectExceptionRequestCwms"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from exception_request_cwms
+        where UUID = #{uuid}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from exception_request_cwms
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+    <delete id="deleteByMessage" parameterType="java.lang.String">
+    delete from exception_request_cwms
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </delete>
+
+    <insert id="insertSelective"
+            parameterType="com.boyu.erp.platform.usercenter.entity.system.ExceptionRequestCwms">
+        insert into exception_request_cwms
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="url != null and url !=''">
+                url,
+            </if>
+            <if test="requestMagess != null">
+                requestMagess,
+            </if>
+            <if test="excMagess != null">
+                excMagess,
+            </if>
+            <if test="exchange != null">
+                exchange,
+            </if>
+            <if test="requestData != null">
+                requestData,
+            </if>
+            <if test=" uuid != null and  uuid!=''">
+                UUID,
+            </if>
+            <if test="impltimes != null">
+                implTimes,
+            </if>
+            <if test="statuss != null and statuss !=''">
+                statuss,
+            </if>
+            <if test="isDel != null and  isDel!=''">
+                isDel,
+            </if>
+            <if test="rate != null">
+                rate,
+            </if>
+            <if test="requestParam != null and requestParam !=''">
+                requestParam,
+            </if>
+            <if test="routingKey != null and routingKey !=''">
+                routingKey,
+            </if>
+            <if test="isMessage != null and isMessage!=''">
+                isMessage,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="url != null and url !=''">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="requestMagess != null and requestMagess !=''">
+                #{requestMagess,jdbcType=VARCHAR},
+            </if>
+            <if test="excMagess != null and excMagess !=''">
+                #{excMagess,jdbcType=VARCHAR},
+            </if>
+            <if test="exchange != null">
+                #{exchange,jdbcType=VARCHAR},
+            </if>
+            <if test="requestData != null">
+                #{requestData,jdbcType=DATE},
+            </if>
+            <if test="uuid != null and uuid !=''">
+                #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="impltimes != null">
+                #{impltimes,jdbcType=INTEGER},
+            </if>
+            <if test="statuss != null and statuss !=''">
+                #{statuss,jdbcType=CHAR},
+            </if>
+            <if test="isDel != null and isDel !=''">
+                #{isDel,jdbcType=CHAR},
+            </if>
+            <if test="rate != null and rate !=''">
+                #{rate,jdbcType=VARCHAR},
+            </if>
+            <if test="requestParam != null and requestParam !=''">
+                #{requestParam,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="routingKey != null and routingKey != ''">
+                #{routingKey,jdbcType=VARCHAR},
+            </if>
+            <if test="isMessage != null and isMessage!=''">
+                #{isMessage},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimary"
+            parameterType="com.boyu.erp.platform.usercenter.entity.system.ExceptionRequestCwms">
+        update exception_request_cwms
+        <set>
+            <if test="url != null and url !=''">
+                url= #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="requestMagess != null and requestMagess !=''">
+                requestMagess= #{requestMagess,jdbcType=VARCHAR},
+            </if>
+            <if test="excMagess != null and excMagess !=''">
+                excMagess= #{excMagess,jdbcType=VARCHAR},
+            </if>
+            <if test="exchange != null">
+                exchange= #{exchange,jdbcType=VARCHAR},
+            </if>
+            <if test="requestData != null">
+                requestData= #{requestData,jdbcType=DATE},
+            </if>
+            <if test="uuid != null and uuid !=''">
+                UUID= #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="impltimes != null">
+                impltimes= #{impltimes,jdbcType=INTEGER},
+            </if>
+            <if test="statuss != null and statuss !=''">
+                statuss= #{statuss,jdbcType=CHAR},
+            </if>
+            <if test="isDel != null and isDel !=''">
+                isDel= #{isDel,jdbcType=CHAR},
+            </if>
+            <if test="rate != null and rate !=''">
+                rate=#{rate,jdbcType=VARCHAR},
+            </if>
+            <if test="requestParam != null and requestParam !=''">
+                requestParam= #{requestParam,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="routingKey != null and routingKey != ''">
+                routingKey= #{routingKey,jdbcType=VARCHAR},
+            </if>
+            <if test="isMessage != null and isMessage!=''">
+                isMessage= #{isMessage},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <update id="updateMessage"
+            parameterType="com.boyu.erp.platform.usercenter.entity.system.ExceptionRequestCwms">
+        update exception_request_cwms
+        <set>
+            <if test="url != null and url !=''">
+                url= #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="requestMagess != null and requestMagess !=''">
+                requestMagess= #{requestMagess,jdbcType=VARCHAR},
+            </if>
+            <if test="excMagess != null and excMagess !=''">
+                excMagess= #{excMagess,jdbcType=VARCHAR},
+            </if>
+            <if test="exchange != null">
+                exchange= #{exchange,jdbcType=VARCHAR},
+            </if>
+            <if test="requestData != null">
+                requestData= #{requestData,jdbcType=DATE},
+            </if>
+            <if test="impltimes != null">
+                impltimes= #{impltimes,jdbcType=INTEGER},
+            </if>
+            <if test="statuss != null and statuss !=''">
+                statuss= #{statuss,jdbcType=CHAR},
+            </if>
+            <if test="isDel != null and isDel !=''">
+                isDel= #{isDel,jdbcType=CHAR},
+            </if>
+            <if test="rate != null and rate !=''">
+                rate=#{rate,jdbcType=VARCHAR},
+            </if>
+            <if test="requestParam != null and requestParam !=''">
+                requestParam= #{requestParam,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="routingKey != null and routingKey != ''">
+                routingKey= #{routingKey,jdbcType=VARCHAR},
+            </if>
+            <if test="isMessage != null and isMessage!=''">
+                isMessage= #{isMessage},
+            </if>
+        </set>
+        where UUID = #{uuid,jdbcType=VARCHAR}
+    </update>
+
+
+</mapper>

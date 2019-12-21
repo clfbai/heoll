@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PuoMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.Puo">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="puo_num" jdbcType="VARCHAR" property="puoNum"/>
+        <result column="pso_num" jdbcType="VARCHAR" property="psoNum"/>
+        <result column="chkr_id" jdbcType="BIGINT" property="chkrId"/>
+        <result column="chk_time" jdbcType="TIMESTAMP" property="chkTime"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapByPuo" type="com.boyu.erp.platform.usercenter.vo.purchase.PsoVo">
+        <id column="pso_num" jdbcType="VARCHAR" property="psoNum"/>
+        <result column="doc_date" jdbcType="DATE" property="docDate"/>
+        <result column="psc_num" jdbcType="VARCHAR" property="pscNum"/>
+        <result column="rcv_wareh_id" jdbcType="DECIMAL" property="rcvWarehId"/>
+        <result column="deliv_wareh_id" jdbcType="DECIMAL" property="delivWarehId"/>
+        <result column="pso_kind" jdbcType="CHAR" property="psoKind"/>
+        <result column="puo_gen" jdbcType="CHAR" property="puoGen"/>
+        <result column="slo_gen" jdbcType="CHAR" property="sloGen"/>
+        <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled"/>
+        <result column="reqd_date" jdbcType="DATE" property="reqdDate"/>
+        <result column="deliv_mthd" jdbcType="VARCHAR" property="delivMthd"/>
+        <result column="deliv_pstd" jdbcType="VARCHAR" property="delivPstd"/>
+        <result column="deliv_addr" jdbcType="VARCHAR" property="delivAddr"/>
+        <result column="ttl_qty" jdbcType="DECIMAL" property="ttlQty"/>
+        <result column="ttl_box" jdbcType="DECIMAL" property="ttlBox"/>
+        <result column="ttl_val" jdbcType="DECIMAL" property="ttlVal"/>
+        <result column="ttl_tax" jdbcType="DECIMAL" property="ttlTax"/>
+        <result column="ttl_mkv" jdbcType="DECIMAL" property="ttlMkv"/>
+        <result column="ttl_deliv_qty" jdbcType="DECIMAL" property="ttlDelivQty"/>
+        <result column="ttl_deliv_box" jdbcType="DECIMAL" property="ttlDelivBox"/>
+        <result column="ttl_deliv_val" jdbcType="DECIMAL" property="ttlDelivVal"/>
+        <result column="ttl_deliv_tax" jdbcType="DECIMAL" property="ttlDelivTax"/>
+        <result column="ttl_deliv_mkv" jdbcType="DECIMAL" property="ttlDelivMkv"/>
+        <result column="ttl_rcv_qty" jdbcType="DECIMAL" property="ttlRcvQty"/>
+        <result column="ttl_rcv_box" jdbcType="DECIMAL" property="ttlRcvBox"/>
+        <result column="ttl_rcv_val" jdbcType="DECIMAL" property="ttlRcvVal"/>
+        <result column="ttl_rcv_tax" jdbcType="DECIMAL" property="ttlRcvTax"/>
+        <result column="ttl_rcv_mkv" jdbcType="DECIMAL" property="ttlRcvMkv"/>
+        <result column="opr_id" jdbcType="DECIMAL" property="oprId"/>
+        <result column="opTime" property="opTime"/>
+        <result column="effective" jdbcType="CHAR" property="effective"/>
+        <result column="progress" jdbcType="CHAR" property="progress"/>
+        <result column="cancelled" jdbcType="CHAR" property="cancelled"/>
+        <result column="exec_pso_num" jdbcType="VARCHAR" property="execPsoNum"/>
+        <result column="itmd_pso_num" jdbcType="VARCHAR" property="itmdPsoNum"/>
+        <result column="st_pso_num" jdbcType="VARCHAR" property="stPsoNum"/>
+        <result column="end_pso_num" jdbcType="VARCHAR" property="endPsoNum"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="puoNum" property="puoNum"/>
+        <result column="pucNum" property="pucNum"/>
+        <result column="rcvWarehNum" property="rcvWarehNum"/>
+        <result column="rcvWarehName" property="rcvWarehName"/>
+        <result column="venderNum" property="venderNum"/>
+        <result column="venderName" property="venderName"/>
+        <result column="delivWarehNum" property="delivWarehNum"/>
+        <result column="delivWarehName" property="delivWarehName"/>
+        <result column="vdrInvd" property="vdrInvd"/>
+        <result column="planCtrl" property="planCtrl"/>
+        <result column="suspended" property="suspended"/>
+        <result column="venderId" property="venderId"/>
+        <result column="vendeeId" property="vendeeId"/>
+        <result column="oprCode" property="oprCode"/>
+        <result column="oprName" property="oprName"/>
+        <result column="chkrNum" property="chkrNum"/>
+        <result column="chkrName" property="chkrName"/>
+        <result column="chkTime" property="chkTime"/>
+        <result column="tranUnitId" property="tranUnitId"/>
+        <result column="puBrdgMode" property="puBrdgMode"/>
+        <result column="unitId" property="unitId"/>
+        <result column="exblRate" property="exblRate"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapObject" type="com.boyu.erp.platform.usercenter.vo.purchase.PsoVo">
+        <id column="pso_num" jdbcType="VARCHAR" property="psoNum"/>
+        <result column="doc_date" jdbcType="DATE" property="docDate"/>
+        <result column="psc_num" jdbcType="VARCHAR" property="pscNum"/>
+        <result column="rcv_wareh_id" jdbcType="DECIMAL" property="rcvWarehId"/>
+        <result column="deliv_wareh_id" jdbcType="DECIMAL" property="delivWarehId"/>
+        <result column="pso_kind" jdbcType="CHAR" property="psoKind"/>
+        <result column="puo_gen" jdbcType="CHAR" property="puoGen"/>
+        <result column="slo_gen" jdbcType="CHAR" property="sloGen"/>
+        <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled"/>
+        <result column="reqd_date" jdbcType="DATE" property="reqdDate"/>
+        <result column="deliv_mthd" jdbcType="VARCHAR" property="delivMthd"/>
+        <result column="deliv_pstd" jdbcType="VARCHAR" property="delivPstd"/>
+        <result column="deliv_addr" jdbcType="VARCHAR" property="delivAddr"/>
+        <result column="ttl_qty" jdbcType="DECIMAL" property="ttlQty"/>
+        <result column="ttl_box" jdbcType="DECIMAL" property="ttlBox"/>
+        <result column="ttl_val" jdbcType="DECIMAL" property="ttlVal"/>
+        <result column="ttl_tax" jdbcType="DECIMAL" property="ttlTax"/>
+        <result column="ttl_mkv" jdbcType="DECIMAL" property="ttlMkv"/>
+        <result column="ttl_deliv_qty" jdbcType="DECIMAL" property="ttlDelivQty"/>
+        <result column="ttl_deliv_box" jdbcType="DECIMAL" property="ttlDelivBox"/>
+        <result column="ttl_deliv_val" jdbcType="DECIMAL" property="ttlDelivVal"/>
+        <result column="ttl_deliv_tax" jdbcType="DECIMAL" property="ttlDelivTax"/>
+        <result column="ttl_deliv_mkv" jdbcType="DECIMAL" property="ttlDelivMkv"/>
+        <result column="ttl_rcv_qty" jdbcType="DECIMAL" property="ttlRcvQty"/>
+        <result column="ttl_rcv_box" jdbcType="DECIMAL" property="ttlRcvBox"/>
+        <result column="ttl_rcv_val" jdbcType="DECIMAL" property="ttlRcvVal"/>
+        <result column="ttl_rcv_tax" jdbcType="DECIMAL" property="ttlRcvTax"/>
+        <result column="ttl_rcv_mkv" jdbcType="DECIMAL" property="ttlRcvMkv"/>
+        <result column="opr_id" jdbcType="DECIMAL" property="oprId"/>
+        <result column="opTime" property="opTime"/>
+        <result column="effective" jdbcType="CHAR" property="effective"/>
+        <result column="progress" jdbcType="CHAR" property="progress"/>
+        <result column="cancelled" jdbcType="CHAR" property="cancelled"/>
+        <result column="exec_pso_num" jdbcType="VARCHAR" property="execPsoNum"/>
+        <result column="itmd_pso_num" jdbcType="VARCHAR" property="itmdPsoNum"/>
+        <result column="st_pso_num" jdbcType="VARCHAR" property="stPsoNum"/>
+        <result column="end_pso_num" jdbcType="VARCHAR" property="endPsoNum"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="puoNum" property="puoNum"/>
+        <result column="pucNum" property="pucNum"/>
+        <result column="rcvWarehNum" property="rcvWarehNum"/>
+        <result column="rcvWarehName" property="rcvWarehName"/>
+        <result column="venderNum" property="venderNum"/>
+        <result column="venderName" property="venderName"/>
+        <result column="delivWarehNum" property="delivWarehNum"/>
+        <result column="delivWarehName" property="delivWarehName"/>
+        <result column="vdrInvd" property="vdrInvd"/>
+        <result column="planCtrl" property="planCtrl"/>
+        <result column="suspended" property="suspended"/>
+        <result column="venderId" property="venderId"/>
+        <result column="vendeeId" property="vendeeId"/>
+        <result column="oprCode" property="oprCode"/>
+        <result column="oprName" property="oprName"/>
+        <result column="chkrNum" property="chkrNum"/>
+        <result column="chkrName" property="chkrName"/>
+        <result column="chkTime" property="chkTime"/>
+        <result column="tranUnitId" property="tranUnitId"/>
+        <result column="puBrdgMode" property="puBrdgMode"/>
+        <result column="unitId" property="unitId"/>
+        <result column="exblRate" property="exblRate"/>
+        <collection property="psoDtlList" resultMap="psoDtlResultMap">
+        </collection>
+    </resultMap>
+
+    <resultMap id="psoDtlResultMap" type="com.boyu.erp.platform.usercenter.vo.purchase.PsoDtlVo">
+        <id column="pso_num" jdbcType="VARCHAR" property="psoNum"/>
+        <id column="prod_id" jdbcType="BIGINT" property="prodId"/>
+        <result column="line_num" jdbcType="BIGINT" property="lineNum"/>
+        <result column="row_num" jdbcType="BIGINT" property="rowNum"/>
+        <result column="unit_price" jdbcType="DECIMAL" property="unitPrice"/>
+        <result column="disc_rate" jdbcType="DECIMAL" property="discRate"/>
+        <result column="fnl_price" jdbcType="DECIMAL" property="fnlPrice"/>
+        <result column="tax_rate" jdbcType="DECIMAL" property="taxRate"/>
+        <result column="mk_unit_price" jdbcType="DECIMAL" property="mkUnitPrice"/>
+        <result column="qty" jdbcType="DECIMAL" property="qty"/>
+        <result column="val" jdbcType="DECIMAL" property="val"/>
+        <result column="tax" jdbcType="DECIMAL" property="tax"/>
+        <result column="mkv" jdbcType="DECIMAL" property="mkv"/>
+        <result column="deliv_qty" jdbcType="DECIMAL" property="delivQty"/>
+        <result column="deliv_val" jdbcType="DECIMAL" property="delivVal"/>
+        <result column="deliv_tax" jdbcType="DECIMAL" property="delivTax"/>
+        <result column="deliv_mkv" jdbcType="DECIMAL" property="delivMkv"/>
+        <result column="rcv_qty" jdbcType="DECIMAL" property="rcvQty"/>
+        <result column="rcv_val" jdbcType="DECIMAL" property="rcvVal"/>
+        <result column="rcv_tax" jdbcType="DECIMAL" property="rcvTax"/>
+        <result column="rcv_mkv" jdbcType="DECIMAL" property="rcvMkv"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+
+
+        <result column="prodCatId" property="prodCatId"/>
+        <result column="prodCode" property="prodCode"/>
+        <result column="inputCode" property="inputCode"/>
+        <result column="seqNum" property="seqNum"/>
+        <result column="uom" property="uom"/>
+        <result column="prodName" property="prodName"/>
+        <result column="color" property="color"/>
+        <result column="spec" property="spec"/>
+        <result column="edition" property="edition"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapWareh" type="com.boyu.erp.platform.usercenter.vo.warehouse.WarehSrcInfoVo">
+        <result column="cntrNum" property="cntrNum"/>
+        <result column="bxiEnabled" property="bxiEnabled"/>
+        <result column="ttlQty" property="ttlQty"/>
+        <result column="ttlBox" property="ttlBox"/>
+        <result column="ttlVal" property="ttlVal"/>
+        <result column="ttlTax" property="ttlTax"/>
+        <result column="ttlMkv" property="ttlMkv"/>
+        <result column="brdgMode" property="brdgMode"/>
+        <result column="tranUnitId" property="tranUnitId"/>
+        <result column="rcvUnitId" property="rcvUnitId"/>
+        <result column="rcvWarehId" property="rcvWarehId"/>
+        <result column="endUnitId" property="endUnitId"/>
+        <result column="endWarehId" property="endWarehId"/>
+        <result column="delivUnitId" property="delivUnitId"/>
+        <result column="delivWarehId" property="delivWarehId"/>
+        <result column="stUnitId" property="stUnitId"/>
+        <result column="stWarehId" property="stWarehId"/>
+        <result column="delivMthd" property="delivMthd"/>
+        <result column="delivPstd" property="delivPstd"/>
+        <result column="delivAddr" property="delivAddr"/>
+        <result column="intervene" property="intervene"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    unit_id, puo_num, pso_num, chkr_id, chk_time, suspended
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Puo"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from puo
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and puo_num = #{puoNum,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByPsoNun" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from puo
+        where pso_num = #{psoNum}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Puo">
+    delete from puo
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and puo_num = #{puoNum,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Puo">
+    insert into puo (unit_id, puo_num, pso_num, 
+      chkr_id, chk_time, suspended
+      )
+    values (#{unitId,jdbcType=BIGINT}, #{puoNum,jdbcType=VARCHAR}, #{psoNum,jdbcType=VARCHAR}, 
+      #{chkrId,jdbcType=BIGINT}, #{chkTime,jdbcType=TIMESTAMP}, #{suspended,jdbcType=CHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Puo">
+        insert into puo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="puoNum != null">
+                puo_num,
+            </if>
+            <if test="psoNum != null">
+                pso_num,
+            </if>
+            <if test="chkrId != null">
+                chkr_id,
+            </if>
+            <if test="chkTime != null">
+                chk_time,
+            </if>
+            <if test="suspended != null">
+                suspended,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="puoNum != null">
+                #{puoNum,jdbcType=VARCHAR},
+            </if>
+            <if test="psoNum != null">
+                #{psoNum,jdbcType=VARCHAR},
+            </if>
+            <if test="chkrId != null">
+                #{chkrId,jdbcType=BIGINT},
+            </if>
+            <if test="chkTime != null">
+                #{chkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="suspended != null">
+                #{suspended,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Puo">
+        update puo
+        <set>
+            <if test="psoNum != null">
+                pso_num = #{psoNum,jdbcType=VARCHAR},
+            </if>
+            <if test="chkrId != null">
+                chkr_id = #{chkrId,jdbcType=BIGINT},
+            </if>
+            <if test="chkTime != null">
+                chk_time = #{chkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="suspended != null">
+                suspended = #{suspended,jdbcType=CHAR},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and puo_num = #{puoNum,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateBychkr" parameterType="java.lang.String">
+        update puo
+        <set>
+            <choose>
+                <when test="chkrId!=null">
+                    chkr_id = #{chkrId},
+                    chk_time = now()
+                </when>
+                <when test="chkrId==null">
+                    chkr_id = null,
+                    chk_time = null
+                </when>
+            </choose>
+        </set>
+        where pso_num = #{psoNum}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Puo">
+    update puo
+    set pso_num = #{psoNum,jdbcType=VARCHAR},
+      chkr_id = #{chkrId,jdbcType=BIGINT},
+      chk_time = #{chkTime,jdbcType=TIMESTAMP},
+      suspended = #{suspended,jdbcType=CHAR}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and puo_num = #{puoNum,jdbcType=VARCHAR}
+  </update>
+
+    <sql id="Pso_Column_List">
+    pso.pso_num, pso.doc_date, pso.psc_num, pso.rcv_wareh_id, pso.deliv_wareh_id, pso.pso_kind, pso.puo_gen, pso.slo_gen,
+    pso.bxi_enabled, pso.reqd_date, pso.deliv_mthd, pso.deliv_pstd, pso.deliv_addr, pso.ttl_qty, pso.ttl_box, pso.ttl_val,
+    pso.ttl_tax, pso.ttl_mkv, pso.ttl_deliv_qty, pso.ttl_deliv_box, pso.ttl_deliv_val, pso.ttl_deliv_tax, pso.ttl_deliv_mkv,
+    pso.ttl_rcv_qty, pso.ttl_rcv_box, pso.ttl_rcv_val, pso.ttl_rcv_tax, pso.ttl_rcv_mkv, pso.opr_id,
+    pso.effective, pso.progress, pso.cancelled, pso.exec_pso_num, pso.itmd_pso_num, pso.st_pso_num, pso.end_pso_num,
+    pso.remarks,
+  </sql>
+
+    <!--系统管理员-->
+    <select id="selectALL" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsoVo"
+            resultMap="BaseResultMapByPuo">
+        SELECT
+        <include refid="Pso_Column_List"/>
+        puo.unit_id AS unitId,
+        puo.puo_num AS puoNum,
+        puc.puc_num AS pucNum,
+        suo.unit_num AS rcvWarehNum,
+        su.unit_name AS rcvWarehName,
+        suo1.unit_num AS venderNum,
+        su1.unit_name AS venderName,
+        suo2.unit_num AS delivWarehNum,
+        su2.unit_name AS delivWarehName,
+        psc.vdr_invd AS vdrInvd,
+        psc.plan_ctrl AS planCtrl,
+        puo.suspended AS suspended,
+        DATE_FORMAT(pso.op_time,'%Y-%m-%d %H:%i:%S') AS opTime,
+        psc.vendee_id AS vendeeId,
+        psc.vender_id AS venderId,
+        sp.prsnl_code AS oprCode,
+        sp.full_name AS oprName,
+        spo1.prsnl_num as chkrnum,
+        sp1.full_name as chkrname,
+        puo.chkr_id AS chkrId,
+        DATE_FORMAT(puo.chk_time,'%Y-%m-%d %H:%i:%S') AS chkTime,
+        psc.tran_unit_id AS tranUnitId,
+        puc.pu_brdg_mode AS puBrdgMode,
+        psc.exbl_rate AS exblRate
+        FROM
+        ( SELECT a.* FROM puo a WHERE 1 = 1
+        ) puo
+        inner join pso pso on pso.pso_num = puo.pso_num
+        inner join psc psc on psc.psc_num = pso.psc_num
+        inner join puc puc on puc.psc_num = psc.psc_num
+
+        left join sys_unit_owner suo on suo.unit_id = pso.rcv_wareh_id and suo.owner_id = puo.unit_id
+        left join sys_unit su on su.unit_id = pso.rcv_wareh_id
+
+        left join sys_unit_owner suo1 on suo1.unit_id = psc.vender_id and suo1.owner_id = psc.vendee_id
+        left join sys_unit su1 on su1.unit_id = psc.vender_id
+
+        left join sys_unit_owner suo2 on suo2.unit_id = pso.deliv_wareh_id and suo2.owner_id = psc.vender_id
+        left join sys_unit su2 on su2.unit_id = pso.deliv_wareh_id
+
+        left join sys_prsnl sp on sp.prsnl_id = pso.opr_id
+        left join sys_prsnl sp1 on sp1.prsnl_id = puo.chkr_id
+        left join sys_prsnl_owner spo1 on spo1.prsnl_id = puo.chkr_id
+
+        where 1=1
+        <if test="puoNum != null and puoNum != '' and puoNum != 'null' ">
+            and puo.puo_num like CONCAT( #{puoNum}, '%')
+        </if>
+        <if test="psoNum != null and psoNum != '' and psoNum != 'null' ">
+            and pso.pso_num like CONCAT( #{psoNum}, '%')
+        </if>
+        <if test="venderNum != null and venderNum != '' and venderNum != 'null'">
+            and suo1.unit_num like CONCAT( #{venderNum}, '%')
+        </if>
+        <if test="delivWarehNum != null and delivWarehNum != '' and delivWarehNum != 'null'">
+            and suo2.unit_num like CONCAT( #{delivWarehNum}, '%')
+        </if>
+        <if test="rcvWarehNum != null and rcvWarehNum != '' and rcvWarehNum != 'null'">
+            and suo.unit_num like CONCAT( #{rcvWarehNum}, '%')
+        </if>
+        <if test="progress != null and progress != '' and progress != 'null'">
+            and pso.progress = #{progress}
+        </if>
+        <if test="startTime != null and startTime != '' ">
+            and pso.doc_date &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' ">
+            and pso.doc_date &lt;= #{endTime}
+        </if>
+        ORDER BY pso.doc_date
+    </select>
+
+    <!--组织-->
+    <select id="selectByUnit" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsoVo"
+            resultMap="BaseResultMapByPuo">
+        SELECT
+        <include refid="Pso_Column_List"/>
+        puo.unit_id AS unitId,
+        puo.puo_num AS puoNum,
+        puc.puc_num AS pucNum,
+        suo.unit_num AS rcvWarehNum,
+        su.unit_name AS rcvWarehName,
+        suo1.unit_num AS venderNum,
+        su1.unit_name AS venderName,
+        suo2.unit_num AS delivWarehNum,
+        su2.unit_name AS delivWarehName,
+        psc.vdr_invd AS vdrInvd,
+        psc.plan_ctrl AS planCtrl,
+        puo.suspended AS suspended,
+        DATE_FORMAT(pso.op_time,'%Y-%m-%d %H:%i:%S') AS opTime,
+        psc.vendee_id AS vendeeId,
+        psc.vender_id AS venderId,
+        sp.prsnl_code AS oprCode,
+        sp.full_name AS oprName,
+        spo1.PRSNL_Num AS chkrNum,
+        sp1.FULL_NAME AS chkrName,
+        puo.chkr_id AS chkrId,
+        DATE_FORMAT(puo.chk_time,'%Y-%m-%d %H:%i:%S') AS chkTime,
+        psc.tran_unit_id AS tranUnitId,
+        puc.pu_brdg_mode AS puBrdgMode,
+        psc.exbl_rate AS exblRate
+        FROM
+        ( SELECT a.* FROM puo a WHERE 1 = 1 AND
+
+        a.unit_id = #{sUnitId}
+
+        ) puo
+        inner join pso pso on pso.pso_num = puo.pso_num
+        inner join psc psc on psc.psc_num = pso.psc_num
+        inner join puc puc on puc.psc_num = psc.psc_num
+
+        left join sys_unit_owner suo on suo.unit_id = pso.rcv_wareh_id and suo.owner_id = puo.unit_id
+        left join sys_unit su on su.unit_id = pso.rcv_wareh_id
+
+        left join sys_unit_owner suo1 on suo1.unit_id = psc.vender_id and suo1.owner_id = psc.vendee_id
+        left join sys_unit su1 on su1.unit_id = psc.vender_id
+
+        left join sys_unit_owner suo2 on suo2.unit_id = pso.deliv_wareh_id and suo2.owner_id = psc.vender_id
+        left join sys_unit su2 on su2.unit_id = pso.deliv_wareh_id
+
+        left join sys_prsnl sp on sp.prsnl_id = pso.opr_id
+        left join sys_prsnl sp1 on sp1.prsnl_id = puo.chkr_id
+        left join sys_prsnl_owner spo1 on spo1.prsnl_id = puo.chkr_id
+
+        where 1=1
+        <if test="puoNum != null and puoNum != '' and puoNum != 'null'">
+            and puo.puo_num like CONCAT( #{puoNum}, '%')
+        </if>
+        <if test="psoNum != null and psoNum != '' and psoNum != 'null' ">
+            and pso.pso_num like CONCAT( #{psoNum}, '%')
+        </if>
+        <if test="venderNum != null and venderNum != '' and venderNum != 'null'">
+            and suo1.unit_num like CONCAT( #{venderNum}, '%')
+        </if>
+        <if test="delivWarehNum != null and delivWarehNum != '' and delivWarehNum != 'null'">
+            and suo2.unit_num like CONCAT( #{delivWarehNum}, '%')
+        </if>
+        <if test="rcvWarehNum != null and rcvWarehNum != '' and rcvWarehNum != 'null'">
+            and suo.unit_num like CONCAT( #{rcvWarehNum}, '%')
+        </if>
+        <if test="progress != null and progress != '' and progress != 'null'">
+            and pso.progress = #{progress}
+        </if>
+        <if test="startTime != null and startTime != '' ">
+            and pso.doc_date &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' ">
+            and pso.doc_date &lt;= #{endTime}
+        </if>
+        ORDER BY pso.doc_date
+    </select>
+
+    <insert id="insertByPso" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsoVo">
+        insert into puo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null and unitId != '' ">
+                unit_id,
+            </if>
+            <if test="puoNum != null and puoNum != '' ">
+                puo_num,
+            </if>
+            <if test="psoNum != null and psoNum != '' ">
+                pso_num,
+            </if>
+            <if test="suspended != null and suspended != '' ">
+                suspended,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null and unitId != '' ">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="puoNum != null and puoNum != '' ">
+                #{puoNum,jdbcType=VARCHAR},
+            </if>
+            <if test="psoNum != null and psoNum != '' ">
+                #{psoNum,jdbcType=VARCHAR},
+            </if>
+            <if test="suspended != null and suspended != ''">
+                #{suspended,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPso" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsoVo">
+        update puo
+        <set>
+            <if test="vendeeId != null and vendeeId != '' ">
+                unit_id = #{vendeeId},
+            </if>
+            <if test="chkrId != null and chkrId != '' ">
+                chkr_id = #{chkrId},
+                chk_time = now(),
+            </if>
+            <if test="suspended != null and suspended != '' ">
+                suspended = #{suspended},
+            </if>
+        </set>
+        where puo_num = #{puoNum}
+        AND pso_num = #{psoNum}
+    </update>
+
+    <delete id="deleteByPuo" parameterType="java.lang.String">
+    delete from puo
+    where pso_num = #{puoNum}
+      and puo_num = #{psoNum}
+  </delete>
+
+    <delete id="deleteByPso" parameterType="java.lang.String">
+        delete from puo
+        where 1=1
+        and pso_num = #{puoNum}
+        <if test="unitId!=null and unitId!='' ">
+            and unit_id = #{unitId}
+        </if>
+    </delete>
+
+    <select id="selectByOnly" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsoVo"
+            resultMap="BaseResultMapByPuo">
+        select
+        <include refid="Pso_Column_List"/>
+        puo.unit_id as unitId,
+        puo.puo_num as puoNum,
+        puc.puc_num as pucNum,
+        suo.unit_num as rcvWarehNum,
+        su.unit_name as rcvWarehName,
+        suo1.unit_num as venderNum,
+        su1.unit_name as venderName,
+        suo2.unit_num as delivWarehNum,
+        su2.unit_name as delivWarehName,
+        psc.vdr_invd as vdrInvd,
+        psc.plan_ctrl as planctrl,
+        puo.suspended as suspended,
+        DATE_FORMAT(pso.op_time,'%Y-%m-%d %H:%i:%S') as opTime,
+        psc.vendee_id as vendeeId,
+        psc.vender_id as venderId,
+        sp.prsnl_code as oprCode,
+        sp.full_name as oprName,
+        spo1.prsnl_num as chkrNum,
+        sp1.full_name as chkrName,
+        puo.chkr_id as chkrId,
+        DATE_FORMAT(puo.chk_time,'%Y-%m-%d %H:%i:%S') as chkTime,
+        psc.tran_unit_id as tranUnitId,
+        puc.pu_brdg_mode as puBrdgMode,
+        psc.exbl_rate as exblRate
+        from
+        ( select a.* from puo a where 1 = 1
+        ) puo
+        inner join pso pso on pso.pso_num = puo.pso_num
+        inner join psc psc on psc.psc_num = pso.psc_num
+        inner join puc puc on puc.psc_num = psc.psc_num
+
+        left join sys_unit_owner suo on suo.unit_id = pso.rcv_wareh_id and suo.owner_id = puo.unit_id
+        left join sys_unit su on su.unit_id = pso.rcv_wareh_id
+
+        left join sys_unit_owner suo1 on suo1.unit_id = psc.vender_id and suo1.owner_id = psc.vendee_id
+        left join sys_unit su1 on su1.unit_id = psc.vender_id
+
+        left join sys_unit_owner suo2 on suo2.unit_id = pso.deliv_wareh_id and suo2.owner_id = psc.vender_id
+        left join sys_unit su2 on su2.unit_id = pso.deliv_wareh_id
+
+        left join sys_prsnl sp on sp.prsnl_id = pso.opr_id
+        left join sys_prsnl sp1 on sp1.prsnl_id = puo.chkr_id
+        left join sys_prsnl_owner spo1 on spo1.prsnl_id = puo.chkr_id
+
+        where 1=1
+        and pso.pso_num = #{psoNum}
+        ORDER BY pso.doc_date
+    </select>
+
+    <select id="selectObject" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsoVo"
+            resultMap="BaseResultMapObject">
+        select
+        <include refid="Pso_Column_List"/>
+        puo.unit_id as unitId,
+        puo.puo_num as puoNum,
+        puc.puc_num as pucNum,
+        suo.unit_num as rcvWarehNum,
+        su.unit_name as rcvWarehName,
+        suo1.unit_num as venderNum,
+        su1.unit_name as venderName,
+        suo2.unit_num as delivWarehNum,
+        su2.unit_name as delivWarehName,
+        psc.vdr_invd as vdrInvd,
+        psc.plan_ctrl as planctrl,
+        puo.suspended as suspended,
+        DATE_FORMAT(pso.op_time,'%Y-%m-%d %H:%i:%S') as opTime,
+        psc.vendee_id as vendeeId,
+        psc.vender_id as venderId,
+        sp.prsnl_code as oprCode,
+        sp.full_name as oprName,
+        spo1.prsnl_num as chkrNum,
+        sp1.full_name as chkrName,
+        puo.chkr_id as chkrId,
+        DATE_FORMAT(puo.chk_time,'%Y-%m-%d %H:%i:%S') as chkTime,
+        psc.tran_unit_id as tranUnitId,
+        puc.pu_brdg_mode as puBrdgMode,
+        psc.exbl_rate as exblRate,
+        pcls.prod_cat_id as prodCatId,
+        pcls.prod_name as prodName,
+        pcls.input_code as inputCode,
+        scd1.description as uom,
+        c.color_name as color,
+        s.spec_name as spec,
+        scd.description as edition,
+        p.prod_code as prodCode,
+        pcls.seq_num as seqNum,
+        pdtl.*
+        from
+        ( select a.* from puo a where 1 = 1 and a.unit_id=#{unitId} and a.puo_num=#{puoNum}
+        ) puo
+        inner join pso pso on pso.pso_num = puo.pso_num
+        inner join psc psc on psc.psc_num = pso.psc_num
+        inner join puc puc on puc.psc_num = psc.psc_num
+
+        left join sys_unit_owner suo on suo.unit_id = pso.rcv_wareh_id and suo.owner_id = puo.unit_id
+        left join sys_unit su on su.unit_id = pso.rcv_wareh_id
+
+        left join sys_unit_owner suo1 on suo1.unit_id = psc.vender_id and suo1.owner_id = psc.vendee_id
+        left join sys_unit su1 on su1.unit_id = psc.vender_id
+
+        left join sys_unit_owner suo2 on suo2.unit_id = pso.deliv_wareh_id and suo2.owner_id = psc.vender_id
+        left join sys_unit su2 on su2.unit_id = pso.deliv_wareh_id
+
+        left join sys_prsnl sp on sp.prsnl_id = pso.opr_id
+        left join sys_prsnl sp1 on sp1.prsnl_id = puo.chkr_id
+        left join sys_prsnl_owner spo1 on spo1.prsnl_id = puo.chkr_id
+
+        left join pso_dtl pdtl on pdtl.pso_num = pso.pso_num
+        left join product p on p.prod_id = pdtl.prod_id
+        left join prod_cls pcls on pcls.prod_cls_id = p.prod_cls_id
+        left join sys_code_dtl scd on scd.code = p.edition and scd.code_type='EDITION'
+        left join sys_code_dtl scd1 on scd1.code = pcls.uom and scd1.code_type='UOM'
+        left join color c on c.color_id = p.color_id
+        left join spec s on s.spec_id = p.spec_id
+        where 1=1
+    </select>
+
+    <select id="selectByWareh" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsoVo"
+            resultMap="BaseResultMapWareh">
+        select
+        pso.pso_num as cntrNum,
+        psc.vender_id as delivUnitId,
+        psc.vendee_id as rcvUnitId,
+        pso.deliv_wareh_id as delivWarehId,
+        pso.rcv_wareh_id as rcvWarehId,
+        psc.st_unit_id as stUnitId,
+        psc.st_wareh_id as stWarehId,
+        psc.end_unit_id as endUnitId,
+        psc.end_wareh_id as endWarehId,
+        psc.tran_unit_id as tranUnitId,
+        puc.pu_brdg_mode as brdgMode,
+        pso.bxi_enabled as bxiEnabled,
+        pso.deliv_mthd as delivMthd,
+        pso.deliv_pstd as delivPstd,
+        pso.deliv_addr as delivAddr,
+        pso.ttl_qty as ttlQty,
+        pso.ttl_box as ttlBox,
+        pso.ttl_val as ttlVal,
+        pso.ttl_tax as ttlTax,
+        pso.ttl_mkv as ttlMkv
+        FROM
+        ( SELECT a.* FROM puo a WHERE 1 = 1 and a.unit_id=#{unitId} and a.puo_num=#{puoNum} ) puo
+        INNER JOIN pso pso ON pso.pso_num = puo.pso_num
+        INNER JOIN psc psc ON psc.psc_num = pso.psc_num
+        INNER JOIN puc puc ON puc.psc_num = psc.psc_num
+        where 1=1
+    </select>
+
+    <select id="findByWareh" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsoVo"
+            resultMap="BaseResultMapWareh">
+        SELECT
+            pso.pso_num AS cntrNum,
+            psc.vender_id AS delivUnitId,
+            psc.vendee_id AS rcvUnitId,
+            pso.deliv_wareh_id AS delivWarehId,
+            pso.rcv_wareh_id AS rcvWarehId,
+            psc.st_unit_id AS stUnitId,
+            psc.st_wareh_id AS stWarehId,
+            psc.end_unit_id AS endUnitId,
+            psc.end_wareh_id AS endWarehId,
+            psc.tran_unit_id AS tranUnitId,
+            puc.pu_brdg_mode AS brdgMode,
+            pso.bxi_enabled AS bxiEnabled,
+            pso.deliv_mthd AS delivMthd,
+            pso.deliv_pstd AS delivPstd,
+            pso.deliv_addr AS delivAddr,
+            	IF
+        (
+            psc.vdr_invd = 'T',
+            1 ,
+            0
+        ) AS intervene,
+        IF
+            ( psc.vdr_invd = 'F', SUM( pDtl.qty ), SUM( pDtl.deliv_qty ) ) AS ttlQty,
+        IF
+            ( psc.vdr_invd = 'F', SUM( pDtl.val ), SUM( pDtl.deliv_val ) ) AS ttlVal,
+        IF
+            ( psc.vdr_invd = 'F', SUM( pDtl.tax ), SUM( pDtl.deliv_tax ) ) AS ttlTax,
+        IF
+            ( psc.vdr_invd = 'F', SUM( pDtl.mkv ), SUM( pDtl.deliv_mkv ) ) AS ttlMkv,
+        IF
+            ( psc.vdr_invd = 'F', ( pso.ttl_box ), ( psc.ttl_deliv_box ) ) AS ttlBox
+        FROM
+            ( SELECT a.* FROM puo a WHERE 1 = 1 AND a.unit_id=#{unitId} and a.puo_num=#{puoNum} ) puo
+            INNER JOIN pso pso ON pso.pso_num = puo.pso_num
+            INNER JOIN psc psc ON psc.psc_num = pso.psc_num
+            INNER JOIN puc puc ON puc.psc_num = psc.psc_num
+            LEFT JOIN pso_dtl pDtl ON pDtl.pso_num = puo.pso_num
+        WHERE
+            1 = 1
+    </select>
+
+    <select id="getPsoByStb"
+            resultMap="BaseResultMapByPuo">
+        SELECT
+            pso.pso_num,
+            pso.doc_date,
+            pso.psc_num,
+            pso.rcv_wareh_id,
+            pso.deliv_wareh_id,
+            pso.pso_kind,
+            pso.puo_gen,
+            pso.slo_gen,
+            pso.bxi_enabled,
+            pso.reqd_date,
+            pso.deliv_mthd,
+            pso.deliv_pstd,
+            pso.deliv_addr,
+            pso.ttl_qty,
+            pso.ttl_box,
+            pso.ttl_val,
+            pso.ttl_tax,
+            pso.ttl_mkv,
+            pso.ttl_deliv_qty,
+            pso.ttl_deliv_box,
+            pso.ttl_deliv_val,
+            pso.ttl_deliv_tax,
+            pso.ttl_deliv_mkv,
+        <choose>
+            <when test="flag">
+                ifnull( pso.ttl_rcv_qty, 0 ) + stb.ttl_qty AS ttl_rcv_qty,
+                ifnull( pso.ttl_rcv_box, 0 ) + stb.ttl_box AS ttl_rcv_box,
+                ifnull( pso.ttl_rcv_val, 0 ) + stb.ttl_val AS ttl_rcv_val,
+                ifnull( pso.ttl_rcv_tax, 0 ) + stb.ttl_tax AS ttl_rcv_tax,
+                ifnull( pso.ttl_rcv_mkv, 0 ) + stb.ttl_mkv AS ttl_rcv_mkv,
+            </when>
+            <otherwise>
+                ifnull( pso.ttl_rcv_qty, 0 ) - stb.ttl_qty AS ttl_rcv_qty,
+                ifnull( pso.ttl_rcv_box, 0 ) - stb.ttl_box AS ttl_rcv_box,
+                ifnull( pso.ttl_rcv_val, 0 ) - stb.ttl_val AS ttl_rcv_val,
+                ifnull( pso.ttl_rcv_tax, 0 ) - stb.ttl_tax AS ttl_rcv_tax,
+                ifnull( pso.ttl_rcv_mkv, 0 ) - stb.ttl_mkv AS ttl_rcv_mkv,
+            </otherwise>
+        </choose>
+            pso.opr_id,
+            pso.effective,
+            pso.progress,
+            pso.cancelled,
+            pso.exec_pso_num,
+            pso.itmd_pso_num,
+            pso.st_pso_num,
+            pso.end_pso_num,
+            pso.remarks,
+            puo.unit_id AS unitId,
+            puo.puo_num AS puoNum,
+            puc.puc_num AS pucNum,
+            psc.vdr_invd AS vdrInvd,
+            psc.plan_ctrl AS planCtrl,
+            puo.suspended AS suspended,
+            DATE_FORMAT( pso.op_time, '%Y-%m-%d %H:%i:%S' ) AS opTime,
+            psc.vendee_id AS vendeeId,
+            psc.vender_id AS venderId,
+            puo.chkr_id AS chkrId,
+            DATE_FORMAT( puo.chk_time, '%Y-%m-%d %H:%i:%S' ) AS chkTime,
+            psc.tran_unit_id AS tranUnitId,
+            puc.pu_brdg_mode AS puBrdgMode,
+            psc.exbl_rate AS exblRate
+        FROM
+            ( SELECT a.* FROM puo a WHERE 1 = 1 AND a.unit_id = #{srcDocUnitId} AND a.puo_num = #{srcDocNum} ) puo
+            INNER JOIN pso pso ON pso.pso_num = puo.pso_num
+            INNER JOIN psc psc ON psc.psc_num = pso.psc_num
+            INNER JOIN puc puc ON puc.psc_num = psc.psc_num
+            LEFT JOIN stb stb ON stb.src_doc_unit_id = puo.unit_id
+            AND stb.src_doc_num = puo.puo_num
+        WHERE
+            1 = 1
+            AND stb.unit_id=#{docUnitId} and stb.stb_num=#{docNum}
+    </select>
+</mapper>

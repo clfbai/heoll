@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PuaTypeMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.PuaType">
+        <id column="pua_type" jdbcType="VARCHAR" property="puaType"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="psx_type" jdbcType="VARCHAR" property="psxType"/>
+        <result column="active" jdbcType="CHAR" property="active"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapPsx" type="com.boyu.erp.platform.usercenter.vo.purchase.PuaTypeVo">
+        <id column="pua_type" jdbcType="VARCHAR" property="puaType"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="psx_type" jdbcType="VARCHAR" property="psxType"/>
+        <result column="psxDescription" property="psxDescription"/>
+        <result column="active" jdbcType="CHAR" property="active"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapOption" type="com.boyu.erp.platform.usercenter.vo.system.PurKeyValue">
+        <result column="optionValue" property="optionValue"/>
+        <result column="optionName" property="optionName"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    pua_type, description, psx_type, active
+  </sql>
+
+    <select id="selectALL" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PuaTypeVo"
+            resultMap="BaseResultMapPsx">
+        SELECT
+        pt.pua_type,
+        pt.description,
+        pt.psx_type,
+        st.description AS psxDescription,
+        pt.active
+        FROM
+        pua_type pt
+        LEFT JOIN psx_type st ON st.psx_type = pt.psx_type
+        where 1=1
+        <if test="puaType != null">
+            and pt.pua_type like CONCAT( '%',#{puaType,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="description != null">
+            and pt.description like CONCAT( '%', #{description,jdbcType=VARCHAR}, '%')
+        </if>
+    </select>
+
+    <select id="selectOnePsx" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PuaType"
+            resultMap="BaseResultMapPsx">
+        SELECT
+        pt.pua_type,
+        pt.description,
+        st.description AS psxDescription,
+        pt.active
+        FROM
+        pua_type pt
+        LEFT JOIN psx_type st ON st.psx_type = pt.psx_type
+        where 1=1
+        <if test="psxType != null">
+            and pt.psx_type = #{psxType,jdbcType=VARCHAR}
+        </if>
+        <if test="puaType != null">
+            and pt.pua_type != #{puaType,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="selectByPuaType" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        pua_type
+        where 1=1 and pua_type = #{puaType}
+    </select>
+
+    <select id="selectByPsxType" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        pua_type
+        where 1=1 and psx_type = #{psxType}
+    </select>
+
+    <delete id="deletePuaType" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PuaType">
+    delete from pua_type
+    where pua_type = #{puaType,jdbcType=VARCHAR}
+  </delete>
+
+
+    <insert id="insertPuaType" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PuaType">
+        insert into pua_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="puaType != null">
+                pua_type,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="psxType != null">
+                psx_type,
+            </if>
+            <if test="active != null">
+                active,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="puaType != null">
+                #{puaType,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="psxType != null">
+                #{psxType,jdbcType=VARCHAR},
+            </if>
+            <if test="active != null">
+                #{active,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updatePuaType" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PuaType">
+        update pua_type
+        <set>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="psxType != null">
+                psx_type = #{psxType,jdbcType=VARCHAR},
+            </if>
+            <if test="active != null">
+                active = #{active,jdbcType=CHAR},
+            </if>
+        </set>
+        where pua_type = #{puaType,jdbcType=VARCHAR}
+    </update>
+
+    <!--购销申请类别下拉-->
+    <select id="optionGet" resultMap="BaseResultMapOption">
+      SELECT pua_type as optionValue , description as optionName
+      FROM
+       pua_type
+      WHERE
+       pua_type!=''
+    </select>
+
+    <select id="listByPuaType" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        pua_type
+        where 1=1
+        <if test="puaType!=null and puaType!='' ">
+        and pua_type = #{puaType}
+        </if>
+        <if test="psxType!=null and psxType!='' ">
+            and psx_type = #{psxType}
+        </if>
+    </select>
+
+    <select id="listByPsxType" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        pua_type
+        where 1=1
+        <if test="puaType!=null and puaType!='' ">
+            and pua_type != #{puaType}
+        </if>
+        <if test="psxType!=null and psxType!='' ">
+            and psx_type = #{psxType}
+        </if>
+    </select>
+
+</mapper>

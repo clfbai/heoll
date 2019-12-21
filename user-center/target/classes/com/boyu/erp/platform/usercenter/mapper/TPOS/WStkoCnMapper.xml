@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.TPOS.mapper.WStkoCnMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.TPOS.entity.delivery.WStkoCn">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="ttl_ord_line" jdbcType="VARCHAR" property="ttlOrdLine" />
+    <result column="stko_code" jdbcType="VARCHAR" property="stkoCode" />
+    <result column="wareh_code" jdbcType="VARCHAR" property="warehCode" />
+    <result column="stko_id" jdbcType="VARCHAR" property="stkoId" />
+    <result column="stko_type" jdbcType="VARCHAR" property="stkoType" />
+    <result column="stko_status" jdbcType="VARCHAR" property="stkoStatus" />
+    <result column="cn_type" jdbcType="VARCHAR" property="cnType" />
+    <result column="obiz_code" jdbcType="VARCHAR" property="obizCode" />
+    <result column="log_code" jdbcType="VARCHAR" property="logCode" />
+    <result column="log_name" jdbcType="VARCHAR" property="logName" />
+    <result column="expr_code" jdbcType="VARCHAR" property="exprCode" />
+    <result column="cn_time" jdbcType="TIMESTAMP" property="cnTime" />
+    <result column="reg_time" jdbcType="TIMESTAMP" property="regTime" />
+    <result column="exe_time" jdbcType="TIMESTAMP" property="exeTime" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, ttl_ord_line, stko_code, wareh_code, stko_id, stko_type, stko_status, cn_type, 
+    obiz_code, log_code, log_name, expr_code, cn_time, reg_time, exe_time, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from w_stko_cn
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from w_stko_cn
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.TPOS.entity.delivery.WStkoCn">
+    insert into w_stko_cn (id, ttl_ord_line, stko_code, 
+      wareh_code, stko_id, stko_type, 
+      stko_status, cn_type, obiz_code, 
+      log_code, log_name, expr_code, 
+      cn_time, reg_time, exe_time, 
+      remarks)
+    values (#{id,jdbcType=VARCHAR}, #{ttlOrdLine,jdbcType=VARCHAR}, #{stkoCode,jdbcType=VARCHAR}, 
+      #{warehCode,jdbcType=VARCHAR}, #{stkoId,jdbcType=VARCHAR}, #{stkoType,jdbcType=VARCHAR}, 
+      #{stkoStatus,jdbcType=VARCHAR}, #{cnType,jdbcType=VARCHAR}, #{obizCode,jdbcType=VARCHAR}, 
+      #{logCode,jdbcType=VARCHAR}, #{logName,jdbcType=VARCHAR}, #{exprCode,jdbcType=VARCHAR}, 
+      #{cnTime,jdbcType=TIMESTAMP}, #{regTime,jdbcType=TIMESTAMP}, #{exeTime,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.TPOS.entity.delivery.WStkoCn">
+    insert into w_stko_cn
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="ttlOrdLine != null">
+        ttl_ord_line,
+      </if>
+      <if test="stkoCode != null">
+        stko_code,
+      </if>
+      <if test="warehCode != null">
+        wareh_code,
+      </if>
+      <if test="stkoId != null">
+        stko_id,
+      </if>
+      <if test="stkoType != null">
+        stko_type,
+      </if>
+      <if test="stkoStatus != null">
+        stko_status,
+      </if>
+      <if test="cnType != null">
+        cn_type,
+      </if>
+      <if test="obizCode != null">
+        obiz_code,
+      </if>
+      <if test="logCode != null">
+        log_code,
+      </if>
+      <if test="logName != null">
+        log_name,
+      </if>
+      <if test="exprCode != null">
+        expr_code,
+      </if>
+      <if test="cnTime != null">
+        cn_time,
+      </if>
+      <if test="regTime != null">
+        reg_time,
+      </if>
+      <if test="exeTime != null">
+        exe_time,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ttlOrdLine != null">
+        #{ttlOrdLine,jdbcType=VARCHAR},
+      </if>
+      <if test="stkoCode != null">
+        #{stkoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="warehCode != null">
+        #{warehCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stkoId != null">
+        #{stkoId,jdbcType=VARCHAR},
+      </if>
+      <if test="stkoType != null">
+        #{stkoType,jdbcType=VARCHAR},
+      </if>
+      <if test="stkoStatus != null">
+        #{stkoStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="cnType != null">
+        #{cnType,jdbcType=VARCHAR},
+      </if>
+      <if test="obizCode != null">
+        #{obizCode,jdbcType=VARCHAR},
+      </if>
+      <if test="logCode != null">
+        #{logCode,jdbcType=VARCHAR},
+      </if>
+      <if test="logName != null">
+        #{logName,jdbcType=VARCHAR},
+      </if>
+      <if test="exprCode != null">
+        #{exprCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cnTime != null">
+        #{cnTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regTime != null">
+        #{regTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exeTime != null">
+        #{exeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.TPOS.entity.delivery.WStkoCn">
+    update w_stko_cn
+    <set>
+      <if test="ttlOrdLine != null">
+        ttl_ord_line = #{ttlOrdLine,jdbcType=VARCHAR},
+      </if>
+      <if test="stkoCode != null">
+        stko_code = #{stkoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="warehCode != null">
+        wareh_code = #{warehCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stkoId != null">
+        stko_id = #{stkoId,jdbcType=VARCHAR},
+      </if>
+      <if test="stkoType != null">
+        stko_type = #{stkoType,jdbcType=VARCHAR},
+      </if>
+      <if test="stkoStatus != null">
+        stko_status = #{stkoStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="cnType != null">
+        cn_type = #{cnType,jdbcType=VARCHAR},
+      </if>
+      <if test="obizCode != null">
+        obiz_code = #{obizCode,jdbcType=VARCHAR},
+      </if>
+      <if test="logCode != null">
+        log_code = #{logCode,jdbcType=VARCHAR},
+      </if>
+      <if test="logName != null">
+        log_name = #{logName,jdbcType=VARCHAR},
+      </if>
+      <if test="exprCode != null">
+        expr_code = #{exprCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cnTime != null">
+        cn_time = #{cnTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regTime != null">
+        reg_time = #{regTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exeTime != null">
+        exe_time = #{exeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.TPOS.entity.delivery.WStkoCn">
+    update w_stko_cn
+    set ttl_ord_line = #{ttlOrdLine,jdbcType=VARCHAR},
+      stko_code = #{stkoCode,jdbcType=VARCHAR},
+      wareh_code = #{warehCode,jdbcType=VARCHAR},
+      stko_id = #{stkoId,jdbcType=VARCHAR},
+      stko_type = #{stkoType,jdbcType=VARCHAR},
+      stko_status = #{stkoStatus,jdbcType=VARCHAR},
+      cn_type = #{cnType,jdbcType=VARCHAR},
+      obiz_code = #{obizCode,jdbcType=VARCHAR},
+      log_code = #{logCode,jdbcType=VARCHAR},
+      log_name = #{logName,jdbcType=VARCHAR},
+      expr_code = #{exprCode,jdbcType=VARCHAR},
+      cn_time = #{cnTime,jdbcType=TIMESTAMP},
+      reg_time = #{regTime,jdbcType=TIMESTAMP},
+      exe_time = #{exeTime,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

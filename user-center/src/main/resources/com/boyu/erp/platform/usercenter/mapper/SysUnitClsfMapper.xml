@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysUnitClsfMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysUnitClsf">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="owner_id" jdbcType="BIGINT" property="ownerId"/>
+        <id column="unit_type" jdbcType="CHAR" property="unitType"/>
+        <id column="frz_type" jdbcType="VARCHAR" property="frzType"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    unit_id, owner_id, unit_type, frz_type
+  </sql>
+    <!--查询组织类型-->
+    <select id="selectByUnit" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitClsf"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_unit_clsf
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and owner_id = #{ownerId,jdbcType=BIGINT}
+    </select>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitClsf"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_unit_clsf
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and owner_id = #{ownerId,jdbcType=BIGINT}
+        and unit_type = #{unitType,jdbcType=CHAR}
+    </select>
+    <!--删除仓库时删除组织类型-->
+    <delete id="deleteSysUnitClsfWareh" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitClsf">
+    delete from sys_unit_clsf
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+  </delete>
+    <delete id="deleteSysUnitClsf" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitClsf">
+    delete from sys_unit_clsf
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+      and unit_type = #{unitType,jdbcType=CHAR}
+  </delete>
+
+    <insert id="insertSysUnitClsf" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitClsf">
+        insert into sys_unit_clsf
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="ownerId != null">
+                owner_id,
+            </if>
+            <if test="unitType != null">
+                unit_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="ownerId != null">
+                #{ownerId,jdbcType=BIGINT},
+            </if>
+            <if test="unitType != null">
+                #{unitType,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectByUnitType" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitClsf"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_unit_clsf
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and owner_id = #{ownerId,jdbcType=BIGINT}
+        and unit_type in ('VE','VD','FW')
+    </select>
+
+    <select id="selectByVoid" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitClsf"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_unit_clsf
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and owner_id = #{ownerId,jdbcType=BIGINT}
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitClsf">
+        update sys_unit_clsf
+        <set>
+            <if test="frzType != null">
+                frz_type = #{frzType,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and owner_id = #{ownerId,jdbcType=BIGINT}
+        and unit_type = #{unitType,jdbcType=CHAR}
+    </update>
+
+    <select id="selectByFreeze" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitClsf"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_unit_clsf
+        where owner_id = #{ownerId,jdbcType=BIGINT}
+        and unit_type = #{unitType,jdbcType=CHAR}
+        and frz_type = #{frzType,jdbcType=VARCHAR}
+    </select>
+    <select id="queryHaveInUnitIds" resultType="java.lang.Long">
+        select unit_id from sys_unit_clsf where owner_id = #{ownerId} and unit_type=#{unitType} and unit_id in (
+        <foreach collection="unitIds" item="unitId" separator=",">
+            #{unitId}
+        </foreach>
+        )
+    </select>
+</mapper>

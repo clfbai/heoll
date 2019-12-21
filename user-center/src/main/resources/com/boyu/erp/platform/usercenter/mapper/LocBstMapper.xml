@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.LocBstMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.LocBst">
+        <id column="wareh_id" jdbcType="BIGINT" property="warehId"/>
+        <id column="box_code" jdbcType="VARCHAR" property="boxCode"/>
+        <id column="loc_id" jdbcType="BIGINT" property="locId"/>
+        <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled"/>
+        <result column="stk_on_hand" jdbcType="DECIMAL" property="stkOnHand"/>
+        <result column="qty_expd" jdbcType="DECIMAL" property="qtyExpd"/>
+        <result column="qty_cmtd" jdbcType="DECIMAL" property="qtyCmtd"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    wareh_id, box_code, loc_id, bxi_enabled, stk_on_hand, qty_expd, qty_cmtd
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.LocBst"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from loc_bst
+        where wareh_id = #{warehId,jdbcType=BIGINT}
+        and box_code = #{boxCode,jdbcType=VARCHAR}
+        and loc_id = #{locId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.LocBst">
+    delete from loc_bst
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and box_code = #{boxCode,jdbcType=VARCHAR}
+      and loc_id = #{locId,jdbcType=BIGINT}
+  </delete>
+    <!--删除仓库时删除货位库存-->
+    <delete id="deleteLocBstWareh" parameterType="java.lang.Long">
+    delete from loc_bst
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+  </delete>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.LocBst">
+        insert into loc_bst
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="warehId != null">
+                wareh_id,
+            </if>
+            <if test="boxCode != null">
+                box_code,
+            </if>
+            <if test="locId != null">
+                loc_id,
+            </if>
+            <if test="bxiEnabled != null">
+                bxi_enabled,
+            </if>
+            <if test="stkOnHand != null">
+                stk_on_hand,
+            </if>
+            <if test="qtyExpd != null">
+                qty_expd,
+            </if>
+            <if test="qtyCmtd != null">
+                qty_cmtd,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="warehId != null">
+                #{warehId,jdbcType=BIGINT},
+            </if>
+            <if test="boxCode != null">
+                #{boxCode,jdbcType=VARCHAR},
+            </if>
+            <if test="locId != null">
+                #{locId,jdbcType=BIGINT},
+            </if>
+            <if test="bxiEnabled != null">
+                #{bxiEnabled,jdbcType=CHAR},
+            </if>
+            <if test="stkOnHand != null">
+                #{stkOnHand,jdbcType=DECIMAL},
+            </if>
+            <if test="qtyExpd != null">
+                #{qtyExpd,jdbcType=DECIMAL},
+            </if>
+            <if test="qtyCmtd != null">
+                #{qtyCmtd,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.LocBst">
+        update loc_bst
+        <set>
+            <if test="bxiEnabled != null">
+                bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+            </if>
+            <if test="stkOnHand != null">
+                stk_on_hand = #{stkOnHand,jdbcType=DECIMAL},
+            </if>
+            <if test="qtyExpd != null">
+                qty_expd = #{qtyExpd,jdbcType=DECIMAL},
+            </if>
+            <if test="qtyCmtd != null">
+                qty_cmtd = #{qtyCmtd,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where wareh_id = #{warehId,jdbcType=BIGINT}
+        and box_code = #{boxCode,jdbcType=VARCHAR}
+        and loc_id = #{locId,jdbcType=BIGINT}
+    </update>
+
+</mapper>

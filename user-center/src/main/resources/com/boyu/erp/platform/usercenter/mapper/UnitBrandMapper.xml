@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.brand.UnitBrandMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.brand.UnitBrand">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="brand_id" jdbcType="BIGINT" property="brandId"/>
+        <result column="is_del" jdbcType="TINYINT" property="isDel"/>
+        <result column="create_by" jdbcType="BIGINT" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="BIGINT" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <resultMap id="BaseResultMaps" type="com.boyu.erp.platform.usercenter.vo.system.UserBrandVo">
+        <id column="brand_name" jdbcType="VARCHAR" property="brandName"/>
+        <id column="brand_id" jdbcType="BIGINT" property="brandId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    unit_id, brand_id, is_del, create_by, create_time, update_by, update_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.brand.UnitBrand"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from unit_brand
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and brand_id = #{brandId,jdbcType=BIGINT}
+        and is_del=1
+    </select>
+    <!--查询组织品牌权限-->
+    <select id="unitListbrand" parameterType="com.boyu.erp.platform.usercenter.entity.brand.UnitBrand"
+            resultMap="BaseResultMap">
+        SELECT
+        b.`brand_id` AS brand_id
+        FROM
+        (
+        SELECT DISTINCT
+        brand_id
+        FROM
+        unit_brand
+        WHERE unit_id = #{unitId,jdbcType=BIGINT}
+        AND is_del = 1
+        UNION
+        SELECT DISTINCT
+        brand_id
+        FROM
+        unit_bg b
+        INNER JOIN bg_dtl d
+        ON b.`bg_id` = d.bg_id
+        WHERE b.unit_id = #{unitId,jdbcType=BIGINT}
+        AND is_del = 1
+        ) s
+        INNER JOIN brand b
+        ON s.brand_id = b.`brand_id`
+
+    </select>
+    <!--组织在组织品牌表和组织品牌分组表拥有品牌权限表 -->
+    <select id="unitBrandTable" parameterType="com.boyu.erp.platform.usercenter.model.UserBrandModel"
+            resultMap="BaseResultMaps">
+        SELECT
+        b.`brand_id` AS brand_id,
+        b.`brand_name` AS `brand_name`
+        FROM
+        brand b
+        INNER JOIN
+        (SELECT DISTINCT
+        brand_id
+        FROM
+        unit_brand
+        WHERE unit_id = #{unitId}
+        AND is_del = 1
+        UNION
+        SELECT DISTINCT
+        brand_id
+        FROM
+        unit_bg b
+        INNER JOIN bg_dtl d
+        ON b.`bg_id` = d.bg_id
+        WHERE b.unit_id = #{unitId}
+        AND is_del = 1) s
+        ON b.`brand_id` = s.brand_id
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.brand.UnitBrand">
+    delete from unit_brand
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and brand_id = #{brandId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.brand.UnitBrand">
+    insert into unit_brand (unit_id, brand_id, is_del, 
+      create_by, create_time, update_by, 
+      update_time)
+    values (#{unitId,jdbcType=BIGINT}, #{brandId,jdbcType=BIGINT}, #{isDel,jdbcType=TINYINT}, 
+      #{createBy,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.brand.UnitBrand">
+        insert into unit_brand
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="brandId != null">
+                brand_id,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="brandId != null">
+                #{brandId,jdbcType=BIGINT},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                now() ,
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                now() ,
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.brand.UnitBrand">
+        update unit_brand
+        <set>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and brand_id = #{brandId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.brand.UnitBrand">
+    update unit_brand
+    set is_del = #{isDel,jdbcType=TINYINT},
+      create_by = #{createBy,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and brand_id = #{brandId,jdbcType=BIGINT}
+  </update>
+</mapper>

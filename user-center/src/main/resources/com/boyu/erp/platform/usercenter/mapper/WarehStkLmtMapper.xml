@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.WarehStkLmtMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStkLmt">
+    <id column="wareh_id" jdbcType="BIGINT" property="warehId" />
+    <id column="prod_id" jdbcType="BIGINT" property="prodId" />
+    <result column="max_stk" jdbcType="DECIMAL" property="maxStk" />
+    <result column="min_stk" jdbcType="DECIMAL" property="minStk" />
+    <result column="best_stk" jdbcType="DECIMAL" property="bestStk" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    wareh_id, prod_id, max_stk, min_stk, best_stk
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStkLmt" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wareh_stk_lmt
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStkLmt">
+    delete from wareh_stk_lmt
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStkLmt">
+    insert into wareh_stk_lmt (wareh_id, prod_id, max_stk, 
+      min_stk, best_stk)
+    values (#{warehId,jdbcType=BIGINT}, #{prodId,jdbcType=BIGINT}, #{maxStk},
+      #{minStk}, #{bestStk})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStkLmt">
+    insert into wareh_stk_lmt
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="warehId != null">
+        wareh_id,
+      </if>
+      <if test="prodId != null">
+        prod_id,
+      </if>
+      <if test="maxStk != null">
+        max_stk,
+      </if>
+      <if test="minStk != null">
+        min_stk,
+      </if>
+      <if test="bestStk != null">
+        best_stk,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="warehId != null">
+        #{warehId,jdbcType=BIGINT},
+      </if>
+      <if test="prodId != null">
+        #{prodId,jdbcType=BIGINT},
+      </if>
+      <if test="maxStk != null">
+        #{maxStk},
+      </if>
+      <if test="minStk != null">
+        #{minStk},
+      </if>
+      <if test="bestStk != null">
+        #{bestStk},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStkLmt">
+    update wareh_stk_lmt
+    <set>
+      <if test="maxStk != null">
+        max_stk = #{maxStk},
+      </if>
+      <if test="minStk != null">
+        min_stk = #{minStk},
+      </if>
+      <if test="bestStk != null">
+        best_stk = #{bestStk},
+      </if>
+    </set>
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStkLmt">
+    update wareh_stk_lmt
+    set max_stk = #{maxStk},
+      min_stk = #{minStk},
+      best_stk = #{bestStk}
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </update>
+</mapper>

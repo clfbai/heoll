@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysUnitPrivMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysUnitPrivKey">
+        <id column="unit_id" property="unitId"/>
+        <id column="priv_id" jdbcType="VARCHAR" property="privId"/>
+    </resultMap>
+
+    <!--添加-->
+    <insert id="insertSelective" parameterType="SysUnitPrivKey">
+        insert into sys_unit_priv
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="privId != null">
+                priv_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId},
+            </if>
+            <if test="privId != null">
+                #{privId},
+            </if>
+        </trim>
+    </insert>
+    <select id="getByAll" parameterType="com.boyu.erp.platform.usercenter.vo.system.UnitPrivVo"
+            resultType="SysPrivilege">
+        select
+        priv_id as privId,
+        DESCRIPTION AS description,
+        PRIV_SCP AS privScp,
+        PRIV_TYPE AS privType
+        from `sys_privilege`
+        WHERE 1 = 1
+        <if test="privId!=null">
+            AND INSTR(`priv_id`,#{privId})>0
+        </if>
+        <if test="description!=null">
+            AND INSTR(`description`,#{description})>0
+        </if>
+        <if test="privType!=null">
+            AND INSTR(`priv_type`,#{privType})>0
+        </if>
+        <if test="privScp!=null and privScp!=''">
+            AND INSTR(priv_scp,#{privScp})>0
+        </if>
+    </select>
+    <!--查询组织权限所有-->
+    <select id="selectAll" parameterType="com.boyu.erp.platform.usercenter.vo.system.UnitPrivVo"
+            resultType="SysPrivilege">
+        SELECT
+        B.PRIV_ID AS privId,
+        B.DESCRIPTION AS description,
+        B.PRIV_SCP AS privScp,
+        B.PRIV_TYPE AS privType
+        FROM
+        (
+        /* 直接获取的权限 */
+        SELECT
+        A.UNIT_ID,
+        A.PRIV_ID
+        FROM
+        SYS_UNIT_PRIV A
+        UNION
+        /* 通过权限依赖间接获取的权限 */
+        SELECT
+        A.UNIT_ID,
+        B.DEP_PRIV_ID AS PRIV_ID
+        FROM
+        SYS_UNIT_PRIV A
+        INNER JOIN SYS_PRIV_DEP B
+        ON (A.PRIV_ID = B.PRIV_ID)
+        UNION
+        /* 通过角色间接获取的权限 */
+        SELECT
+        A.UNIT_ID,
+        B.PRIV_ID
+        FROM
+        SYS_UNIT_ROLE A
+        INNER JOIN SYS_ROLE_PRIV B
+        ON (A.ROLE_ID = B.ROLE_ID)
+        UNION
+        /* 通过角色和权限依赖间接获取的权限 */
+        SELECT
+        A.UNIT_ID,
+        C.DEP_PRIV_ID AS PRIV_ID
+        FROM
+        (
+        SYS_UNIT_ROLE A
+        INNER JOIN SYS_ROLE_PRIV B
+        ON (A.ROLE_ID = B.ROLE_ID)
+        )
+        INNER JOIN SYS_PRIV_DEP C
+        ON (B.PRIV_ID = C.PRIV_ID)) M
+        INNER JOIN SYS_PRIVILEGE B
+        ON (M.PRIV_ID = B.PRIV_ID)
+        WHERE M.UNIT_ID = #{unitId}
+        <if test="privId!=null">
+            AND INSTR(B.`priv_id`,#{privId})>0
+        </if>
+        <if test="description!=null">
+            AND INSTR(B.`description`,#{description})>0
+        </if>
+        <if test="privType!=null">
+            AND INSTR(B.`priv_type`,#{privType})>0
+        </if>
+        <if test="privScp!=null and privScp!=''">
+            AND INSTR(B.priv_scp,#{privScp})>0
+        </if>
+    </select>
+    <!--查询组织拥有直接权限(不包含依赖权限)-->
+    <select id="getPriv" parameterType="java.lang.Long"
+            resultType="com.boyu.erp.platform.usercenter.entity.system.SysPrivilege">
+        SELECT
+        b.priv_id AS privId,
+        b.description AS description,
+        b.priv_scp AS privScp,
+        b.priv_type AS privType
+        FROM
+        (
+        /* 直接获取的权限 */
+        SELECT
+        a.unit_id,
+        a.priv_id
+        FROM
+        sys_unit_priv a
+        UNION
+        /* 通过角色间接获取的权限 */
+        SELECT
+        a.unit_id,
+        b.priv_id
+        FROM
+        sys_unit_role a
+        INNER JOIN sys_role_priv b
+        ON (a.role_id = b.role_id)
+        ) m
+        INNER JOIN sys_privilege b
+        ON m.priv_id = b.priv_id
+        WHERE m.unit_id = #{unitId}
+    </select>
+
+
+    <!--删除组织权限-->
+    <delete id="deleteUnitPriv" parameterType="SysUnitPrivKey">
+        delete from sys_unit_priv
+        where
+        unit_id=#{unitId}
+        <if test="privId!=null">
+            and priv_id=#{privId}
+        </if>
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.SatDtlMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.SatDtl">
+        <id column="sat_id" jdbcType="BIGINT" property="satId"/>
+        <id column="spec_id" jdbcType="BIGINT" property="specId"/>
+        <result column="qty" jdbcType="BIGINT" property="qty"/>
+    </resultMap>
+
+
+    <resultMap id="SatDtlVoMap" type="com.boyu.erp.platform.usercenter.vo.SatDtlVo">
+        <id column="sat_id" jdbcType="BIGINT" property="satId"/>
+        <id column="spec_id" jdbcType="BIGINT" property="specId"/>
+        <result column="qty" jdbcType="BIGINT" property="qty"/>
+        <result column="spec_name" jdbcType="BIGINT" property="specName"/>
+        <result column="spec_num" jdbcType="BIGINT" property="specNum"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    sat_id, spec_id, qty
+  </sql>
+    <select id="selectByPrimaryKey" resultType="com.boyu.erp.platform.usercenter.vo.SatDtlVo"
+            parameterType="com.boyu.erp.platform.usercenter.entity.SatDtlKey"
+            resultMap="BaseResultMap">
+        SELECT a.`sat_id` AS satId,a.`spec_id` AS specId, a.`qty` AS qty,b.`spec_code` AS specCode FROM sat_dtl a INNER JOIN spec b
+ON (a.`spec_id`=b.`spec_id`)
+        where a.sat_id = #{satId,jdbcType=BIGINT}
+        and a.spec_id = #{specId,jdbcType=BIGINT}
+    </select>
+
+
+    <select id="selectAll" resultMap="SatDtlVoMap" parameterType="com.boyu.erp.platform.usercenter.vo.SatDtlVo">
+        SELECT a.*,b.`spec_name`,b.`spec_num` FROM sat_dtl a INNER JOIN spec b
+        ON(a.`spec_id`=b.`spec_id`)
+        where 1=1
+        <if test="satId!=null">
+            and a.`sat_id`=#{satId}
+        </if>
+    </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.SatDtlKey">
+    delete from sat_dtl
+    where sat_id = #{satId,jdbcType=BIGINT}
+      and spec_id = #{specId,jdbcType=BIGINT}
+  </delete>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.SatDtl">
+        insert into sat_dtl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="satId != null">
+                sat_id,
+            </if>
+            <if test="specId != null">
+                spec_id,
+            </if>
+            <if test="qty != null">
+                qty,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="satId != null">
+                #{satId,jdbcType=BIGINT},
+            </if>
+            <if test="specId != null">
+                #{specId,jdbcType=BIGINT},
+            </if>
+            <if test="qty != null">
+                #{qty,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.SatDtl">
+        update sat_dtl
+        <set>
+            <if test="qty != null">
+                qty = #{qty,jdbcType=BIGINT},
+            </if>
+        </set>
+        where sat_id = #{satId,jdbcType=BIGINT}
+        and spec_id = #{specId,jdbcType=BIGINT}
+    </update>
+
+</mapper>

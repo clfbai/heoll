@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.WarehUgDtlMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.WarehUgDtl">
+    <id column="ug_id" jdbcType="BIGINT" property="ugId" />
+    <id column="wareh_id" jdbcType="BIGINT" property="warehId" />
+  </resultMap>
+  <select id="queryWarehIdsByWarehUgIds" resultType="java.lang.Long">
+    select wareh_id from wareh_ug_dtl where ug_id in(
+    <foreach collection="warehUgIds" item="warehUgId" separator=",">
+        #{warehUgId}
+    </foreach>
+    )
+  </select>
+</mapper>

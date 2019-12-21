@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.collarUse.ArqDtlMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.collarUse.ArqDtl">
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <id column="arq_num" jdbcType="VARCHAR" property="arqNum" />
+    <id column="prod_id" jdbcType="BIGINT" property="prodId" />
+    <result column="line_num" jdbcType="BIGINT" property="lineNum" />
+    <result column="row_num" jdbcType="BIGINT" property="rowNum" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="disc_rate" jdbcType="DECIMAL" property="discRate" />
+    <result column="fnl_price" jdbcType="DECIMAL" property="fnlPrice" />
+    <result column="qty" jdbcType="DECIMAL" property="qty" />
+    <result column="val" jdbcType="DECIMAL" property="val" />
+    <result column="deliv_qty" jdbcType="DECIMAL" property="delivQty" />
+    <result column="deliv_val" jdbcType="DECIMAL" property="delivVal" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    unit_id, arq_num, prod_id, line_num, row_num, unit_price, disc_rate, fnl_price, qty, 
+    val, deliv_qty, deliv_val, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.collarUse.ArqDtl" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from arq_dtl
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and arq_num = #{arqNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.collarUse.ArqDtl">
+    delete from arq_dtl
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and arq_num = #{arqNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.collarUse.ArqDtl">
+    insert into arq_dtl (unit_id, arq_num, prod_id, 
+      line_num, row_num, unit_price, 
+      disc_rate, fnl_price, qty, 
+      val, deliv_qty, deliv_val, 
+      remarks)
+    values (#{unitId,jdbcType=BIGINT}, #{arqNum,jdbcType=VARCHAR}, #{prodId,jdbcType=BIGINT}, 
+      #{lineNum,jdbcType=BIGINT}, #{rowNum,jdbcType=BIGINT}, #{unitPrice,jdbcType=DECIMAL}, 
+      #{discRate,jdbcType=DECIMAL}, #{fnlPrice,jdbcType=DECIMAL}, #{qty,jdbcType=DECIMAL}, 
+      #{val,jdbcType=DECIMAL}, #{delivQty,jdbcType=DECIMAL}, #{delivVal,jdbcType=DECIMAL}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.collarUse.ArqDtl">
+    insert into arq_dtl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="arqNum != null">
+        arq_num,
+      </if>
+      <if test="prodId != null">
+        prod_id,
+      </if>
+      <if test="lineNum != null">
+        line_num,
+      </if>
+      <if test="rowNum != null">
+        row_num,
+      </if>
+      <if test="unitPrice != null">
+        unit_price,
+      </if>
+      <if test="discRate != null">
+        disc_rate,
+      </if>
+      <if test="fnlPrice != null">
+        fnl_price,
+      </if>
+      <if test="qty != null">
+        qty,
+      </if>
+      <if test="val != null">
+        val,
+      </if>
+      <if test="delivQty != null">
+        deliv_qty,
+      </if>
+      <if test="delivVal != null">
+        deliv_val,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="arqNum != null">
+        #{arqNum,jdbcType=VARCHAR},
+      </if>
+      <if test="prodId != null">
+        #{prodId,jdbcType=BIGINT},
+      </if>
+      <if test="lineNum != null">
+        #{lineNum,jdbcType=BIGINT},
+      </if>
+      <if test="rowNum != null">
+        #{rowNum,jdbcType=BIGINT},
+      </if>
+      <if test="unitPrice != null">
+        #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discRate != null">
+        #{discRate,jdbcType=DECIMAL},
+      </if>
+      <if test="fnlPrice != null">
+        #{fnlPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="qty != null">
+        #{qty,jdbcType=DECIMAL},
+      </if>
+      <if test="val != null">
+        #{val,jdbcType=DECIMAL},
+      </if>
+      <if test="delivQty != null">
+        #{delivQty,jdbcType=DECIMAL},
+      </if>
+      <if test="delivVal != null">
+        #{delivVal,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.collarUse.ArqDtl">
+    update arq_dtl
+    <set>
+      <if test="lineNum != null">
+        line_num = #{lineNum,jdbcType=BIGINT},
+      </if>
+      <if test="rowNum != null">
+        row_num = #{rowNum,jdbcType=BIGINT},
+      </if>
+      <if test="unitPrice != null">
+        unit_price = #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discRate != null">
+        disc_rate = #{discRate,jdbcType=DECIMAL},
+      </if>
+      <if test="fnlPrice != null">
+        fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="qty != null">
+        qty = #{qty,jdbcType=DECIMAL},
+      </if>
+      <if test="val != null">
+        val = #{val,jdbcType=DECIMAL},
+      </if>
+      <if test="delivQty != null">
+        deliv_qty = #{delivQty,jdbcType=DECIMAL},
+      </if>
+      <if test="delivVal != null">
+        deliv_val = #{delivVal,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and arq_num = #{arqNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.collarUse.ArqDtl">
+    update arq_dtl
+    set line_num = #{lineNum,jdbcType=BIGINT},
+      row_num = #{rowNum,jdbcType=BIGINT},
+      unit_price = #{unitPrice,jdbcType=DECIMAL},
+      disc_rate = #{discRate,jdbcType=DECIMAL},
+      fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+      qty = #{qty,jdbcType=DECIMAL},
+      val = #{val,jdbcType=DECIMAL},
+      deliv_qty = #{delivQty,jdbcType=DECIMAL},
+      deliv_val = #{delivVal,jdbcType=DECIMAL},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and arq_num = #{arqNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </update>
+</mapper>

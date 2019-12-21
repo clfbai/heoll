@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PscChgDtlMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.PscChgDtl">
+    <id column="psc_num" jdbcType="VARCHAR" property="pscNum" />
+    <id column="rcd_num" jdbcType="BIGINT" property="rcdNum" />
+    <id column="prod_id" jdbcType="BIGINT" property="prodId" />
+    <result column="adj_qty" jdbcType="DECIMAL" property="adjQty" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    psc_num, rcd_num, prod_id, adj_qty
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscChgDtl" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from psc_chg_dtl
+    where psc_num = #{pscNum,jdbcType=VARCHAR}
+      and rcd_num = #{rcdNum,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscChgDtl">
+    delete from psc_chg_dtl
+    where psc_num = #{pscNum,jdbcType=VARCHAR}
+      and rcd_num = #{rcdNum,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscChgDtl">
+    insert into psc_chg_dtl (psc_num, rcd_num, prod_id, 
+      adj_qty)
+    values (#{pscNum,jdbcType=VARCHAR}, #{rcdNum,jdbcType=BIGINT}, #{prodId,jdbcType=BIGINT}, 
+      #{adjQty,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscChgDtl">
+    insert into psc_chg_dtl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pscNum != null">
+        psc_num,
+      </if>
+      <if test="rcdNum != null">
+        rcd_num,
+      </if>
+      <if test="prodId != null">
+        prod_id,
+      </if>
+      <if test="adjQty != null">
+        adj_qty,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pscNum != null">
+        #{pscNum,jdbcType=VARCHAR},
+      </if>
+      <if test="rcdNum != null">
+        #{rcdNum,jdbcType=BIGINT},
+      </if>
+      <if test="prodId != null">
+        #{prodId,jdbcType=BIGINT},
+      </if>
+      <if test="adjQty != null">
+        #{adjQty,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscChgDtl">
+    update psc_chg_dtl
+    <set>
+      <if test="adjQty != null">
+        adj_qty = #{adjQty,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where psc_num = #{pscNum,jdbcType=VARCHAR}
+      and rcd_num = #{rcdNum,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscChgDtl">
+    update psc_chg_dtl
+    set adj_qty = #{adjQty,jdbcType=DECIMAL}
+    where psc_num = #{pscNum,jdbcType=VARCHAR}
+      and rcd_num = #{rcdNum,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </update>
+
+  <insert id="insertList" parameterType="java.util.List">
+    insert into psc_chg_dtl (psc_num, rcd_num, prod_id,
+      adj_qty)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (#{item.pscNum,jdbcType=VARCHAR}, #{item.rcdNum,jdbcType=BIGINT}, #{item.prodId,jdbcType=BIGINT},
+      #{item.adjQty,jdbcType=DECIMAL})
+    </foreach>
+  </insert>
+</mapper>

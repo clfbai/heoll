@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sales.RgoTypeMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.sales.RgoType">
+    <id column="RGO_TYPE" jdbcType="VARCHAR" property="rgoType" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="TRAN_WAREH_REQD" jdbcType="CHAR" property="tranWarehReqd" />
+    <result column="DELIV_WAREH_REQD" jdbcType="CHAR" property="delivWarehReqd" />
+    <result column="PRC_AUTO_GEN" jdbcType="CHAR" property="prcAutoGen" />
+    <result column="PRC_AUTO_CHK" jdbcType="CHAR" property="prcAutoChk" />
+    <result column="RCV_WAREH_REQD" jdbcType="CHAR" property="rcvWarehReqd" />
+    <result column="PUC_AUTO_GEN" jdbcType="CHAR" property="pucAutoGen" />
+    <result column="PUC_AUTO_CHK" jdbcType="CHAR" property="pucAutoChk" />
+    <result column="DR_DIFF_JGD" jdbcType="CHAR" property="drDiffJgd" />
+    <result column="DR_DIFF_JGD_ALT" jdbcType="CHAR" property="drDiffJgdAlt" />
+    <result column="BXI_ENABLED" jdbcType="CHAR" property="bxiEnabled" />
+    <result column="BXI_ENABLED_ALT" jdbcType="CHAR" property="bxiEnabledAlt" />
+    <result column="ACTIVE" jdbcType="CHAR" property="active" />
+    <result column="FIXED_UNIT_PRICE" jdbcType="CHAR" property="fixedUnitPrice" />
+    <result column="SRC_TYPE" jdbcType="VARCHAR" property="srcType" />
+    <result column="SLC_TYPE" jdbcType="VARCHAR" property="slcType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    RGO_TYPE, DESCRIPTION, TRAN_WAREH_REQD, DELIV_WAREH_REQD, PRC_AUTO_GEN, PRC_AUTO_CHK, 
+    RCV_WAREH_REQD, PUC_AUTO_GEN, PUC_AUTO_CHK, DR_DIFF_JGD, DR_DIFF_JGD_ALT, BXI_ENABLED, 
+    BXI_ENABLED_ALT, ACTIVE, FIXED_UNIT_PRICE, SRC_TYPE, SLC_TYPE
+  </sql>
+
+  <resultMap id="BaseResultMapOption" type="com.boyu.erp.platform.usercenter.vo.system.PurKeyValue">
+    <result column="optionValue" property="optionValue"/>
+    <result column="optionName" property="optionName"/>
+  </resultMap>
+  <!--调配单类别下拉-->
+  <select id="optionGet" resultMap="BaseResultMapOption">
+  SELECT rgo_type as optionValue , description as optionName
+  FROM
+   rgo_type
+  WHERE
+   rgo_type!=''
+</select>
+
+  <select id="selectByRgoType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from rgo_type
+    where 1=1
+      and RGO_TYPE = #{rgoType,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getRgoTypeList" parameterType="com.boyu.erp.platform.usercenter.entity.sales.RgoType" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rgo_type
+    where 1=1
+    <if test="rgoType !=null and rgoType !=''">
+      and instr(rgo_type , #{rgoType,jdbcType=VARCHAR}) >0
+    </if>
+    <if test="description !=null and description !=''">
+      and instr(description , #{description,jdbcType=VARCHAR}) >0
+    </if>
+  </select>
+  <delete id="deleteByRgoType" parameterType="com.boyu.erp.platform.usercenter.entity.sales.RgoType">
+    delete from rgo_type
+    where RGO_TYPE = #{rgoType,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.sales.RgoType">
+    insert into rgo_type (RGO_TYPE, DESCRIPTION, TRAN_WAREH_REQD, 
+      DELIV_WAREH_REQD, PRC_AUTO_GEN, PRC_AUTO_CHK, 
+      RCV_WAREH_REQD, PUC_AUTO_GEN, PUC_AUTO_CHK, 
+      DR_DIFF_JGD, DR_DIFF_JGD_ALT, BXI_ENABLED, 
+      BXI_ENABLED_ALT, ACTIVE, FIXED_UNIT_PRICE, 
+      SRC_TYPE, SLC_TYPE)
+    values (#{rgoType,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{tranWarehReqd,jdbcType=CHAR}, 
+      #{delivWarehReqd,jdbcType=CHAR}, #{prcAutoGen,jdbcType=CHAR}, #{prcAutoChk,jdbcType=CHAR}, 
+      #{rcvWarehReqd,jdbcType=CHAR}, #{pucAutoGen,jdbcType=CHAR}, #{pucAutoChk,jdbcType=CHAR}, 
+      #{drDiffJgd,jdbcType=CHAR}, #{drDiffJgdAlt,jdbcType=CHAR}, #{bxiEnabled,jdbcType=CHAR}, 
+      #{bxiEnabledAlt,jdbcType=CHAR}, #{active,jdbcType=CHAR}, #{fixedUnitPrice,jdbcType=CHAR}, 
+      #{srcType,jdbcType=VARCHAR}, #{slcType,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByRgoType" parameterType="com.boyu.erp.platform.usercenter.entity.sales.RgoType">
+    update rgo_type
+    set DESCRIPTION = #{description,jdbcType=VARCHAR},
+      TRAN_WAREH_REQD = #{tranWarehReqd,jdbcType=CHAR},
+      DELIV_WAREH_REQD = #{delivWarehReqd,jdbcType=CHAR},
+      PRC_AUTO_GEN = #{prcAutoGen,jdbcType=CHAR},
+      PRC_AUTO_CHK = #{prcAutoChk,jdbcType=CHAR},
+      RCV_WAREH_REQD = #{rcvWarehReqd,jdbcType=CHAR},
+      PUC_AUTO_GEN = #{pucAutoGen,jdbcType=CHAR},
+      PUC_AUTO_CHK = #{pucAutoChk,jdbcType=CHAR},
+      DR_DIFF_JGD = #{drDiffJgd,jdbcType=CHAR},
+      DR_DIFF_JGD_ALT = #{drDiffJgdAlt,jdbcType=CHAR},
+      BXI_ENABLED = #{bxiEnabled,jdbcType=CHAR},
+      BXI_ENABLED_ALT = #{bxiEnabledAlt,jdbcType=CHAR},
+      ACTIVE = #{active,jdbcType=CHAR},
+      FIXED_UNIT_PRICE = #{fixedUnitPrice,jdbcType=CHAR},
+      SRC_TYPE = #{srcType,jdbcType=VARCHAR},
+      SLC_TYPE = #{slcType,jdbcType=VARCHAR}
+    where RGO_TYPE = #{rgoType,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.TranDiffEvtMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.basic.TranDiffEvt">
+    <id column="deliv_unit_id" jdbcType="BIGINT" property="delivUnitId" />
+    <id column="deliv_doc_type" jdbcType="CHAR" property="delivDocType" />
+    <id column="deliv_doc_num" jdbcType="VARCHAR" property="delivDocNum" />
+    <result column="rcv_unit_id" jdbcType="BIGINT" property="rcvUnitId" />
+    <result column="rcv_doc_type" jdbcType="CHAR" property="rcvDocType" />
+    <result column="rcv_doc_num" jdbcType="VARCHAR" property="rcvDocNum" />
+    <result column="deliv_wareh_id" jdbcType="BIGINT" property="delivWarehId" />
+    <result column="rcv_wareh_id" jdbcType="BIGINT" property="rcvWarehId" />
+    <result column="dr_diff_jgd" jdbcType="CHAR" property="drDiffJgd" />
+    <result column="rsp_unit" jdbcType="CHAR" property="rspUnit" />
+    <result column="tdf_stl_mthd" jdbcType="CHAR" property="tdfStlMthd" />
+    <result column="join_time" jdbcType="TIMESTAMP" property="joinTime" />
+    <result column="progress" jdbcType="CHAR" property="progress" />
+    <result column="deliv_chkr_id" jdbcType="BIGINT" property="delivChkrId" />
+    <result column="deliv_chk_time" jdbcType="TIMESTAMP" property="delivChkTime" />
+    <result column="rcv_chkr_id" jdbcType="BIGINT" property="rcvChkrId" />
+    <result column="rcv_chk_time" jdbcType="TIMESTAMP" property="rcvChkTime" />
+    <result column="hdlr_id" jdbcType="BIGINT" property="hdlrId" />
+    <result column="hdl_time" jdbcType="TIMESTAMP" property="hdlTime" />
+    <result column="clsr_id" jdbcType="BIGINT" property="clsrId" />
+    <result column="cls_time" jdbcType="TIMESTAMP" property="clsTime" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    deliv_unit_id, deliv_doc_type, deliv_doc_num, rcv_unit_id, rcv_doc_type, rcv_doc_num, 
+    deliv_wareh_id, rcv_wareh_id, dr_diff_jgd, rsp_unit, tdf_stl_mthd, join_time, progress, 
+    deliv_chkr_id, deliv_chk_time, rcv_chkr_id, rcv_chk_time, hdlr_id, hdl_time, clsr_id, 
+    cls_time, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.TranDiffEvt" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tran_diff_evt
+    where
+    <if test=" delivUnitId!=null and delivUnitId!='' ">
+        deliv_unit_id = #{delivUnitId,jdbcType=BIGINT}
+      and deliv_doc_type = #{delivDocType,jdbcType=CHAR}
+      and deliv_doc_num = #{delivDocNum,jdbcType=VARCHAR}
+    </if>
+    <if test=" rcvUnitId!=null and rcvUnitId!='' ">
+      rcv_unit_id = #{rcvUnitId,jdbcType=BIGINT}
+      and rcv_doc_type = #{rcvDocType,jdbcType=CHAR}
+      and rcv_doc_num = #{rcvDocNum,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.TranDiffEvt">
+    delete from tran_diff_evt
+    where
+    <if test=" delivUnitId!=null and delivUnitId!='' ">
+        deliv_unit_id = #{delivUnitId,jdbcType=BIGINT}
+      and deliv_doc_type = #{delivDocType,jdbcType=CHAR}
+      and deliv_doc_num = #{delivDocNum,jdbcType=VARCHAR}
+    </if>
+    <if test=" rcvUnitId!=null and rcvUnitId!='' ">
+      rcv_unit_id = #{rcvUnitId,jdbcType=BIGINT}
+      and rcv_doc_type = #{rcvDocType,jdbcType=CHAR}
+      and rcv_doc_num = #{rcvDocNum,jdbcType=VARCHAR}
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.basic.TranDiffEvt">
+    insert into tran_diff_evt (deliv_unit_id, deliv_doc_type, deliv_doc_num, 
+      rcv_unit_id, rcv_doc_type, rcv_doc_num, 
+      deliv_wareh_id, rcv_wareh_id, dr_diff_jgd, 
+      rsp_unit, tdf_stl_mthd, join_time, 
+      progress, deliv_chkr_id, deliv_chk_time, 
+      rcv_chkr_id, rcv_chk_time, hdlr_id, 
+      hdl_time, clsr_id, cls_time, 
+      remarks)
+    values (#{delivUnitId,jdbcType=BIGINT}, #{delivDocType,jdbcType=CHAR}, #{delivDocNum,jdbcType=VARCHAR}, 
+      #{rcvUnitId,jdbcType=BIGINT}, #{rcvDocType,jdbcType=CHAR}, #{rcvDocNum,jdbcType=VARCHAR}, 
+      #{delivWarehId,jdbcType=BIGINT}, #{rcvWarehId,jdbcType=BIGINT}, #{drDiffJgd,jdbcType=CHAR}, 
+      #{rspUnit,jdbcType=CHAR}, #{tdfStlMthd,jdbcType=CHAR}, #{joinTime,jdbcType=TIMESTAMP}, 
+      #{progress,jdbcType=CHAR}, #{delivChkrId,jdbcType=BIGINT}, #{delivChkTime,jdbcType=TIMESTAMP}, 
+      #{rcvChkrId,jdbcType=BIGINT}, #{rcvChkTime,jdbcType=TIMESTAMP}, #{hdlrId,jdbcType=BIGINT}, 
+      #{hdlTime,jdbcType=TIMESTAMP}, #{clsrId,jdbcType=BIGINT}, #{clsTime,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.TranDiffEvt">
+    insert into tran_diff_evt
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="delivUnitId != null">
+        deliv_unit_id,
+      </if>
+      <if test="delivDocType != null">
+        deliv_doc_type,
+      </if>
+      <if test="delivDocNum != null">
+        deliv_doc_num,
+      </if>
+      <if test="rcvUnitId != null">
+        rcv_unit_id,
+      </if>
+      <if test="rcvDocType != null">
+        rcv_doc_type,
+      </if>
+      <if test="rcvDocNum != null">
+        rcv_doc_num,
+      </if>
+      <if test="delivWarehId != null">
+        deliv_wareh_id,
+      </if>
+      <if test="rcvWarehId != null">
+        rcv_wareh_id,
+      </if>
+      <if test="drDiffJgd != null">
+        dr_diff_jgd,
+      </if>
+      <if test="rspUnit != null">
+        rsp_unit,
+      </if>
+      <if test="tdfStlMthd != null">
+        tdf_stl_mthd,
+      </if>
+      <if test="joinTime != null">
+        join_time,
+      </if>
+      <if test="progress != null">
+        progress,
+      </if>
+      <if test="delivChkrId != null">
+        deliv_chkr_id,
+      </if>
+      <if test="delivChkTime != null">
+        deliv_chk_time,
+      </if>
+      <if test="rcvChkrId != null">
+        rcv_chkr_id,
+      </if>
+      <if test="rcvChkTime != null">
+        rcv_chk_time,
+      </if>
+      <if test="hdlrId != null">
+        hdlr_id,
+      </if>
+      <if test="hdlTime != null">
+        hdl_time,
+      </if>
+      <if test="clsrId != null">
+        clsr_id,
+      </if>
+      <if test="clsTime != null">
+        cls_time,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="delivUnitId != null">
+        #{delivUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="delivDocType != null">
+        #{delivDocType,jdbcType=CHAR},
+      </if>
+      <if test="delivDocNum != null">
+        #{delivDocNum,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvUnitId != null">
+        #{rcvUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="rcvDocType != null">
+        #{rcvDocType,jdbcType=CHAR},
+      </if>
+      <if test="rcvDocNum != null">
+        #{rcvDocNum,jdbcType=VARCHAR},
+      </if>
+      <if test="delivWarehId != null">
+        #{delivWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="rcvWarehId != null">
+        #{rcvWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="drDiffJgd != null">
+        #{drDiffJgd,jdbcType=CHAR},
+      </if>
+      <if test="rspUnit != null">
+        #{rspUnit,jdbcType=CHAR},
+      </if>
+      <if test="tdfStlMthd != null">
+        #{tdfStlMthd,jdbcType=CHAR},
+      </if>
+      <if test="joinTime != null">
+        #{joinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="progress != null">
+        #{progress,jdbcType=CHAR},
+      </if>
+      <if test="delivChkrId != null">
+        #{delivChkrId,jdbcType=BIGINT},
+      </if>
+      <if test="delivChkTime != null">
+        #{delivChkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rcvChkrId != null">
+        #{rcvChkrId,jdbcType=BIGINT},
+      </if>
+      <if test="rcvChkTime != null">
+        #{rcvChkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hdlrId != null">
+        #{hdlrId,jdbcType=BIGINT},
+      </if>
+      <if test="hdlTime != null">
+        #{hdlTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clsrId != null">
+        #{clsrId,jdbcType=BIGINT},
+      </if>
+      <if test="clsTime != null">
+        #{clsTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.TranDiffEvt">
+    update tran_diff_evt
+    <set>
+      <if test="rcvUnitId != null">
+        rcv_unit_id = #{rcvUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="rcvDocType != null">
+        rcv_doc_type = #{rcvDocType,jdbcType=CHAR},
+      </if>
+      <if test="rcvDocNum != null">
+        rcv_doc_num = #{rcvDocNum,jdbcType=VARCHAR},
+      </if>
+      <if test="delivWarehId != null">
+        deliv_wareh_id = #{delivWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="rcvWarehId != null">
+        rcv_wareh_id = #{rcvWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="drDiffJgd != null">
+        dr_diff_jgd = #{drDiffJgd,jdbcType=CHAR},
+      </if>
+      <if test="rspUnit != null">
+        rsp_unit = #{rspUnit,jdbcType=CHAR},
+      </if>
+      <if test="tdfStlMthd != null">
+        tdf_stl_mthd = #{tdfStlMthd,jdbcType=CHAR},
+      </if>
+      <if test="joinTime != null">
+        join_time = #{joinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="progress != null">
+        progress = #{progress,jdbcType=CHAR},
+      </if>
+      <if test="delivChkrId != null">
+        deliv_chkr_id = #{delivChkrId,jdbcType=BIGINT},
+      </if>
+      <if test="delivChkTime != null">
+        deliv_chk_time = #{delivChkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rcvChkrId != null">
+        rcv_chkr_id = #{rcvChkrId,jdbcType=BIGINT},
+      </if>
+      <if test="rcvChkTime != null">
+        rcv_chk_time = #{rcvChkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hdlrId != null">
+        hdlr_id = #{hdlrId,jdbcType=BIGINT},
+      </if>
+      <if test="hdlTime != null">
+        hdl_time = #{hdlTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clsrId != null">
+        clsr_id = #{clsrId,jdbcType=BIGINT},
+      </if>
+      <if test="clsTime != null">
+        cls_time = #{clsTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where deliv_unit_id = #{delivUnitId,jdbcType=BIGINT}
+      and deliv_doc_type = #{delivDocType,jdbcType=CHAR}
+      and deliv_doc_num = #{delivDocNum,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.TranDiffEvt">
+    update tran_diff_evt
+    set rcv_unit_id = #{rcvUnitId,jdbcType=BIGINT},
+      rcv_doc_type = #{rcvDocType,jdbcType=CHAR},
+      rcv_doc_num = #{rcvDocNum,jdbcType=VARCHAR},
+      deliv_wareh_id = #{delivWarehId,jdbcType=BIGINT},
+      rcv_wareh_id = #{rcvWarehId,jdbcType=BIGINT},
+      dr_diff_jgd = #{drDiffJgd,jdbcType=CHAR},
+      rsp_unit = #{rspUnit,jdbcType=CHAR},
+      tdf_stl_mthd = #{tdfStlMthd,jdbcType=CHAR},
+      join_time = #{joinTime,jdbcType=TIMESTAMP},
+      progress = #{progress,jdbcType=CHAR},
+      deliv_chkr_id = #{delivChkrId,jdbcType=BIGINT},
+      deliv_chk_time = #{delivChkTime,jdbcType=TIMESTAMP},
+      rcv_chkr_id = #{rcvChkrId,jdbcType=BIGINT},
+      rcv_chk_time = #{rcvChkTime,jdbcType=TIMESTAMP},
+      hdlr_id = #{hdlrId,jdbcType=BIGINT},
+      hdl_time = #{hdlTime,jdbcType=TIMESTAMP},
+      clsr_id = #{clsrId,jdbcType=BIGINT},
+      cls_time = #{clsTime,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where deliv_unit_id = #{delivUnitId,jdbcType=BIGINT}
+      and deliv_doc_type = #{delivDocType,jdbcType=CHAR}
+      and deliv_doc_num = #{delivDocNum,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectByError" parameterType="com.boyu.erp.platform.usercenter.entity.basic.TranDiffEvt" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tran_diff_evt
+    where
+    <if test=" delivUnitId!=null and delivUnitId!='' ">
+      deliv_unit_id = #{delivUnitId,jdbcType=BIGINT}
+      and deliv_doc_type = #{delivDocType,jdbcType=CHAR}
+      and deliv_doc_num = #{delivDocNum,jdbcType=VARCHAR}
+    </if>
+    <if test=" rcvUnitId!=null and rcvUnitId!='' ">
+      rcv_unit_id = #{rcvUnitId,jdbcType=BIGINT}
+      and rcv_doc_type = #{rcvDocType,jdbcType=CHAR}
+      and rcv_doc_num = #{rcvDocNum,jdbcType=VARCHAR}
+    </if>
+    and progress in ('PG','C','DK','RK','CK')
+  </select>
+</mapper>

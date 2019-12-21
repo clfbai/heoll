@@ -1,0 +1,102 @@
+package com.boyu.erp.platform.usercenter.entity.shop;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+
+/**
+ * shop_attr_def 门店属性明细表
+ *
+ * @author
+ */
+@Data
+@NoArgsConstructor
+public class ShopAttrDef implements Serializable {
+    private static final long serialVersionUID = 1L;
+    /**
+     * 属性类别
+     */
+    private String attrType;
+
+    /**
+     * 行号
+     */
+    private Integer lineNum;
+
+    /**
+     * 属性名称
+     */
+    private String attrName;
+
+    /**
+     * 数据类型
+     */
+    private String dataType;
+
+    /**
+     * 数据长度
+     */
+    private Integer dataLen;
+
+    /**
+     * 小数位数
+     */
+    private Integer dataDec;
+
+    /**
+     * 宽度
+     */
+    private Integer width;
+
+    /**
+     * 大小写
+     */
+    private String charCase;
+
+    /**
+     * 是否必需
+     */
+    private String valReqd;
+
+    /**
+     * 属性缺省来源
+     */
+    private String attrDfltSrc;
+
+    /**
+     * 缺省公式
+     */
+    private String dfltFml;
+
+    /**
+     * 编辑定义
+     */
+    private String edtFml;
+
+    /**
+     * 数据类型中文名称
+     */
+    private String dataTypeCp;
+    /**
+     * 大小写中文名称
+     */
+    private String charCaseCp;
+    /**
+     * 是否必需中文名称
+     */
+    private String valReqdCp;
+    /**
+     * 是否下拉(T 是 F 否)
+     */
+    private String isOpetion;
+    /**
+     * 是否下拉(中文)
+     */
+    private String isOpetionCp;
+
+    /**
+     * 下拉属性值
+     */
+    private String codeType;
+}

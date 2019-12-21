@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.SpecScpDtlMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.SpecScpDtlKey">
+        <id column="spec_scp_id" jdbcType="VARCHAR" property="specScpId"/>
+        <id column="spec_id" jdbcType="BIGINT" property="specId"/>
+    </resultMap>
+
+    <select id="selectAll" parameterType="SpecScpDtlKey" resultType="com.boyu.erp.platform.usercenter.vo.SpecScpDtlVo">
+        SELECT a.`spec_id` AS specId,a.`spec_scp_id` AS specScpId,b.`spec_code` AS specCode,b.`spec_name` AS
+        specName,b.`spec_num` AS specNum
+        FROM spec_scp_dtl a INNER JOIN spec b
+        ON(a.`spec_id`=b.`spec_id`)
+        where 1=1
+        <if test="specScpId != null">
+            and a.spec_scp_id=#{specScpId}
+        </if>
+        <if test="specId != null">
+            and a.spec_id=#{specId}
+        </if>
+    </select>
+
+
+    <insert id="insertSpecScpDtlKey" parameterType="com.boyu.erp.platform.usercenter.entity.SpecScpDtlKey">
+        insert into spec_scp_dtl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="specScpId != null">
+                spec_scp_id,
+            </if>
+            <if test="specId != null">
+                spec_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="specScpId != null">
+                #{specScpId,jdbcType=VARCHAR},
+            </if>
+            <if test="specId != null">
+                #{specId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+
+    <!--更新规格范围明细-->
+    <update id="updateSpecScpDtlKey" parameterType="com.boyu.erp.platform.usercenter.entity.SpecScpDtlKey">
+        update spec_scp_dtl set spec_id=#{specId} where spec_scp_id=#{specScpId}
+    </update>
+
+    <delete id="deleteSpecScpDtlKey" parameterType="com.boyu.erp.platform.usercenter.entity.SpecScpDtlKey">
+        delete from spec_scp_dtl where spec_scp_id = #{specScpId,jdbcType=VARCHAR} and spec_id = #{specId,jdbcType=BIGINT}
+    </delete>
+
+</mapper>

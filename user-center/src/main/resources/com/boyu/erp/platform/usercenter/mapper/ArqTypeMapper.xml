@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.collarUse.ArqTypeMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.collarUse.ArqType">
+    <id column="arq_type" jdbcType="VARCHAR" property="arqType" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="deliv_wareh_reqd" jdbcType="CHAR" property="delivWarehReqd" />
+    <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled" />
+    <result column="bxi_enabled_alt" jdbcType="CHAR" property="bxiEnabledAlt" />
+    <result column="active" jdbcType="CHAR" property="active" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapOption" type="com.boyu.erp.platform.usercenter.vo.system.PurKeyValue">
+    <result column="optionValue" property="optionValue"/>
+    <result column="optionName" property="optionName"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    arq_type, description, deliv_wareh_reqd, bxi_enabled, bxi_enabled_alt, active
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from arq_type
+    where arq_type = #{arqType,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from arq_type
+    where arq_type = #{arqType,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.collarUse.ArqType">
+    insert into arq_type (arq_type, description, deliv_wareh_reqd, 
+      bxi_enabled, bxi_enabled_alt, active
+      )
+    values (#{arqType,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{delivWarehReqd,jdbcType=CHAR}, 
+      #{bxiEnabled,jdbcType=CHAR}, #{bxiEnabledAlt,jdbcType=CHAR}, #{active,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.collarUse.ArqType">
+    insert into arq_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="arqType != null">
+        arq_type,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="delivWarehReqd != null">
+        deliv_wareh_reqd,
+      </if>
+      <if test="bxiEnabled != null">
+        bxi_enabled,
+      </if>
+      <if test="bxiEnabledAlt != null">
+        bxi_enabled_alt,
+      </if>
+      <if test="active != null">
+        active,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="arqType != null">
+        #{arqType,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="delivWarehReqd != null">
+        #{delivWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabled != null">
+        #{bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabledAlt != null">
+        #{bxiEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.collarUse.ArqType">
+    update arq_type
+    <set>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="delivWarehReqd != null">
+        deliv_wareh_reqd = #{delivWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabled != null">
+        bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabledAlt != null">
+        bxi_enabled_alt = #{bxiEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="active != null">
+        active = #{active,jdbcType=CHAR},
+      </if>
+    </set>
+    where arq_type = #{arqType,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.collarUse.ArqType">
+    update arq_type
+    set description = #{description,jdbcType=VARCHAR},
+      deliv_wareh_reqd = #{delivWarehReqd,jdbcType=CHAR},
+      bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+      bxi_enabled_alt = #{bxiEnabledAlt,jdbcType=CHAR},
+      active = #{active,jdbcType=CHAR}
+    where arq_type = #{arqType,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectALL" parameterType="com.boyu.erp.platform.usercenter.entity.collarUse.ArqType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from arq_type
+    where 1=1
+    <if test="arqType!=null and arqType!='' ">
+        and arq_type like CONCAT('%', #{arqType}, '%')
+    </if>
+    <if test="description!=null and description!='' ">
+      and description like CONCAT('%', #{description}, '%')
+    </if>
+  </select>
+
+  <!--通过领用单类别查询集合-->
+  <select id="listByArqType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from arq_type
+    where arq_type = #{arqType}
+  </select>
+
+  <!--领用单类别下拉-->
+  <select id="optionGet" resultMap="BaseResultMapOption">
+  SELECT arq_type as optionValue , description as optionName
+  FROM
+   arq_type
+  WHERE
+   arq_type!=''
+</select>
+
+</mapper>

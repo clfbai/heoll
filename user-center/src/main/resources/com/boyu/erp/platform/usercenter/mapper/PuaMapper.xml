@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PuaMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.Pua">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="pua_num" jdbcType="VARCHAR" property="puaNum"/>
+        <result column="psx_num" jdbcType="VARCHAR" property="psxNum"/>
+        <result column="pua_type" jdbcType="VARCHAR" property="puaType"/>
+        <result column="dept_id" jdbcType="BIGINT" property="deptId"/>
+        <result column="chkr_id" jdbcType="BIGINT" property="chkrId"/>
+        <result column="chk_time" jdbcType="TIMESTAMP" property="chkTime"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapByPua" type="com.boyu.erp.platform.usercenter.vo.purchase.PsxVo">
+        <result column="unitId" property="unitId"/>
+        <result column="puaNum" property="puaNum"/>
+        <result column="psxNum" property="psxNum"/>
+        <result column="docDate" property="docDate"/>
+        <result column="puaType" property="puaType"/>
+        <result column="psxType" property="psxType"/>
+        <result column="delivWarehId" property="delivWarehId"/>
+        <result column="delivWarehNum" property="delivWarehNum"/>
+        <result column="delivWarehName" property="delivWarehName"/>
+        <result column="deptId" property="deptId"/>
+        <result column="deptNum" property="deptNum"/>
+        <result column="deptName" property="deptName"/>
+        <result column="stUnitId" property="stUnitId"/>
+        <result column="stUnitNum" property="stUnitNum"/>
+        <result column="stUnitName" property="stUnitName"/>
+        <result column="stWarehId" property="stWarehId"/>
+        <result column="stWarehNum" property="stWarehNum"/>
+        <result column="stWarehName" property="stWarehName"/>
+        <result column="venderId" property="venderId"/>
+        <result column="venderNum" property="venderNum"/>
+        <result column="venderName" property="venderName"/>
+        <result column="rcvWarehId" property="rcvWarehId"/>
+        <result column="rcvWarehNum" property="rcvWarehNum"/>
+        <result column="rcvWarehName" property="rcvWarehName"/>
+        <result column="endUnitId" property="endUnitId"/>
+        <result column="endUnitNum" property="endUnitNum"/>
+        <result column="endUnitName" property="endUnitName"/>
+        <result column="endWarehId" property="endWarehId"/>
+        <result column="endWarehNum" property="endWarehNum"/>
+        <result column="endWarehName" property="endWarehName"/>
+        <result column="vdrInvd" property="vdrInvd"/>
+        <result column="vdeInvd" property="vdeInvd"/>
+        <result column="slaAutoGen" property="slaAutoGen"/>
+        <result column="slaGen" property="slaGen"/>
+        <result column="slaAutoChk" property="slaAutoChk"/>
+        <result column="puaAutoGen" property="puaAutoGen"/>
+        <result column="puaGen" property="puaGen"/>
+        <result column="puaAutoChk" property="puaAutoChk"/>
+        <result column="rqdCtrl" property="rqdCtrl"/>
+        <result column="rqdCtrlOld" property="rqdCtrlOld"/>
+        <result column="prodCatId" property="prodCatId"/>
+        <result column="prodCatName" property="prodCatName"/>
+        <result column="ordType" property="ordType"/>
+        <result column="reqdDate" property="reqdDate"/>
+        <result column="bxiEnabled" property="bxiEnabled"/>
+        <result column="ttlQty" property="ttlQty"/>
+        <result column="ttlBox" property="ttlBox"/>
+        <result column="ttlVal" property="ttlVal"/>
+        <result column="ttlMkv" property="ttlMkv"/>
+        <result column="oprCode" property="oprCode"/>
+        <result column="oprName" property="oprName"/>
+        <result column="opTime" property="opTime"/>
+        <result column="chkrNum" property="chkrNum"/>
+        <result column="chkrName" property="chkrName"/>
+        <result column="chkTime" property="chkTime"/>
+        <result column="effective" property="effective"/>
+        <result column="progress" property="progress"/>
+        <result column="suspended" property="suspended"/>
+        <result column="cancelled" property="cancelled"/>
+        <result column="remarks" property="remarks"/>
+        <result column="vendeeId" property="vendeeId"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapObject" type="com.boyu.erp.platform.usercenter.vo.purchase.PsxVo">
+
+        <result column="delivWarehId" property="delivWarehId"/>
+        <result column="delivWarehNum" property="delivWarehNum"/>
+        <result column="delivWarehName" property="delivWarehName"/>
+        <result column="venderId" property="venderId"/>
+        <result column="venderNum" property="venderNum"/>
+        <result column="venderName" property="venderName"/>
+        <result column="rcvWarehId" property="rcvWarehId"/>
+        <result column="rcvWarehNum" property="rcvWarehNum"/>
+        <result column="rcvWarehName" property="rcvWarehName"/>
+        <collection property="psxDtlList"  resultMap="psxDtlResultMap"></collection>
+    </resultMap>
+
+    <resultMap id="psxDtlResultMap" type="com.boyu.erp.platform.usercenter.vo.purchase.PsxDtlVo">
+        <id column="prod_id" jdbcType="BIGINT" property="prodId" />
+        <result column="prodCode" property="prodCode" />
+        <result column="seqNum" property="seqNum" />
+        <result column="qty" jdbcType="DECIMAL" property="qty" />
+        <result column="prodName" property="prodName" />
+        <result column="inputCode" property="inputCode" />
+        <result column="uom" property="uom" />
+        <result column="color" property="color" />
+        <result column="spec" property="spec" />
+        <result column="edition" property="edition" />
+        <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+        <result column="mk_unit_price" jdbcType="DECIMAL" property="mkUnitPrice" />
+
+        <result column="val" jdbcType="DECIMAL" property="val" />
+        <result column="mkv" jdbcType="DECIMAL" property="mkv" />
+        <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+        <result column="prodCatId" property="prodCatId" />
+        <result column="disc_rate" jdbcType="DECIMAL" property="discRate" />
+        <result column="fnl_price" jdbcType="DECIMAL" property="fnlPrice" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    unit_id, pua_num, psx_num, pua_type, dept_id, chkr_id, chk_time, suspended
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Pua"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pua
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and pua_num = #{puaNum,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByPsxNum" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pua
+        where psx_num = #{psxNum,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Pua">
+    delete from pua
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and pua_num = #{puaNum,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Pua">
+    insert into pua (unit_id, pua_num, psx_num, 
+      pua_type, dept_id, chkr_id, 
+      chk_time, suspended)
+    values (#{unitId,jdbcType=BIGINT}, #{puaNum,jdbcType=VARCHAR}, #{psxNum,jdbcType=VARCHAR}, 
+      #{puaType,jdbcType=VARCHAR}, #{deptId,jdbcType=BIGINT}, #{chkrId,jdbcType=BIGINT}, 
+      #{chkTime,jdbcType=TIMESTAMP}, #{suspended,jdbcType=CHAR})
+  </insert>
+    <insert id="insertByPuaVo" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsxVo">
+        insert into pua
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vendeeId != null and vendeeId != '' ">
+                unit_id,
+            </if>
+            <if test="puaNum != null and puaNum != '' ">
+                pua_num,
+            </if>
+            <if test="psxNum != null and psxNum != '' ">
+                psx_num,
+            </if>
+            <if test="puaType != null and puaType != '' ">
+                pua_type,
+            </if>
+            <if test="deptId != null and deptId != '' ">
+                dept_id,
+            </if>
+            <if test="suspended != null and suspended != '' ">
+                suspended,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vendeeId != null and vendeeId != '' ">
+                #{vendeeId,jdbcType=BIGINT},
+            </if>
+            <if test="puaNum != null and puaNum != '' ">
+                #{puaNum,jdbcType=VARCHAR},
+            </if>
+            <if test="psxNum != null and psxNum != '' ">
+                #{psxNum,jdbcType=VARCHAR},
+            </if>
+            <if test="puaType != null and puaType != '' ">
+                #{puaType,jdbcType=VARCHAR},
+            </if>
+            <if test="deptId != null and deptId != '' ">
+                #{deptId,jdbcType=BIGINT},
+            </if>
+            <if test="suspended != null and suspended != '' ">
+                #{suspended,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPuaVo" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsxVo">
+        update pua
+        <set>
+            <if test="puaType != null and puaType != '' ">
+                pua_type = #{puaType,jdbcType=VARCHAR},
+            </if>
+            <if test="deptId != null and deptId != '' ">
+                dept_id = #{deptId,jdbcType=BIGINT},
+            </if>
+            <if test="suspended != null and suspended != '' ">
+                suspended = #{suspended,jdbcType=CHAR},
+            </if>
+        </set>
+        where unit_id = #{vendeeId,jdbcType=BIGINT}
+        and pua_num = #{puaNum,jdbcType=VARCHAR}
+        and psx_num = #{psxNum,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Pua">
+    update pua
+    set psx_num = #{psxNum,jdbcType=VARCHAR},
+      pua_type = #{puaType,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=BIGINT},
+      chkr_id = #{chkrId,jdbcType=BIGINT},
+      chk_time = #{chkTime,jdbcType=TIMESTAMP},
+      suspended = #{suspended,jdbcType=CHAR}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and pua_num = #{puaNum,jdbcType=VARCHAR}
+  </update>
+
+    <select id="selectALL" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsxVo"
+            resultMap="BaseResultMapByPua">
+        SELECT
+        pu.unit_id AS unitId,
+        pu.pua_num AS puaNum,
+        pu.psx_num AS psxNum,
+        ps.doc_date AS docDate,
+        pu.pua_type AS puaType,
+        ps.psx_type AS psxType,
+        ps.deliv_wareh_id AS delivWarehId,
+        suo.unit_num AS delivWarehNum,
+        su.unit_name AS delivWarehName,
+        pu.dept_id AS deptId,
+        suo1.unit_num AS deptNum,
+        su1.unit_name AS deptName,
+        ps.st_unit_id AS stUnitId,
+        suo2.unit_num AS stUnitNum,
+        su2.unit_name AS stUnitName,
+        ps.st_wareh_id AS stWarehId,
+        suo3.unit_num AS stWarehNum,
+        su3.unit_name AS stWarehName,
+        ps.vender_id AS venderId,
+        suo4.unit_num AS venderNum,
+        su4.unit_name AS venderName,
+        ps.rcv_wareh_id AS rcvWarehId,
+        suo5.unit_num AS rcvWarehNum,
+        su5.unit_name AS rcvWarehName,
+        ps.end_unit_id AS endUnitId,
+        suo6.unit_num AS endUnitNum,
+        su6.unit_name AS endUnitName,
+        ps.end_wareh_id AS endWarehId,
+        suo7.unit_num AS endWarehNum,
+        su7.unit_name AS endWarehName,
+        ps.vdr_invd AS vdrInvd,
+        ps.vde_invd AS vdeInvd,
+        ps.sla_auto_gen AS slaAutoGen,
+        ps.sla_gen AS slaGen,
+        ps.sla_auto_chk AS slaAutoChk,
+        ps.pua_auto_gen AS puaAutoGen,
+        ps.pua_gen AS puaGen,
+        ps.pua_auto_chk AS puaAutoChk,
+        ps.rqd_ctrl AS rqdCtrl,
+        ps.rqd_ctrl AS rqdCtrlOld,
+        ps.prod_cat_id AS prodCatId,
+        pc.prod_name AS prodCatName,
+        ps.ord_type AS ordType,
+        ps.reqd_date AS reqdDate,
+        ps.bxi_enabled AS bxiEnabled,
+        ps.ttl_qty AS ttlQty,
+        ps.ttl_box AS ttlBox,
+        ps.ttl_val AS ttlVal,
+        ps.ttl_mkv AS ttlMkv,
+        sp.prsnl_code AS oprCode,
+        sp.full_name AS oprName,
+        DATE_FORMAT(ps.op_time,'%Y-%m-%d %H:%i:%S') AS opTime,
+        spo.prsnl_num AS chkrNum,
+        sp1.full_name AS chkrName,
+        DATE_FORMAT(pu.chk_time,'%Y-%m-%d %H:%i:%S') AS chkTime,
+        ps.effective AS effective,
+        ps.progress AS progress,
+        pu.suspended AS suspended,
+        ps.cancelled AS cancelled,
+        ps.remarks AS remarks,
+        ps.vendee_id AS vendeeId
+        FROM
+        pua pu
+        LEFT JOIN psx ps ON ps.psx_num = pu.psx_num
+
+        LEFT JOIN sys_unit su ON su.unit_id = ps.deliv_wareh_id
+        LEFT JOIN sys_unit_owner suo ON suo.unit_id = ps.deliv_wareh_id AND suo.owner_id = ps.vender_id
+
+        LEFT JOIN sys_unit su1 ON su1.unit_id = pu.dept_id
+        LEFT JOIN sys_unit_owner suo1 ON suo1.unit_id = pu.dept_id AND suo1.owner_id = ps.vendee_id
+
+        LEFT JOIN sys_unit su2 ON su2.unit_id = ps.st_unit_id
+        LEFT JOIN sys_unit_owner suo2 ON suo2.unit_id = ps.st_unit_id AND suo2.owner_id = ps.vender_id
+
+        LEFT JOIN sys_unit su3 ON su3.unit_id = ps.st_wareh_id
+        LEFT JOIN sys_unit_owner suo3 ON suo3.unit_id = ps.st_wareh_id AND suo3.owner_id = ps.st_unit_id
+
+        LEFT JOIN sys_unit su4 ON su4.unit_id = ps.vender_id
+        LEFT JOIN sys_unit_owner suo4 ON suo4.unit_id = ps.vender_id AND suo4.owner_id = ps.vendee_id
+
+        LEFT JOIN sys_unit su5 ON su5.unit_id = ps.rcv_wareh_id
+        LEFT JOIN sys_unit_owner suo5 ON suo5.unit_id = ps.rcv_wareh_id AND suo5.owner_id = ps.vendee_id
+
+        LEFT JOIN sys_unit su6 ON su6.unit_id = ps.end_unit_id
+        LEFT JOIN sys_unit_owner suo6 ON suo6.unit_id = ps.end_unit_id AND suo6.owner_id = ps.vendee_id
+
+        LEFT JOIN sys_unit su7 ON su7.unit_id = ps.end_wareh_id
+        LEFT JOIN sys_unit_owner suo7 ON suo7.unit_id = ps.end_wareh_id AND suo7.owner_id = ps.end_unit_id
+
+        LEFT JOIN prod_cls pc ON pc.prod_cat_id = ps.prod_cat_id
+
+        LEFT JOIN sys_prsnl sp ON sp.prsnl_id = ps.opr_id
+
+        LEFT JOIN sys_prsnl sp1 ON sp1.prsnl_id = pu.chkr_id
+        LEFT JOIN sys_prsnl_owner spo ON spo.prsnl_id = pu.chkr_id AND spo.owner_id = ps.vendee_id
+        where 1=1
+        <if test="puaNum != null and puaNum != '' and puaNum != 'null' ">
+            and pu.pua_num like CONCAT( #{puaNum}, '%')
+        </if>
+        <if test="psxNum != null and psxNum != '' and psxNum != 'null' ">
+            and ps.psx_num = #{psxNum}
+        </if>
+        <if test="venderNum != null and venderNum != '' and venderNum != 'null' ">
+            and suo4.unit_num like CONCAT( #{venderNum}, '%')
+        </if>
+        <if test="rcvWarehNum != null and rcvWarehNum != '' and rcvWarehNum != 'null' ">
+            and suo5.unit_num like CONCAT( #{rcvWarehNum}, '%')
+        </if>
+        <if test="progress != null and progress != ''">
+            and ps.progress =#{progress}
+        </if>
+        <if test="effective != null and effective != '' and effective != 'null'">
+            and ps.EFFECTIVE = #{effective}
+        </if>
+        <if test="startTime != null and startTime != ''">
+            and ps.doc_date &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and ps.doc_date &lt;= #{endTime}
+        </if>
+    </select>
+
+    <select id="selectUserList" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsxVo"
+            resultMap="BaseResultMapByPua">
+        SELECT
+        pu.unit_id AS unitId,
+        pu.pua_num AS puaNum,
+        pu.psx_num AS psxNum,
+        ps.doc_date AS docDate,
+        pu.pua_type AS puaType,
+        ps.psx_type AS psxType,
+        ps.deliv_wareh_id AS delivWarehId,
+        suo.unit_num AS delivWarehNum,
+        su.unit_name AS delivWarehName,
+        pu.dept_id AS deptId,
+        suo1.unit_num AS deptNum,
+        su1.unit_name AS deptName,
+        ps.st_unit_id AS stUnitId,
+        suo2.unit_num AS stUnitNum,
+        su2.unit_name AS stUnitName,
+        ps.st_wareh_id AS stWarehId,
+        suo3.unit_num AS stWarehNum,
+        su3.unit_name AS stWarehName,
+        ps.vender_id AS venderId,
+        suo4.unit_num AS venderNum,
+        su4.unit_name AS venderName,
+        ps.rcv_wareh_id AS rcvWarehId,
+        suo5.unit_num AS rcvWarehNum,
+        su5.unit_name AS rcvWarehName,
+        ps.end_unit_id AS endUnitId,
+        suo6.unit_num AS endUnitNum,
+        su6.unit_name AS endUnitName,
+        ps.end_wareh_id AS endWarehId,
+        suo7.unit_num AS endWarehNum,
+        su7.unit_name AS endWarehName,
+        ps.vdr_invd AS vdrInvd,
+        ps.sla_auto_gen AS slaAutoGen,
+        ps.sla_gen AS slaGen,
+        ps.sla_auto_chk AS slaAutoChk,
+        ps.pua_auto_gen AS puaAutoGen,
+        ps.pua_gen AS puaGen,
+        ps.pua_auto_chk AS puaAutoChk,
+        ps.rqd_ctrl AS rqdCtrl,
+        ps.rqd_ctrl AS rqdCtrlOld,
+        ps.prod_cat_id AS prodCatId,
+        pc.prod_name AS prodCatName,
+        ps.ord_type AS ordType,
+        ps.reqd_date AS reqdDate,
+        ps.bxi_enabled AS bxiEnabled,
+        ps.ttl_qty AS ttlQty,
+        ps.ttl_box AS ttlBox,
+        ps.ttl_val AS ttlVal,
+        ps.ttl_mkv AS ttlMkv,
+        sp.prsnl_code AS oprCode,
+        sp.full_name AS oprName,
+        DATE_FORMAT(ps.op_time,'%Y-%m-%d %H:%i:%S') AS opTime,
+        spo.prsnl_num AS chkrNum,
+        sp1.full_name AS chkrName,
+        DATE_FORMAT(pu.chk_time,'%Y-%m-%d %H:%i:%S') AS chkTime,
+        ps.effective AS effective,
+        ps.progress AS progress,
+        pu.suspended AS suspended,
+        ps.cancelled AS cancelled,
+        ps.remarks AS remarks,
+        ps.vendee_id AS vendeeId
+        FROM
+        ( SELECT a.* FROM pua a WHERE 1 = 1 AND
+        a.unit_id = #{sUnitId}
+        ) pu
+        LEFT JOIN psx ps ON ps.psx_num = pu.psx_num
+
+        LEFT JOIN sys_unit su ON su.unit_id = ps.deliv_wareh_id
+        LEFT JOIN sys_unit_owner suo ON suo.unit_id = ps.deliv_wareh_id AND suo.owner_id = ps.vender_id
+
+        LEFT JOIN sys_unit su1 ON su1.unit_id = pu.dept_id
+        LEFT JOIN sys_unit_owner suo1 ON suo1.unit_id = pu.dept_id AND suo1.owner_id = ps.vendee_id
+
+        LEFT JOIN sys_unit su2 ON su2.unit_id = ps.st_unit_id
+        LEFT JOIN sys_unit_owner suo2 ON suo2.unit_id = ps.st_unit_id AND suo2.owner_id = ps.vender_id
+
+        LEFT JOIN sys_unit su3 ON su3.unit_id = ps.st_wareh_id
+        LEFT JOIN sys_unit_owner suo3 ON suo3.unit_id = ps.st_wareh_id AND suo3.owner_id = ps.st_unit_id
+
+        LEFT JOIN sys_unit su4 ON su4.unit_id = ps.vender_id
+        LEFT JOIN sys_unit_owner suo4 ON suo4.unit_id = ps.vender_id AND suo4.owner_id = ps.vendee_id
+
+        LEFT JOIN sys_unit su5 ON su5.unit_id = ps.rcv_wareh_id
+        LEFT JOIN sys_unit_owner suo5 ON suo5.unit_id = ps.rcv_wareh_id AND suo5.owner_id = ps.vendee_id
+
+        LEFT JOIN sys_unit su6 ON su6.unit_id = ps.end_unit_id
+        LEFT JOIN sys_unit_owner suo6 ON suo6.unit_id = ps.end_unit_id AND suo6.owner_id = ps.vendee_id
+
+        LEFT JOIN sys_unit su7 ON su7.unit_id = ps.end_wareh_id
+        LEFT JOIN sys_unit_owner suo7 ON suo7.unit_id = ps.end_wareh_id AND suo7.owner_id = ps.end_unit_id
+
+        LEFT JOIN prod_cls pc ON pc.prod_cat_id = ps.prod_cat_id
+
+        LEFT JOIN sys_prsnl sp ON sp.prsnl_id = ps.opr_id
+
+        LEFT JOIN sys_prsnl sp1 ON sp1.prsnl_id = pu.chkr_id
+        LEFT JOIN sys_prsnl_owner spo ON spo.prsnl_id = pu.chkr_id AND spo.owner_id = ps.vendee_id
+        where 1=1
+        <if test="puaNum != null and puaNum != '' and puaNum != 'null' ">
+            and pu.pua_num like CONCAT( #{puaNum}, '%')
+        </if>
+        <if test="venderNum != null and venderNum != '' and venderNum != 'null' ">
+            and suo4.unit_num like CONCAT( #{venderNum}, '%')
+        </if>
+        <if test="rcvWarehNum != null and rcvWarehNum != '' and rcvWarehNum != 'null' ">
+            and suo5.unit_num like CONCAT( #{rcvWarehNum}, '%')
+        </if>
+        <if test="progress != null and progress != ''">
+            and ps.progress =#{progress}
+        </if>
+        <if test="effective != null and effective != '' and effective != 'null'">
+            and ps.effective = #{effective}
+        </if>
+        <if test="startTime != null and startTime != ''">
+            and ps.doc_date &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and ps.doc_date &lt;= #{endTime}
+        </if>
+    </select>
+
+    <delete id="deletePuaVo" parameterType="java.lang.String">
+        delete from pua
+        where unit_id = #{vendeeId}
+          and pua_num = #{puaNum}
+    </delete>
+
+    <delete id="deleteByPsxNum" parameterType="java.lang.String">
+        delete from pua
+        where psx_num = #{psxNum,jdbcType=VARCHAR}
+    </delete>
+
+    <update id="updateByChkr" parameterType="java.lang.String">
+        update pua
+        <set>
+            <choose>
+                <when test="chkrId!=null">
+                    chkr_id = #{chkrId},
+                    chk_time = now()
+                </when>
+                <when test="chkrId==null">
+                    chkr_id = null,
+                    chk_time = null
+                </when>
+            </choose>
+        </set>
+        where psx_num = #{psxNum}
+    </update>
+
+    <insert id="insertBySla" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsxVo">
+        insert into pua
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vendeeId != null and vendeeId != '' ">
+                unit_id,
+            </if>
+            <if test="puaNum != null and puaNum != '' ">
+                pua_num,
+            </if>
+            <if test="psxNum != null and psxNum != '' ">
+                psx_num,
+            </if>
+            <if test="puaType != null and puaType != '' ">
+                pua_type,
+            </if>
+            <if test="suspended != null and suspended != '' ">
+                suspended,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vendeeId != null and vendeeId != '' ">
+                #{vendeeId,jdbcType=BIGINT},
+            </if>
+            <if test="puaNum != null and puaNum != '' ">
+                #{puaNum,jdbcType=VARCHAR},
+            </if>
+            <if test="psxNum != null and psxNum != '' ">
+                #{psxNum,jdbcType=VARCHAR},
+            </if>
+            <if test="puaType != null and puaType != '' ">
+                #{puaType,jdbcType=VARCHAR},
+            </if>
+            <if test="suspended != null and suspended != '' ">
+                #{suspended,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectByOnly" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsxVo"
+            resultMap="BaseResultMapByPua">
+        SELECT
+        pu.unit_id AS unitId,
+        pu.pua_num AS puaNum,
+        pu.psx_num AS psxNum,
+        ps.doc_date AS docDate,
+        pu.pua_type AS puaType,
+        ps.psx_type AS psxType,
+        ps.deliv_wareh_id AS delivWarehId,
+        suo.unit_num AS delivWarehNum,
+        su.unit_name AS delivWarehName,
+        pu.dept_id AS deptId,
+        suo1.unit_num AS deptNum,
+        su1.unit_name AS deptName,
+        ps.st_unit_id AS stUnitId,
+        suo2.unit_num AS stUnitNum,
+        su2.unit_name AS stUnitName,
+        ps.st_wareh_id AS stWarehId,
+        suo3.unit_num AS stWarehNum,
+        su3.unit_name AS stWarehName,
+        ps.vender_id AS venderId,
+        suo4.unit_num AS venderNum,
+        su4.unit_name AS venderName,
+        ps.rcv_wareh_id AS rcvWarehId,
+        suo5.unit_num AS rcvWarehNum,
+        su5.unit_name AS rcvWarehName,
+        ps.end_unit_id AS endUnitId,
+        suo6.unit_num AS endUnitNum,
+        su6.unit_name AS endUnitName,
+        ps.end_wareh_id AS endWarehId,
+        suo7.unit_num AS endWarehNum,
+        su7.unit_name AS endWarehName,
+        ps.vdr_invd AS vdrInvd,
+        ps.vde_invd AS vdeInvd,
+        ps.sla_auto_gen AS slaAutoGen,
+        ps.sla_gen AS slaGen,
+        ps.sla_auto_chk AS slaAutoChk,
+        ps.pua_auto_gen AS puaAutoGen,
+        ps.pua_gen AS puaGen,
+        ps.pua_auto_chk AS puaAutoChk,
+        ps.rqd_ctrl AS rqdCtrl,
+        ps.rqd_ctrl AS rqdCtrlOld,
+        ps.prod_cat_id AS prodCatId,
+        pc.prod_name AS prodCatName,
+        ps.ord_type AS ordType,
+        ps.reqd_date AS reqdDate,
+        ps.bxi_enabled AS bxiEnabled,
+        ps.ttl_qty AS ttlQty,
+        ps.ttl_box AS ttlBox,
+        ps.ttl_val AS ttlVal,
+        ps.ttl_mkv AS ttlMkv,
+        sp.prsnl_code AS oprCode,
+        sp.full_name AS oprName,
+        ps.op_time AS opTime,
+        spo.prsnl_num AS chkrNum,
+        sp1.full_name AS chkrName,
+        pu.chk_time AS chkTime,
+        ps.effective AS effective,
+        ps.progress AS progress,
+        pu.suspended AS suspended,
+        ps.cancelled AS cancelled,
+        ps.remarks AS remarks,
+        ps.vendee_id AS vendeeId
+        FROM
+        pua pu
+        LEFT JOIN psx ps ON ps.psx_num = pu.psx_num
+
+        LEFT JOIN sys_unit su ON su.unit_id = ps.deliv_wareh_id
+        LEFT JOIN sys_unit_owner suo ON suo.unit_id = ps.deliv_wareh_id AND suo.owner_id = ps.vender_id
+
+        LEFT JOIN sys_unit su1 ON su1.unit_id = pu.dept_id
+        LEFT JOIN sys_unit_owner suo1 ON suo1.unit_id = pu.dept_id AND suo1.owner_id = ps.vendee_id
+
+        LEFT JOIN sys_unit su2 ON su2.unit_id = ps.st_unit_id
+        LEFT JOIN sys_unit_owner suo2 ON suo2.unit_id = ps.st_unit_id AND suo2.owner_id = ps.vender_id
+
+        LEFT JOIN sys_unit su3 ON su3.unit_id = ps.st_wareh_id
+        LEFT JOIN sys_unit_owner suo3 ON suo3.unit_id = ps.st_wareh_id AND suo3.owner_id = ps.st_unit_id
+
+        LEFT JOIN sys_unit su4 ON su4.unit_id = ps.vender_id
+        LEFT JOIN sys_unit_owner suo4 ON suo4.unit_id = ps.vender_id AND suo4.owner_id = ps.vendee_id
+
+        LEFT JOIN sys_unit su5 ON su5.unit_id = ps.rcv_wareh_id
+        LEFT JOIN sys_unit_owner suo5 ON suo5.unit_id = ps.rcv_wareh_id AND suo5.owner_id = ps.vendee_id
+
+        LEFT JOIN sys_unit su6 ON su6.unit_id = ps.end_unit_id
+        LEFT JOIN sys_unit_owner suo6 ON suo6.unit_id = ps.end_unit_id AND suo6.owner_id = ps.vendee_id
+
+        LEFT JOIN sys_unit su7 ON su7.unit_id = ps.end_wareh_id
+        LEFT JOIN sys_unit_owner suo7 ON suo7.unit_id = ps.end_wareh_id AND suo7.owner_id = ps.end_unit_id
+
+        LEFT JOIN prod_cls pc ON pc.prod_cat_id = ps.prod_cat_id
+
+        LEFT JOIN sys_prsnl sp ON sp.prsnl_id = ps.opr_id
+
+        LEFT JOIN sys_prsnl sp1 ON sp1.prsnl_id = pu.chkr_id
+        LEFT JOIN sys_prsnl_owner spo ON spo.prsnl_id = pu.chkr_id AND spo.owner_id = ps.vendee_id
+        where 1=1
+        and ps.psx_num = #{psxNum}
+    </select>
+
+    <select id="selectObject" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PscVo"
+            resultMap="BaseResultMapObject">
+        select
+        ps.deliv_wareh_id as delivWarehId,
+        suo.unit_num as delivWarehNum,
+        su.unit_name as delivWarehName,
+        ps.vender_id as venderId,
+        suo4.unit_num as venderNum,
+        su4.unit_name as venderName,
+        ps.rcv_wareh_id as rcvWarehId,
+        suo5.unit_num as rcvWarehNum,
+        su5.unit_name as rcvWarehName,
+        pcls.prod_cat_id as prodCatId,
+        pcls.prod_name as prodName,
+        pcls.input_code as inputCode,
+        scd1.description as uom,
+        c.color_name as color,
+        s.spec_name as spec,
+        scd.description as edition,
+        p.prod_code as prodCode,
+        pcls.seq_num as seqNum,
+        pdtl.*
+        from
+        pua pu
+        left join psx ps on ps.psx_num = pu.psx_num
+        left join sys_unit su on su.unit_id = ps.deliv_wareh_id
+        left join sys_unit_owner suo on suo.unit_id = ps.deliv_wareh_id and suo.owner_id = ps.vender_id
+
+        left join sys_unit su4 on su4.unit_id = ps.vender_id
+        left join sys_unit_owner suo4 on suo4.unit_id = ps.vender_id and suo4.owner_id = ps.vendee_id
+
+        left join sys_unit su5 on su5.unit_id = ps.rcv_wareh_id
+        left join sys_unit_owner suo5 on suo5.unit_id = ps.rcv_wareh_id and suo5.owner_id = ps.vendee_id
+
+        left join psx_dtl pdtl on pdtl.psx_num = ps.psx_num
+        left join product p on p.prod_id = pdtl.prod_id
+        left join prod_cls pcls on pcls.prod_cls_id = p.prod_cls_id
+        left join sys_code_dtl scd on scd.code = p.edition and scd.code_type='edition'
+        left join sys_code_dtl scd1 on scd1.code = pcls.uom and scd1.code_type='uom'
+        left join color c on c.color_id	= p.color_id
+        left join spec s on s.spec_id = p.spec_id
+        where 1=1
+        and pu.pua_num = #{srcDocNum} and pu.unit_id = #{srcDocUnitId}
+    </select>
+</mapper>

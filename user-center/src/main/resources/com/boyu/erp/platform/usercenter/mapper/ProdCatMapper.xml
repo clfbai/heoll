@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.goods.ProdCatMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.goods.ProdCat">
+        <id column="prod_cat_id" jdbcType="VARCHAR" property="prodCatId"/>
+        <result column="prod_cat_name" jdbcType="VARCHAR" property="prodCatName"/>
+        <result column="prod_cat_lvl" jdbcType="DECIMAL" property="prodCatLvl"/>
+        <result column="parn_cat_id" jdbcType="VARCHAR" property="parnCatId"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      prod_cat_id, prod_cat_name, prod_cat_lvl, parn_cat_id, description
+    </sql>
+
+    <!--通过上级id找下级元素 -->
+    <select id="selectByParentId" resultMap="BaseResultMap"
+            parameterType="com.boyu.erp.platform.usercenter.entity.goods.ProdCat">
+        SELECT a.*, (CASE WHEN (select count(*) from prod_cat where parn_cat_id=a.prod_cat_id) >0 THEN "false" ELSE
+        "true" END ) last from (SELECT
+        prod_cat_id,
+        prod_cat_name,
+        prod_cat_lvl,
+        parn_cat_id,
+        description
+        FROM prod_cat WHERE
+        <if test="prodCatId!=null and prodCatId!=''">
+            parn_cat_id=#{prodCatId}
+        </if>
+        <if test="prodCatId==null or prodCatId==''">
+            parn_cat_id is null
+        </if>
+        order by prod_cat_id asc ) a
+    </select>
+
+    <!-- 根据商品分类Id获取分类对象-->
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.goods.ProdCat"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from prod_cat
+        where prod_cat_id = #{prodCatId}
+    </select>
+
+    <!-- 增加商品分类 -->
+    <insert id="insertProdCat" parameterType="com.boyu.erp.platform.usercenter.entity.goods.ProdCat">
+        insert into prod_cat
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="prodCatId != null and prodCatId!=''">
+                prod_cat_id,
+            </if>
+            <if test="prodCatName != null and prodCatName!=''">
+                prod_cat_name,
+            </if>
+            <if test="prodCatLvl != null and prodCatLvl!=''">
+                prod_cat_lvl,
+            </if>
+            <if test="parnCatId != null and parnCatId!=''">
+                parn_cat_id,
+            </if>
+            <if test="description != null and description!=''">
+                description,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="prodCatId != null and prodCatId!=''">
+                #{prodCatId,jdbcType=VARCHAR},
+            </if>
+            <if test="prodCatName != null and prodCatName!=''">
+                #{prodCatName,jdbcType=VARCHAR},
+            </if>
+            <if test="prodCatLvl != null and prodCatLvl!=''">
+                #{prodCatLvl,jdbcType=DECIMAL},
+            </if>
+            <if test="parnCatId != null and parnCatId!=''">
+                #{parnCatId,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null and description!=''">
+                #{description,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 更新产品的分类-->
+    <update id="updateProdCat" parameterType="com.boyu.erp.platform.usercenter.entity.goods.ProdCat">
+        update prod_cat
+        <set>
+            <if test="prodCatId != null and prodCatId!=''">
+                prod_cat_id=#{newProdCatId,jdbcType=VARCHAR},
+            </if>
+            <if test="prodCatName != null and prodCatName!=''">
+                prod_cat_name = #{prodCatName,jdbcType=VARCHAR},
+            </if>
+            <if test="prodCatLvl != null and prodCatLvl!=''">
+                prod_cat_lvl = #{prodCatLvl,jdbcType=DECIMAL},
+            </if>
+            <if test="parnCatId != null and parnCatId!=''">
+                parn_cat_id = #{parnCatId,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null and description!=''">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where prod_cat_id = #{prodCatId,jdbcType=VARCHAR}
+    </update>
+
+    <!-- 删除某个分类-->
+    <delete id="deleteProdCat" parameterType="com.boyu.erp.platform.usercenter.entity.goods.ProdCat">
+        delete from prod_cat where prod_cat_id = #{prodCatId,jdbcType=VARCHAR}
+    </delete>
+
+    <select id="getOption" resultMap="BaseResultMap"
+            parameterType="com.boyu.erp.platform.usercenter.entity.goods.ProdCat">
+
+        SELECT * FROM `prod_cat` a WHERE 1=1
+        /*分类级别*/
+        <if test="prodCatLvl!=null and prodCatLvl!=''">
+            AND a.`prod_cat_lvl`=#{prodCatLvl}
+        </if>
+        /*上级分类Id*/
+        <if test="parnCatId!=null and parnCatId!=''">
+            AND a.`parn_cat_id`=#{parnCatId}
+        </if>
+
+    </select>
+    <select id="findByProdCat" resultMap="BaseResultMap"
+            parameterType="com.boyu.erp.platform.usercenter.entity.goods.ProdCat">
+         SELECT * FROM `prod_cat` a WHERE a.`parn_cat_id`=#{prodCatId}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from prod_cat
+    </select>
+</mapper>

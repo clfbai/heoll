@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PsaRtrMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.PsaRtr">
+    <id column="vender_id" jdbcType="BIGINT" property="venderId" />
+    <id column="vendee_id" jdbcType="BIGINT" property="vendeeId" />
+    <id column="psa_ctlr" jdbcType="CHAR" property="psaCtlr" />
+    <id column="psc_type" jdbcType="VARCHAR" property="pscType" />
+    <id column="prod_cat_id" jdbcType="VARCHAR" property="prodCatId" />
+    <result column="rtna_rate" jdbcType="DECIMAL" property="rtnaRate" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapPsa" type="com.boyu.erp.platform.usercenter.vo.purchase.PsaRateVo">
+    <id column="vender_id" jdbcType="BIGINT" property="venderId" />
+    <id column="vendee_id" jdbcType="BIGINT" property="vendeeId" />
+    <id column="psa_ctlr" jdbcType="CHAR" property="psaCtlr" />
+    <id column="pscType" property="pscType" />
+    <id column="prod_cat_id" jdbcType="VARCHAR" property="prodCatId" />
+    <result column="discRate" property="discRate" />
+    <result column="prodCatName"  property="prodCatName" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    vender_id, vendee_id, psa_ctlr, psc_type, prod_cat_id, rtna_rate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsaRtr" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from psa_rtr
+    where vender_id = #{venderId,jdbcType=BIGINT}
+    and vendee_id = #{vendeeId,jdbcType=BIGINT}
+    and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+    and psc_type = #{pscType,jdbcType=VARCHAR}
+    and prod_cat_id = #{prodCatId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByPsa" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaRateVo" resultMap="BaseResultMapPsa">
+    SELECT
+    pr.vender_id,
+    pr.vendee_id,
+    pr.psa_ctlr,
+	pr.PROD_CAT_ID,
+	pr.psc_type AS pscType,
+	pr.RTNA_RATE AS discRate ,
+	pc.PROD_CAT_NAME AS prodCatName
+    FROM
+	PSA_RTR pr
+	LEFT JOIN PROD_CAT pc ON pc.PROD_CAT_ID = pr.PROD_CAT_ID
+    where pr.vender_id = #{venderId,jdbcType=BIGINT}
+    and pr.vendee_id = #{vendeeId,jdbcType=BIGINT}
+    and pr.psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+  </select>
+
+  <!-- 查询是否有记录 -->
+  <select id="selectByPsaRtr" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaRateVo" resultMap="BaseResultMapPsa">
+    SELECT
+    pr.vender_id,
+    pr.vendee_id,
+    pr.psa_ctlr,
+	pr.PROD_CAT_ID,
+	pt.DESCRIPTION AS pscType,
+	pr.RTNA_RATE AS discRate ,
+	pc.PROD_CAT_NAME AS prodCatName
+    FROM
+	PSA_RTR pr
+	LEFT JOIN PSC_TYPE pt ON pt.PSC_TYPE = pr.PSC_TYPE
+	LEFT JOIN PROD_CAT pc ON pc.PROD_CAT_ID = pr.PROD_CAT_ID
+    where pr.vender_id = #{venderId,jdbcType=BIGINT}
+    and pr.vendee_id = #{vendeeId,jdbcType=BIGINT}
+    and pr.psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+    and pr.psc_type = #{pscType,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsaRtr">
+    insert into psa_rtr (vender_id, vendee_id, psa_ctlr,
+      psc_type, prod_cat_id, rtna_rate
+      )
+    values (#{venderId,jdbcType=BIGINT}, #{vendeeId,jdbcType=BIGINT}, #{psaCtlr,jdbcType=CHAR}, 
+      #{pscType,jdbcType=VARCHAR}, #{prodCatId,jdbcType=VARCHAR}, #{rtnaRate,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsaRtr">
+    insert into psa_rtr
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="venderId != null">
+        vender_id,
+      </if>
+      <if test="vendeeId != null">
+        vendee_id,
+      </if>
+      <if test="psaCtlr != null">
+        psa_ctlr,
+      </if>
+      <if test="pscType != null">
+        psc_type,
+      </if>
+      <if test="prodCatId != null">
+        prod_cat_id,
+      </if>
+      <if test="rtnaRate != null">
+        rtna_rate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="venderId != null">
+        #{venderId,jdbcType=BIGINT},
+      </if>
+      <if test="vendeeId != null">
+        #{vendeeId,jdbcType=BIGINT},
+      </if>
+      <if test="psaCtlr != null">
+        #{psaCtlr,jdbcType=CHAR},
+      </if>
+      <if test="pscType != null">
+        #{pscType,jdbcType=VARCHAR},
+      </if>
+      <if test="prodCatId != null">
+        #{prodCatId,jdbcType=VARCHAR},
+      </if>
+      <if test="rtnaRate != null">
+        #{rtnaRate,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsaRtr">
+    update psa_rtr
+    <set>
+      <if test="rtnaRate != null">
+        rtna_rate = #{rtnaRate,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where vender_id = #{venderId,jdbcType=BIGINT}
+    and vendee_id = #{vendeeId,jdbcType=BIGINT}
+    and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+    and psc_type = #{pscType,jdbcType=VARCHAR}
+    and prod_cat_id = #{prodCatId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsaRtr">
+    update psa_rtr
+    set rtna_rate = #{rtnaRate,jdbcType=DECIMAL}
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+      and psc_type = #{pscType,jdbcType=VARCHAR}
+      and prod_cat_id = #{prodCatId,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="insertByPsa" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaRateVo">
+    insert into psa_rtr
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="venderId != null">
+        vender_id,
+      </if>
+      <if test="vendeeId != null">
+        vendee_id,
+      </if>
+      <if test="psaCtlr != null">
+        psa_ctlr,
+      </if>
+      <if test="pscType != null">
+        psc_type,
+      </if>
+      <if test="prodCatId != null">
+        prod_cat_id,
+      </if>
+      <if test="discRate != null">
+        rtna_rate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="venderId != null">
+        #{venderId,jdbcType=BIGINT},
+      </if>
+      <if test="vendeeId != null">
+        #{vendeeId,jdbcType=BIGINT},
+      </if>
+      <if test="psaCtlr != null">
+        #{psaCtlr,jdbcType=CHAR},
+      </if>
+      <if test="pscType != null">
+        #{pscType,jdbcType=VARCHAR},
+      </if>
+      <if test="prodCatId != null">
+        #{prodCatId,jdbcType=VARCHAR},
+      </if>
+      <if test="discRate != null">
+        #{discRate,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+
+  <!--修改可退率-->
+  <update id="updateByPsa" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaRateVo">
+    update psa_rtr
+    set rtna_rate = #{discRate,jdbcType=DECIMAL}
+    <if test="upPscType != null">
+     , psc_type = #{upPscType,jdbcType=VARCHAR}
+    </if>
+     , prod_cat_id = #{prodCatId,jdbcType=VARCHAR}
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+      and psc_type = #{pscType,jdbcType=VARCHAR}
+  </update>
+  <!--删除单条可退率 -->
+  <delete id="deleteByPsaRtr" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaRateVo">
+    delete from psa_rtr
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+      and psc_type = #{pscType,jdbcType=VARCHAR}
+  </delete>
+
+  <!--购销协议中的删除 -->
+  <delete id="deleteByPsa" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaVo">
+    delete from psa_rtr
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+  </delete>
+</mapper>

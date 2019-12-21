@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysUserMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysUser">
+        <id column="user_id" property="userId"/>
+        <id column="owner_id" property="ownerId"/>
+        <result column="user_pswd" property="userPswd"/>
+        <result column="up_expd_date" jdbcType="DATE" property="upExpdDate"/>
+        <result column="up_flt_tms" property="upFltTms"/>
+        <result column="up_act_time" jdbcType="TIMESTAMP" property="upActTime"/>
+        <result column="ip_addr" property="ipAddr"/>
+        <result column="mach_ctrl" jdbcType="CHAR" property="machCtrl"/>
+        <result column="menu_id" property="menuId"/>
+        <result column="priv_date_fml" property="privDateFml"/>
+        <result column="id_str" property="idStr"/>
+        <result column="user_type" property="userType"/>
+        <result column="user_status" jdbcType="CHAR" property="userStatus"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="upd_time" jdbcType="TIMESTAMP" property="updTime"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    a.user_id, a.owner_id, a.user_pswd, a.up_expd_date, a.up_flt_tms, a.up_act_time, a.ip_addr, a.mach_ctrl,
+    a.menu_id, a.priv_date_fml, a.id_str, a.user_type, a.user_status, a.opr_id, a.upd_time
+  </sql>
+
+    <!-- 登录-->
+    <select id="systemLogin" parameterType="com.boyu.erp.platform.usercenter.vo.LoginModel"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_user a
+        INNER JOIN
+        sys_prsnl b
+        ON(a.user_id=b.prsnl_id)
+        INNER JOIN
+        sys_domain c
+        on(c.unit_id=a.owner_id)
+        WHERE a.user_pswd=#{userPwd}
+        AND a.user_status='A'
+        AND b.prsnl_code=#{prsnlCode}
+        AND c.unit_id=#{domainId}
+    </select>
+
+
+    <!-- 普通用户切换领域登录-->
+    <select id="getOrdinaryLogin" parameterType="com.boyu.erp.platform.usercenter.model.system.OrdinaryDomainModel"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_user a
+        left join
+        sys_domain c
+        on(c.unit_id=a.owner_id)
+        WHERE a.user_status='A'
+        AND a.user_id=#{userId}
+        AND c.unit_id=#{ownerId}
+    </select>
+
+    <!--主键查询-->
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUserKey"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user a
+        where user_id = #{userId}
+        and owner_id = #{ownerId}
+    </select>
+
+    <!--添加-->
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUser">
+        insert into sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="ownerId != null">
+                owner_id,
+            </if>
+            <if test="userPswd != null">
+                user_pswd,
+            </if>
+            <if test="upExpdDate != null">
+                up_expd_date,
+            </if>
+            <if test="upFltTms != null">
+                up_flt_tms,
+            </if>
+            <if test="upActTime != null">
+                up_act_time,
+            </if>
+            <if test="ipAddr != null">
+                ip_addr,
+            </if>
+            <if test="machCtrl != null">
+                mach_ctrl,
+            </if>
+            <if test="menuId != null">
+                menu_id,
+            </if>
+            <if test="privDateFml != null">
+                priv_date_fml,
+            </if>
+            <if test="idStr != null">
+                id_str,
+            </if>
+            <if test="userType != null">
+                user_type,
+            </if>
+            <if test="userStatus != null">
+                user_status,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+            <if test="updTime != null">
+                upd_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="ownerId != null">
+                #{ownerId},
+            </if>
+            <if test="userPswd != null">
+                #{userPswd},
+            </if>
+            <if test="upExpdDate != null">
+                #{upExpdDate,jdbcType=DATE},
+            </if>
+            <if test="upFltTms != null">
+                #{upFltTms},
+            </if>
+            <if test="upActTime != null">
+                #{upActTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ipAddr != null">
+                #{ipAddr},
+            </if>
+            <if test="machCtrl != null">
+                #{machCtrl,jdbcType=CHAR},
+            </if>
+            <if test="menuId != null">
+                #{menuId},
+            </if>
+            <if test="privDateFml != null">
+                #{privDateFml},
+            </if>
+            <if test="idStr != null">
+                #{idStr},
+            </if>
+            <if test="userType != null">
+                #{userType},
+            </if>
+            <if test="userStatus != null">
+                #{userStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                #{oprId},
+            </if>
+            <if test="updTime != null">
+                #{updTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <!--修改-->
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUser">
+        update sys_user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="userPswd != null ">
+                user_pswd = #{userPswd},
+            </if>
+            <if test="upExpdDate != null ">
+                up_expd_date = #{upExpdDate,jdbcType=DATE},
+            </if>
+            <if test="upFltTms != null ">
+                up_flt_tms = #{upFltTms},
+            </if>
+            <if test="upActTime != null ">
+                up_act_time = #{upActTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ipAddr != null ">
+                ip_addr = #{ipAddr},
+            </if>
+            <if test="machCtrl != null">
+                mach_ctrl = #{machCtrl,jdbcType=CHAR},
+            </if>
+            <if test="menuId != null">
+                menu_id = #{menuId},
+            </if>
+            <if test="privDateFml != null">
+                priv_date_fml = #{privDateFml},
+            </if>
+            <if test="idStr != null ">
+                id_str = #{idStr},
+            </if>
+            <if test="userType != null">
+                user_type = #{userType},
+            </if>
+            <if test="userStatus != null">
+                user_status = #{userStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId},
+            </if>
+            <if test="updTime != null ">
+                upd_time = #{updTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+        where user_id = #{userId}
+        <if test="ownerId!=null ">
+            and owner_id = #{ownerId}
+        </if>
+    </update>
+    <!--删除组织下所有用户 打标状态-->
+    <update id="deleteUserStatus" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUser">
+        update sys_user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="userPswd != null ">
+                user_pswd = #{userPswd},
+            </if>
+            <if test="upExpdDate != null ">
+                up_expd_date = #{upExpdDate,jdbcType=DATE},
+            </if>
+            <if test="upFltTms != null ">
+                up_flt_tms = #{upFltTms},
+            </if>
+            <if test="upActTime != null ">
+                up_act_time = #{upActTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ipAddr != null ">
+                ip_addr = #{ipAddr},
+            </if>
+            <if test="machCtrl != null">
+                mach_ctrl = #{machCtrl,jdbcType=CHAR},
+            </if>
+            <if test="menuId != null">
+                menu_id = #{menuId},
+            </if>
+            <if test="privDateFml != null">
+                priv_date_fml = #{privDateFml},
+            </if>
+            <if test="idStr != null ">
+                id_str = #{idStr},
+            </if>
+            <if test="userType != null">
+                user_type = #{userType},
+            </if>
+            <if test="userStatus != null">
+                user_status = #{userStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId},
+            </if>
+            <if test="updTime != null ">
+                upd_time = now() ,
+            </if>
+        </trim>
+        where owner_id = #{ownerId}
+
+    </update>
+
+
+    <select id="systemByUser" parameterType="com.boyu.erp.platform.usercenter.vo.LoginModel" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_user a INNER JOIN sys_prsnl b ON(a.user_id=b.prsnl_id)
+        INNER JOIN sys_unit c on(c.unit_id=a.owner_id)
+        WHERE
+        1=1
+        <if test="userPwd!=null and userPwd!=''">
+            AND a.user_pswd=#{userPwd}
+        </if>
+        <if test="prsnlCode!=null and prsnlCode!=''">
+            AND b.prsnl_code=#{prsnlCode}
+        </if>
+        <if test="domain!=null and domain!=''">
+            AND c.unit_code=#{domain}
+        </if>
+
+    </select>
+
+    <!--  根据prsnlID或userid查用户  -->
+    <select id="selectByUserId" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUser"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user a
+        where a.`user_id` = #{userId}
+    </select>
+
+
+    <!--  根据条件查询用户  -->
+    <select id="selectAll" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUser"
+            resultType="com.boyu.erp.platform.usercenter.entity.system.SysUser">
+        SELECT
+        prsnl_code,
+        full_name,
+        up_expd_date,
+        up_flt_tms,
+        up_act_time,
+        ip_addr,
+        mach_ctrl,
+        menu_id,
+        user_type,
+        user_status,
+        surname,
+        given_name,
+        gender,
+        id_type,
+        id_num,
+        office_num,
+        mobile_num,
+        home_num,
+        a.fax_num,
+        tlgp_num,
+        a.email_addr,
+        im_id,
+        a.postcode,
+        a.province,
+        a.city,
+        a.district,
+        a.address,
+        a.ctrl_unit_id,
+        c.unit_name,
+        a.shared,
+        a.input_code,
+        a.seq_num,
+        a.prsnl_status,
+        a.remarks,
+        a.opr_id,
+        a.full_name,
+        a.upd_time
+        FROM
+        sys_prsnl a
+        INNER JOIN sys_user b
+        ON (a.`prsnl_id` = b.`user_id`)
+        INNER JOIN sys_unit c
+        ON (c.`unit_id` = a.ctrl_unit_id)
+        where 1=1
+        <if test="userId != null">
+            and b.user_id = #{userId}
+        </if>
+        <if test="ownerId != null">
+            and a.owner_id = #{ownerId}
+        </if>
+        <if test="userPswd != null">
+            and b.user_pswd = #{userPswd}
+        </if>
+        <if test="upExpdDate != null">
+            and a.up_expd_date = #{upExpdDate}
+        </if>
+        <if test="upFltTms != null">
+            and a.up_flt_tms = #{upFltTms}
+        </if>
+        <if test="upActTime != null">
+            and a.up_act_time = #{upActTime}
+        </if>
+        <if test="ipAddr != null">
+            and a.ip_addr = #{ipAddr}
+        </if>
+        <if test="machCtrl != null">
+            and a.mach_ctrl = #{machCtrl}
+        </if>
+        <if test="menuId != null">
+            and a.menu_id = #{menuId}
+        </if>
+        <if test="privDateFml != null">
+            and a.priv_date_fml = #{privDateFml}
+        </if>
+        <if test="idStr != null">
+            and a.id_str = #{idStr}
+        </if>
+        <if test="userType != null">
+            and a.user_type = #{userType}
+        </if>
+        <if test="userStatus != null">
+            and a.user_status = #{userStatus}
+        </if>
+        <if test="oprId != null and oprId != 0 ">
+            and a.opr_id = #{oprId}
+        </if>
+        <if test="updTime != null">
+            and a.upd_time = #{updTime}
+        </if>
+    </select>
+
+    <!--查询用户是否是组织管理员-->
+    <select id="getAdmin" parameterType="SysUser" resultMap="BaseResultMap">
+        SELECT
+        u.*
+        FROM sys_user u
+        INNER JOIN sys_domain da
+        ON u.`owner_id`=da.`unit_id`
+        AND u.`user_id`=da.`sa_id`
+        WHERE
+        u.`user_id`=#{userId}
+        AND
+        u.`owner_id`=#{ownerId}
+    </select>
+
+    <!--查询用户是否是系统管理组织用户-->
+    <select id="getAdminUser" parameterType="SysUser" resultMap="BaseResultMap">
+        SELECT
+        u.*
+        FROM sys_user u
+        INNER JOIN sys_domain da
+        ON u.`owner_id`=da.`unit_id`
+        WHERE
+        u.`user_id`=#{userId}
+        AND
+        u.`owner_id`=#{ownerId}
+        AND da.`opr_id`=-1
+    </select>
+
+    <select id="getUnitUser" parameterType="Long" resultType="com.boyu.erp.platform.usercenter.model.UserModel">
+        SELECT
+        user_id AS userId,
+        owner_id AS unitId
+        FROM
+        sys_user
+        WHERE owner_id = #{unitId}
+    </select>
+    <select id="getUserIdAndOwnerId" parameterType="java.lang.Long"
+            resultMap="BaseResultMap">
+        SELECT
+         *
+        FROM
+        sys_user
+        WHERE
+        owner_id = #{ownerId}
+        and user_id=#{userId}
+    </select>
+    <!--查询组织管理员-->
+    <select id="selectUnitAdmin" resultMap="BaseResultMap">
+        SELECT
+        u.*
+        FROM
+        sys_domain d
+        INNER JOIN sys_user u
+        ON d.`unit_id` = u.`owner_id`
+        AND d.`sa_id` = u.`user_id`
+        WHERE d.`unit_id` =#{unitId}
+    </select>
+</mapper>

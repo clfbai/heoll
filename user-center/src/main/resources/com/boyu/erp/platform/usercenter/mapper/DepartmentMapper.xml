@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.dept.DepartmentMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.dept.Department">
+        <id column="dept_id" jdbcType="BIGINT" property="deptId"/>
+        <result column="owner_id" jdbcType="BIGINT" property="ownerId"/>
+        <result column="sup_dept_id" jdbcType="BIGINT" property="supDeptId"/>
+        <result column="dept_lvl" jdbcType="INTEGER" property="deptLvl"/>
+        <result column="dept_biz" jdbcType="VARCHAR" property="deptBiz"/>
+        <result column="man_id" jdbcType="BIGINT" property="manId"/>
+        <result column="dept_status" jdbcType="CHAR" property="deptStatus"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="upd_time" jdbcType="TIMESTAMP" property="updTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    dept_id, owner_id, sup_dept_id, dept_lvl, dept_biz, man_id, dept_status, opr_id, 
+    upd_time
+  </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from department
+        where dept_id = #{deptId,jdbcType=BIGINT}
+    </select>
+
+    <!--查询属主Id所有部门-->
+    <select id="getDepts" parameterType="com.boyu.erp.platform.usercenter.vo.dept.DepartmentVo"
+            resultType="com.boyu.erp.platform.usercenter.vo.dept.DepartmentVo">
+        select
+        p.`full_name` AS lmName,
+        p.`prsnl_code` AS lmCode,
+        u.unit_hierarchy AS unitHierarchy,
+        u.shared AS shared,
+        u.city AS city,
+        u.lic_type AS licType,
+        u.lm_id AS lmId,
+        u.unit_status AS unitStatus,
+        u.unit_type AS unitType,
+        u.ctrl_unit_id AS ctrlUnitId,
+        u.province AS province,
+        u.upd_time AS updTime,
+        u.unit_code AS unitCode,
+        u.tel_num AS telNum,
+        u.unit_id AS unitId,
+        u.recruitable AS recruitable,
+        u.lic_num AS licNum,
+        u.input_code AS inputCode,
+        u.website AS website,
+        u.address AS address,
+        u.unit_name AS unitName,
+        u.seq_num AS seqNum,
+        u.postcode AS postcode,
+        u.fax_num AS faxNum,
+        u.email_addr AS emailAddr,
+        u.district AS district,
+        u.opr_id AS oprId,
+        u.remarks AS remarks,
+        d.sup_dept_id AS supDeptId,
+        d.dept_lvl AS deptLvl,
+        d.dept_biz AS deptBiz,
+        d.upd_time AS updTime,
+        d.dept_id AS deptId,
+        d.man_id AS manId,
+        d.owner_id AS ownerId,
+        d.opr_id AS oprId,
+        d.dept_status AS deptStatus,
+        c.`unit_num` AS deptNum,
+        u2.`unit_code` AS ctrlUnitCode,
+        u2.`unit_name` AS  ctrlUnitName,
+        p2.`prsnl_code` AS manCode,
+        p2.`full_name` AS manName
+        FROM
+        `department` d
+        INNER JOIN sys_unit u
+        ON d.`dept_id` = u.`unit_id`
+        LEFT JOIN sys_prsnl p
+        ON u.`lm_id` = p.`prsnl_id`
+        LEFT JOIN `sys_unit_owner` c
+        ON d.`dept_id` = c.`unit_id`
+        AND d.`owner_id` = c.`owner_id`
+        INNER JOIN sys_unit u2
+        ON d.`owner_id` = u2.`unit_id`
+        LEFT JOIN sys_prsnl p2 ON d.`man_id`=p2.`prsnl_id`
+        WHERE d.`owner_id` = #{ownerId}
+        <if test="deptStatus!=null and deptStatus!=''">
+            and d.`dept_status`=#{deptStatus}
+        </if>
+        <if test="unitName!=null and unitName!=''">
+            and instr(u.`unit_name`, #{unitName}) > 0
+        </if>
+        <if test="unitCode!=null and unitCode!=''">
+            and instr(u.`unit_code`, #{unitCode}) > 0
+        </if>
+        <if test="deptNum!=null and deptNum!=''">
+            and instr(c.`unit_num`, #{deptNum}) > 0
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from department
+    where dept_id = #{deptId,jdbcType=BIGINT}
+  </delete>
+
+    <insert id="insertDept"  parameterType="com.boyu.erp.platform.usercenter.entity.dept.Department">
+        insert into department
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="deptId != null">
+                dept_id,
+            </if>
+            <if test="ownerId != null">
+                owner_id,
+            </if>
+            <if test="supDeptId != null">
+                sup_dept_id,
+            </if>
+            <if test="deptLvl != null">
+                dept_lvl,
+            </if>
+            <if test="deptBiz != null">
+                dept_biz,
+            </if>
+            <if test="manId != null">
+                man_id,
+            </if>
+            <if test="deptStatus != null">
+                dept_status,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+            <if test="updTime != null">
+                upd_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="deptId != null">
+                #{deptId,jdbcType=BIGINT},
+            </if>
+            <if test="ownerId != null">
+                #{ownerId,jdbcType=BIGINT},
+            </if>
+            <if test="supDeptId != null">
+                #{supDeptId,jdbcType=BIGINT},
+            </if>
+            <if test="deptLvl != null">
+                #{deptLvl,jdbcType=INTEGER},
+            </if>
+            <if test="deptBiz != null">
+                #{deptBiz,jdbcType=VARCHAR},
+            </if>
+            <if test="manId != null">
+                #{manId,jdbcType=BIGINT},
+            </if>
+            <if test="deptStatus != null">
+                #{deptStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="updTime != null">
+                #{updTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByDept" parameterType="com.boyu.erp.platform.usercenter.entity.dept.Department">
+        update department
+        <set>
+            <if test="ownerId != null">
+                owner_id = #{ownerId,jdbcType=BIGINT},
+            </if>
+            <if test="supDeptId != null">
+                sup_dept_id = #{supDeptId,jdbcType=BIGINT},
+            </if>
+            <if test="deptLvl != null">
+                dept_lvl = #{deptLvl,jdbcType=INTEGER},
+            </if>
+            <if test="deptBiz != null">
+                dept_biz = #{deptBiz,jdbcType=VARCHAR},
+            </if>
+            <if test="manId != null">
+                man_id = #{manId,jdbcType=BIGINT},
+            </if>
+            <if test="deptStatus != null">
+                dept_status = #{deptStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="updTime != null">
+                upd_time = #{updTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where dept_id = #{deptId,jdbcType=BIGINT}
+    </update>
+
+</mapper>

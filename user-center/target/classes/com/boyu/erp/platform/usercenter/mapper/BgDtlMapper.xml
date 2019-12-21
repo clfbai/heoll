@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.brand.BgDtlMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.brand.BgDtl">
+        <result column="bg_id" jdbcType="VARCHAR" property="bgId"/>
+        <result column="brand_id" jdbcType="BIGINT" property="brandId"/>
+        <result column="bgName" jdbcType="VARCHAR" property="bgName"/>
+        <result column="brandName" jdbcType="VARCHAR" property="brandName"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="BgDtl">
+    SELECT a.*,
+    b.bg_name as bgName,
+    c.brand_name as brandName
+     FROM bg_dtl a
+    LEFT JOIN bg b    ON(b.bg_id=a.`bg_id`)
+    LEFT JOIN brand c ON(c.brand_id=a.brand_id)
+    where 1=1
+    <if test="bgId!=null">
+        and a.bg_id=#{bgId}
+    </if>
+  </select>
+
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.brand.BgDtl">
+    insert into bg_dtl (bg_id, brand_id)
+    values (#{bgId,jdbcType=VARCHAR}, #{brandId,jdbcType=VARCHAR})
+  </insert>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.brand.BgDtl">
+        insert into bg_dtl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bgId != null">
+                bg_id,
+            </if>
+            <if test="brandId != null">
+                brand_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bgId != null">
+                #{bgId,jdbcType=VARCHAR},
+            </if>
+            <if test="brandId != null">
+                #{brandId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteBgDtl" parameterType="BgDtl">
+    delete from bg_dtl
+    where bg_id=#{bgId} and brand_id=#{brandId}
+  </delete>
+    <delete id="deleteBgList" parameterType="BgDtl">
+    delete from bg_dtl
+    where bg_id=#{bgId}
+  </delete>
+
+    <update id="updateBgDtl" parameterType="com.boyu.erp.platform.usercenter.model.BgDtlModel">
+        update `bg_dtl`
+        <set>
+            <trim suffixOverrides=",">
+                <if test="updateBrandId != null">
+                    `brand_id`=#{updateBrandId},
+                </if>
+            </trim>
+        </set>
+        where bg_id = #{bgId} and brand_id=#{brandId}
+    </update>
+</mapper>

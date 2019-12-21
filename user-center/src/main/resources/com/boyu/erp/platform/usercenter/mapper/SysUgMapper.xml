@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysUgMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysUg">
+        <id column="ug_id" jdbcType="BIGINT" property="ugId"/>
+        <result column="ug_name" jdbcType="VARCHAR" property="ugName"/>
+        <result column="owner_id" jdbcType="BIGINT" property="ownerId"/>
+        <result column="ug_num" jdbcType="VARCHAR" property="ugNum"/>
+        <result column="ug_type" jdbcType="VARCHAR" property="ugType"/>
+        <result column="unit_type" jdbcType="CHAR" property="unitType"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="upd_time" jdbcType="TIMESTAMP" property="updTime"/>
+    </resultMap>
+    <resultMap id="UgVoResultMap" type="com.boyu.erp.platform.usercenter.vo.system.UgVo">
+        <id column="ug_id" jdbcType="BIGINT" property="ugId"/>
+        <result column="ug_name" jdbcType="VARCHAR" property="ugName"/>
+        <result column="owner_id" jdbcType="BIGINT" property="ownerId"/>
+        <result column="ug_num" jdbcType="VARCHAR" property="ugNum"/>
+        <result column="ug_type" jdbcType="VARCHAR" property="ugType"/>
+        <result column="unit_type" jdbcType="CHAR" property="unitType"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="upd_timeCp" jdbcType="TIMESTAMP" property="updTimeCp"/>
+        <result column="ug_typeCp" property="ugTypeCp"></result>
+        <result column="unit_typeCp" property="unitTypeCp"></result>
+        <result column="opr_code" property="oprCode"></result>
+        <result column="opr_name" property="oprName"></result>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ug_id, ug_name, owner_id, ug_num, ug_type, unit_type, opr_id, upd_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_ug
+        where ug_id = #{ugId,jdbcType=BIGINT}
+    </select>
+    <!--查询组织分组-->
+    <select id="getUg" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUg" resultMap="UgVoResultMap">
+        SELECT
+        u.ug_id as ug_id,
+        u.ug_name as ug_name,
+        u.owner_id as owner_id,
+        u.ug_num as ug_num,
+        u.ug_type as ug_type,
+        u.unit_type as unit_type,
+        u.opr_id as opr_id,
+        DATE_FORMAT(u.upd_time, "%Y-%m-%d %T") AS upd_timeCp,
+        d.`description` as ug_typeCp,
+        d2.`description` as unit_typeCp,
+        p.`prsnl_code` as opr_code,
+        p.`full_name` as opr_name
+        FROM
+        sys_ug u
+        LEFT JOIN sys_code_dtl d
+        ON d.`code_type` = 'UG_TYPE'
+        AND d.`code` = u.`ug_type`
+        LEFT JOIN sys_code_dtl d2
+        ON d2.`code_type` = 'UNIT_TYPE'
+        AND d2.`code` = u.`unit_type`
+        LEFT JOIN sys_prsnl p
+        ON u.`opr_id` = p.`prsnl_id`
+        where
+        1=1
+        /*系统管理传属主Id获取所有*/
+        <if test="ownerId!=null">
+            and u.owner_id = #{ownerId,jdbcType=BIGINT}
+        </if>
+        <if test="ugName!=null and ugName!='' ">
+            and instr(u.ug_name , #{ugName}) >0
+        </if>
+        <if test="ugType!=null and ugType!=''">
+            and u.ug_type=#{ugType}
+        </if>
+        <if test="ugNum!=null and ugNum!=''">
+            and instr (u.ug_num , #{ugNum})>0
+        </if>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_ug
+    where ug_id = #{ugId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUg">
+    insert into sys_ug (ug_id, ug_name, owner_id, 
+      ug_num, ug_type, unit_type, 
+      opr_id, upd_time)
+    values (#{ugId,jdbcType=BIGINT}, #{ugName,jdbcType=VARCHAR}, #{ownerId,jdbcType=BIGINT}, 
+      #{ugNum,jdbcType=VARCHAR}, #{ugType,jdbcType=VARCHAR}, #{unitType,jdbcType=CHAR}, 
+      #{oprId,jdbcType=BIGINT}, #{updTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="ugId"
+            parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUg">
+        insert into sys_ug
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ugId != null">
+                ug_id,
+            </if>
+            <if test="ugName != null">
+                ug_name,
+            </if>
+            <if test="ownerId != null">
+                owner_id,
+            </if>
+            <if test="ugNum != null">
+                ug_num,
+            </if>
+            <if test="ugType != null">
+                ug_type,
+            </if>
+            <if test="unitType != null">
+                unit_type,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+            <if test="updTime != null">
+                upd_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ugId != null">
+                #{ugId,jdbcType=BIGINT},
+            </if>
+            <if test="ugName != null">
+                #{ugName,jdbcType=VARCHAR},
+            </if>
+            <if test="ownerId != null">
+                #{ownerId,jdbcType=BIGINT},
+            </if>
+            <if test="ugNum != null">
+                #{ugNum,jdbcType=VARCHAR},
+            </if>
+            <if test="ugType != null">
+                #{ugType,jdbcType=VARCHAR},
+            </if>
+            <if test="unitType != null">
+                #{unitType,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="updTime != null">
+               now(),
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUg">
+        update sys_ug
+        <set>
+            <if test="ugName != null">
+                ug_name = #{ugName,jdbcType=VARCHAR},
+            </if>
+            <if test="ownerId != null">
+                owner_id = #{ownerId,jdbcType=BIGINT},
+            </if>
+            <if test="ugNum != null">
+                ug_num = #{ugNum,jdbcType=VARCHAR},
+            </if>
+            <if test="ugType != null">
+                ug_type = #{ugType,jdbcType=VARCHAR},
+            </if>
+            <if test="unitType != null">
+                unit_type = #{unitType,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="updTime != null">
+                upd_time = #{updTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ug_id = #{ugId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUg">
+    update sys_ug
+    set ug_name = #{ugName,jdbcType=VARCHAR},
+      owner_id = #{ownerId,jdbcType=BIGINT},
+      ug_num = #{ugNum,jdbcType=VARCHAR},
+      ug_type = #{ugType,jdbcType=VARCHAR},
+      unit_type = #{unitType,jdbcType=CHAR},
+      opr_id = #{oprId,jdbcType=BIGINT},
+      upd_time = #{updTime,jdbcType=TIMESTAMP}
+    where ug_id = #{ugId,jdbcType=BIGINT}
+  </update>
+</mapper>

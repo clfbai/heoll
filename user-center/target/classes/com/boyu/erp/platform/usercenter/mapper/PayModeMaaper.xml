@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.shop.PayModeMaaper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.shop.PayMode">
+        <id column="pay_mode_id" jdbcType="INTEGER" property="payModeId"/>
+        <result column="pay_mode_code" jdbcType="VARCHAR" property="payModeCode"/>
+        <result column="pay_mode_name" jdbcType="VARCHAR" property="payModeName"/>
+        <result column="ex_pmtd" jdbcType="CHAR" property="exPmtd"/>
+        <result column="give_chg" jdbcType="CHAR" property="giveChg"/>
+        <result column="fixed" jdbcType="CHAR" property="fixed"/>
+        <result column="deleted" jdbcType="CHAR" property="deleted"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    pay_mode_id, pay_mode_code, pay_mode_name, ex_pmtd, give_chg, fixed, deleted
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pay_mode
+        where pay_mode_id = #{payModeId,jdbcType=INTEGER}
+    </select>
+    <select id="getPayModel"
+            resultType="com.boyu.erp.platform.usercenter.vo.shop.PayModeVo">
+        select
+        p.`pay_mode_code` as payModeCode,
+        p.`pay_mode_id` as payModeId,
+        p.`pay_mode_name` as payModeName,
+        d.`description` as exPmtdCp,
+        d2.`description` as giveChgCp,
+        d3.`description` as fixedCp
+        from
+        `pay_mode` p
+        left join sys_code_dtl d
+        on d.`code` = p.`ex_pmtd`
+        and d.`code_type` = 'TandF'
+        left join sys_code_dtl d2
+        on d2.`code` = p.`give_chg`
+        and d2.`code_type` = 'TandF'
+        left join sys_code_dtl d3
+        on d3.`code` = p.`fixed`
+        and d3.`code_type` = 'TandF'
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pay_mode
+    where pay_mode_id = #{payModeId,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="payModeId"
+            parameterType="com.boyu.erp.platform.usercenter.entity.shop.PayMode">
+        insert into pay_mode
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="payModeId != null">
+                pay_mode_id,
+            </if>
+            <if test="payModeCode != null">
+                pay_mode_code,
+            </if>
+            <if test="payModeName != null">
+                pay_mode_name,
+            </if>
+            <if test="exPmtd != null">
+                ex_pmtd,
+            </if>
+            <if test="giveChg != null">
+                give_chg,
+            </if>
+            <if test="fixed != null">
+                fixed,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="payModeId != null">
+                #{payModeId,jdbcType=INTEGER},
+            </if>
+            <if test="payModeCode != null">
+                #{payModeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="payModeName != null">
+                #{payModeName,jdbcType=VARCHAR},
+            </if>
+            <if test="exPmtd != null">
+                #{exPmtd,jdbcType=CHAR},
+            </if>
+            <if test="giveChg != null">
+                #{giveChg,jdbcType=CHAR},
+            </if>
+            <if test="fixed != null">
+                #{fixed,jdbcType=CHAR},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.shop.PayMode">
+        update pay_mode
+        <set>
+            <if test="payModeCode != null">
+                pay_mode_code = #{payModeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="payModeName != null">
+                pay_mode_name = #{payModeName,jdbcType=VARCHAR},
+            </if>
+            <if test="exPmtd != null">
+                ex_pmtd = #{exPmtd,jdbcType=CHAR},
+            </if>
+            <if test="giveChg != null">
+                give_chg = #{giveChg,jdbcType=CHAR},
+            </if>
+            <if test="fixed != null">
+                fixed = #{fixed,jdbcType=CHAR},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=CHAR},
+            </if>
+        </set>
+        where pay_mode_id = #{payModeId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.shop.PayMode">
+    update pay_mode
+    set pay_mode_code = #{payModeCode,jdbcType=VARCHAR},
+      pay_mode_name = #{payModeName,jdbcType=VARCHAR},
+      ex_pmtd = #{exPmtd,jdbcType=CHAR},
+      give_chg = #{giveChg,jdbcType=CHAR},
+      fixed = #{fixed,jdbcType=CHAR},
+      deleted = #{deleted,jdbcType=CHAR}
+    where pay_mode_id = #{payModeId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
+        <property name="jdbcDriver" value="com.mysql.jdbc.Driver"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://192.168.5.7:3306/activity?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true&amp;failOverReadOnly=false"></property>
+        <property name="jdbcUsername" value="wz"></property>
+        <property name="jdbcPassword" value="123456"></property>
+        <property name="databaseSchemaUpdate" value="true"></property>
+        <!--<property name="asyncExecutorActivate" value="true"></property>异步执行器-->
+    </bean>
+
+
+</beans>

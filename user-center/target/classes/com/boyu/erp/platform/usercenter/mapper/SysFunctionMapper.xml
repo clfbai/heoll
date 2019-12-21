@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysFunctionMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysFunction">
+        <id column="func_id" jdbcType="VARCHAR" property="funcId"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="priv_self_chk" jdbcType="VARCHAR" property="privSelfChk"/>
+        <result column="priv_id" jdbcType="VARCHAR" property="privId"/>
+        <result column="module" jdbcType="VARCHAR" property="module"/>
+        <result column="method" jdbcType="VARCHAR" property="method"/>
+        <result column="parm_str" jdbcType="VARCHAR" property="parmStr"/>
+        <result column="icon_path" jdbcType="VARCHAR" property="iconPath"/>
+        <result column="func_type" jdbcType="VARCHAR" property="funcType"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    func_id, description, priv_self_chk, priv_id, `module`, `method`, parm_str, icon_path, 
+    func_type
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_function
+        where func_id = #{funcId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_function
+    where func_id = #{funcId,jdbcType=VARCHAR}
+  </delete>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysFunction">
+        insert into sys_function
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="funcId != null">
+                func_id,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="privSelfChk != null">
+                priv_self_chk,
+            </if>
+            <if test="privId != null">
+                priv_id,
+            </if>
+            <if test="module != null">
+                `module`,
+            </if>
+            <if test="method != null">
+                `method`,
+            </if>
+            <if test="parmStr != null">
+                parm_str,
+            </if>
+            <if test="iconPath != null">
+                icon_path,
+            </if>
+            <if test="funcType != null">
+                func_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="funcId != null">
+                #{funcId,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="privSelfChk != null">
+                #{privSelfChk,jdbcType=VARCHAR},
+            </if>
+            <if test="privId != null">
+                #{privId,jdbcType=VARCHAR},
+            </if>
+            <if test="module != null">
+                #{module,jdbcType=VARCHAR},
+            </if>
+            <if test="method != null">
+                #{method,jdbcType=VARCHAR},
+            </if>
+            <if test="parmStr != null">
+                #{parmStr,jdbcType=VARCHAR},
+            </if>
+            <if test="iconPath != null">
+                #{iconPath,jdbcType=VARCHAR},
+            </if>
+            <if test="funcType != null">
+                #{funcType,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysFunction">
+        update sys_function
+        <set>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="privSelfChk != null">
+                priv_self_chk = #{privSelfChk,jdbcType=VARCHAR},
+            </if>
+            <if test="privId != null">
+                priv_id = #{privId,jdbcType=VARCHAR},
+            </if>
+            <if test="module != null">
+                `module` = #{module,jdbcType=VARCHAR},
+            </if>
+            <if test="method != null">
+                `method` = #{method,jdbcType=VARCHAR},
+            </if>
+            <if test="parmStr != null">
+                parm_str = #{parmStr,jdbcType=VARCHAR},
+            </if>
+            <if test="iconPath != null">
+                icon_path = #{iconPath,jdbcType=VARCHAR},
+            </if>
+            <if test="funcType != null">
+                func_type = #{funcType,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where func_id = #{funcId,jdbcType=VARCHAR}
+    </update>
+
+    <!--系统管理员查询功能目录-->
+    <select id="findAll" parameterType="SysFunction" resultType="SysFunction">
+        SELECT
+        f.`func_id` AS funcId,
+        f.description AS description,
+        f.priv_self_chk AS privSelfChk,
+        f.`priv_id` AS privId,
+        f.`module` AS module,
+        f.`method` AS method,
+        f.`parm_str` AS parmStr,
+        f.`icon_path` AS iconPath,
+        IFNULL(f.`func_type`,"") AS funcType,
+        g.`description` AS descriptionName
+        FROM
+        sys_function f
+        INNER JOIN sys_privilege g
+        ON f.`priv_id` = g.`priv_id`
+        WHERE 1 = 1
+        <if test="funcId!=null and funcId!=''">
+            AND INSTR(f.`func_id`, #{funcId}) > 0
+        </if>
+        <if test="description!=null and description!=''">
+            AND INSTR(f.`description`, #{description}) > 0
+        </if>
+        <if test="module!=null and module!=''">
+            AND INSTR(f.`module`, #{module}) > 0
+        </if>
+    </select>
+    <!--查询组织（组织管理员) 功能列表-->
+    <select id="findByUnit" parameterType="SysFunction" resultType="SysFunction">
+        SELECT
+        tms.DESCRIPTION AS descriptionName,
+        f.`func_id` AS funcId,
+        f.description AS description,
+        f.priv_self_chk AS privSelfChk,
+        f.`priv_id` AS privId,
+        f.`module` AS module,
+        f.`method` AS method,
+        f.`parm_str` AS parmStr,
+        f.`icon_path` AS iconPath,
+        IFNULL(f.`func_type`,"") AS funcType
+        FROM
+        (SELECT
+        B.PRIV_ID AS priv_id,
+        B.DESCRIPTION AS description,
+        B.PRIV_SCP AS privScp,
+        B.PRIV_TYPE AS privType
+        FROM
+        (
+        /* 直接获取的权限 */
+        SELECT
+        A.UNIT_ID,
+        A.PRIV_ID
+        FROM
+        SYS_UNIT_PRIV A
+        UNION
+        /* 通过权限依赖间接获取的权限 */
+        SELECT
+        A.UNIT_ID,
+        B.DEP_PRIV_ID AS PRIV_ID
+        FROM
+        SYS_UNIT_PRIV A
+        INNER JOIN SYS_PRIV_DEP B
+        ON (A.PRIV_ID = B.PRIV_ID)
+        UNION
+        /* 通过角色间接获取的权限 */
+        SELECT
+        A.UNIT_ID,
+        B.PRIV_ID
+        FROM
+        SYS_UNIT_ROLE A
+        INNER JOIN SYS_ROLE_PRIV B
+        ON (A.ROLE_ID = B.ROLE_ID)
+        UNION
+        /* 通过角色和权限依赖间接获取的权限 */
+        SELECT
+        A.UNIT_ID,
+        C.DEP_PRIV_ID AS PRIV_ID
+        FROM
+        (
+        SYS_UNIT_ROLE A
+        INNER JOIN SYS_ROLE_PRIV B
+        ON (A.ROLE_ID = B.ROLE_ID)
+        )
+        INNER JOIN SYS_PRIV_DEP C
+        ON (B.PRIV_ID = C.PRIV_ID)) M
+        INNER JOIN SYS_PRIVILEGE B
+        ON (M.PRIV_ID = B.PRIV_ID)
+        WHERE M.UNIT_ID = #{ownerId}
+        ) tms
+        INNER JOIN sys_function f
+        ON tms.priv_id = f.`priv_id`
+        WHERE 1 = 1
+        <if test="funcId!=null and funcId!=''">
+            AND INSTR(f.`func_id`, #{funcId}) > 0
+        </if>
+        <if test="description!=null and description!=''">
+            AND INSTR(f.`description`, #{description}) > 0
+        </if>
+        <if test="module!=null and module!=''">
+            AND INSTR(f.`module`, #{module}) > 0
+        </if>
+
+    </select>
+    <!--普通用户菜单-->
+    <select id="getUserTree" parameterType="SysFunction" resultType="SysFunction">
+        SELECT
+        gh.`func_id` AS funcId,
+        gh.description AS description,
+        gh.priv_self_chk AS privSelfChk,
+        gh.`priv_id` AS privId,
+        gh.`module` AS module,
+        gh.`method` AS method,
+        gh.`parm_str` AS parmStr,
+        gh.`icon_path` AS iconPath,
+        gh.`func_type` AS funcType,
+        pgh.description asdescriptionName
+        FROM
+        (SELECT
+        f.`func_id` AS func_id,
+        f.description AS description,
+        f.priv_self_chk AS priv_self_chk,
+        f.`priv_id` AS priv_id,
+        f.`module` AS module,
+        f.`method` AS method,
+        f.`parm_str` AS parm_str,
+        f.`icon_path` AS icon_path,
+        IFNULL(f.`func_type`, "") AS func_type
+        FROM
+        (SELECT
+        gtu.priv_id AS priv_id
+        FROM
+        (SELECT
+        /* 用户权限和和间接权限*/
+        pr.`priv_id`,
+        pr.`owner_id`,
+        pr.`user_id`
+        FROM
+        sys_user u
+        INNER JOIN sys_user_priv pr
+        ON u.`user_id` = pr.user_id
+        AND u.`owner_id` = pr.`unit_id`
+        UNION
+        SELECT
+        pr.`priv_id`,
+        u.`owner_id`,
+        u.`user_id`
+        FROM
+        sys_user u
+        INNER JOIN sys_user_priv pr
+        ON u.`user_id` = pr.user_id
+        AND u.`owner_id` = pr.`unit_id`
+        INNER JOIN sys_priv_dep de
+        ON pr.`priv_id` = de.`priv_id`
+        UNION
+        /* 用户角色和角色间接权限*/
+        SELECT
+        rp.`priv_id`,
+        u.`user_id`,
+        u.`owner_id`
+        FROM
+        sys_user u
+        INNER JOIN sys_user_role r
+        ON u.`user_id` = r.`user_id`
+        AND u.`owner_id` = r.`owner_id`
+        INNER JOIN sys_role_priv rp
+        ON r.`role_id` = rp.`role_id`
+        UNION
+        SELECT
+        rp.`priv_id`,
+        u.`user_id`,
+        u.`owner_id`
+        FROM
+        sys_user u
+        INNER JOIN sys_user_role r
+        ON u.`user_id` = r.`user_id`
+        AND u.`owner_id` = r.`owner_id`
+        INNER JOIN sys_role_priv rp
+        ON r.`role_id` = rp.`role_id`
+        INNER JOIN sys_priv_dep sdep
+        ON rp.`priv_id` = sdep.`priv_id`) gtu
+        INNER JOIN sys_privilege priv
+        ON gtu.priv_id = priv.priv_id
+        WHERE 1 = 1
+        AND gtu.user_id = #{userId}
+        AND gtu.owner_id = #{ownerId}) m
+        INNER JOIN sys_function f
+        ON m.priv_id = f.`priv_id`
+        WHERE 1 = 1
+        <if test="funcId!=null and funcId!=''">
+            AND INSTR(f.`func_id`, #{funcId}) > 0
+        </if>
+        <if test="description!=null and description!=''">
+            AND INSTR(f.`description`, #{description}) > 0
+        </if>
+        <if test="module!=null and module!=''">
+            AND INSTR(f.`module`, #{module}) > 0
+        </if>
+        ) gh
+        INNER JOIN sys_privilege pgh
+        ON gh.priv_id = pgh.priv_id
+    </select>
+
+
+    <select id="getOption" resultMap="BaseResultMap">
+   SELECT
+   DISTINCT
+    IFNULL(func_type,"") as func_type
+   FROM
+   sys_function
+ </select>
+
+</mapper>

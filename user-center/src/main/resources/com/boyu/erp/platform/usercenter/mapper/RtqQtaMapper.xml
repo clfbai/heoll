@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.basic.RtqQtaMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.basic.RtqQta">
+    <id column="vender_id" jdbcType="BIGINT" property="venderId" />
+    <id column="vendee_id" jdbcType="BIGINT" property="vendeeId" />
+    <id column="psa_ctlr" jdbcType="CHAR" property="psaCtlr" />
+    <id column="prod_cls_id" jdbcType="BIGINT" property="prodClsId" />
+    <result column="rtq_qta" jdbcType="DECIMAL" property="rtqQta" />
+    <result column="adj_qta" jdbcType="DECIMAL" property="adjQta" />
+    <result column="used_qty" jdbcType="DECIMAL" property="usedQty" />
+    <result column="frz_qty" jdbcType="DECIMAL" property="frzQty" />
+    <result column="expd_date" jdbcType="DATE" property="expdDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    vender_id, vendee_id, psa_ctlr, prod_cls_id, rtq_qta, adj_qta, used_qty, frz_qty, 
+    expd_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.RtqQta" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rtq_qta
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.RtqQta">
+    delete from rtq_qta
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.basic.RtqQta">
+    insert into rtq_qta (vender_id, vendee_id, psa_ctlr, 
+      prod_cls_id, rtq_qta, adj_qta, 
+      used_qty, frz_qty, expd_date
+      )
+    values (#{venderId,jdbcType=BIGINT}, #{vendeeId,jdbcType=BIGINT}, #{psaCtlr,jdbcType=CHAR}, 
+      #{prodClsId,jdbcType=BIGINT}, #{rtqQta,jdbcType=DECIMAL}, #{adjQta,jdbcType=DECIMAL}, 
+      #{usedQty,jdbcType=DECIMAL}, #{frzQty,jdbcType=DECIMAL}, #{expdDate,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.RtqQta">
+    insert into rtq_qta
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="venderId != null">
+        vender_id,
+      </if>
+      <if test="vendeeId != null">
+        vendee_id,
+      </if>
+      <if test="psaCtlr != null">
+        psa_ctlr,
+      </if>
+      <if test="prodClsId != null">
+        prod_cls_id,
+      </if>
+      <if test="rtqQta != null">
+        rtq_qta,
+      </if>
+      <if test="adjQta != null">
+        adj_qta,
+      </if>
+      <if test="usedQty != null">
+        used_qty,
+      </if>
+      <if test="frzQty != null">
+        frz_qty,
+      </if>
+      <if test="expdDate != null">
+        expd_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="venderId != null">
+        #{venderId,jdbcType=BIGINT},
+      </if>
+      <if test="vendeeId != null">
+        #{vendeeId,jdbcType=BIGINT},
+      </if>
+      <if test="psaCtlr != null">
+        #{psaCtlr,jdbcType=CHAR},
+      </if>
+      <if test="prodClsId != null">
+        #{prodClsId,jdbcType=BIGINT},
+      </if>
+      <if test="rtqQta != null">
+        #{rtqQta,jdbcType=DECIMAL},
+      </if>
+      <if test="adjQta != null">
+        #{adjQta,jdbcType=DECIMAL},
+      </if>
+      <if test="usedQty != null">
+        #{usedQty,jdbcType=DECIMAL},
+      </if>
+      <if test="frzQty != null">
+        #{frzQty,jdbcType=DECIMAL},
+      </if>
+      <if test="expdDate != null">
+        #{expdDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.RtqQta">
+    update rtq_qta
+    <set>
+      <if test="rtqQta != null">
+        rtq_qta = #{rtqQta,jdbcType=DECIMAL},
+      </if>
+      <if test="adjQta != null">
+        adj_qta = #{adjQta,jdbcType=DECIMAL},
+      </if>
+      <if test="usedQty != null">
+        used_qty = #{usedQty,jdbcType=DECIMAL},
+      </if>
+      <if test="frzQty != null">
+        frz_qty = #{frzQty,jdbcType=DECIMAL},
+      </if>
+      <if test="expdDate != null">
+        expd_date = #{expdDate,jdbcType=DATE},
+      </if>
+    </set>
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.RtqQta">
+    update rtq_qta
+    set rtq_qta = #{rtqQta,jdbcType=DECIMAL},
+      adj_qta = #{adjQta,jdbcType=DECIMAL},
+      used_qty = #{usedQty,jdbcType=DECIMAL},
+      frz_qty = #{frzQty,jdbcType=DECIMAL},
+      expd_date = #{expdDate,jdbcType=DATE}
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByBill" parameterType="java.util.List">
+    <foreach collection="list" item="item" separator=";">
+      update rtq_qta
+      <set>
+        <if test="item.frzQty!=null">
+          frz_qty = #{item.frzQty,jdbcType=DECIMAL}
+        </if>
+        <if test="item.usedQty!=null">
+          used_qty = #{item.usedQty,jdbcType=DECIMAL}
+        </if>
+      </set>
+      where vender_id = #{item.venderId,jdbcType=BIGINT}
+        and vendee_id = #{item.vendeeId,jdbcType=BIGINT}
+        and psa_ctlr = #{item.psaCtlr,jdbcType=CHAR}
+        and prod_cls_id = #{item.prodClsId,jdbcType=BIGINT}
+    </foreach>
+  </update>
+
+  <update id="updateByRtqQtaPg" parameterType="java.util.List">
+    <foreach collection="list" item="item" separator=";">
+      update rtq_qta
+      set
+        frz_qty = frz_qty-#{item.frzQty}
+      where vender_id = #{item.venderId,jdbcType=BIGINT}
+        and vendee_id = #{item.vendeeId,jdbcType=BIGINT}
+        and psa_ctlr = #{item.psaCtlr,jdbcType=CHAR}
+        and prod_cls_id = #{item.prodClsId,jdbcType=BIGINT}
+    </foreach>
+  </update>
+
+  <insert id="insertOrUpdate" parameterType="java.util.Map">
+    <selectKey keyProperty="count" resultType="int" order="BEFORE">
+      select count(*) from rtq_qta where vender_id = #{psa.venderId}
+      and vendee_id = #{psa.vendeeId}
+      and psa_ctlr = #{psa.psaCtlr}
+      and prod_cls_id = #{dtl.prodClsId}
+    </selectKey>
+    <if test="count > 0">
+      update rtq_qta
+      <set>
+        <if test="dtl.delivQty != null">
+         <choose>
+           <when test="flag">
+             rtq_qta = rtq_qta+#{dtl.delivQty},
+           </when>
+           <otherwise>
+             rtq_qta = rtq_qta-#{dtl.delivQty},
+           </otherwise>
+         </choose>
+        </if>
+      </set>
+      where vender_id = #{psa.venderId}
+      and vendee_id = #{psa.vendeeId}
+      and psa_ctlr = #{psa.psaCtlr}
+      and prod_cls_id = #{dtl.prodClsId}
+    </if>
+    <if test="count == 0">
+      insert into rtq_qta
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="psa.venderId != null">
+          vender_id,
+        </if>
+        <if test="psa.vendeeId != null">
+          vendee_id,
+        </if>
+        <if test="psa.psaCtlr != null">
+          psa_ctlr,
+        </if>
+        <if test="dtl.prodClsId != null">
+          prod_cls_id,
+        </if>
+        <if test="dtl.delivQty != null">
+          rtq_qta,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="psa.venderId != null">
+          #{psa.venderId,jdbcType=BIGINT},
+        </if>
+        <if test="psa.vendeeId != null">
+          #{psa.vendeeId,jdbcType=BIGINT},
+        </if>
+        <if test="psa.psaCtlr != null">
+          #{psa.psaCtlr,jdbcType=CHAR},
+        </if>
+        <if test="dtl.prodClsId != null">
+          #{dtl.prodClsId,jdbcType=BIGINT},
+        </if>
+        <if test="dtl.delivQty != null">
+          <choose>
+            <when test="flag">
+              #{dtl.delivQty,jdbcType=DECIMAL},
+            </when>
+            <otherwise>
+              0-#{dtl.delivQty,jdbcType=DECIMAL},
+            </otherwise>
+          </choose>
+        </if>
+      </trim>
+    </if>
+  </insert>
+</mapper>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.shop.ShopAttrDefMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.shop.ShopAttrDef">
+        <id column="attr_type" jdbcType="VARCHAR" property="attrType"/>
+        <result column="line_num" jdbcType="INTEGER" property="lineNum"/>
+        <result column="attr_name" jdbcType="VARCHAR" property="attrName"/>
+        <result column="data_type" jdbcType="CHAR" property="dataType"/>
+        <result column="data_len" jdbcType="INTEGER" property="dataLen"/>
+        <result column="data_dec" jdbcType="INTEGER" property="dataDec"/>
+        <result column="width" jdbcType="INTEGER" property="width"/>
+        <result column="char_case" jdbcType="CHAR" property="charCase"/>
+        <result column="val_reqd" jdbcType="CHAR" property="valReqd"/>
+        <result column="attr_dflt_src" jdbcType="CHAR" property="attrDfltSrc"/>
+        <result column="dflt_fml" jdbcType="VARCHAR" property="dfltFml"/>
+        <result column="edt_fml" jdbcType="VARCHAR" property="edtFml"/>
+        <result column="isOpetion" jdbcType="VARCHAR" property="isOpetion"/>
+        <result column="code_type" jdbcType="VARCHAR" property="codeType"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    attr_type, line_num, attr_name, data_type, data_len, data_dec, width, char_case, 
+    val_reqd, attr_dflt_src, dflt_fml, edt_fml ,isOpetion,code_type
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        attr_type,
+        attr_name,
+        code_type
+        from shop_attr_def
+        where 1=1
+        <if test="attrType!=null and attrType!=''">
+            attr_type = #{attrType,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="getShopAttrDef" resultType="com.boyu.erp.platform.usercenter.entity.shop.ShopAttrDef">
+        select
+        attr_type as attrType,
+        line_num as  lineNum,
+        attr_name as attrName,
+        data_type as dataType,
+        data_len as dataLen,
+        data_dec as dataDec,
+        width as width,
+        char_case as charCase,
+        val_reqd as valReqd,
+        attr_dflt_src as attrDfltSrc,
+        dflt_fml as dfltFml,
+        edt_fml as edtFml,
+        isOpetion as isOpetion,
+        d.`code_type` AS code_type,
+        c.`description` as  dataTypeCp,
+        c1.`description` as charCaseCp,
+        c2.`description` as valReqdCp,
+         c2.`description` as isOpetionCp
+        FROM
+        shop_attr_def d
+        left join sys_code_dtl c
+        on d.`data_type` = c.`code`
+        and c.`code_type` = 'DATA_TYPE'
+        left join sys_code_dtl c1
+        on d.`char_case` = c1.`code`
+        and c1.`code_type` = 'CHAR_CASE'
+        LEFT JOIN sys_code_dtl c2
+        ON d.`val_reqd` = c2.`code`
+        AND c2.`code_type` = 'TandF'
+         LEFT JOIN sys_code_dtl c3
+        ON d.`isOpetion` = c3.`code`
+        AND c3.`code_type` = 'TandF'
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from shop_attr_def
+    where attr_type = #{attrType,jdbcType=VARCHAR}
+  </delete>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopAttrDef">
+        insert into shop_attr_def
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="attrType != null">
+                attr_type,
+            </if>
+            <if test="lineNum != null">
+                line_num,
+            </if>
+            <if test="attrName != null">
+                attr_name,
+            </if>
+            <if test="dataType != null">
+                data_type,
+            </if>
+            <if test="dataLen != null">
+                data_len,
+            </if>
+            <if test="dataDec != null">
+                data_dec,
+            </if>
+            <if test="width != null">
+                width,
+            </if>
+            <if test="charCase != null">
+                char_case,
+            </if>
+            <if test="valReqd != null">
+                val_reqd,
+            </if>
+            <if test="attrDfltSrc != null">
+                attr_dflt_src,
+            </if>
+            <if test="dfltFml != null">
+                dflt_fml,
+            </if>
+            <if test="edtFml != null">
+                edt_fml,
+            </if>
+            <if test="isOpetion != null">
+                isOpetion,
+            </if>
+            <if test="codeType != null">
+                code_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="attrType != null">
+                #{attrType,jdbcType=VARCHAR},
+            </if>
+            <if test="lineNum != null">
+                #{lineNum,jdbcType=INTEGER},
+            </if>
+            <if test="attrName != null">
+                #{attrName,jdbcType=VARCHAR},
+            </if>
+            <if test="dataType != null">
+                #{dataType,jdbcType=CHAR},
+            </if>
+            <if test="dataLen != null">
+                #{dataLen,jdbcType=INTEGER},
+            </if>
+            <if test="dataDec != null">
+                #{dataDec,jdbcType=INTEGER},
+            </if>
+            <if test="width != null">
+                #{width,jdbcType=INTEGER},
+            </if>
+            <if test="charCase != null">
+                #{charCase,jdbcType=CHAR},
+            </if>
+            <if test="valReqd != null">
+                #{valReqd,jdbcType=CHAR},
+            </if>
+            <if test="attrDfltSrc != null">
+                #{attrDfltSrc,jdbcType=CHAR},
+            </if>
+            <if test="dfltFml != null">
+                #{dfltFml,jdbcType=VARCHAR},
+            </if>
+            <if test="edtFml != null">
+                #{edtFml,jdbcType=VARCHAR},
+            </if>
+            <if test="isOpetion != null">
+                #{isOpetion},
+            </if>
+            <if test="codeType != null">
+                #{codeType},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopAttrDef">
+        update shop_attr_def
+        <set>
+            <if test="lineNum != null">
+                line_num = #{lineNum,jdbcType=INTEGER},
+            </if>
+            <if test="attrName != null">
+                attr_name = #{attrName,jdbcType=VARCHAR},
+            </if>
+            <if test="dataType != null">
+                data_type = #{dataType,jdbcType=CHAR},
+            </if>
+            <if test="dataLen != null">
+                data_len = #{dataLen,jdbcType=INTEGER},
+            </if>
+            <if test="dataDec != null">
+                data_dec = #{dataDec,jdbcType=INTEGER},
+            </if>
+            <if test="width != null">
+                width = #{width,jdbcType=INTEGER},
+            </if>
+            <if test="charCase != null">
+                char_case = #{charCase,jdbcType=CHAR},
+            </if>
+            <if test="valReqd != null">
+                val_reqd = #{valReqd,jdbcType=CHAR},
+            </if>
+            <if test="attrDfltSrc != null">
+                attr_dflt_src = #{attrDfltSrc,jdbcType=CHAR},
+            </if>
+            <if test="dfltFml != null">
+                dflt_fml = #{dfltFml,jdbcType=VARCHAR},
+            </if>
+            <if test="edtFml != null">
+                edt_fml = #{edtFml,jdbcType=VARCHAR},
+            </if>
+            <if test="isOpetion != null">
+                isOpetion=#{isOpetion},
+            </if>
+        </set>
+        where attr_type = #{attrType,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

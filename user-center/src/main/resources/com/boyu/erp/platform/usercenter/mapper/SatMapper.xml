@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.SatMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.Sat">
+        <id column="sat_id" jdbcType="BIGINT" property="satId"/>
+        <result column="spec_grp_id" jdbcType="VARCHAR" property="specGrpId"/>
+        <result column="sat_num" jdbcType="VARCHAR" property="satNum"/>
+        <result column="sat_name" jdbcType="VARCHAR" property="satName"/>
+        <result column="egn_str" jdbcType="VARCHAR" property="egnStr"/>
+        <result column="ttl_qty" jdbcType="BIGINT" property="ttlQty"/>
+        <result column="seq_num" jdbcType="BIGINT" property="seqNum"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+
+
+    <resultMap id="satVoMapper" type="com.boyu.erp.platform.usercenter.vo.SatVo">
+        <id column="sat_id" jdbcType="BIGINT" property="satId"/>
+        <result column="spec_grp_id" jdbcType="VARCHAR" property="specGrpId"/>
+        <result column="sat_num" jdbcType="VARCHAR" property="satNum"/>
+        <result column="sat_name" jdbcType="VARCHAR" property="satName"/>
+        <result column="egn_str" jdbcType="VARCHAR" property="egnStr"/>
+        <result column="ttl_qty" jdbcType="BIGINT" property="ttlQty"/>
+        <result column="seq_num" jdbcType="BIGINT" property="seqNum"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="spec_grp_name" property="specGrpName"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    sat_id, spec_grp_id, sat_num, sat_name, egn_str, ttl_qty, seq_num, description
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sat
+        where sat_id = #{satId,jdbcType=BIGINT}
+    </select>
+
+
+    <select id="selectAll" parameterType="com.boyu.erp.platform.usercenter.vo.SatVo"
+            resultMap="satVoMapper">
+
+        SELECT a.*,b.`spec_grp_name` FROM sat a INNER JOIN spec_grp b ON
+        (a.`spec_grp_id`=b.`spec_grp_id`)
+        where 1=1
+        <if test="specGrpName !=null and specGrpName!=''">
+            and b.spec_grp_name=#{specGrpName}
+        </if>
+        <if test="satNum!=null">
+            and a.sat_num=#{satNum}
+        </if>
+        <if test="satName!=null">
+            and a.sat_name=#{satName}
+        </if>
+
+
+    </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sat
+    where sat_id = #{satId,jdbcType=BIGINT}
+  </delete>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.Sat">
+        insert into sat
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="satId != null">
+                sat_id,
+            </if>
+            <if test="specGrpId != null">
+                spec_grp_id,
+            </if>
+            <if test="satNum != null">
+                sat_num,
+            </if>
+            <if test="satName != null">
+                sat_name,
+            </if>
+            <if test="egnStr != null">
+                egn_str,
+            </if>
+            <if test="ttlQty != null">
+                ttl_qty,
+            </if>
+            <if test="seqNum != null">
+                seq_num,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="satId != null">
+                #{satId,jdbcType=BIGINT},
+            </if>
+            <if test="specGrpId != null">
+                #{specGrpId,jdbcType=VARCHAR},
+            </if>
+            <if test="satNum != null">
+                #{satNum,jdbcType=VARCHAR},
+            </if>
+            <if test="satName != null">
+                #{satName,jdbcType=VARCHAR},
+            </if>
+            <if test="egnStr != null">
+                #{egnStr,jdbcType=VARCHAR},
+            </if>
+            <if test="ttlQty != null">
+                #{ttlQty,jdbcType=BIGINT},
+            </if>
+            <if test="seqNum != null">
+                #{seqNum,jdbcType=BIGINT},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.Sat">
+        update sat
+        <set>
+            <if test="specGrpId != null">
+                spec_grp_id = #{specGrpId,jdbcType=VARCHAR},
+            </if>
+            <if test="satNum != null">
+                sat_num = #{satNum,jdbcType=VARCHAR},
+            </if>
+            <if test="satName != null">
+                sat_name = #{satName,jdbcType=VARCHAR},
+            </if>
+            <if test="egnStr != null">
+                egn_str = #{egnStr,jdbcType=VARCHAR},
+            </if>
+            <if test="ttlQty != null">
+                ttl_qty = #{ttlQty,jdbcType=BIGINT},
+            </if>
+            <if test="seqNum != null">
+                seq_num = #{seqNum,jdbcType=BIGINT},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where sat_id = #{satId,jdbcType=BIGINT}
+    </update>
+
+</mapper>

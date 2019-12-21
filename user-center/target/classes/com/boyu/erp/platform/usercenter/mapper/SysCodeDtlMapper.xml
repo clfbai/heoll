@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysCodeDtlMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysCodeDtl">
+        <id column="code_type" jdbcType="VARCHAR" property="codeType"/>
+        <id column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="seq_num" jdbcType="BIGINT" property="seqNum"/>
+        <result column="is_del" jdbcType="TINYINT" property="isDel"/>
+        <result column="create_by" jdbcType="BIGINT" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="BIGINT" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapOption" type="com.boyu.erp.platform.usercenter.vo.system.PurKeyValue">
+        <result column="optionValue" property="optionValue"/>
+        <result column="optionName" property="optionName"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    code_type, code, description, seq_num,is_del,create_by,create_time,update_by,update_time
+  </sql>
+    <!--查询代码明细-->
+    <select id="selectAll" resultMap="BaseResultMap"
+            parameterType="com.boyu.erp.platform.usercenter.entity.system.SysCodeDtl">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_code_dtl where 1=1 and is_del=1
+        <if test="codeType != null">
+            and code_type=#{codeType}
+        </if>
+        <if test="code != null">
+            AND INSTR(code, #{code})>0
+        </if>
+        <if test="description != null">
+            AND INSTR (description, #{description})>0
+        </if>
+        <if test="seqNum != null">
+            and seq_num=#{seqNum}
+        </if>
+    </select>
+    <!--查询下拉初始化-->
+    <select id="selectAllIsDel" resultMap="BaseResultMap"
+            parameterType="com.boyu.erp.platform.usercenter.entity.system.SysCodeDtl">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_code_dtl where 1=1
+        <if test="codeType != null">
+            and code_type=#{codeType}
+        </if>
+        <if test="code != null">
+            AND INSTR(code, #{code})>0
+        </if>
+        <if test="description != null">
+            AND INSTR (description, #{description})>0
+        </if>
+        <if test="seqNum != null">
+            and seq_num=#{seqNum}
+        </if>
+
+    </select>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysCodeDtlKey"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_code_dtl
+        where code_type = #{codeType}
+        and code = #{code}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysCodeDtlKey">
+    delete from sys_code_dtl
+    where code_type = #{codeType,jdbcType=VARCHAR}
+      and code = #{code,jdbcType=VARCHAR}
+  </delete>
+    <!--删除某一类code-->
+    <delete id="deleteCodeType" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysCodeDtlKey">
+    delete from sys_code_dtl
+    where code_type = #{codeType,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysCodeDtl">
+        insert into sys_code_dtl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="codeType != null">
+                code_type,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="seqNum != null">
+                seq_num,
+            </if>
+            <if test="isDel != null">
+                is_del ,
+            </if>
+            <if test="createBy != null">
+                create_by ,
+            </if>
+            <if test="createTime != null">
+                create_time ,
+            </if>
+            <if test="updateBy != null">
+                update_by ,
+            </if>
+            <if test="updateTime != null">
+                update_time ,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="codeType != null">
+                #{codeType,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="seqNum != null">
+                #{seqNum,jdbcType=BIGINT},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                now(),
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                now(),
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysCodeDtl">
+        update sys_code_dtl
+        <set>
+
+            <if test="updateCode != null and  updateCode !=''">
+                code=#{updateCode},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="seqNum != null">
+                seq_num = #{seqNum,jdbcType=BIGINT},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = now() ,
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = now(),
+            </if>
+        </set>
+        where code_type = #{codeType,jdbcType=VARCHAR}
+        and code = #{code,jdbcType=VARCHAR}
+    </update>
+
+    <!--下拉-->
+    <select id="optionGet" parameterType="java.lang.String" resultMap="BaseResultMapOption">
+        SELECT
+	    `code` AS optionValue,
+	    description AS optionName
+        FROM
+	    sys_code_dtl
+        WHERE
+	    code_type = #{type}
+    </select>
+
+    <select id="selectTCDByType" resultType="com.boyu.erp.platform.usercenter.vo.system.SysCodeDtlPgVO">
+        SELECT code_type `codeType`,`code`,description
+        FROM
+        sys_code_dtl
+        WHERE
+        code_type in(
+        <foreach collection="array" item="type" separator=",">
+            #{type}
+        </foreach>
+        )
+    </select>
+    <select id="getCodeDtlMap" resultType="java.util.Map">
+        SELECT `code` AS optionValue,description AS optionName
+        FROM
+        sys_code_dtl
+        WHERE
+        code_type = #{str}
+    </select>
+    <select id="getGdnSrcDocType" resultType="java.util.Map">
+        SELECT
+        sys_code_dtl.`code` AS optionName,
+        sys_code_dtl.description AS optionValue
+        FROM
+        sys_code_dtl
+        where code_type='DOC_TYPE'
+        and `code` in ('MRQ','MGB','MRO','PRC','SLC','SLO','CPR','IBC','IBO','IRC','TFN','GR','GD','STT','SA','AS','DA','SDO','PEB','RLB','RTO','RTI','RPS','ARQ','ALO')
+    </select>
+    <select id="queryPullDownListByTypeAndCodes" resultType="java.util.Map">
+        select `code` as optionValue,description as optionName from sys_code_dtl where code_type=#{type} and `code` in (
+        <foreach collection="codes" item="code" separator=",">
+            #{code}
+        </foreach>
+        )
+    </select>
+    <select id="queryCodeDtlByCodeType" resultMap="BaseResultMap">
+        SELECT
+        sys_code_dtl.code_type,
+        sys_code_dtl.`code`,
+        sys_code_dtl.description,
+        sys_code_dtl.seq_num,
+        sys_code_dtl.is_del,
+        sys_code_dtl.create_by,
+        sys_code_dtl.create_time,
+        sys_code_dtl.update_by,
+        sys_code_dtl.update_time
+        FROM
+        sys_code_dtl
+        where sys_code_dtl.`code`=#{code} and sys_code_dtl.code_type=#{type}
+    </select>
+    <select id="queryCodeDtlByTypeSet" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from sys_code_dtl
+        <trim prefix="where" prefixOverrides="and|or">
+            code_type in (
+            <foreach collection="codetypeSet" item="codetype" separator=",">
+                #{codetype}
+            </foreach>
+            )
+        </trim>
+    </select>
+    <select id="queryCodeDtlByCodesType"
+            resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from sys_code_dtl where code_type = #{type}
+        and code in (
+        <foreach collection="funCodeList" item="funCode" separator=",">
+            #{funCode}
+        </foreach>
+        )
+    </select>
+</mapper>

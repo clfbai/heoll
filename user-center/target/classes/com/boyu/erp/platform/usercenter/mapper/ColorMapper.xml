@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.ColorMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.goods.Color">
+        <id column="color_id" jdbcType="BIGINT" property="colorId"/>
+        <result column="color_code" jdbcType="VARCHAR" property="colorCode"/>
+        <result column="color_name" jdbcType="VARCHAR" property="colorName"/>
+        <result column="rgb_val" jdbcType="BIGINT" property="rgbVal"/>
+        <result column="deleted" jdbcType="CHAR" property="deleted"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    color_id, color_code, color_name, rgb_val, deleted
+  </sql>
+
+    <!-- 查询单个颜色对象-->
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.goods.Color"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from color
+        where 1=1
+        <if test="colorId!=null">
+            and color_id = #{colorId,jdbcType=BIGINT}
+        </if>
+        <if test="colorCode!=null and colorCode!=''">
+            and color_code = #{colorCode,jdbcType=VARCHAR}
+        </if>
+        <if test="colorName!=null and colorName!=''">
+            and color_name = #{colorName,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <!-- 查询单个颜色对象(下拉选者)-->
+    <select id="getOpention"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from color
+    </select>
+    <!-- 分页查询所有的颜色-->
+    <select id="selectALL" parameterType="com.boyu.erp.platform.usercenter.entity.goods.Color"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from color where 1=1
+        <if test="colorCode != null">
+            and color_code like CONCAT('%', #{colorCode}, '%')
+        </if>
+        <if test="colorName != null">
+            and color_name like CONCAT('%', #{colorName}, '%')
+        </if>
+        and deleted='F'
+    </select>
+
+    <select id="getColorList" parameterType="list"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from color
+        where 1=1
+        <if test="list!=null">
+            and (color_code, color_name)
+            in
+            (
+            <foreach collection="list" item="item" index="index"
+                     separator=",">
+                (#{item.colorCode},#{item.colorName})
+            </foreach>
+            )
+        </if>
+    </select>
+    <select id="queryColorListByIds" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from color where color_id in(
+        <foreach collection="colorIds" item="colorId" separator=",">
+            #{colorId}
+        </foreach>
+        )
+    </select>
+
+    <!--增加颜色 -->
+    <insert id="insertColor" parameterType="com.boyu.erp.platform.usercenter.entity.goods.Color">
+        insert into color
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="colorCode != null">
+                color_code,
+            </if>
+            <if test="colorName != null">
+                color_name,
+            </if>
+            <if test="rgbVal != null">
+                rgb_val,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="colorCode != null">
+                #{colorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="colorName != null">
+                #{colorName,jdbcType=VARCHAR},
+            </if>
+            <if test="rgbVal != null">
+                #{rgbVal,jdbcType=BIGINT},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 更新颜色-->
+    <update id="updateColor" parameterType="com.boyu.erp.platform.usercenter.entity.goods.Color">
+        update color
+        <set>
+            <if test="colorCode != null">
+                color_code = #{colorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="colorName != null">
+                color_name = #{colorName,jdbcType=VARCHAR},
+            </if>
+            <if test="rgbVal != null">
+                rgb_val = #{rgbVal,jdbcType=BIGINT},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=CHAR},
+            </if>
+        </set>
+        where color_id = #{colorId,jdbcType=BIGINT}
+    </update>
+
+    <!-- 删除颜色，打标删除-->
+    <delete id="deleteColor" parameterType="Color">
+      update color set deleted='T' where color_id = #{colorId,jdbcType=BIGINT}
+  </delete>
+
+</mapper>

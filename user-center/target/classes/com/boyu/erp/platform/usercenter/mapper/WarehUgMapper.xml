@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.WarehUgMapper">
+    <select id="loadWarehUg" resultType="java.util.Map">
+        select ug_name AS optionName,ug_id AS optionValue from wareh_ug where sys_ug_id in (
+        <foreach collection="list" item="sysUgId" separator=",">
+            #{sysUgId}
+        </foreach>
+        )
+    </select>
+    <select id="queryWarehUgIdsBySysUgId" resultType="java.lang.Long">
+        select ug_id from wareh_ug where sys_ug_id in (
+        <foreach collection="unitUgIds" item="unitUgId" separator=",">
+            #{unitUgId}
+        </foreach>
+        )
+    </select>
+</mapper>

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.UnitBatchNumMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatchNum">
+        <id column="batch_id" jdbcType="VARCHAR" property="batchId"/>
+        <id column="batch_number" jdbcType="INTEGER" property="batchNumber"/>
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <result column="prod_id" jdbcType="BIGINT" property="prodId"/>
+        <result column="vendee_id" jdbcType="BIGINT" property="vendeeId"/>
+        <result column="vender_id" jdbcType="BIGINT" property="venderId"/>
+        <result column="purchase_quantity" jdbcType="INTEGER" property="purchaseQuantity"/>
+        <result column="market_quantity" jdbcType="INTEGER" property="marketQuantity"/>
+        <result column="surplus_quantity" jdbcType="INTEGER" property="surplusQuantity"/>
+        <result column="returnable_shop_quantity" jdbcType="INTEGER" property="returnableShopQuantity"/>
+        <result column="returnable_unit_quantity" jdbcType="INTEGER" property="returnableUnitQuantity"/>
+        <result column="price" jdbcType="REAL" property="price"/>
+        <result column="batch_type" jdbcType="CHAR" property="batchType"/>
+        <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime"/>
+        <result column="doc_num" jdbcType="VARCHAR" property="docNum"/>
+        <result column="doc_type" jdbcType="VARCHAR" property="docType"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    batch_id, prod_id, batch_number, unit_id, vendee_id, vender_id, purchase_quantity, 
+    market_quantity, surplus_quantity, returnable_shop_quantity, returnable_unit_quantity, 
+    price, batch_type, creat_time, doc_num, doc_type
+  </sql>
+
+    <select id="getClinet" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatchNum"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from unit_batch_num
+        WHERE
+        prod_id = #{prodId,jdbcType=BIGINT}
+        and unit_id = #{unitId,jdbcType=BIGINT}
+        and batch_id = #{batchId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getUnitBatch" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatchNum"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from unit_batch_num
+        WHERE
+        prod_id = #{prodId,jdbcType=BIGINT}
+        and unit_id = #{unitId,jdbcType=BIGINT}
+    </select>
+
+
+    <select id="selectBatchNum" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatchNum"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from unit_batch_num
+        where batch_id = #{batchId,jdbcType=VARCHAR}
+        and prod_id = #{prodId,jdbcType=BIGINT}
+        and batch_number = #{batchNumber}
+        and unit_id = #{unitId,jdbcType=BIGINT}
+        and vendee_id = #{vendeeId,jdbcType=BIGINT}
+        and vender_id = #{venderId,jdbcType=BIGINT}
+    </select>
+    <!--查询组织可退商品数量与价格   正序查询，先进先出-->
+    <select id="getUnitBatchNum" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatchNum"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        `unit_batch_num`
+        WHERE `prod_id` = #{prodId}
+        AND `vendee_id` = #{vendeeId}
+        AND `vender_id` = #{venderId}
+        ORDER BY batch_number ASC
+    </select>
+
+    <!--查询组织可退商品总数量-->
+    <select id="getSumByUnitBatchNum" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatchNum"
+            resultType="java.lang.Integer">
+        SELECT
+        CASE WHEN
+            sum( returnable_unit_quantity ) IS NOT NULL THEN
+            sum( returnable_unit_quantity ) ELSE 0
+        END qty
+        FROM
+            `unit_batch_num`
+        WHERE `prod_id` = #{prodId}
+        AND `vendee_id` = #{vendeeId}
+        AND `vender_id` = #{venderId}
+    </select>
+
+    <!--通过单据编号和组织查询对应所有批次-->
+    <select id="selectDocNum" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        `unit_batch_num`
+        WHERE `unit_id` = #{unitId}
+        AND doc_num = #{docNum }
+        AND doc_type = #{docType}
+    </select>
+
+    <select id="selectUnitBatchNum" parameterType="java.util.List"
+            resultMap="BaseResultMap">
+        <foreach collection="list" item="list" index="index" separator="UNION">
+             select
+            <include refid="Base_Column_List"/>
+            from unit_batch_num
+            where
+            batch_id = #{list.batchId,jdbcType=VARCHAR}
+            and unit_id = #{list.unitId,jdbcType=BIGINT}
+            and batch_number=#{list.batchNumber}
+            and prod_id = #{list.prodId,jdbcType=BIGINT}
+        </foreach>
+    </select>
+    <!--查询采购商批次主要是顾客组织信息-->
+    <select id="selectVendeeBatchNumList" resultMap="BaseResultMap">
+        <foreach collection="list" item="list" index="index" separator="UNION">
+            ( select
+            <include refid="Base_Column_List"/>
+            from unit_batch_num
+            where
+            batch_id = #{list.batchId,jdbcType=VARCHAR}
+            and unit_id = #{vendeeId,jdbcType=BIGINT}
+            and prod_id = #{list.prodId,jdbcType=BIGINT} )
+        </foreach>
+    </select>
+
+    <delete id="deleteBatchNum" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatchNum">
+    delete from unit_batch_num
+    where batch_id = #{batchId,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+      and batch_number = #{batchNumber,jdbcType=BIGINT}
+      and unit_id = #{unitId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and vender_id = #{venderId,jdbcType=BIGINT}
+  </delete>
+
+    <delete id="deleteBatchNumList" parameterType="java.util.List">
+        <foreach collection="list" open="" close="" item="list" separator=";">
+            delete from unit_batch_num
+            where batch_id = #{list.batchId,jdbcType=VARCHAR}
+            and prod_id = #{list.prodId,jdbcType=BIGINT}
+            and batch_number = #{list.batchNumber}
+            and unit_id = #{list.unitId,jdbcType=BIGINT}
+            and vendee_id = #{list.vendeeId,jdbcType=BIGINT}
+            and vender_id = #{list.venderId,jdbcType=BIGINT}
+        </foreach>
+    </delete>
+
+    <insert id="insertBatchNum" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatchNum">
+        insert into unit_batch_num
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="batchId != null">
+                batch_id,
+            </if>
+            <if test="prodId != null">
+                prod_id,
+            </if>
+            <if test="batchNumber != null">
+                batch_number,
+            </if>
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="vendeeId != null">
+                vendee_id,
+            </if>
+            <if test="venderId != null">
+                vender_id,
+            </if>
+            <if test="purchaseQuantity != null">
+                purchase_quantity,
+            </if>
+            <if test="marketQuantity != null">
+                market_quantity,
+            </if>
+            <if test="surplusQuantity != null">
+                surplus_quantity,
+            </if>
+            <if test="returnableShopQuantity != null">
+                returnable_shop_quantity,
+            </if>
+            <if test="returnableUnitQuantity != null">
+                returnable_unit_quantity,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="batchType != null">
+                batch_type,
+            </if>
+            <if test="creatTime != null">
+                creat_time,
+            </if>
+            <if test="docNum != null">
+                doc_num,
+            </if>
+            <if test="docType != null and docType!=''">
+                doc_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="batchId != null">
+                #{batchId,jdbcType=VARCHAR},
+            </if>
+            <if test="prodId != null">
+                #{prodId,jdbcType=BIGINT},
+            </if>
+            <if test="batchNumber != null">
+                #{batchNumber,jdbcType=INTEGER},
+            </if>
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="vendeeId != null">
+                #{vendeeId,jdbcType=BIGINT},
+            </if>
+            <if test="venderId != null">
+                #{venderId,jdbcType=BIGINT},
+            </if>
+            <if test="purchaseQuantity != null">
+                #{purchaseQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="marketQuantity != null">
+                #{marketQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="surplusQuantity != null">
+                #{surplusQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="returnableShopQuantity != null">
+                #{returnableShopQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="returnableUnitQuantity != null">
+                #{returnableUnitQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=REAL},
+            </if>
+            <if test="batchType != null">
+                #{batchType,jdbcType=CHAR},
+            </if>
+            <if test="creatTime != null">
+                #{creatTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="docNum != null">
+                #{docNum,jdbcType=VARCHAR},
+            </if>
+            <if test="docType != null and docType!=''">
+                #{docType},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateBatchNum" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatchNum">
+        update unit_batch_num
+        <set>
+            <if test="purchaseQuantity != null">
+                purchase_quantity = #{purchaseQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="marketQuantity != null">
+                market_quantity = #{marketQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="surplusQuantity != null">
+                surplus_quantity = #{surplusQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="returnableShopQuantity != null">
+                returnable_shop_quantity = #{returnableShopQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="returnableUnitQuantity != null">
+                returnable_unit_quantity = #{returnableUnitQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=REAL},
+            </if>
+            <if test="batchType != null">
+                batch_type = #{batchType,jdbcType=CHAR},
+            </if>
+            <if test="creatTime != null">
+                creat_time = #{creatTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="docNum != null">
+                doc_num = #{docNum,jdbcType=VARCHAR},
+            </if>
+            <if test="docType != null and docType!=''">
+                doc_type=#{docType},
+            </if>
+        </set>
+        where batch_id = #{batchId,jdbcType=VARCHAR}
+        and prod_id = #{prodId,jdbcType=BIGINT}
+        and batch_number = #{batchNumber}
+        and unit_id = #{unitId,jdbcType=BIGINT}
+        and vendee_id = #{vendeeId,jdbcType=BIGINT}
+        and vender_id = #{venderId,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateBatchNumList" parameterType="java.util.List">
+        <foreach collection="list" item="list" separator=";">
+            update unit_batch_num
+            <set>
+                <if test="list.purchaseQuantity != null">
+                    purchase_quantity = #{list.purchaseQuantity,jdbcType=INTEGER},
+                </if>
+                <if test="list.marketQuantity != null">
+                    market_quantity = #{list.marketQuantity,jdbcType=INTEGER},
+                </if>
+                <if test="list.surplusQuantity != null">
+                    surplus_quantity = #{list.surplusQuantity,jdbcType=INTEGER},
+                </if>
+                <if test="list.returnableShopQuantity != null">
+                    returnable_shop_quantity = #{returnableShopQuantity,jdbcType=INTEGER},
+                </if>
+                <if test="list.returnableUnitQuantity != null">
+                    returnable_unit_quantity = #{list.returnableUnitQuantity,jdbcType=INTEGER},
+                </if>
+            </set>
+            where batch_id = #{list.batchId,jdbcType=VARCHAR}
+            and prod_id = #{list.prodId,jdbcType=BIGINT}
+            and batch_number = #{list.batchNumber}
+            and unit_id = #{list.unitId,jdbcType=BIGINT}
+            and vendee_id = #{list.vendeeId,jdbcType=BIGINT}
+            and vender_id = #{list.venderId,jdbcType=BIGINT}
+        </foreach>
+    </update>
+
+</mapper>

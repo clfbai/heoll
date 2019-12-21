@@ -1,0 +1,972 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PsaMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.Psa">
+        <id column="vender_id" jdbcType="BIGINT" property="venderId"/>
+        <id column="vendee_id" jdbcType="BIGINT" property="vendeeId"/>
+        <id column="psa_ctlr" jdbcType="CHAR" property="psaCtlr"/>
+        <result column="vdr_psa_num" jdbcType="VARCHAR" property="vdrPsaNum"/>
+        <result column="vde_psa_num" jdbcType="VARCHAR" property="vdePsaNum"/>
+        <result column="eff_date" jdbcType="DATE" property="effDate"/>
+        <result column="expd_date" jdbcType="DATE" property="expdDate"/>
+        <result column="pu_prl_ref_id" jdbcType="BIGINT" property="puPrlRefId"/>
+        <result column="sl_prl_ref_id" jdbcType="BIGINT" property="slPrlRefId"/>
+        <result column="dflt_disc_rate" jdbcType="DECIMAL" property="dfltDiscRate"/>
+        <result column="dflt_tax_rate" jdbcType="DECIMAL" property="dfltTaxRate"/>
+        <result column="ps_dpst_rate" jdbcType="DECIMAL" property="psDpstRate"/>
+        <result column="ps_gm_rate" jdbcType="DECIMAL" property="psGmRate"/>
+        <result column="rtn_ctrl" jdbcType="CHAR" property="rtnCtrl"/>
+        <result column="dflt_is_cms" jdbcType="CHAR" property="dfltIsCms"/>
+        <result column="dflt_rtna_rate" jdbcType="DECIMAL" property="dfltRtnaRate"/>
+        <result column="rtn_acc_rate" jdbcType="DECIMAL" property="rtnAccRate"/>
+        <result column="rwd_enc_rate" jdbcType="DECIMAL" property="rwdEncRate"/>
+        <result column="tran_unit_id" jdbcType="BIGINT" property="tranUnitId"/>
+        <result column="dflt_psc_type" jdbcType="VARCHAR" property="dfltPscType"/>
+        <result column="dflt_rtc_type" jdbcType="VARCHAR" property="dfltRtcType"/>
+        <result column="upd_time" jdbcType="TIMESTAMP" property="updTime"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="inte" jdbcType="CHAR" property="inte"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapAll" type="com.boyu.erp.platform.usercenter.vo.purchase.PsaVo">
+        <result column="venderId" property="venderId"/>
+        <result column="venderNum" property="venderNum"/>
+        <result column="vendeeId" property="vendeeId"/>
+        <result column="vendeeNum" property="vendeeNum"/>
+        <result column="psa_ctlr" jdbcType="CHAR" property="psaCtlr"/>
+        <result column="vdr_psa_num" jdbcType="VARCHAR" property="vdrPsaNum"/>
+        <result column="vde_psa_num" jdbcType="VARCHAR" property="vdePsaNum"/>
+        <result column="eff_date" jdbcType="DATE" property="effDate"/>
+        <result column="expd_date" jdbcType="DATE" property="expdDate"/>
+        <result column="pu_prl_ref_id" jdbcType="BIGINT" property="puPrlRefId"/>
+        <result column="puPrlRefNum" property="puPrlRefNum"/>
+        <result column="sl_prl_ref_id" jdbcType="BIGINT" property="slPrlRefId"/>
+        <result column="slPrlRefNum" property="slPrlRefNum"/>
+        <result column="dflt_disc_rate" jdbcType="DECIMAL" property="dfltDiscRate"/>
+        <result column="dflt_tax_rate" jdbcType="DECIMAL" property="dfltTaxRate"/>
+        <result column="ps_dpst_rate" jdbcType="DECIMAL" property="psDpstRate"/>
+        <result column="ps_gm_rate" jdbcType="DECIMAL" property="psGmRate"/>
+        <result column="rtn_ctrl" jdbcType="CHAR" property="rtnCtrl"/>
+        <result column="dflt_is_cms" jdbcType="CHAR" property="dfltIsCms"/>
+        <result column="dflt_rtna_rate" jdbcType="DECIMAL" property="dfltRtnaRate"/>
+        <result column="rtn_acc_rate" jdbcType="DECIMAL" property="rtnAccRate"/>
+        <result column="rwd_enc_rate" jdbcType="DECIMAL" property="rwdEncRate"/>
+        <result column="tran_unit_id" jdbcType="BIGINT" property="tranUnitId"/>
+        <result column="tranUnitNum" property="tranUnitNum"/>
+        <result column="dfltPscType" property="dfltPscType"/>
+        <result column="dfltPscTypeDesc" property="dfltPscTypeDesc"/>
+        <result column="dfltRtcType" property="dfltRtcType"/>
+        <result column="dfltRtcTypeDesc" property="dfltRtcTypeDesc"/>
+        <result column="updTime" property="updTime"/>
+        <result column="oprId" property="oprId"/>
+        <result column="venderName" property="venderName"/>
+        <result column="vendeeName" property="vendeeName"/>
+        <result column="ppriName" property="ppriName"/>
+        <result column="spriName" property="spriName"/>
+        <result column="tranName" property="tranName"/>
+        <result column="rtPrlRefId" property="rtPrlRefId"/>
+        <result column="rpriUnitNum" property="rpriUnitNum"/>
+        <result column="rpriName" property="rpriName"/>
+        <result column="prsnlCode" property="prsnlCode"/>
+        <result column="prsnlName" property="prsnlName"/>
+        <result column="authMode" property="authMode"/>
+        <result column="manMode" property="manMode"/>
+        <result column="authArea" property="authArea"/>
+        <result column="licFee" property="licFee"/>
+        <result column="stlDlyDays" property="stlDlyDays"/>
+        <result column="inte" jdbcType="CHAR" property="inte"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapOption" type="com.boyu.erp.platform.usercenter.vo.purchase.OptionByPsaVo">
+        <result column="vender_id" jdbcType="BIGINT" property="venderId"/>
+        <result column="vendee_id" jdbcType="BIGINT" property="vendeeId"/>
+        <result column="psa_ctlr" jdbcType="CHAR" property="psaCtlr"/>
+        <result column="inte" jdbcType="VARCHAR" property="inte"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    vender_id, vendee_id, psa_ctlr, vdr_psa_num, vde_psa_num, eff_date, expd_date, pu_prl_ref_id,
+    sl_prl_ref_id, dflt_disc_rate, dflt_tax_rate, ps_dpst_rate, ps_gm_rate, rtn_ctrl,
+    dflt_is_cms, dflt_rtna_rate, rtn_acc_rate, rwd_enc_rate, tran_unit_id, dflt_psc_type,
+    dflt_rtc_type, upd_time, opr_id
+  </sql>
+
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaVo"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from psa
+        where vender_id = #{venderId,jdbcType=BIGINT}
+        and vendee_id = #{vendeeId,jdbcType=BIGINT}
+        <if test="psaCtlr!=null and psaCtlr!='' ">
+            and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+        </if>
+    </select>
+
+    <select id="selectByDifference" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaVo"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from psa
+        where vender_id = #{venderId,jdbcType=BIGINT}
+        and vendee_id = #{vendeeId,jdbcType=BIGINT}
+        <if test="psaCtlr!=null and psaCtlr!='' ">
+            and psa_ctlr != #{psaCtlr,jdbcType=CHAR}
+        </if>
+    </select>
+
+    <!--系统管理员查询-->
+    <select id="selectALLByVde" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaVo"
+            resultMap="BaseResultMapAll">
+        SELECT
+        psa.vender_id AS venderId,
+        suo.UNIT_NUM AS venderNum,
+        psa.vendee_id AS vendeeId,
+        suo1.UNIT_NUM AS vendeeNum,
+        psa.psa_ctlr,
+        psa.vdr_psa_num,
+        psa.vde_psa_num,
+        psa.eff_date,
+        psa.expd_date,
+        psa.pu_prl_ref_id,
+        suo2.UNIT_NUM AS puPrlRefNum,
+        psa.sl_prl_ref_id,
+        suo3.UNIT_NUM AS slPrlRefNum,
+        psa.dflt_disc_rate,
+        psa.dflt_tax_rate,
+        psa.ps_dpst_rate,
+        psa.ps_gm_rate,
+        psa.rtn_ctrl,
+        psa.dflt_is_cms,
+        psa.dflt_rtna_rate,
+        psa.rtn_acc_rate,
+        psa.rwd_enc_rate,
+        psa.tran_unit_id,
+        su6.UNIT_CODE AS tranUnitNum,
+        psa.dflt_psc_type as dfltPscType,
+        pt1.DESCRIPTION AS dfltPscTypeDesc,
+        psa.dflt_rtc_type as dfltRtcType,
+        rt1.DESCRIPTION AS dfltRtcTypeDesc,
+        psa.upd_time,
+        sp.PRSNL_CODE AS oprId,
+        su.UNIT_NAME AS venderName,
+        su1.UNIT_NAME AS vendeeName,
+        su2.UNIT_NAME AS ppriName,
+        su3.UNIT_NAME AS spriName,
+        su4.UNIT_NAME AS tranName,
+        cha.RT_PRL_REF_ID as rtPrlRefId,
+        suo4.UNIT_NUM AS rpriUnitNum,
+        su5.UNIT_NAME AS rpriName,
+        sp1.PRSNL_CODE AS prsnlCode,
+        sp2.FULL_NAME AS prsnlName,
+        cha.auth_mode AS authMode,
+        cha.man_mode AS manMode,
+        cha.auth_area AS authArea,
+        cha.lic_fee AS licFee,
+        cha.stl_dly_days AS stlDlyDays,
+        psa.inte
+        FROM
+        vender v
+        INNER JOIN
+        PSA psa ON psa.vender_id = v.vender_id
+        AND psa.vendee_id = v.owner_id
+        AND psa.psa_ctlr = v.psa_ctlr
+        LEFT JOIN CHA cha ON cha.VENDER_ID = psa.VENDER_ID
+        AND cha.VENDEE_ID = psa.VENDEE_ID
+        AND cha.PSA_CTLR = psa.PSA_CTLR
+        LEFT JOIN SYS_UNIT_OWNER suo ON suo.UNIT_ID = psa.VENDER_ID
+        AND suo.OWNER_ID = psa.vendee_id
+        LEFT JOIN SYS_UNIT_OWNER suo1 ON suo1.UNIT_ID = psa.VENDEE_ID
+        AND suo1.OWNER_ID = psa.vender_id
+        LEFT JOIN SYS_UNIT_OWNER suo2 ON suo2.UNIT_ID = psa.pu_prl_ref_id
+        AND suo2.OWNER_ID = psa.vendee_id
+        LEFT JOIN SYS_UNIT_OWNER suo3 ON suo3.UNIT_ID = psa.sl_prl_ref_id
+        AND suo3.OWNER_ID = psa.vender_id
+        LEFT JOIN SYS_UNIT su6 ON su6.UNIT_ID = psa.TRAN_UNIT_ID
+        LEFT JOIN PSC_TYPE pt1 ON pt1.PSC_TYPE = psa.DFLT_PSC_TYPE
+        LEFT JOIN RTC_TYPE rt1 ON rt1.RTC_TYPE = psa.DFLT_RTC_TYPE
+        LEFT JOIN SYS_PRSNL sp ON sp.PRSNL_ID = psa.OPR_ID
+        LEFT JOIN SYS_UNIT su ON su.UNIT_ID = psa.VENDER_ID
+        LEFT JOIN SYS_UNIT su1 ON su1.UNIT_ID = psa.VENDEE_ID
+        LEFT JOIN SYS_UNIT su2 ON su2.UNIT_ID = psa.PU_PRL_REF_ID
+        LEFT JOIN SYS_UNIT su3 ON su3.UNIT_ID = psa.SL_PRL_REF_ID
+        LEFT JOIN SYS_UNIT su4 ON su4.UNIT_ID = psa.TRAN_UNIT_ID
+        LEFT JOIN SYS_UNIT_OWNER suo4 ON suo4.UNIT_ID = cha.RT_PRL_REF_ID
+        AND suo4.OWNER_ID = psa.vendee_id
+        LEFT JOIN SYS_PRSNL sp1 ON sp1.PRSNL_ID = psa.OPR_ID
+        LEFT JOIN SYS_PRSNL sp2 ON sp2.PRSNL_ID = psa.OPR_ID
+        LEFT JOIN SYS_UNIT su5 ON su5.UNIT_ID = cha.rt_prl_ref_id
+        WHERE 1=1
+        <if test="psaCtlr != null and psaCtlr != '' and psaCtlr != 'null' ">
+            and psa.psa_ctlr = #{psaCtlr}
+        </if>
+        <if test="venderNum != null and venderNum != '' and venderNum != 'null' ">
+            and suo.UNIT_NUM like CONCAT('%', #{venderNum}, '%')
+        </if>
+
+    </select>
+    <!--(普通管理员或用户)查询商品品种列表-->
+    <select id="selectUserListByVde" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaVo"
+            resultMap="BaseResultMapAll">
+        SELECT
+        psa.vender_id AS venderId,
+        suo.UNIT_NUM AS venderNum,
+        psa.vendee_id AS vendeeId,
+        suo1.UNIT_NUM AS vendeeNum,
+        psa.psa_ctlr,
+        psa.vdr_psa_num,
+        psa.vde_psa_num,
+        psa.eff_date,
+        psa.expd_date,
+        psa.pu_prl_ref_id,
+        suo2.UNIT_NUM AS puPrlRefNum,
+        psa.sl_prl_ref_id,
+        suo3.UNIT_NUM AS slPrlRefNum,
+        psa.dflt_disc_rate,
+        psa.dflt_tax_rate,
+        psa.ps_dpst_rate,
+        psa.ps_gm_rate,
+        psa.rtn_ctrl,
+        psa.dflt_is_cms,
+        psa.dflt_rtna_rate,
+        psa.rtn_acc_rate,
+        psa.rwd_enc_rate,
+        psa.tran_unit_id,
+        su6.UNIT_CODE AS tranUnitNum,
+        psa.dflt_psc_type as dfltPscType,
+        pt1.DESCRIPTION AS dfltPscTypeDesc,
+        psa.dflt_rtc_type as dfltRtcType,
+        rt1.DESCRIPTION AS dfltRtcTypeDesc,
+        DATE_FORMAT(psa.upd_time,'%Y-%m-%d %H:%i:%S') AS updTime,
+        sp.PRSNL_CODE AS oprId,
+        su.UNIT_NAME AS venderName,
+        su1.UNIT_NAME AS vendeeName,
+        su2.UNIT_NAME AS ppriName,
+        su3.UNIT_NAME AS spriName,
+        su4.UNIT_NAME AS tranName,
+        cha.RT_PRL_REF_ID as rtPrlRefId,
+        suo4.UNIT_NUM AS rpriUnitNum,
+        su5.UNIT_NAME AS rpriName,
+        sp1.PRSNL_CODE AS prsnlCode,
+        sp2.FULL_NAME AS prsnlName,
+        cha.auth_mode AS authMode,
+        cha.man_mode AS manMode,
+        cha.auth_area AS authArea,
+        cha.lic_fee AS licFee,
+        cha.stl_dly_days AS stlDlyDays,
+        psa.inte
+        FROM
+        vender v
+        INNER JOIN (
+        SELECT
+        a.*
+        FROM
+        psa a
+        WHERE
+        1 = 1
+        <if test=" sUnitId!=null and sUnitId!='' ">
+            AND a.vendee_id = #{sUnitId}
+        </if>
+        )
+        psa ON psa.vender_id = v.vender_id
+        AND psa.vendee_id = v.owner_id
+        AND psa.psa_ctlr = v.psa_ctlr
+        LEFT JOIN CHA cha ON cha.VENDER_ID = psa.VENDER_ID
+        AND cha.VENDEE_ID = psa.VENDEE_ID
+        AND cha.PSA_CTLR = psa.PSA_CTLR
+        LEFT JOIN SYS_UNIT_OWNER suo ON suo.UNIT_ID = psa.VENDER_ID
+        AND suo.OWNER_ID = psa.vendee_id
+        LEFT JOIN SYS_UNIT_OWNER suo1 ON suo1.UNIT_ID = psa.VENDEE_ID
+        AND suo1.OWNER_ID = psa.vender_id
+        LEFT JOIN SYS_UNIT_OWNER suo2 ON suo2.UNIT_ID = psa.pu_prl_ref_id
+        AND suo2.OWNER_ID = psa.vendee_id
+        LEFT JOIN SYS_UNIT_OWNER suo3 ON suo3.UNIT_ID = psa.sl_prl_ref_id
+        AND suo3.OWNER_ID = psa.vender_id
+        LEFT JOIN SYS_UNIT su6 ON su6.UNIT_ID = psa.TRAN_UNIT_ID
+        LEFT JOIN PSC_TYPE pt1 ON pt1.PSC_TYPE = psa.DFLT_PSC_TYPE
+        LEFT JOIN RTC_TYPE rt1 ON rt1.RTC_TYPE = psa.DFLT_RTC_TYPE
+        LEFT JOIN SYS_PRSNL sp ON sp.PRSNL_ID = psa.OPR_ID
+        LEFT JOIN SYS_UNIT su ON su.UNIT_ID = psa.VENDER_ID
+        LEFT JOIN SYS_UNIT su1 ON su1.UNIT_ID = psa.VENDEE_ID
+        LEFT JOIN SYS_UNIT su2 ON su2.UNIT_ID = psa.PU_PRL_REF_ID
+        LEFT JOIN SYS_UNIT su3 ON su3.UNIT_ID = psa.SL_PRL_REF_ID
+        LEFT JOIN SYS_UNIT su4 ON su4.UNIT_ID = psa.TRAN_UNIT_ID
+        LEFT JOIN SYS_UNIT_OWNER suo4 ON suo4.UNIT_ID = cha.RT_PRL_REF_ID
+        AND suo4.OWNER_ID = psa.vendee_id
+        LEFT JOIN SYS_PRSNL sp1 ON sp1.PRSNL_ID = psa.OPR_ID
+        LEFT JOIN SYS_PRSNL sp2 ON sp2.PRSNL_ID = psa.OPR_ID
+        LEFT JOIN SYS_UNIT su5 ON su5.UNIT_ID = cha.rt_prl_ref_id
+        WHERE 1=1
+        <if test="psaCtlr != null and psaCtlr != '' and psaCtlr != 'null'  ">
+            and psa.psa_ctlr = #{psaCtlr}
+        </if>
+        <if test="venderNum != null and venderNum != '' and venderNum != 'null'">
+            and suo.UNIT_NUM like CONCAT('%', #{venderNum}, '%')
+        </if>
+
+        <if test="vendeeNum != null and vendeeNum != '' and vendeeNum != 'null'">
+            and suo1.UNIT_NUM like CONCAT('%', #{vendeeNum}, '%')
+        </if>
+
+    </select>
+
+    <select id="selectALLByVdr" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaVo"
+            resultMap="BaseResultMapAll">
+        SELECT
+        psa.vender_id AS venderId,
+        suo.UNIT_NUM AS venderNum,
+        psa.vendee_id AS vendeeId,
+        suo1.UNIT_NUM AS vendeeNum,
+        psa.psa_ctlr,
+        psa.vdr_psa_num,
+        psa.vde_psa_num,
+        psa.eff_date,
+        psa.expd_date,
+        psa.pu_prl_ref_id,
+        suo2.UNIT_NUM AS puPrlRefNum,
+        psa.sl_prl_ref_id,
+        suo3.UNIT_NUM AS slPrlRefNum,
+        psa.dflt_disc_rate,
+        psa.dflt_tax_rate,
+        psa.ps_dpst_rate,
+        psa.ps_gm_rate,
+        psa.rtn_ctrl,
+        psa.dflt_is_cms,
+        psa.dflt_rtna_rate,
+        psa.rtn_acc_rate,
+        psa.rwd_enc_rate,
+        psa.tran_unit_id,
+        su6.UNIT_CODE AS tranUnitNum,
+        psa.dflt_psc_type as dfltPscType,
+        pt1.DESCRIPTION AS dfltPscTypeDesc,
+        psa.dflt_rtc_type as dfltRtcType,
+        rt1.DESCRIPTION AS dfltRtcTypeDesc,
+        DATE_FORMAT(psa.upd_time,'%Y-%m-%d %H:%i:%S') AS updTime,
+        sp.PRSNL_CODE AS oprId,
+        su.UNIT_NAME AS venderName,
+        su1.UNIT_NAME AS vendeeName,
+        su2.UNIT_NAME AS ppriName,
+        su3.UNIT_NAME AS spriName,
+        su4.UNIT_NAME AS tranName,
+        cha.RT_PRL_REF_ID as rtPrlRefId,
+        suo4.UNIT_NUM AS rpriUnitNum,
+        su5.UNIT_NAME AS rpriName,
+        sp1.PRSNL_CODE AS prsnlCode,
+        sp2.FULL_NAME AS prsnlName,
+        cha.auth_mode AS authMode,
+        cha.man_mode AS manMode,
+        cha.auth_area AS authArea,
+        cha.lic_fee AS licFee,
+        cha.stl_dly_days AS stlDlyDays,
+        psa.inte
+        FROM
+        vendee v
+        INNER JOIN
+        Psa psa ON psa.vender_id = v.owner_id
+        AND psa.vendee_id = v.vendee_id
+        AND psa.psa_ctlr = v.psa_ctlr
+        LEFT JOIN CHA cha ON cha.VENDER_ID = psa.VENDER_ID
+        AND cha.VENDEE_ID = psa.VENDEE_ID
+        AND cha.PSA_CTLR = psa.PSA_CTLR
+        LEFT JOIN SYS_UNIT_OWNER suo ON suo.UNIT_ID = psa.VENDER_ID
+        AND suo.OWNER_ID = psa.vendee_id
+        LEFT JOIN SYS_UNIT_OWNER suo1 ON suo1.UNIT_ID = psa.VENDEE_ID
+        AND suo1.OWNER_ID = psa.vender_id
+        LEFT JOIN SYS_UNIT_OWNER suo2 ON suo2.UNIT_ID = psa.pu_prl_ref_id
+        AND suo2.OWNER_ID = psa.vendee_id
+        LEFT JOIN SYS_UNIT_OWNER suo3 ON suo3.UNIT_ID = psa.sl_prl_ref_id
+        AND suo3.OWNER_ID = psa.vender_id
+        LEFT JOIN SYS_UNIT su6 ON su6.UNIT_ID = psa.TRAN_UNIT_ID
+        LEFT JOIN PSC_TYPE pt1 ON pt1.PSC_TYPE = psa.DFLT_PSC_TYPE
+        LEFT JOIN RTC_TYPE rt1 ON rt1.RTC_TYPE = psa.DFLT_RTC_TYPE
+        LEFT JOIN SYS_PRSNL sp ON sp.PRSNL_ID = psa.OPR_ID
+        LEFT JOIN SYS_UNIT su ON su.UNIT_ID = psa.VENDER_ID
+        LEFT JOIN SYS_UNIT su1 ON su1.UNIT_ID = psa.VENDEE_ID
+        LEFT JOIN SYS_UNIT su2 ON su2.UNIT_ID = psa.PU_PRL_REF_ID
+        LEFT JOIN SYS_UNIT su3 ON su3.UNIT_ID = psa.SL_PRL_REF_ID
+        LEFT JOIN SYS_UNIT su4 ON su4.UNIT_ID = psa.TRAN_UNIT_ID
+        LEFT JOIN SYS_UNIT_OWNER suo4 ON suo4.UNIT_ID = cha.RT_PRL_REF_ID
+        AND suo4.OWNER_ID = psa.vender_id
+        LEFT JOIN SYS_PRSNL sp1 ON sp1.PRSNL_ID = psa.OPR_ID
+        LEFT JOIN SYS_PRSNL sp2 ON sp2.PRSNL_ID = psa.OPR_ID
+        LEFT JOIN SYS_UNIT su5 ON su5.UNIT_ID = cha.rt_prl_ref_id
+        WHERE 1=1
+        <if test="psaCtlr != null and psaCtlr != '' and psaCtlr != 'null' ">
+            and psa.psa_ctlr = #{psaCtlr}
+        </if>
+        <if test="vendeeNum != null and vendeeNum != '' and vendeeNum != 'null' ">
+            and suo1.UNIT_NUM like CONCAT('%', #{vendeeNum}, '%')
+        </if>
+
+    </select>
+
+    <!--(普通管理员或用户)查询商品品种列表-->
+    <select id="selectUserListByVdr" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaVo"
+            resultMap="BaseResultMapAll">
+        SELECT
+        psa.vender_id AS venderId,
+        suo.UNIT_NUM AS venderNum,
+        psa.vendee_id AS vendeeId,
+        suo1.UNIT_NUM AS vendeeNum,
+        psa.psa_ctlr,
+        psa.vdr_psa_num,
+        psa.vde_psa_num,
+        psa.eff_date,
+        psa.expd_date,
+        psa.pu_prl_ref_id,
+        suo2.UNIT_NUM AS puPrlRefNum,
+        psa.sl_prl_ref_id,
+        suo3.UNIT_NUM AS slPrlRefNum,
+        psa.dflt_disc_rate,
+        psa.dflt_tax_rate,
+        psa.ps_dpst_rate,
+        psa.ps_gm_rate,
+        psa.rtn_ctrl,
+        psa.dflt_is_cms,
+        psa.dflt_rtna_rate,
+        psa.rtn_acc_rate,
+        psa.rwd_enc_rate,
+        psa.tran_unit_id,
+        su6.UNIT_CODE AS tranUnitNum,
+        psa.dflt_psc_type as dfltPscType,
+        pt1.DESCRIPTION AS dfltPscTypeDesc,
+        psa.dflt_rtc_type as dfltRtcType,
+        rt1.DESCRIPTION AS dfltRtcTypeDesc,
+        DATE_FORMAT(psa.upd_time,'%Y-%m-%d %H:%i:%S') AS updTime,
+        sp.PRSNL_CODE AS oprId,
+        su.UNIT_NAME AS venderName,
+        su1.UNIT_NAME AS vendeeName,
+        su2.UNIT_NAME AS ppriName,
+        su3.UNIT_NAME AS spriName,
+        su4.UNIT_NAME AS tranName,
+        cha.RT_PRL_REF_ID as rtPrlRefId,
+        suo4.UNIT_NUM AS rpriUnitNum,
+        su5.UNIT_NAME AS rpriName,
+        sp1.PRSNL_CODE AS prsnlCode,
+        sp2.FULL_NAME AS prsnlName,
+        cha.auth_mode AS authMode,
+        cha.man_mode AS manMode,
+        cha.auth_area AS authArea,
+        cha.lic_fee AS licFee,
+        cha.stl_dly_days AS stlDlyDays,
+        psa.inte
+        FROM
+        vendee v
+        INNER JOIN(
+        SELECT
+        a.*
+        FROM
+        psa a
+        WHERE
+        1 = 1
+        <if test=" sUnitId!=null and sUnitId!='' ">
+            AND a.vender_id = #{sUnitId}
+        </if>
+        ) psa ON psa.vender_id = v.owner_id
+        AND psa.vendee_id = v.vendee_id
+        AND psa.psa_ctlr = v.psa_ctlr
+        LEFT JOIN CHA cha ON cha.VENDER_ID = psa.VENDER_ID
+        AND cha.VENDEE_ID = psa.VENDEE_ID
+        AND cha.PSA_CTLR = psa.PSA_CTLR
+        LEFT JOIN SYS_UNIT_OWNER suo ON suo.UNIT_ID = psa.VENDER_ID
+        AND suo.OWNER_ID = psa.vendee_id
+        LEFT JOIN SYS_UNIT_OWNER suo1 ON suo1.UNIT_ID = psa.VENDEE_ID
+        AND suo1.OWNER_ID = psa.vender_id
+        LEFT JOIN SYS_UNIT_OWNER suo2 ON suo2.UNIT_ID = psa.pu_prl_ref_id
+        AND suo2.OWNER_ID = psa.vendee_id
+        LEFT JOIN SYS_UNIT_OWNER suo3 ON suo3.UNIT_ID = psa.sl_prl_ref_id
+        AND suo3.OWNER_ID = psa.vender_id
+        LEFT JOIN SYS_UNIT su6 ON su6.UNIT_ID = psa.TRAN_UNIT_ID
+        LEFT JOIN PSC_TYPE pt1 ON pt1.PSC_TYPE = psa.DFLT_PSC_TYPE
+        LEFT JOIN RTC_TYPE rt1 ON rt1.RTC_TYPE = psa.DFLT_RTC_TYPE
+        LEFT JOIN SYS_PRSNL sp ON sp.PRSNL_ID = psa.OPR_ID
+        LEFT JOIN SYS_UNIT su ON su.UNIT_ID = psa.VENDER_ID
+        LEFT JOIN SYS_UNIT su1 ON su1.UNIT_ID = psa.VENDEE_ID
+        LEFT JOIN SYS_UNIT su2 ON su2.UNIT_ID = psa.PU_PRL_REF_ID
+        LEFT JOIN SYS_UNIT su3 ON su3.UNIT_ID = psa.SL_PRL_REF_ID
+        LEFT JOIN SYS_UNIT su4 ON su4.UNIT_ID = psa.TRAN_UNIT_ID
+        LEFT JOIN SYS_UNIT_OWNER suo4 ON suo4.UNIT_ID = cha.RT_PRL_REF_ID
+        AND suo4.OWNER_ID = psa.vender_id
+        LEFT JOIN SYS_PRSNL sp1 ON sp1.PRSNL_ID = psa.OPR_ID
+        LEFT JOIN SYS_PRSNL sp2 ON sp2.PRSNL_ID = psa.OPR_ID
+        LEFT JOIN SYS_UNIT su5 ON su5.UNIT_ID = cha.rt_prl_ref_id
+        WHERE 1=1
+        <if test="psaCtlr != null and psaCtlr != '' and psaCtlr != 'null'  ">
+            and psa.psa_ctlr = #{psaCtlr}
+        </if>
+        <if test="venderNum != null and venderNum != '' and venderNum != 'null'">
+            and suo.UNIT_NUM like CONCAT('%', #{venderNum}, '%')
+        </if>
+        <if test="vendeeNum != null and vendeeNum != '' and vendeeNum != 'null'">
+            and suo1.UNIT_NUM like CONCAT('%', #{vendeeNum}, '%')
+        </if>
+
+    </select>
+
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Psa">
+    insert into psa (vender_id, vendee_id, psa_ctlr,
+      vdr_psa_num, vde_psa_num, eff_date,
+      expd_date, pu_prl_ref_id, sl_prl_ref_id,
+      dflt_disc_rate, dflt_tax_rate, ps_dpst_rate,
+      ps_gm_rate, rtn_ctrl, dflt_is_cms,
+      dflt_rtna_rate, rtn_acc_rate, rwd_enc_rate,
+      tran_unit_id, dflt_psc_type, dflt_rtc_type,
+      upd_time, opr_id)
+    values (#{venderId,jdbcType=BIGINT}, #{vendeeId,jdbcType=BIGINT}, #{psaCtlr,jdbcType=CHAR},
+      #{vdrPsaNum,jdbcType=VARCHAR}, #{vdePsaNum,jdbcType=VARCHAR}, #{effDate,jdbcType=DATE},
+      #{expdDate,jdbcType=DATE}, #{puPrlRefId,jdbcType=BIGINT}, #{slPrlRefId,jdbcType=BIGINT},
+      #{dfltDiscRate,jdbcType=DECIMAL}, #{dfltTaxRate,jdbcType=DECIMAL}, #{psDpstRate,jdbcType=DECIMAL},
+      #{psGmRate,jdbcType=DECIMAL}, #{rtnCtrl,jdbcType=CHAR}, #{dfltIsCms,jdbcType=CHAR},
+      #{dfltRtnaRate,jdbcType=DECIMAL}, #{rtnAccRate,jdbcType=DECIMAL}, #{rwdEncRate,jdbcType=DECIMAL},
+      #{tranUnitId,jdbcType=BIGINT}, #{dfltPscType,jdbcType=VARCHAR}, #{dfltRtcType,jdbcType=VARCHAR},
+      #{updTime,jdbcType=TIMESTAMP}, #{oprId,jdbcType=BIGINT})
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Psa">
+        insert into psa
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="venderId != null">
+                vender_id,
+            </if>
+            <if test="vendeeId != null">
+                vendee_id,
+            </if>
+            <if test="psaCtlr != null">
+                psa_ctlr,
+            </if>
+            <if test="vdrPsaNum != null">
+                vdr_psa_num,
+            </if>
+            <if test="vdePsaNum != null">
+                vde_psa_num,
+            </if>
+            <if test="effDate != null">
+                eff_date,
+            </if>
+            <if test="expdDate != null">
+                expd_date,
+            </if>
+            <if test="puPrlRefId != null">
+                pu_prl_ref_id,
+            </if>
+            <if test="slPrlRefId != null">
+                sl_prl_ref_id,
+            </if>
+            <if test="dfltDiscRate != null">
+                dflt_disc_rate,
+            </if>
+            <if test="dfltTaxRate != null">
+                dflt_tax_rate,
+            </if>
+            <if test="psDpstRate != null">
+                ps_dpst_rate,
+            </if>
+            <if test="psGmRate != null">
+                ps_gm_rate,
+            </if>
+            <if test="rtnCtrl != null">
+                rtn_ctrl,
+            </if>
+            <if test="dfltIsCms != null">
+                dflt_is_cms,
+            </if>
+            <if test="dfltRtnaRate != null">
+                dflt_rtna_rate,
+            </if>
+            <if test="rtnAccRate != null">
+                rtn_acc_rate,
+            </if>
+            <if test="rwdEncRate != null">
+                rwd_enc_rate,
+            </if>
+            <if test="tranUnitId != null">
+                tran_unit_id,
+            </if>
+            <if test="dfltPscType != null">
+                dflt_psc_type,
+            </if>
+            <if test="dfltRtcType != null">
+                dflt_rtc_type,
+            </if>
+            <if test="updTime != null">
+                upd_time,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="venderId != null">
+                #{venderId,jdbcType=BIGINT},
+            </if>
+            <if test="vendeeId != null">
+                #{vendeeId,jdbcType=BIGINT},
+            </if>
+            <if test="psaCtlr != null">
+                #{psaCtlr,jdbcType=CHAR},
+            </if>
+            <if test="vdrPsaNum != null">
+                #{vdrPsaNum,jdbcType=VARCHAR},
+            </if>
+            <if test="vdePsaNum != null">
+                #{vdePsaNum,jdbcType=VARCHAR},
+            </if>
+            <if test="effDate != null">
+                #{effDate,jdbcType=DATE},
+            </if>
+            <if test="expdDate != null">
+                #{expdDate,jdbcType=DATE},
+            </if>
+            <if test="puPrlRefId != null">
+                #{puPrlRefId,jdbcType=BIGINT},
+            </if>
+            <if test="slPrlRefId != null">
+                #{slPrlRefId,jdbcType=BIGINT},
+            </if>
+            <if test="dfltDiscRate != null">
+                #{dfltDiscRate,jdbcType=DECIMAL},
+            </if>
+            <if test="dfltTaxRate != null">
+                #{dfltTaxRate,jdbcType=DECIMAL},
+            </if>
+            <if test="psDpstRate != null">
+                #{psDpstRate,jdbcType=DECIMAL},
+            </if>
+            <if test="psGmRate != null">
+                #{psGmRate,jdbcType=DECIMAL},
+            </if>
+            <if test="rtnCtrl != null">
+                #{rtnCtrl,jdbcType=CHAR},
+            </if>
+            <if test="dfltIsCms != null">
+                #{dfltIsCms,jdbcType=CHAR},
+            </if>
+            <if test="dfltRtnaRate != null">
+                #{dfltRtnaRate,jdbcType=DECIMAL},
+            </if>
+            <if test="rtnAccRate != null">
+                #{rtnAccRate,jdbcType=DECIMAL},
+            </if>
+            <if test="rwdEncRate != null">
+                #{rwdEncRate,jdbcType=DECIMAL},
+            </if>
+            <if test="tranUnitId != null">
+                #{tranUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="dfltPscType != null">
+                #{dfltPscType,jdbcType=VARCHAR},
+            </if>
+            <if test="dfltRtcType != null">
+                #{dfltRtcType,jdbcType=VARCHAR},
+            </if>
+            <if test="updTime != null">
+                #{updTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="oprId != null">
+                #{oprId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Psa">
+    update psa
+    set vdr_psa_num = #{vdrPsaNum,jdbcType=VARCHAR},
+      vde_psa_num = #{vdePsaNum,jdbcType=VARCHAR},
+      eff_date = #{effDate,jdbcType=DATE},
+      expd_date = #{expdDate,jdbcType=DATE},
+      pu_prl_ref_id = #{puPrlRefId,jdbcType=BIGINT},
+      sl_prl_ref_id = #{slPrlRefId,jdbcType=BIGINT},
+      dflt_disc_rate = #{dfltDiscRate,jdbcType=DECIMAL},
+      dflt_tax_rate = #{dfltTaxRate,jdbcType=DECIMAL},
+      ps_dpst_rate = #{psDpstRate,jdbcType=DECIMAL},
+      ps_gm_rate = #{psGmRate,jdbcType=DECIMAL},
+      rtn_ctrl = #{rtnCtrl,jdbcType=CHAR},
+      dflt_is_cms = #{dfltIsCms,jdbcType=CHAR},
+      dflt_rtna_rate = #{dfltRtnaRate,jdbcType=DECIMAL},
+      rtn_acc_rate = #{rtnAccRate,jdbcType=DECIMAL},
+      rwd_enc_rate = #{rwdEncRate,jdbcType=DECIMAL},
+      tran_unit_id = #{tranUnitId,jdbcType=BIGINT},
+      dflt_psc_type = #{dfltPscType,jdbcType=VARCHAR},
+      dflt_rtc_type = #{dfltRtcType,jdbcType=VARCHAR},
+      upd_time = #{updTime,jdbcType=TIMESTAMP},
+      opr_id = #{oprId,jdbcType=BIGINT}
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+  </update>
+
+    <insert id="insertPsa" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaVo">
+        insert into psa
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="venderId != null and venderId != ''">
+                vender_id,
+            </if>
+            <if test="vendeeId != null and vendeeId != ''">
+                vendee_id,
+            </if>
+            <if test="psaCtlr != null and psaCtlr != ''">
+                psa_ctlr,
+            </if>
+            <if test="vdrPsaNum != null and vdrPsaNum != ''">
+                vdr_psa_num,
+            </if>
+            <if test="vdePsaNum != null and vdePsaNum != ''">
+                vde_psa_num,
+            </if>
+            <if test="effDate != null and effDate != ''">
+                eff_date,
+            </if>
+            <if test="expdDate != null and expdDate != ''">
+                expd_date,
+            </if>
+            <if test="puPrlRefId != null and puPrlRefId !='' ">
+                pu_prl_ref_id,
+            </if>
+            <if test="slPrlRefId != null and slPrlRefId !='' ">
+                sl_prl_ref_id,
+            </if>
+            <if test="dfltDiscRate != null and dfltDiscRate != ''">
+                dflt_disc_rate,
+            </if>
+            <if test="dfltTaxRate != null and dfltTaxRate != ''">
+                dflt_tax_rate,
+            </if>
+            <if test="psDpstRate != null and psDpstRate != ''">
+                ps_dpst_rate,
+            </if>
+            <if test="psGmRate != null and psGmRate != ''">
+                ps_gm_rate,
+            </if>
+            <if test="rtnCtrl != null and rtnCtrl != ''">
+                rtn_ctrl,
+            </if>
+            <if test="dfltIsCms != null and dfltIsCms != ''">
+                dflt_is_cms,
+            </if>
+            <if test="dfltRtnaRate != null and dfltRtnaRate != ''">
+                dflt_rtna_rate,
+            </if>
+            <if test="rtnAccRate != null and rtnAccRate != ''">
+                rtn_acc_rate,
+            </if>
+            <if test="rwdEncRate != null and rwdEncRate != ''">
+                rwd_enc_rate,
+            </if>
+            <if test="tranUnitId != null and tranUnitId !='' ">
+                tran_unit_id,
+            </if>
+            <if test="dfltPscType != null and dfltPscType != ''">
+                dflt_psc_type,
+            </if>
+            <if test="dfltRtcType != null and dfltRtcType != ''">
+                dflt_rtc_type,
+            </if>
+            <if test="oprId != null and oprId != ''">
+                upd_time,
+                opr_id,
+            </if>
+            <if test="inte != null and inte != '' ">
+                inte,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="venderId != null and venderId != ''">
+                #{venderId,jdbcType=BIGINT},
+            </if>
+            <if test="vendeeId != null and vendeeId != ''">
+                #{vendeeId,jdbcType=BIGINT},
+            </if>
+            <if test="psaCtlr != null and psaCtlr != ''">
+                #{psaCtlr,jdbcType=CHAR},
+            </if>
+            <if test="vdrPsaNum != null and vdrPsaNum != ''">
+                #{vdrPsaNum,jdbcType=VARCHAR},
+            </if>
+            <if test="vdePsaNum != null and vdePsaNum != ''">
+                #{vdePsaNum,jdbcType=VARCHAR},
+            </if>
+            <if test="effDate != null and effDate != ''">
+                #{effDate,jdbcType=DATE},
+            </if>
+            <if test="expdDate != null and expdDate != ''">
+                #{expdDate,jdbcType=DATE},
+            </if>
+            <if test="puPrlRefId != null and puPrlRefId !='' ">
+                #{puPrlRefId,jdbcType=BIGINT},
+            </if>
+            <if test="slPrlRefId != null and slPrlRefId !='' ">
+                #{slPrlRefId,jdbcType=BIGINT},
+            </if>
+            <if test="dfltDiscRate != null and dfltDiscRate != ''">
+                #{dfltDiscRate,jdbcType=DECIMAL},
+            </if>
+            <if test="dfltTaxRate != null and dfltTaxRate != ''">
+                #{dfltTaxRate,jdbcType=DECIMAL},
+            </if>
+            <if test="psDpstRate != null and psDpstRate != ''">
+                #{psDpstRate,jdbcType=DECIMAL},
+            </if>
+            <if test="psGmRate != null and psGmRate != ''">
+                #{psGmRate,jdbcType=DECIMAL},
+            </if>
+            <if test="rtnCtrl != null and rtnCtrl != ''">
+                #{rtnCtrl,jdbcType=CHAR},
+            </if>
+            <if test="dfltIsCms != null and dfltIsCms != ''">
+                #{dfltIsCms,jdbcType=CHAR},
+            </if>
+            <if test="dfltRtnaRate != null and dfltRtnaRate != ''">
+                #{dfltRtnaRate,jdbcType=DECIMAL},
+            </if>
+            <if test="rtnAccRate != null and rtnAccRate != ''">
+                #{rtnAccRate,jdbcType=DECIMAL},
+            </if>
+            <if test="rwdEncRate != null and rwdEncRate != ''">
+                #{rwdEncRate,jdbcType=DECIMAL},
+            </if>
+            <if test="tranUnitId != null and tranUnitId !='' ">
+                #{tranUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="dfltPscType != null and dfltPscType != ''">
+                #{dfltPscType,jdbcType=VARCHAR},
+            </if>
+            <if test="dfltRtcType != null and dfltRtcType != ''">
+                #{dfltRtcType,jdbcType=VARCHAR},
+            </if>
+            <if test="oprId != null and oprId != ''">
+                now(),
+                #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="inte != null and inte !='' ">
+                #{inte,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updatePsa" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaVo">
+        update psa
+        <set>
+            <if test="vdrPsaNum != null and vdrPsaNum != '' and vdrPsaNum != 'null' ">
+            vdr_psa_num = #{vdrPsaNum,jdbcType=VARCHAR},
+            </if>
+            <if test="vdePsaNum != null and vdePsaNum != '' and vdePsaNum != 'null' ">
+            vde_psa_num = #{vdePsaNum,jdbcType=VARCHAR},
+            </if>
+            <if test="effDate != null and effDate != '' and effDate != 'null' ">
+            eff_date = #{effDate},
+            </if>
+            <if test="expdDate != null and expdDate != '' and expdDate != 'null' ">
+            expd_date = #{expdDate},
+            </if>
+            <if test="puPrlRefId != null and puPrlRefId != '' and puPrlRefId != 'null' ">
+            pu_prl_ref_id = #{puPrlRefId,jdbcType=BIGINT},
+            </if>
+            <if test="slPrlRefId != null and slPrlRefId != '' and slPrlRefId != 'null' ">
+            sl_prl_ref_id = #{slPrlRefId,jdbcType=BIGINT},
+            </if>
+            <if test="dfltDiscRate != null and dfltDiscRate != '' ">
+            dflt_disc_rate = #{dfltDiscRate,jdbcType=DECIMAL},
+            </if>
+            <if test="dfltTaxRate != null and dfltTaxRate != ''  ">
+            dflt_tax_rate = #{dfltTaxRate,jdbcType=DECIMAL},
+            </if>
+            <if test="psDpstRate != null and psDpstRate != '' and psDpstRate != 'null' ">
+            ps_dpst_rate = #{psDpstRate,jdbcType=DECIMAL},
+            </if>
+            <if test="psGmRate != null and psGmRate != '' ">
+            ps_gm_rate = #{psGmRate,jdbcType=DECIMAL},
+            </if>
+            <if test="rtnCtrl != null and rtnCtrl != '' and rtnCtrl != 'null' ">
+            rtn_ctrl = #{rtnCtrl,jdbcType=CHAR},
+            </if>
+            <if test="dfltIsCms != null and dfltIsCms != '' and dfltIsCms != 'null' ">
+            dflt_is_cms = #{dfltIsCms,jdbcType=CHAR},
+            </if>
+            <if test="dfltRtnaRate != null and dfltRtnaRate != '' ">
+            dflt_rtna_rate = #{dfltRtnaRate,jdbcType=DECIMAL},
+            </if>
+            <if test="rtnAccRate != null and rtnAccRate != '' ">
+            rtn_acc_rate = #{rtnAccRate,jdbcType=DECIMAL},
+            </if>
+            <if test="rwdEncRate != null and rwdEncRate != '' ">
+            rwd_enc_rate = #{rwdEncRate,jdbcType=DECIMAL},
+            </if>
+            <if test="tranUnitId != null and tranUnitId != '' and tranUnitId != 'null' ">
+            tran_unit_id = #{tranUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="dfltPscType != null and dfltPscType != '' and dfltPscType != 'null' ">
+            dflt_psc_type = #{dfltPscType,jdbcType=VARCHAR},
+            </if>
+            <if test="dfltRtcType != null and dfltRtcType != '' and dfltRtcType != 'null' ">
+            dflt_rtc_type = #{dfltRtcType,jdbcType=VARCHAR},
+            </if>
+            upd_time = now(),
+            <if test="oprId != null and oprId != '' and oprId != 'null' ">
+            opr_id = #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="inte != null and inte != '' and inte != 'null' ">
+            inte = #{inte,jdbcType=CHAR},
+            </if>
+        </set>
+        where vender_id = #{venderId,jdbcType=BIGINT}
+        and vendee_id = #{vendeeId,jdbcType=BIGINT}
+        and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+    </update>
+
+    <delete id="deletePsa" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaVo">
+    delete from psa
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+  </delete>
+
+    <select id="selectByPsaByVde" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.OptionByPsaVo"
+            resultMap="BaseResultMapOption">
+    select
+    psa.vender_id,psa.vendee_id,psa.psa_ctlr,psa.inte
+    from
+		vender v
+	INNER JOIN psa  psa ON psa.vender_id = v.vender_id
+	AND psa.vendee_id = v.owner_id
+	AND psa.psa_ctlr = v.psa_ctlr
+    where psa.vender_id = #{venderId}
+    and psa.vendee_id = #{vendeeId}
+  </select>
+
+    <select id="selectByPsaByVdr" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.OptionByPsaVo"
+            resultMap="BaseResultMapOption">
+    select
+    psa.vender_id,psa.vendee_id,psa.psa_ctlr,psa.inte
+    from
+		vendee v
+	INNER JOIN psa  psa ON psa.vender_id = v.owner_id
+	AND psa.vendee_id = v.vendee_id
+	AND psa.psa_ctlr = v.psa_ctlr
+    where psa.vender_id = #{venderId}
+    and psa.vendee_id = #{vendeeId}
+  </select>
+
+    <select id="selectByVdr" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Psa"
+            resultMap="BaseResultMap">
+    select
+     psa.*
+    from
+		vender v
+	INNER JOIN psa  psa ON psa.vender_id = v.vender_id
+	AND psa.vendee_id = v.owner_id
+	AND psa.psa_ctlr = v.psa_ctlr
+    where psa.vender_id = #{venderId}
+    and psa.vendee_id = #{vendeeId}
+  </select>
+
+    <select id="selectByVde" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Psa"
+            resultMap="BaseResultMap">
+     select
+    psa.*
+    from
+		vendee v
+	INNER JOIN psa  psa ON psa.vender_id = v.owner_id
+	AND psa.vendee_id = v.vendee_id
+	AND psa.psa_ctlr = v.psa_ctlr
+    where psa.vender_id = #{venderId}
+    and psa.vendee_id = #{vendeeId}
+  </select>
+</mapper>

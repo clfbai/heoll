@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.system.FunRuleMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.FunRule">
+        <result column="doc_type" property="docType"></result>
+        <result column="progress" property="progress"></result>
+        <result column="suspended" property="suspended"></result>
+        <result column="cancelled" property="cancelled"></result>
+        <result column="function" property="function"></result>
+    </resultMap>
+    <sql id="Base_Column_List">
+        doc_type,progress,suspended,cancelled,`function`
+    </sql>
+    <select id="queryFunctionList" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from fun_rule where doc_type=#{docType}
+    </select>
+</mapper>

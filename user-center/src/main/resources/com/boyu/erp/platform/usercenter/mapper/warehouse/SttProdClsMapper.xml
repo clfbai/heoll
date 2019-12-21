@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.SttProdClsMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.SttProdCls">
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <id column="stt_num" jdbcType="VARCHAR" property="sttNum" />
+    <id column="prod_cls_id" jdbcType="BIGINT" property="prodClsId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.SttProdCls">
+    delete from stt_prod_cls
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and stt_num = #{sttNum,jdbcType=VARCHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+  </delete>
+    <select id="querySttProdClsByObj"
+            resultMap="BaseResultMap">
+        select unit_id, stt_num, prod_cls_id from stt_prod_cls
+        <trim prefix="where" prefixOverrides="and|or">
+          <if test="sttNum!=null and sttNum!=''">
+            and stt_num=#{sttNum}
+          </if>
+          <if test="prodClsId!=null and prodClsId!=''">
+            and prod_cls_id=#{prodClsId}
+          </if>
+          and unit_id=#{unitId}
+        </trim>
+    </select>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.SttProdCls">
+    insert into stt_prod_cls (unit_id, stt_num, prod_cls_id
+      )
+    values (#{unitId,jdbcType=BIGINT}, #{sttNum,jdbcType=VARCHAR}, #{prodClsId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.SttProdCls">
+    insert into stt_prod_cls
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="sttNum != null">
+        stt_num,
+      </if>
+      <if test="prodClsId != null">
+        prod_cls_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="sttNum != null">
+        #{sttNum,jdbcType=VARCHAR},
+      </if>
+      <if test="prodClsId != null">
+        #{prodClsId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+    <insert id="addSttProdClsList">
+      insert into stt_prod_cls(unit_id,stt_num,prod_cls_id) values 
+      <foreach collection="sttProdClsList" item="sttProdCls" separator=",">
+        (#{unitId},#{sttNum},#{sttProdCls.prodClsId})
+      </foreach>
+    </insert>
+</mapper>

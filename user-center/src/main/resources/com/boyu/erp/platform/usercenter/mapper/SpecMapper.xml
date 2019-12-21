@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.SpecMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.Spec">
+        <id column="spec_id" jdbcType="BIGINT" property="specId"/>
+        <result column="spec_code" jdbcType="VARCHAR" property="specCode"/>
+        <result column="spec_grp_id" jdbcType="VARCHAR" property="specGrpId"/>
+        <result column="spec_num" jdbcType="VARCHAR" property="specNum"/>
+        <result column="spec_name" jdbcType="VARCHAR" property="specName"/>
+        <result column="proportion" jdbcType="BIGINT" property="proportion"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="deleted" jdbcType="CHAR" property="deleted"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    spec_id, spec_code, spec_grp_id, spec_num, spec_name, proportion, description, deleted
+  </sql>
+    <select id="getAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from spec
+    </select>
+    <!-- 根据主键查询单个规格 -->
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.Spec"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from spec
+        where 1=1
+        <if test="specCode != null">
+            and spec_code =#{specCode}
+        </if>
+        <if test="specId != null">
+            and spec_id =#{specId}
+        </if>
+        <if test="specNum != null">
+            and spec_num=#{specNum}
+        </if>
+        <if test="specName != null">
+            and spec_name=#{specName}
+        </if>
+        <if test="specGrpId!=null and specGrpId!=''">
+            and spec_grp_id=#{specGrpId}
+        </if>
+        and deleted='F'
+    </select>
+
+    <!-- 根据规格组获取规格列表-->
+    <select id="getListSpecBySpecGrpId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from spec
+        where spec_grp_id = #{specGrpId,jdbcType=VARCHAR} and deleted='F'
+    </select>
+
+    <!--查询所有的规格-->
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="com.boyu.erp.platform.usercenter.entity.Spec">
+        select
+        <include refid="Base_Column_List"/>
+        from spec
+        where 1=1
+        <if test="specId != null">
+            and spec_id=#{specId}
+        </if>
+        <if test="specCode != null">
+            and spec_code =#{specCode}
+        </if>
+        <if test="specGrpId != null">
+            and spec_grp_id=#{specGrpId}
+        </if>
+        <if test="specNum != null">
+            and spec_num=#{specNum}
+        </if>
+        <if test="specName != null">
+            and spec_name=#{specName}
+        </if>
+        <if test="proportion != null">
+            and proportion=#{proportion}
+        </if>
+        <if test="description != null">
+            and description=#{description}
+        </if>
+        <if test="deleted != null">
+            and deleted=#{deleted}
+        </if>
+    </select>
+    <!--批量查询规格号 -->
+    <select id="getSpecList" parameterType="list" resultMap="BaseResultMap">
+        /*此方法仅限于数据量很少用，索引失效*/
+        SELECT
+        *
+        FROM
+        spec s
+        WHERE
+        1=1
+        <if test="list!=null">
+            and (s.`spec_grp_id`, s.`spec_code`)
+            in
+            (
+            <foreach collection="list" item="item" index="index"
+                     separator=",">
+                ( #{item.specGrpId},#{item.specCode})
+            </foreach>
+            )
+        </if>
+
+
+
+    </select>
+    <select id="querySpecListByIds" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from spec where spec_id in (
+        <foreach collection="specIds" item="specId" separator=",">
+            #{specId}
+        </foreach>
+        )
+    </select>
+
+    <!-- 插入规格-->
+    <insert id="insertSpec" parameterType="com.boyu.erp.platform.usercenter.entity.Spec">
+        insert into spec
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="specId != null">
+                spec_id,
+            </if>
+            <if test="specCode != null">
+                spec_code,
+            </if>
+            <if test="specGrpId != null">
+                spec_grp_id,
+            </if>
+            <if test="specNum != null">
+                spec_num,
+            </if>
+            <if test="specName != null">
+                spec_name,
+            </if>
+            <if test="proportion != null">
+                proportion,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="specId != null">
+                #{specId,jdbcType=BIGINT},
+            </if>
+            <if test="specCode != null">
+                #{specCode,jdbcType=VARCHAR},
+            </if>
+            <if test="specGrpId != null">
+                #{specGrpId,jdbcType=VARCHAR},
+            </if>
+            <if test="specNum != null">
+                #{specNum,jdbcType=VARCHAR},
+            </if>
+            <if test="specName != null">
+                #{specName,jdbcType=VARCHAR},
+            </if>
+            <if test="proportion != null">
+                #{proportion,jdbcType=BIGINT},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 更新规格-->
+    <update id="updateSpec" parameterType="com.boyu.erp.platform.usercenter.entity.Spec">
+        update spec
+        <set>
+            <if test="specCode != null">
+                spec_code = #{specCode,jdbcType=VARCHAR},
+            </if>
+            <if test="specGrpId != null">
+                spec_grp_id = #{specGrpId,jdbcType=VARCHAR},
+            </if>
+            <if test="specNum != null">
+                spec_num = #{specNum,jdbcType=VARCHAR},
+            </if>
+            <if test="specName != null">
+                spec_name = #{specName,jdbcType=VARCHAR},
+            </if>
+            <if test="proportion != null">
+                proportion = #{proportion,jdbcType=BIGINT},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=CHAR},
+            </if>
+        </set>
+        where spec_id = #{specId,jdbcType=BIGINT}
+    </update>
+
+
+    <!-- 删除规格-->
+    <update id="deleteSpec" parameterType="com.boyu.erp.platform.usercenter.entity.Spec">
+         update spec set deleted='T' where spec_id = #{specId}
+    </update>
+
+</mapper>

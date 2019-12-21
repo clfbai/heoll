@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sales.RgoDtlMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.sales.RgoDtl">
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <id column="rgo_num" jdbcType="VARCHAR" property="rgoNum" />
+    <id column="prod_id" jdbcType="BIGINT" property="prodId" />
+    <result column="line_num" jdbcType="BIGINT" property="lineNum" />
+    <result column="row_num" jdbcType="BIGINT" property="rowNum" />
+    <result column="pu_unit_price" jdbcType="DECIMAL" property="puUnitPrice" />
+    <result column="pu_disc_rate" jdbcType="DECIMAL" property="puDiscRate" />
+    <result column="pu_fnl_price" jdbcType="DECIMAL" property="puFnlPrice" />
+    <result column="pu_tax_rate" jdbcType="DECIMAL" property="puTaxRate" />
+    <result column="pu_mk_unit_price" jdbcType="DECIMAL" property="puMkUnitPrice" />
+    <result column="sl_unit_price" jdbcType="DECIMAL" property="slUnitPrice" />
+    <result column="sl_disc_rate" jdbcType="DECIMAL" property="slDiscRate" />
+    <result column="sl_fnl_price" jdbcType="DECIMAL" property="slFnlPrice" />
+    <result column="sl_tax_rate" jdbcType="DECIMAL" property="slTaxRate" />
+    <result column="sl_mk_unit_price" jdbcType="DECIMAL" property="slMkUnitPrice" />
+    <result column="sl_rtna_rate" jdbcType="DECIMAL" property="slRtnaRate" />
+    <result column="qty" jdbcType="DECIMAL" property="qty" />
+    <result column="pu_val" jdbcType="DECIMAL" property="puVal" />
+    <result column="pu_tax" jdbcType="DECIMAL" property="puTax" />
+    <result column="pu_mkv" jdbcType="DECIMAL" property="puMkv" />
+    <result column="sl_val" jdbcType="DECIMAL" property="slVal" />
+    <result column="sl_tax" jdbcType="DECIMAL" property="slTax" />
+    <result column="sl_mkv" jdbcType="DECIMAL" property="slMkv" />
+    <result column="deliv_qty" jdbcType="DECIMAL" property="delivQty" />
+    <result column="deliv_val" jdbcType="DECIMAL" property="delivVal" />
+    <result column="deliv_tax" jdbcType="DECIMAL" property="delivTax" />
+    <result column="deliv_mkv" jdbcType="DECIMAL" property="delivMkv" />
+    <result column="rcv_qty" jdbcType="DECIMAL" property="rcvQty" />
+    <result column="rcv_val" jdbcType="DECIMAL" property="rcvVal" />
+    <result column="rcv_tax" jdbcType="DECIMAL" property="rcvTax" />
+    <result column="rcv_mkv" jdbcType="DECIMAL" property="rcvMkv" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapByRgoDtl" type="com.boyu.erp.platform.usercenter.vo.sales.RgoDtlVo">
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <id column="rgo_num" jdbcType="VARCHAR" property="rgoNum" />
+    <id column="prod_id" jdbcType="BIGINT" property="prodId" />
+    <result column="line_num" jdbcType="BIGINT" property="lineNum" />
+    <result column="row_num" jdbcType="BIGINT" property="rowNum" />
+    <result column="pu_unit_price" jdbcType="DECIMAL" property="puUnitPrice" />
+    <result column="pu_disc_rate" jdbcType="DECIMAL" property="puDiscRate" />
+    <result column="pu_fnl_price" jdbcType="DECIMAL" property="puFnlPrice" />
+    <result column="pu_tax_rate" jdbcType="DECIMAL" property="puTaxRate" />
+    <result column="pu_mk_unit_price" jdbcType="DECIMAL" property="puMkUnitPrice" />
+    <result column="sl_unit_price" jdbcType="DECIMAL" property="slUnitPrice" />
+    <result column="sl_disc_rate" jdbcType="DECIMAL" property="slDiscRate" />
+    <result column="sl_fnl_price" jdbcType="DECIMAL" property="slFnlPrice" />
+    <result column="sl_tax_rate" jdbcType="DECIMAL" property="slTaxRate" />
+    <result column="sl_mk_unit_price" jdbcType="DECIMAL" property="slMkUnitPrice" />
+    <result column="sl_rtna_rate" jdbcType="DECIMAL" property="slRtnaRate" />
+    <result column="qty" jdbcType="DECIMAL" property="qty" />
+    <result column="pu_val" jdbcType="DECIMAL" property="puVal" />
+    <result column="pu_tax" jdbcType="DECIMAL" property="puTax" />
+    <result column="pu_mkv" jdbcType="DECIMAL" property="puMkv" />
+    <result column="sl_val" jdbcType="DECIMAL" property="slVal" />
+    <result column="sl_tax" jdbcType="DECIMAL" property="slTax" />
+    <result column="sl_mkv" jdbcType="DECIMAL" property="slMkv" />
+    <result column="deliv_qty" jdbcType="DECIMAL" property="delivQty" />
+    <result column="deliv_val" jdbcType="DECIMAL" property="delivVal" />
+    <result column="deliv_tax" jdbcType="DECIMAL" property="delivTax" />
+    <result column="deliv_mkv" jdbcType="DECIMAL" property="delivMkv" />
+    <result column="rcv_qty" jdbcType="DECIMAL" property="rcvQty" />
+    <result column="rcv_val" jdbcType="DECIMAL" property="rcvVal" />
+    <result column="rcv_tax" jdbcType="DECIMAL" property="rcvTax" />
+    <result column="rcv_mkv" jdbcType="DECIMAL" property="rcvMkv" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+
+    <result column="prodCode" property="prodCode" />
+    <result column="inputCode" property="inputCode" />
+    <result column="seqNum" property="seqNum" />
+    <result column="uom" property="uom" />
+    <result column="prodName" property="prodName" />
+    <result column="color" property="color" />
+    <result column="spec" property="spec" />
+    <result column="edition" property="edition" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapOrderItems" type="com.boyu.erp.platform.usercenter.entity.mq.order.RgoOrderItems">
+    <result column="productSKUId" property="productSKUId"/>
+    <result column="quantity" property="quantity"/>
+    <result column="salePrice" property="salePrice"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    unit_id, rgo_num, prod_id, line_num, row_num, pu_unit_price, pu_disc_rate, pu_fnl_price, 
+    pu_tax_rate, pu_mk_unit_price, sl_unit_price, sl_disc_rate, sl_fnl_price, sl_tax_rate, 
+    sl_mk_unit_price, sl_rtna_rate, qty, pu_val, pu_tax, pu_mkv, sl_val, sl_tax, sl_mkv, 
+    deliv_qty, deliv_val, deliv_tax, deliv_mkv, rcv_qty, rcv_val, rcv_tax, rcv_mkv, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.sales.RgoDtl" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rgo_dtl
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and rgo_num = #{rgoNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </select>
+  <select id="selectByRgo" parameterType="com.boyu.erp.platform.usercenter.vo.sales.RgoVo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from rgo_dtl
+    where unit_id = #{unitId,jdbcType=BIGINT}
+    and rgo_num = #{rgoNum,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.sales.RgoDtl">
+    delete from rgo_dtl
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and rgo_num = #{rgoNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByRgo" parameterType="com.boyu.erp.platform.usercenter.entity.sales.RgoDtl">
+    delete from rgo_dtl
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and rgo_num = #{rgoNum,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.sales.RgoDtl">
+    insert into rgo_dtl (unit_id, rgo_num, prod_id, 
+      line_num, row_num, pu_unit_price, 
+      pu_disc_rate, pu_fnl_price, pu_tax_rate, 
+      pu_mk_unit_price, sl_unit_price, sl_disc_rate, 
+      sl_fnl_price, sl_tax_rate, sl_mk_unit_price, 
+      sl_rtna_rate, qty, pu_val, 
+      pu_tax, pu_mkv, sl_val, 
+      sl_tax, sl_mkv, deliv_qty, 
+      deliv_val, deliv_tax, deliv_mkv, 
+      rcv_qty, rcv_val, rcv_tax, 
+      rcv_mkv, remarks)
+    values (#{unitId,jdbcType=BIGINT}, #{rgoNum,jdbcType=VARCHAR}, #{prodId,jdbcType=BIGINT}, 
+      #{lineNum,jdbcType=BIGINT}, #{rowNum,jdbcType=BIGINT}, #{puUnitPrice,jdbcType=DECIMAL}, 
+      #{puDiscRate,jdbcType=DECIMAL}, #{puFnlPrice,jdbcType=DECIMAL}, #{puTaxRate,jdbcType=DECIMAL}, 
+      #{puMkUnitPrice,jdbcType=DECIMAL}, #{slUnitPrice,jdbcType=DECIMAL}, #{slDiscRate,jdbcType=DECIMAL}, 
+      #{slFnlPrice,jdbcType=DECIMAL}, #{slTaxRate,jdbcType=DECIMAL}, #{slMkUnitPrice,jdbcType=DECIMAL}, 
+      #{slRtnaRate,jdbcType=DECIMAL}, #{qty,jdbcType=DECIMAL}, #{puVal,jdbcType=DECIMAL}, 
+      #{puTax,jdbcType=DECIMAL}, #{puMkv,jdbcType=DECIMAL}, #{slVal,jdbcType=DECIMAL}, 
+      #{slTax,jdbcType=DECIMAL}, #{slMkv,jdbcType=DECIMAL}, #{delivQty,jdbcType=DECIMAL}, 
+      #{delivVal,jdbcType=DECIMAL}, #{delivTax,jdbcType=DECIMAL}, #{delivMkv,jdbcType=DECIMAL}, 
+      #{rcvQty,jdbcType=DECIMAL}, #{rcvVal,jdbcType=DECIMAL}, #{rcvTax,jdbcType=DECIMAL}, 
+      #{rcvMkv,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.sales.RgoDtl">
+    insert into rgo_dtl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="rgoNum != null">
+        rgo_num,
+      </if>
+      <if test="prodId != null">
+        prod_id,
+      </if>
+      <if test="lineNum != null">
+        line_num,
+      </if>
+      <if test="rowNum != null">
+        row_num,
+      </if>
+      <if test="puUnitPrice != null">
+        pu_unit_price,
+      </if>
+      <if test="puDiscRate != null">
+        pu_disc_rate,
+      </if>
+      <if test="puFnlPrice != null">
+        pu_fnl_price,
+      </if>
+      <if test="puTaxRate != null">
+        pu_tax_rate,
+      </if>
+      <if test="puMkUnitPrice != null">
+        pu_mk_unit_price,
+      </if>
+      <if test="slUnitPrice != null">
+        sl_unit_price,
+      </if>
+      <if test="slDiscRate != null">
+        sl_disc_rate,
+      </if>
+      <if test="slFnlPrice != null">
+        sl_fnl_price,
+      </if>
+      <if test="slTaxRate != null">
+        sl_tax_rate,
+      </if>
+      <if test="slMkUnitPrice != null">
+        sl_mk_unit_price,
+      </if>
+      <if test="slRtnaRate != null">
+        sl_rtna_rate,
+      </if>
+      <if test="qty != null">
+        qty,
+      </if>
+      <if test="puVal != null">
+        pu_val,
+      </if>
+      <if test="puTax != null">
+        pu_tax,
+      </if>
+      <if test="puMkv != null">
+        pu_mkv,
+      </if>
+      <if test="slVal != null">
+        sl_val,
+      </if>
+      <if test="slTax != null">
+        sl_tax,
+      </if>
+      <if test="slMkv != null">
+        sl_mkv,
+      </if>
+      <if test="delivQty != null">
+        deliv_qty,
+      </if>
+      <if test="delivVal != null">
+        deliv_val,
+      </if>
+      <if test="delivTax != null">
+        deliv_tax,
+      </if>
+      <if test="delivMkv != null">
+        deliv_mkv,
+      </if>
+      <if test="rcvQty != null">
+        rcv_qty,
+      </if>
+      <if test="rcvVal != null">
+        rcv_val,
+      </if>
+      <if test="rcvTax != null">
+        rcv_tax,
+      </if>
+      <if test="rcvMkv != null">
+        rcv_mkv,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="rgoNum != null">
+        #{rgoNum,jdbcType=VARCHAR},
+      </if>
+      <if test="prodId != null">
+        #{prodId,jdbcType=BIGINT},
+      </if>
+      <if test="lineNum != null">
+        #{lineNum,jdbcType=BIGINT},
+      </if>
+      <if test="rowNum != null">
+        #{rowNum,jdbcType=BIGINT},
+      </if>
+      <if test="puUnitPrice != null">
+        #{puUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="puDiscRate != null">
+        #{puDiscRate,jdbcType=DECIMAL},
+      </if>
+      <if test="puFnlPrice != null">
+        #{puFnlPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="puTaxRate != null">
+        #{puTaxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="puMkUnitPrice != null">
+        #{puMkUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="slUnitPrice != null">
+        #{slUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="slDiscRate != null">
+        #{slDiscRate,jdbcType=DECIMAL},
+      </if>
+      <if test="slFnlPrice != null">
+        #{slFnlPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="slTaxRate != null">
+        #{slTaxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="slMkUnitPrice != null">
+        #{slMkUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="slRtnaRate != null">
+        #{slRtnaRate,jdbcType=DECIMAL},
+      </if>
+      <if test="qty != null">
+        #{qty,jdbcType=DECIMAL},
+      </if>
+      <if test="puVal != null">
+        #{puVal,jdbcType=DECIMAL},
+      </if>
+      <if test="puTax != null">
+        #{puTax,jdbcType=DECIMAL},
+      </if>
+      <if test="puMkv != null">
+        #{puMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="slVal != null">
+        #{slVal,jdbcType=DECIMAL},
+      </if>
+      <if test="slTax != null">
+        #{slTax,jdbcType=DECIMAL},
+      </if>
+      <if test="slMkv != null">
+        #{slMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="delivQty != null">
+        #{delivQty,jdbcType=DECIMAL},
+      </if>
+      <if test="delivVal != null">
+        #{delivVal,jdbcType=DECIMAL},
+      </if>
+      <if test="delivTax != null">
+        #{delivTax,jdbcType=DECIMAL},
+      </if>
+      <if test="delivMkv != null">
+        #{delivMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvQty != null">
+        #{rcvQty,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvVal != null">
+        #{rcvVal,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvTax != null">
+        #{rcvTax,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvMkv != null">
+        #{rcvMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.sales.RgoDtl">
+    update rgo_dtl
+    <set>
+      <if test="lineNum != null">
+        line_num = #{lineNum,jdbcType=BIGINT},
+      </if>
+      <if test="rowNum != null">
+        row_num = #{rowNum,jdbcType=BIGINT},
+      </if>
+      <if test="puUnitPrice != null">
+        pu_unit_price = #{puUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="puDiscRate != null">
+        pu_disc_rate = #{puDiscRate,jdbcType=DECIMAL},
+      </if>
+      <if test="puFnlPrice != null">
+        pu_fnl_price = #{puFnlPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="puTaxRate != null">
+        pu_tax_rate = #{puTaxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="puMkUnitPrice != null">
+        pu_mk_unit_price = #{puMkUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="slUnitPrice != null">
+        sl_unit_price = #{slUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="slDiscRate != null">
+        sl_disc_rate = #{slDiscRate,jdbcType=DECIMAL},
+      </if>
+      <if test="slFnlPrice != null">
+        sl_fnl_price = #{slFnlPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="slTaxRate != null">
+        sl_tax_rate = #{slTaxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="slMkUnitPrice != null">
+        sl_mk_unit_price = #{slMkUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="slRtnaRate != null">
+        sl_rtna_rate = #{slRtnaRate,jdbcType=DECIMAL},
+      </if>
+      <if test="qty != null">
+        qty = #{qty,jdbcType=DECIMAL},
+      </if>
+      <if test="puVal != null">
+        pu_val = #{puVal,jdbcType=DECIMAL},
+      </if>
+      <if test="puTax != null">
+        pu_tax = #{puTax,jdbcType=DECIMAL},
+      </if>
+      <if test="puMkv != null">
+        pu_mkv = #{puMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="slVal != null">
+        sl_val = #{slVal,jdbcType=DECIMAL},
+      </if>
+      <if test="slTax != null">
+        sl_tax = #{slTax,jdbcType=DECIMAL},
+      </if>
+      <if test="slMkv != null">
+        sl_mkv = #{slMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="delivQty != null">
+        deliv_qty = #{delivQty,jdbcType=DECIMAL},
+      </if>
+      <if test="delivVal != null">
+        deliv_val = #{delivVal,jdbcType=DECIMAL},
+      </if>
+      <if test="delivTax != null">
+        deliv_tax = #{delivTax,jdbcType=DECIMAL},
+      </if>
+      <if test="delivMkv != null">
+        deliv_mkv = #{delivMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvQty != null">
+        rcv_qty = #{rcvQty,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvVal != null">
+        rcv_val = #{rcvVal,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvTax != null">
+        rcv_tax = #{rcvTax,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvMkv != null">
+        rcv_mkv = #{rcvMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and rgo_num = #{rgoNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.sales.RgoDtl">
+    update rgo_dtl
+    set line_num = #{lineNum,jdbcType=BIGINT},
+      row_num = #{rowNum,jdbcType=BIGINT},
+      pu_unit_price = #{puUnitPrice,jdbcType=DECIMAL},
+      pu_disc_rate = #{puDiscRate,jdbcType=DECIMAL},
+      pu_fnl_price = #{puFnlPrice,jdbcType=DECIMAL},
+      pu_tax_rate = #{puTaxRate,jdbcType=DECIMAL},
+      pu_mk_unit_price = #{puMkUnitPrice,jdbcType=DECIMAL},
+      sl_unit_price = #{slUnitPrice,jdbcType=DECIMAL},
+      sl_disc_rate = #{slDiscRate,jdbcType=DECIMAL},
+      sl_fnl_price = #{slFnlPrice,jdbcType=DECIMAL},
+      sl_tax_rate = #{slTaxRate,jdbcType=DECIMAL},
+      sl_mk_unit_price = #{slMkUnitPrice,jdbcType=DECIMAL},
+      sl_rtna_rate = #{slRtnaRate,jdbcType=DECIMAL},
+      qty = #{qty,jdbcType=DECIMAL},
+      pu_val = #{puVal,jdbcType=DECIMAL},
+      pu_tax = #{puTax,jdbcType=DECIMAL},
+      pu_mkv = #{puMkv,jdbcType=DECIMAL},
+      sl_val = #{slVal,jdbcType=DECIMAL},
+      sl_tax = #{slTax,jdbcType=DECIMAL},
+      sl_mkv = #{slMkv,jdbcType=DECIMAL},
+      deliv_qty = #{delivQty,jdbcType=DECIMAL},
+      deliv_val = #{delivVal,jdbcType=DECIMAL},
+      deliv_tax = #{delivTax,jdbcType=DECIMAL},
+      deliv_mkv = #{delivMkv,jdbcType=DECIMAL},
+      rcv_qty = #{rcvQty,jdbcType=DECIMAL},
+      rcv_val = #{rcvVal,jdbcType=DECIMAL},
+      rcv_tax = #{rcvTax,jdbcType=DECIMAL},
+      rcv_mkv = #{rcvMkv,jdbcType=DECIMAL},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and rgo_num = #{rgoNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </update>
+
+  <!--查询调配单明细-->
+  <select id="selectByRgoDtl" parameterType="com.boyu.erp.platform.usercenter.vo.sales.RgoDtlVo" resultMap="BaseResultMapByRgoDtl">
+        SELECT
+        pCls.PROD_NAME AS prodName,
+        pCls.INPUT_CODE AS inputCode,
+        scd1.DESCRIPTION AS uom,
+        c.COLOR_NAME AS color,
+        s.SPEC_NAME AS spec,
+        scd.DESCRIPTION AS edition,
+        p.PROD_CODE AS prodCode,
+        pCls.SEQ_NUM AS seqNum,
+        rDtl.*
+    FROM
+    (SELECT a.* FROM rgo_dtl a WHERE unit_id = #{unitId} and rgo_num=#{rgoNum} )
+         rDtl
+     LEFT JOIN PRODUCT p ON p.PROD_ID = rDtl.PROD_ID
+        LEFT JOIN PROD_CLS pCls ON pCls.PROD_CLS_ID = p.PROD_CLS_ID
+        LEFT JOIN SYS_CODE_DTL scd ON scd.code = p.EDITION AND scd.CODE_TYPE='EDITION'
+        LEFT JOIN SYS_CODE_DTL scd1 ON scd1.code = pCls.UOM AND scd1.CODE_TYPE='UOM'
+        LEFT JOIN COLOR c ON c.COLOR_ID	= p.COLOR_ID
+        LEFT JOIN SPEC s ON s.SPEC_ID = p.SPEC_ID
+  </select>
+
+  <select id="findByRgoDtl" parameterType="com.boyu.erp.platform.usercenter.entity.sales.RgoDtl" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM
+    rgo_dtl
+    WHERE
+    unit_id = #{unitId} and rgo_num = #{rgoNum}
+    ORDER BY
+    line_num DESC
+    LIMIT 1
+  </select>
+
+  <!-- 批量新增数据 -->
+  <insert id="insertList" parameterType="java.util.List">
+    insert into rgo_dtl (unit_id, rgo_num, prod_id,
+    line_num, row_num, pu_unit_price,
+    pu_disc_rate, pu_fnl_price, pu_tax_rate,
+    pu_mk_unit_price, sl_unit_price, sl_disc_rate,
+    sl_fnl_price, sl_tax_rate, sl_mk_unit_price,
+    sl_rtna_rate, qty, pu_val,
+    pu_tax, pu_mkv, sl_val,
+    sl_tax, sl_mkv, deliv_qty,
+    deliv_val, deliv_tax, deliv_mkv,
+    rcv_qty, rcv_val, rcv_tax,
+    rcv_mkv, remarks
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.unitId,jdbcType=BIGINT}, #{item.rgoNum,jdbcType=VARCHAR}, #{item.prodId,jdbcType=BIGINT},
+      #{item.lineNum,jdbcType=BIGINT}, #{item.rowNum,jdbcType=BIGINT}, #{item.puUnitPrice,jdbcType=DECIMAL},
+      #{item.puDiscRate,jdbcType=DECIMAL}, #{item.puFnlPrice,jdbcType=DECIMAL}, #{item.puTaxRate,jdbcType=DECIMAL},
+      #{item.puMkUnitPrice,jdbcType=DECIMAL}, #{item.slUnitPrice,jdbcType=DECIMAL}, #{item.slDiscRate,jdbcType=DECIMAL},
+      #{item.slFnlPrice,jdbcType=DECIMAL}, #{item.slTaxRate,jdbcType=DECIMAL}, #{item.slMkUnitPrice,jdbcType=DECIMAL},
+      #{item.slRtnaRate,jdbcType=DECIMAL}, #{item.qty,jdbcType=DECIMAL}, #{item.puVal,jdbcType=DECIMAL},
+      #{item.puTax,jdbcType=DECIMAL}, #{item.puMkv,jdbcType=DECIMAL}, #{item.slVal,jdbcType=DECIMAL},
+      #{item.slTax,jdbcType=DECIMAL}, #{item.slMkv,jdbcType=DECIMAL}, #{item.delivQty,jdbcType=DECIMAL},
+      #{item.delivVal,jdbcType=DECIMAL}, #{item.delivTax,jdbcType=DECIMAL}, #{item.delivMkv,jdbcType=DECIMAL},
+      #{item.rcvQty,jdbcType=DECIMAL}, #{item.rcvVal,jdbcType=DECIMAL}, #{item.rcvTax,jdbcType=DECIMAL},
+      #{item.rcvMkv,jdbcType=DECIMAL}, #{item.remarks,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <!--更新记录-->
+  <update id="updateList" parameterType="java.util.List">
+    <foreach collection="list" item="item" separator=";">
+      update rgo_dtl
+      <set>
+        <if test="item.lineNum != null">
+          line_num = #{item.lineNum,jdbcType=BIGINT},
+        </if>
+        <if test="item.rowNum != null">
+          row_num = #{item.rowNum,jdbcType=BIGINT},
+        </if>
+        <if test="item.puUnitPrice != null">
+          pu_unit_price = #{item.puUnitPrice,jdbcType=DECIMAL},
+        </if>
+        <if test="item.puDiscRate != null">
+          pu_disc_rate = #{item.puDiscRate,jdbcType=DECIMAL},
+        </if>
+        <if test="item.puFnlPrice != null">
+          pu_fnl_price = #{item.puFnlPrice,jdbcType=DECIMAL},
+        </if>
+        <if test="item.puTaxRate != null">
+          pu_tax_rate = #{item.puTaxRate,jdbcType=DECIMAL},
+        </if>
+        <if test="item.puMkUnitPrice != null">
+          pu_mk_unit_price = #{item.puMkUnitPrice,jdbcType=DECIMAL},
+        </if>
+        <if test="item.slUnitPrice != null">
+          sl_unit_price = #{item.slUnitPrice,jdbcType=DECIMAL},
+        </if>
+        <if test="item.slDiscRate != null">
+          sl_disc_rate = #{item.slDiscRate,jdbcType=DECIMAL},
+        </if>
+        <if test="item.slFnlPrice != null">
+          sl_fnl_price = #{item.slFnlPrice,jdbcType=DECIMAL},
+        </if>
+        <if test="item.slTaxRate != null">
+          sl_tax_rate = #{item.slTaxRate,jdbcType=DECIMAL},
+        </if>
+        <if test="item.slMkUnitPrice != null">
+          sl_mk_unit_price = #{item.slMkUnitPrice,jdbcType=DECIMAL},
+        </if>
+        <if test="item.slRtnaRate != null">
+          sl_rtna_rate = #{item.slRtnaRate,jdbcType=DECIMAL},
+        </if>
+        <if test="item.qty != null">
+          qty = #{item.qty,jdbcType=DECIMAL},
+        </if>
+        <if test="item.puVal != null">
+          pu_val = #{item.puVal,jdbcType=DECIMAL},
+        </if>
+        <if test="item.puTax != null">
+          pu_tax = #{item.puTax,jdbcType=DECIMAL},
+        </if>
+        <if test="item.puMkv != null">
+          pu_mkv = #{item.puMkv,jdbcType=DECIMAL},
+        </if>
+        <if test="item.slVal != null">
+          sl_val = #{item.slVal,jdbcType=DECIMAL},
+        </if>
+        <if test="item.slTax != null">
+          sl_tax = #{item.slTax,jdbcType=DECIMAL},
+        </if>
+        <if test="item.slMkv != null">
+          sl_mkv = #{item.slMkv,jdbcType=DECIMAL},
+        </if>
+        <if test="item.delivQty != null">
+          deliv_qty = #{item.delivQty,jdbcType=DECIMAL},
+        </if>
+        <if test="item.delivVal != null">
+          deliv_val = #{item.delivVal,jdbcType=DECIMAL},
+        </if>
+        <if test="item.delivTax != null">
+          deliv_tax = #{item.delivTax,jdbcType=DECIMAL},
+        </if>
+        <if test="item.delivMkv != null">
+          deliv_mkv = #{item.delivMkv,jdbcType=DECIMAL},
+        </if>
+        <if test="item.rcvQty != null">
+          rcv_qty = #{item.rcvQty,jdbcType=DECIMAL},
+        </if>
+        <if test="item.rcvVal != null">
+          rcv_val = #{item.rcvVal,jdbcType=DECIMAL},
+        </if>
+        <if test="item.rcvTax != null">
+          rcv_tax = #{item.rcvTax,jdbcType=DECIMAL},
+        </if>
+        <if test="item.rcvMkv != null">
+          rcv_mkv = #{item.rcvMkv,jdbcType=DECIMAL},
+        </if>
+        <if test="item.remarks != null">
+          remarks = #{item.remarks,jdbcType=VARCHAR},
+        </if>
+      </set>
+      where unit_id = #{item.unitId,jdbcType=BIGINT}
+      and rgo_num = #{item.rgoNum,jdbcType=VARCHAR}
+      and prod_id = #{item.prodId,jdbcType=BIGINT}
+    </foreach>
+  </update>
+
+  <delete id="deleteList" parameterType="java.util.List">
+    <foreach collection="list" open="" close="" item="item" separator=";">
+      delete from rgo_dtl
+      where unit_id = #{item.unitId,jdbcType=BIGINT}
+      and rgo_num = #{item.rgoNum,jdbcType=VARCHAR}
+      and prod_id = #{item.prodId,jdbcType=BIGINT}
+    </foreach>
+  </delete>
+
+  <select id="selectByOrderItems" parameterType="java.lang.String"
+          resultMap="BaseResultMapOrderItems">
+        SELECT
+            concat('ER_',p.`spec_id`) AS productSKUId,
+            pd.qty AS quantity,
+            pd.sl_unit_price AS salePrice
+        FROM
+            rgo_dtl pd
+            INNER JOIN `product` p ON p.prod_id = pd.prod_id
+        WHERE
+            pd.unit_id = #{unitId}
+            AND pd.rgo_num = #{rgoNum}
+    </select>
+
+  <update id="updateByStbToRcv">
+    UPDATE rgo_dtl rDtl
+    LEFT JOIN stb_dtl sDtl ON sDtl.prod_id = rDtl.prod_id
+    SET
+    <choose>
+      <when test="flag">
+        rDtl.rcv_qty = IFNULL( rDtl.rcv_qty, 0 ) + sDtl.qty,
+        rDtl.rcv_val = IFNULL( rDtl.rcv_val, 0 ) + sDtl.val,
+        rDtl.rcv_tax = IFNULL( rDtl.rcv_tax, 0 ) + sDtl.tax,
+        rDtl.rcv_mkv = IFNULL( rDtl.rcv_mkv, 0 ) + sDtl.mkv
+      </when>
+      <otherwise>
+        rDtl.rcv_qty = IFNULL( rDtl.rcv_qty, 0 ) - sDtl.qty,
+        rDtl.rcv_val = IFNULL( rDtl.rcv_val, 0 ) - sDtl.val,
+        rDtl.rcv_tax = IFNULL( rDtl.rcv_tax, 0 ) - sDtl.tax,
+        rDtl.rcv_mkv = IFNULL( rDtl.rcv_mkv, 0 ) - sDtl.mkv
+      </otherwise>
+    </choose>
+
+    WHERE
+        rDtl.unit_id = #{rgoUnitId}
+        AND rDtl.rgo_num = #{rgoNum}
+        AND sDtl.unit_id = #{stbUnitId}
+        AND sDtl.stb_num = #{stbNum}
+  </update>
+
+  <update id="updateByStbToDeliv">
+    UPDATE rgo_dtl rDtl
+    LEFT JOIN stb_dtl sDtl ON sDtl.prod_id = rDtl.prod_id
+    SET
+    <choose>
+      <when test="flag">
+        rDtl.deliv_qty = IFNULL( rDtl.deliv_qty, 0 ) + sDtl.qty,
+        rDtl.deliv_val = IFNULL( rDtl.deliv_val, 0 ) + sDtl.val,
+        rDtl.deliv_tax = IFNULL( rDtl.deliv_tax, 0 ) + sDtl.tax,
+        rDtl.deliv_mkv = IFNULL( rDtl.deliv_mkv, 0 ) + sDtl.mkv
+      </when>
+      <otherwise>
+        rDtl.deliv_qty = IFNULL( rDtl.deliv_qty, 0 ) - sDtl.qty,
+        rDtl.deliv_val = IFNULL( rDtl.deliv_val, 0 ) - sDtl.val,
+        rDtl.deliv_tax = IFNULL( rDtl.deliv_tax, 0 ) - sDtl.tax,
+        rDtl.deliv_mkv = IFNULL( rDtl.deliv_mkv, 0 ) - sDtl.mkv
+      </otherwise>
+    </choose>
+
+    WHERE
+    rDtl.unit_id = #{rgoUnitId}
+    AND rDtl.rgo_num = #{rgoNum}
+    AND sDtl.unit_id = #{stbUnitId}
+    AND sDtl.stb_num = #{stbNum}
+  </update>
+</mapper>

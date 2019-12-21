@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PsxDtlMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.PsxDtl">
+    <id column="psx_num" jdbcType="VARCHAR" property="psxNum" />
+    <id column="prod_id" jdbcType="BIGINT" property="prodId" />
+    <result column="line_num" jdbcType="BIGINT" property="lineNum" />
+    <result column="row_num" jdbcType="BIGINT" property="rowNum" />
+    <result column="reqd_date" jdbcType="DATE" property="reqdDate" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="disc_rate" jdbcType="DECIMAL" property="discRate" />
+    <result column="fnl_price" jdbcType="DECIMAL" property="fnlPrice" />
+    <result column="mk_unit_price" jdbcType="DECIMAL" property="mkUnitPrice" />
+    <result column="qty" jdbcType="DECIMAL" property="qty" />
+    <result column="val" jdbcType="DECIMAL" property="val" />
+    <result column="mkv" jdbcType="DECIMAL" property="mkv" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapPsxNum" type="com.boyu.erp.platform.usercenter.vo.purchase.PsxDtlVo">
+    <id column="psx_num" jdbcType="VARCHAR" property="psxNum" />
+    <id column="prod_id" jdbcType="BIGINT" property="prodId" />
+    <result column="prodCode" property="prodCode" />
+    <result column="seqNum" property="seqNum" />
+    <result column="qty" jdbcType="DECIMAL" property="qty" />
+    <result column="prodName" property="prodName" />
+    <result column="inputCode" property="inputCode" />
+    <result column="uom" property="uom" />
+    <result column="color" property="color" />
+    <result column="spec" property="spec" />
+    <result column="edition" property="edition" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="mk_unit_price" jdbcType="DECIMAL" property="mkUnitPrice" />
+
+    <result column="val" jdbcType="DECIMAL" property="val" />
+    <result column="mkv" jdbcType="DECIMAL" property="mkv" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="prodCatId" property="prodCatId" />
+    <result column="disc_rate" jdbcType="DECIMAL" property="discRate" />
+    <result column="fnl_price" jdbcType="DECIMAL" property="fnlPrice" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    psx_num, prod_id, line_num, row_num, reqd_date, unit_price, disc_rate, fnl_price, 
+    mk_unit_price, qty, val, mkv, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsxDtl" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from psx_dtl
+    where psx_num = #{psxNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsxDtl">
+    delete from psx_dtl
+    where psx_num = #{psxNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </delete>
+
+  <delete id="deleteByPsxNum" parameterType="java.lang.String">
+    delete from psx_dtl
+    where psx_num = #{psxNum}
+  </delete>
+
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsxDtl">
+    insert into psx_dtl (psx_num, prod_id, line_num, 
+      row_num, reqd_date, unit_price, 
+      disc_rate, fnl_price, mk_unit_price, 
+      qty, val, mkv, remarks
+      )
+    values (#{psxNum,jdbcType=VARCHAR}, #{prodId,jdbcType=BIGINT}, #{lineNum,jdbcType=BIGINT}, 
+      #{rowNum,jdbcType=BIGINT}, #{reqdDate,jdbcType=DATE}, #{unitPrice,jdbcType=DECIMAL}, 
+      #{discRate,jdbcType=DECIMAL}, #{fnlPrice,jdbcType=DECIMAL}, #{mkUnitPrice,jdbcType=DECIMAL}, 
+      #{qty,jdbcType=DECIMAL}, #{val,jdbcType=DECIMAL}, #{mkv,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsxDtl">
+    insert into psx_dtl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="psxNum != null">
+        psx_num,
+      </if>
+      <if test="prodId != null">
+        prod_id,
+      </if>
+      <if test="lineNum != null">
+        line_num,
+      </if>
+      <if test="rowNum != null">
+        row_num,
+      </if>
+      <if test="reqdDate != null">
+        reqd_date,
+      </if>
+      <if test="unitPrice != null">
+        unit_price,
+      </if>
+      <if test="discRate != null">
+        disc_rate,
+      </if>
+      <if test="fnlPrice != null">
+        fnl_price,
+      </if>
+      <if test="mkUnitPrice != null">
+        mk_unit_price,
+      </if>
+      <if test="qty != null">
+        qty,
+      </if>
+      <if test="val != null">
+        val,
+      </if>
+      <if test="mkv != null">
+        mkv,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="psxNum != null">
+        #{psxNum,jdbcType=VARCHAR},
+      </if>
+      <if test="prodId != null">
+        #{prodId,jdbcType=BIGINT},
+      </if>
+      <if test="lineNum != null">
+        #{lineNum,jdbcType=BIGINT},
+      </if>
+      <if test="rowNum != null">
+        #{rowNum,jdbcType=BIGINT},
+      </if>
+      <if test="reqdDate != null">
+        #{reqdDate,jdbcType=DATE},
+      </if>
+      <if test="unitPrice != null">
+        #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discRate != null">
+        #{discRate,jdbcType=DECIMAL},
+      </if>
+      <if test="fnlPrice != null">
+        #{fnlPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="mkUnitPrice != null">
+        #{mkUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="qty != null">
+        #{qty,jdbcType=DECIMAL},
+      </if>
+      <if test="val != null">
+        #{val,jdbcType=DECIMAL},
+      </if>
+      <if test="mkv != null">
+        #{mkv,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsxDtl">
+    update psx_dtl
+    <set>
+      <if test="lineNum != null">
+        line_num = #{lineNum,jdbcType=BIGINT},
+      </if>
+      <if test="rowNum != null">
+        row_num = #{rowNum,jdbcType=BIGINT},
+      </if>
+      <if test="reqdDate != null">
+        reqd_date = #{reqdDate,jdbcType=DATE},
+      </if>
+      <if test="unitPrice != null">
+        unit_price = #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discRate != null">
+        disc_rate = #{discRate,jdbcType=DECIMAL},
+      </if>
+      <if test="fnlPrice != null">
+        fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="mkUnitPrice != null">
+        mk_unit_price = #{mkUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="qty != null">
+        qty = #{qty,jdbcType=DECIMAL},
+      </if>
+      <if test="val != null">
+        val = #{val,jdbcType=DECIMAL},
+      </if>
+      <if test="mkv != null">
+        mkv = #{mkv,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where psx_num = #{psxNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsxDtl">
+    update psx_dtl
+    set line_num = #{lineNum,jdbcType=BIGINT},
+      row_num = #{rowNum,jdbcType=BIGINT},
+      reqd_date = #{reqdDate,jdbcType=DATE},
+      unit_price = #{unitPrice,jdbcType=DECIMAL},
+      disc_rate = #{discRate,jdbcType=DECIMAL},
+      fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+      mk_unit_price = #{mkUnitPrice,jdbcType=DECIMAL},
+      qty = #{qty,jdbcType=DECIMAL},
+      val = #{val,jdbcType=DECIMAL},
+      mkv = #{mkv,jdbcType=DECIMAL},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where psx_num = #{psxNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </update>
+
+  <!--明细查询-->
+  <select id="findByPsxNum" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsxDtlVo" resultMap="BaseResultMapPsxNum">
+     SELECT
+        pCls.PROD_CAT_ID AS prodCatId,
+        pCls.PROD_NAME AS prodName,
+        pCls.INPUT_CODE AS inputCode,
+        scd1.DESCRIPTION AS uom,
+        c.COLOR_NAME AS color,
+        s.SPEC_NAME AS spec,
+        scd.DESCRIPTION AS edition,
+        p.PROD_CODE AS prodCode,
+        pCls.SEQ_NUM AS seqNum,
+        pDtl.*
+    FROM
+    (SELECT a.* FROM psx_dtl a WHERE psx_num=#{psxNum} )
+         pDtl
+     LEFT JOIN PRODUCT p ON p.PROD_ID = pDtl.PROD_ID
+        LEFT JOIN PROD_CLS pCls ON pCls.PROD_CLS_ID = p.PROD_CLS_ID
+        LEFT JOIN SYS_CODE_DTL scd ON scd.code = p.EDITION AND scd.CODE_TYPE='EDITION'
+        LEFT JOIN SYS_CODE_DTL scd1 ON scd1.code = pCls.UOM AND scd1.CODE_TYPE='UOM'
+        LEFT JOIN COLOR c ON c.COLOR_ID	= p.COLOR_ID
+        LEFT JOIN SPEC s ON s.SPEC_ID = p.SPEC_ID
+  </select>
+
+  <select id="selectByDesc" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    psx_dtl
+    WHERE
+    psx_num = #{psxNum}
+    ORDER BY
+    line_num DESC
+    LIMIT 1
+  </select>
+
+  <!--添加值都是固定得 -->
+  <insert id="insertByPsxNum" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsxDtlVo">
+    insert into psx_dtl (psx_num, prod_id, line_num,
+    row_num,reqd_date, unit_price, disc_rate,
+    fnl_price, mk_unit_price,
+    qty, val,  mkv
+    <if test="remarks!=null">
+      ,remarks
+    </if>
+    )
+    values (#{psxNum,jdbcType=VARCHAR}, #{prodId,jdbcType=BIGINT}, #{lineNum,jdbcType=BIGINT},
+    #{rowNum,jdbcType=BIGINT},#{reqdDate,jdbcType=DATE}, #{unitPrice,jdbcType=DECIMAL}, #{discRate,jdbcType=DECIMAL},
+    #{fnlPrice,jdbcType=DECIMAL}, #{mkUnitPrice,jdbcType=DECIMAL},
+    #{qty,jdbcType=DECIMAL}, #{val,jdbcType=DECIMAL}, #{mkv,jdbcType=DECIMAL}
+    <if test="remarks!=null">
+      ,#{remarks,jdbcType=VARCHAR}
+    </if>
+    )
+  </insert>
+
+  <!--更新记录-->
+  <update id="updateByPsxNum" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsxDtlVo">
+    update psx_dtl
+    <set>
+      <if test="unitPrice != null">
+        unit_price = #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="mkUnitPrice != null">
+        mk_unit_price = #{mkUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="fnlPrice != null">
+        fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="qty != null">
+        qty = #{qty,jdbcType=DECIMAL},
+      </if>
+      <if test="val != null">
+        val = #{val,jdbcType=DECIMAL},
+      </if>
+      <if test="mkv != null">
+        mkv = #{mkv,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="discRate != null">
+        disc_rate = #{discRate,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where psx_num = #{psxNum,jdbcType=VARCHAR}
+    and prod_id = #{prodId,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByRqdCtrl" parameterType="java.util.Map">
+    update psx_dtl
+    <set>
+      reqd_date = #{reqdDate},
+    </set>
+    where psx_num = #{psxNum}
+  </update>
+
+  <insert id="insertList" parameterType="java.util.List">
+    insert into psx_dtl (psx_num, prod_id, line_num,
+    row_num,reqd_date, unit_price, disc_rate,
+    fnl_price, mk_unit_price,
+    qty, val,  mkv,remarks
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (#{item.psxNum,jdbcType=VARCHAR}, #{item.prodId,jdbcType=BIGINT}, #{item.lineNum,jdbcType=BIGINT},
+    #{item.rowNum,jdbcType=BIGINT},#{item.reqdDate,jdbcType=DATE}, #{item.unitPrice,jdbcType=DECIMAL}, #{item.discRate,jdbcType=DECIMAL},
+    #{item.fnlPrice,jdbcType=DECIMAL}, #{item.mkUnitPrice,jdbcType=DECIMAL},
+    #{item.qty,jdbcType=DECIMAL}, #{item.val,jdbcType=DECIMAL}, #{item.mkv,jdbcType=DECIMAL},#{item.remarks,jdbcType=VARCHAR}
+    )
+    </foreach>
+  </insert>
+
+  <delete id="deleteList" parameterType="java.util.List">
+    <foreach collection="list" item="item" separator=";">
+      delete from psx_dtl
+      where psx_num = #{item.psxNum,jdbcType=VARCHAR}
+        and prod_id = #{item.prodId,jdbcType=BIGINT}
+    </foreach>
+  </delete>
+
+  <update id="updateList" parameterType="java.util.List">
+    <foreach collection="list" item="item" separator=";">
+      update psx_dtl
+      <set>
+        <if test="item.unitPrice != null">
+          unit_price = #{item.unitPrice,jdbcType=DECIMAL},
+        </if>
+        <if test="item.mkUnitPrice != null">
+          mk_unit_price = #{item.mkUnitPrice,jdbcType=DECIMAL},
+        </if>
+        <if test="item.fnlPrice != null">
+          fnl_price = #{item.fnlPrice,jdbcType=DECIMAL},
+        </if>
+        <if test="item.qty != null">
+          qty = #{item.qty,jdbcType=DECIMAL},
+        </if>
+        <if test="item.val != null">
+          val = #{item.val,jdbcType=DECIMAL},
+        </if>
+        <if test="item.mkv != null">
+          mkv = #{item.mkv,jdbcType=DECIMAL},
+        </if>
+        <if test="item.remarks != null">
+          remarks = #{item.remarks,jdbcType=VARCHAR},
+        </if>
+        <if test="item.discRate != null">
+          disc_rate = #{item.discRate,jdbcType=DECIMAL},
+        </if>
+      </set>
+      where psx_num = #{item.psxNum,jdbcType=VARCHAR}
+      and prod_id = #{item.prodId,jdbcType=BIGINT}
+    </foreach>
+  </update>
+</mapper>

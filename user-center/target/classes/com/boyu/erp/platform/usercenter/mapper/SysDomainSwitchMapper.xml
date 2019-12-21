@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysDomainSwitchMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysDomainSwitch">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <id column="domain_present_id" jdbcType="BIGINT" property="domainPresentId"/>
+        <id column="domain_accredit_id" jdbcType="BIGINT" property="domainAccreditId"/>
+        <result column="is_del" jdbcType="TINYINT" property="isDel"/>
+        <result column="create_by" jdbcType="BIGINT" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="BIGINT" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="domain_user_id" jdbcType="BIGINT" property="domainUserId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, domain_present_id, domain_accredit_id, is_del, create_by, create_time, update_by,
+    update_time,domain_user_id
+  </sql>
+    <select id="selectByDomainSwitch" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysDomainSwitch"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_domain_switch
+        where
+        domain_present_id = #{domainPresentId,jdbcType=BIGINT}
+        and domain_user_id = #{domainUserId,jdbcType=BIGINT}
+        and domain_accredit_id = #{domainAccreditId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByDomainSwitch" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysDomainSwitch">
+    delete from sys_domain_switch
+    where
+       domain_present_id = #{domainPresentId,jdbcType=BIGINT}
+      and domain_accredit_id = #{domainAccreditId,jdbcType=BIGINT}
+      and domain_user_id = #{domainUserId,jdbcType=BIGINT}
+  </delete>
+
+    <insert id="insertDomainSwitch" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysDomainSwitch">
+        insert into sys_domain_switch
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="domainPresentId != null">
+                domain_present_id,
+            </if>
+            <if test="domainAccreditId != null">
+                domain_accredit_id,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="domainUserId != null">
+                domain_user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="domainPresentId != null">
+                #{domainPresentId,jdbcType=BIGINT},
+            </if>
+            <if test="domainAccreditId != null">
+                #{domainAccreditId,jdbcType=BIGINT},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                now(),
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                now(),
+            </if>
+            <if test="domainUserId != null">
+                #{domainUserId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByDomainSwitch" parameterType="com.boyu.erp.platform.usercenter.model.SysDomainSwitchModel">
+        update sys_domain_switch
+        <set>
+            <if test="updateDomainPresentId != null and updateDomainPresentId != ''">
+                domain_present_id = #{updateDomainPresentId,jdbcType=BIGINT},
+            </if>
+            <if test="updateDomainUserId != null and updateDomainUserId !=''">
+                domain_user_id = #{updateDomainUserId,jdbcType=BIGINT},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = now(),
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = now(),
+            </if>
+        </set>
+        where
+        domain_accredit_id = #{domainAccreditId,jdbcType=BIGINT}
+        and domain_present_id = #{domainPresentId,jdbcType=BIGINT}
+        and domain_user_id = #{userId,jdbcType=BIGINT}
+    </update>
+
+    <select id="getCutDomainList" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysDomainSwitch"
+            resultType="com.boyu.erp.platform.usercenter.entity.system.SysDomain">
+        SELECT
+        s.`unit_id` AS unitId,
+        s.`domain_id` AS domainId,
+        s.`sa_id` AS saId,
+        s.`priv_date_fml` AS privDateFml,
+        s.`domain_status` AS domainStatus,
+        s.`opr_id` AS oprId,
+        s.`upd_time` AS updTime,
+        s.`unit_name` AS unitName
+        FROM
+        (SELECT
+        d.*,
+        u.`unit_name`
+        FROM
+        sys_domain_switch sw
+        INNER JOIN sys_domain d
+        ON sw.`domain_accredit_id` = d.`unit_id`
+        INNER JOIN sys_unit u
+        ON d.`unit_id` = u.`unit_id`
+        WHERE d.`domain_status` = "A"
+        AND sw.`domain_present_id` = #{domainPresentId}
+        AND sw.`domain_user_id` = #{domainUserId,jdbcType=BIGINT}
+        <if test="domainId!=null and domainId!=''">
+            AND INSTR(d.`domain_id`, #{domainId}) > 0
+        </if>
+        <if test="unitName!=null and unitName!=''">
+            AND INSTR(u.`unit_name`,#{unitName}) > 0
+        </if>
+        ) s
+    </select>
+
+
+    <select id="setCutDomainLis" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysDomainSwitch"
+            resultType="com.boyu.erp.platform.usercenter.entity.system.SysDomain">
+        SELECT
+        s.`unit_id` AS unitId,
+        s.`domain_id` AS domainId,
+        s.`sa_id` AS saId,
+        s.`priv_date_fml` AS privDateFml,
+        s.`domain_status` AS domainStatus,
+        s.`opr_id` AS oprId,
+        s.`upd_time` AS updTime,
+        s.`unit_name` AS unitName
+        FROM
+        (SELECT
+        d.*,
+        u.`unit_name`
+        FROM
+        sys_domain_switch sw
+        INNER JOIN sys_domain d
+        ON sw.`domain_present_id` = d.`unit_id`
+        INNER JOIN sys_unit u
+        ON d.`unit_id` = u.`unit_id`
+        WHERE d.`domain_status` = "A"
+        AND sw.`domain_accredit_id` = #{domainAccreditId}
+        AND sw.`is_del`=1
+        <if test="domainId!=null and domainId!=''">
+            AND INSTR(d.`domain_id`, #{domainId}) > 0
+        </if>
+        <if test="unitName!=null and unitName!=''">
+            AND INSTR(u.`unit_name`,#{unitName}) > 0
+        </if>
+        ) s
+    </select>
+    <!--已授权切换领域查询-->
+    <select id="statusDomain" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysDomainSwitch"
+            resultType="com.boyu.erp.platform.usercenter.entity.system.SysDomain">
+        SELECT
+        s.`unit_id` AS unitId,
+        s.`domain_id` AS domainId,
+        s.`sa_id` AS saId,
+        s.`priv_date_fml` AS privDateFml,
+        s.`domain_status` AS domainStatus,
+        s.`opr_id` AS oprId,
+        s.`upd_time` AS updTime,
+        s.`unit_name` AS unitName
+        FROM
+        (SELECT
+        d.*,
+        u.`unit_name`
+        FROM
+        sys_domain_switch sw
+        INNER JOIN sys_domain d
+        ON sw.`domain_present_id` = d.`unit_id`
+        INNER JOIN sys_unit u
+        ON d.`unit_id` = u.`unit_id`
+        WHERE d.`domain_status` = "A"
+        AND sw.`is_del`=1
+        AND sw.`domain_accredit_id` = #{domainAccreditId}
+        UNION
+        SELECT
+        d.*,
+        u.`unit_name`
+        FROM
+        sys_domain d
+        INNER JOIN sys_unit u
+        ON d.`unit_id` = u.`unit_id`
+        WHERE d.`domain_status` = "A"
+        AND d.`unit_id` =  #{domainAccreditId}
+        )s
+    </select>
+</mapper>

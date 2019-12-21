@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PsxDtlRqdMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.PsxDtlRqd">
+    <id column="psx_num" jdbcType="VARCHAR" property="psxNum" />
+    <id column="prod_id" jdbcType="BIGINT" property="prodId" />
+    <id column="reqd_date" jdbcType="DATE" property="reqdDate" />
+    <result column="qty" jdbcType="DECIMAL" property="qty" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    psx_num, prod_id, reqd_date, qty
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsxDtlRqd" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from psx_dtl_rqd
+    where psx_num = #{psxNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+      and reqd_date = #{reqdDate,jdbcType=DATE}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsxDtlRqd">
+    delete from psx_dtl_rqd
+    where psx_num = #{psxNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+      and reqd_date = #{reqdDate,jdbcType=DATE}
+  </delete>
+
+  <delete id="deleteByRqdCtrl" parameterType="java.lang.String">
+    delete from psx_dtl_rqd
+    where psx_num = #{psxNum}
+  </delete>
+
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsxDtlRqd">
+    insert into psx_dtl_rqd (psx_num, prod_id, reqd_date, 
+      qty)
+    values (#{psxNum,jdbcType=VARCHAR}, #{prodId,jdbcType=BIGINT}, #{reqdDate,jdbcType=DATE}, 
+      #{qty,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsxDtlRqd">
+    insert into psx_dtl_rqd
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="psxNum != null">
+        psx_num,
+      </if>
+      <if test="prodId != null">
+        prod_id,
+      </if>
+      <if test="reqdDate != null">
+        reqd_date,
+      </if>
+      <if test="qty != null">
+        qty,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="psxNum != null">
+        #{psxNum,jdbcType=VARCHAR},
+      </if>
+      <if test="prodId != null">
+        #{prodId,jdbcType=BIGINT},
+      </if>
+      <if test="reqdDate != null">
+        #{reqdDate,jdbcType=DATE},
+      </if>
+      <if test="qty != null">
+        #{qty,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsxDtlRqd">
+    update psx_dtl_rqd
+    <set>
+      <if test="qty != null">
+        qty = #{qty,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where psx_num = #{psxNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+      and reqd_date = #{reqdDate,jdbcType=DATE}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsxDtlRqd">
+    update psx_dtl_rqd
+    set qty = #{qty,jdbcType=DECIMAL}
+    where psx_num = #{psxNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+      and reqd_date = #{reqdDate,jdbcType=DATE}
+  </update>
+  <update id="updateByReqdDate" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsxDtlRqd">
+    update psx_dtl_rqd
+    set reqd_date = #{reqdDate,jdbcType=DATE}
+    where psx_num = #{psxNum,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="insertList" parameterType="java.util.List">
+     insert into psx_dtl_rqd (psx_num, prod_id, reqd_date,
+      qty)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (#{item.psxNum,jdbcType=VARCHAR}, #{item.prodId,jdbcType=BIGINT}, #{item.reqdDate,jdbcType=DATE},
+      #{item.qty,jdbcType=DECIMAL})
+    </foreach>
+  </insert>
+
+  <delete id="deleteList" parameterType="java.util.List">
+    <foreach collection="list" open="" close="" item="item" separator=";">
+      delete from psx_dtl_rqd
+      where psx_num = #{item.psxNum,jdbcType=VARCHAR}
+        and prod_id = #{item.prodId,jdbcType=BIGINT}
+    </foreach>
+  </delete>
+
+  <update id="updateList" parameterType="java.util.List">
+    <foreach collection="list" open="" close="" item="item" separator=";">
+      update psx_dtl_rqd
+      set qty = #{item.qty,jdbcType=DECIMAL}
+      where psx_num = #{item.psxNum,jdbcType=VARCHAR}
+        and prod_id = #{item.prodId,jdbcType=BIGINT}
+    </foreach>
+  </update>
+</mapper>

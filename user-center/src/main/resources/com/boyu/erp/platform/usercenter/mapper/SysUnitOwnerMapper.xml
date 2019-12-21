@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysUnitOwnerMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysUnitOwner">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="owner_id" jdbcType="BIGINT" property="ownerId"/>
+        <result column="unit_num" jdbcType="VARCHAR" property="unitNum"/>
+        <result column="unit_alias" jdbcType="VARCHAR" property="unitAlias"/>
+        <result column="deleted" jdbcType="CHAR" property="deleted"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    unit_id, owner_id, unit_num, unit_alias, deleted
+  </sql>
+    <select id="selectUnitOwner" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitOwner"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_unit_owner
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and owner_id = #{ownerId,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectUnitOwnerByNum" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitOwner"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_unit_owner
+        where unit_num = #{unitNum,jdbcType=VARCHAR}
+        and owner_id = #{ownerId,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectListUnitOwner" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitOwner"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_unit_owner
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and deleted='F'
+    </select>
+    <select id="queryListByOwnerAndUnit"
+            resultType="com.boyu.erp.platform.usercenter.model.system.OwnerUnitModel">
+        select owner_id AS ownerId,unit_id AS unitId,unit_num AS unitNum from sys_unit_owner
+        <trim prefix="where" prefixOverrides="and|or">
+        <foreach collection="ownerUnitModelList" item="ownerUnitModel" separator=" or ">
+            (unit_id=#{ownerUnitModel.unitId} and owner_id=#{ownerUnitModel.ownerId})
+        </foreach>
+        </trim>
+    </select>
+    <select id="queryObjByNumAndOwner"
+            resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from sys_unit_owner where owner_id=#{ownerId} and
+        unit_num=#{unitNum}
+    </select>
+    <select id="queryObjByDimNumAndOwner"
+            resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from sys_unit_owner where owner_id=#{unitId} and unit_num
+        LIKE CONCAT(#{warehNum},"%")
+    </select>
+    <select id="queryObjByDimNum" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from sys_unit_owner where unit_num LIKE
+        CONCAT(#{unitNum},'%')
+    </select>
+
+
+    <delete id="deleteUnitOwner" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitOwner">
+    delete from sys_unit_owner
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+  </delete>
+
+    <insert id="insertUnitOwner" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitOwner">
+        insert into sys_unit_owner
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="ownerId != null">
+                owner_id,
+            </if>
+            <if test="unitNum != null and unitNum != '' ">
+                unit_num,
+            </if>
+            <if test="unitAlias != null">
+                unit_alias,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="ownerId != null">
+                #{ownerId,jdbcType=BIGINT},
+            </if>
+            <if test="unitNum != null and unitNum != '' ">
+                #{unitNum,jdbcType=VARCHAR},
+            </if>
+            <if test="unitAlias != null">
+                #{unitAlias,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateUnitOwner" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitOwner">
+        update sys_unit_owner
+        <set>
+            <if test="unitNum != null">
+                unit_num = #{unitNum,jdbcType=VARCHAR},
+            </if>
+            <if test="unitAlias != null">
+                unit_alias = #{unitAlias,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=CHAR},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and owner_id = #{ownerId,jdbcType=BIGINT}
+    </update>
+
+</mapper>

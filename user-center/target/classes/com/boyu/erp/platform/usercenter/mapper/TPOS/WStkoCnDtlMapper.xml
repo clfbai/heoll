@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.TPOS.mapper.WStkoCnDtlMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.TPOS.entity.delivery.WStkoCnDtl">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <id column="prod_id" jdbcType="DECIMAL" property="prodId" />
+    <result column="obiz_code" jdbcType="VARCHAR" property="obizCode" />
+    <result column="ord_line_no" jdbcType="VARCHAR" property="ordLineNo" />
+    <result column="item_code" jdbcType="VARCHAR" property="itemCode" />
+    <result column="item_id" jdbcType="VARCHAR" property="itemId" />
+    <result column="item_name" jdbcType="VARCHAR" property="itemName" />
+    <result column="stk_type" jdbcType="VARCHAR" property="stkType" />
+    <result column="act_qty" jdbcType="DECIMAL" property="actQty" />
+    <result column="batch_code" jdbcType="VARCHAR" property="batchCode" />
+    <result column="prdc_code" jdbcType="VARCHAR" property="prdcCode" />
+    <result column="prod_date" jdbcType="VARCHAR" property="prodDate" />
+    <result column="expd_date" jdbcType="VARCHAR" property="expdDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, prod_id, obiz_code, ord_line_no, item_code, item_id, item_name, stk_type, act_qty, 
+    batch_code, prdc_code, prod_date, expd_date, remarks
+  </sql>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.TPOS.entity.delivery.WStkoCnDtl">
+    insert into w_stko_cn_dtl (id, prod_id, obiz_code, 
+      ord_line_no, item_code, item_id, 
+      item_name, stk_type, act_qty, 
+      batch_code, prdc_code, prod_date, 
+      expd_date, remarks)
+    values (#{id,jdbcType=VARCHAR}, #{prodId,jdbcType=DECIMAL}, #{obizCode,jdbcType=VARCHAR}, 
+      #{ordLineNo,jdbcType=VARCHAR}, #{itemCode,jdbcType=VARCHAR}, #{itemId,jdbcType=VARCHAR}, 
+      #{itemName,jdbcType=VARCHAR}, #{stkType,jdbcType=VARCHAR}, #{actQty,jdbcType=DECIMAL}, 
+      #{batchCode,jdbcType=VARCHAR}, #{prdcCode,jdbcType=VARCHAR}, #{prodDate,jdbcType=VARCHAR}, 
+      #{expdDate,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.TPOS.entity.delivery.WStkoCnDtl">
+    insert into w_stko_cn_dtl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="prodId != null">
+        prod_id,
+      </if>
+      <if test="obizCode != null">
+        obiz_code,
+      </if>
+      <if test="ordLineNo != null">
+        ord_line_no,
+      </if>
+      <if test="itemCode != null">
+        item_code,
+      </if>
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="itemName != null">
+        item_name,
+      </if>
+      <if test="stkType != null">
+        stk_type,
+      </if>
+      <if test="actQty != null">
+        act_qty,
+      </if>
+      <if test="batchCode != null">
+        batch_code,
+      </if>
+      <if test="prdcCode != null">
+        prdc_code,
+      </if>
+      <if test="prodDate != null">
+        prod_date,
+      </if>
+      <if test="expdDate != null">
+        expd_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="prodId != null">
+        #{prodId,jdbcType=DECIMAL},
+      </if>
+      <if test="obizCode != null">
+        #{obizCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ordLineNo != null">
+        #{ordLineNo,jdbcType=VARCHAR},
+      </if>
+      <if test="itemCode != null">
+        #{itemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null">
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="stkType != null">
+        #{stkType,jdbcType=VARCHAR},
+      </if>
+      <if test="actQty != null">
+        #{actQty,jdbcType=DECIMAL},
+      </if>
+      <if test="batchCode != null">
+        #{batchCode,jdbcType=VARCHAR},
+      </if>
+      <if test="prdcCode != null">
+        #{prdcCode,jdbcType=VARCHAR},
+      </if>
+      <if test="prodDate != null">
+        #{prodDate,jdbcType=VARCHAR},
+      </if>
+      <if test="expdDate != null">
+        #{expdDate,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.TPOS.entity.delivery.WStkoCnDtl">
+    update w_stko_cn_dtl
+    <set>
+      <if test="obizCode != null">
+        obiz_code = #{obizCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ordLineNo != null">
+        ord_line_no = #{ordLineNo,jdbcType=VARCHAR},
+      </if>
+      <if test="itemCode != null">
+        item_code = #{itemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null">
+        item_id = #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null">
+        item_name = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="stkType != null">
+        stk_type = #{stkType,jdbcType=VARCHAR},
+      </if>
+      <if test="actQty != null">
+        act_qty = #{actQty,jdbcType=DECIMAL},
+      </if>
+      <if test="batchCode != null">
+        batch_code = #{batchCode,jdbcType=VARCHAR},
+      </if>
+      <if test="prdcCode != null">
+        prdc_code = #{prdcCode,jdbcType=VARCHAR},
+      </if>
+      <if test="prodDate != null">
+        prod_date = #{prodDate,jdbcType=VARCHAR},
+      </if>
+      <if test="expdDate != null">
+        expd_date = #{expdDate,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.TPOS.entity.delivery.WStkoCnDtl">
+    update w_stko_cn_dtl
+    set obiz_code = #{obizCode,jdbcType=VARCHAR},
+      ord_line_no = #{ordLineNo,jdbcType=VARCHAR},
+      item_code = #{itemCode,jdbcType=VARCHAR},
+      item_id = #{itemId,jdbcType=VARCHAR},
+      item_name = #{itemName,jdbcType=VARCHAR},
+      stk_type = #{stkType,jdbcType=VARCHAR},
+      act_qty = #{actQty,jdbcType=DECIMAL},
+      batch_code = #{batchCode,jdbcType=VARCHAR},
+      prdc_code = #{prdcCode,jdbcType=VARCHAR},
+      prod_date = #{prodDate,jdbcType=VARCHAR},
+      expd_date = #{expdDate,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=DECIMAL}
+  </update>
+</mapper>

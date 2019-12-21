@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.goods.ProdUidFileMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.goods.ProdUidFile">
+        <id column="prod_uid" jdbcType="VARCHAR" property="prodUid"/>
+        <result column="prod_id" jdbcType="BIGINT" property="prodId"/>
+        <result column="wareh_id" jdbcType="BIGINT" property="warehId"/>
+        <result column="conflicted" jdbcType="CHAR" property="conflicted"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    prod_uid, prod_id, wareh_id, conflicted
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from prod_uid_file
+        where prod_uid = #{prodUid,jdbcType=VARCHAR}
+    </select>
+
+    <!--删除仓库时删除档案-->
+    <delete id="deleteProdUidFile" parameterType="java.lang.Long">
+    delete from prod_uid_file
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+  </delete>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from prod_uid_file
+    where prod_uid = #{prodUid,jdbcType=VARCHAR}
+  </delete>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.goods.ProdUidFile">
+        insert into prod_uid_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="prodUid != null">
+                prod_uid,
+            </if>
+            <if test="prodId != null">
+                prod_id,
+            </if>
+            <if test="warehId != null">
+                wareh_id,
+            </if>
+            <if test="conflicted != null">
+                conflicted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="prodUid != null">
+                #{prodUid,jdbcType=VARCHAR},
+            </if>
+            <if test="prodId != null">
+                #{prodId,jdbcType=BIGINT},
+            </if>
+            <if test="warehId != null">
+                #{warehId,jdbcType=BIGINT},
+            </if>
+            <if test="conflicted != null">
+                #{conflicted,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.goods.ProdUidFile">
+        update prod_uid_file
+        <set>
+            <if test="prodId != null">
+                prod_id = #{prodId,jdbcType=BIGINT},
+            </if>
+            <if test="warehId != null">
+                wareh_id = #{warehId,jdbcType=BIGINT},
+            </if>
+            <if test="conflicted != null">
+                conflicted = #{conflicted,jdbcType=CHAR},
+            </if>
+        </set>
+        where prod_uid = #{prodUid,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.WarehStkMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStk">
+        <id column="wareh_id" jdbcType="BIGINT" property="warehId"/>
+        <id column="prod_id" jdbcType="BIGINT" property="prodId"/>
+        <result column="stk_on_hand" jdbcType="REAL" property="stkOnHand"/>
+        <result column="qty_expd" jdbcType="REAL" property="qtyExpd"/>
+        <result column="qty_in_tran" jdbcType="REAL" property="qtyInTran"/>
+        <result column="qty_bkd" jdbcType="REAL" property="qtyBkd"/>
+        <result column="qty_cmtd" jdbcType="REAL" property="qtyCmtd"/>
+        <result column="qty_hldn" jdbcType="REAL" property="qtyHldn"/>
+        <result column="qty_ast" jdbcType="REAL" property="qtyAst"/>
+        <result column="qty_bxd" jdbcType="REAL" property="qtyBxd"/>
+        <result column="qty_pckd" jdbcType="REAL" property="qtyPckd"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    wareh_id, prod_id, stk_on_hand, qty_expd, qty_in_tran, qty_bkd, qty_cmtd, qty_hldn, 
+    qty_ast, qty_bxd, qty_pckd
+  </sql>
+    <!--查询仓库库存是否存在仓库记录-->
+    <select id="selectCountWareh" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Wareh"
+            resultType="integer">
+        select
+         count(*)
+        from wareh_stk
+        where wareh_id = #{warehId,jdbcType=BIGINT}
+    </select>
+    <!--查询仓库库存-->
+    <select id="selectWareh" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Wareh"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from wareh_stk
+        where wareh_id = #{warehId,jdbcType=BIGINT}
+    </select>
+
+
+    <select id="selectByWarehStk" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStk"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from wareh_stk
+        where wareh_id = #{warehId,jdbcType=BIGINT}
+        and prod_id = #{prodId,jdbcType=BIGINT}
+    </select>
+    <select id="queryWarehStkListByProdIdList"
+            resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from wareh_stk where wareh_id=#{warehId}
+        and prod_id in (
+        <foreach collection="prodIdList" item="prodId" separator=",">
+            #{prodId}
+        </foreach>
+        )
+    </select>
+    <select id="selectWarehByWarehIdIsNotZero"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from wareh_stk
+        where wareh_id = #{warehId}
+    </select>
+    <select id="queryWarehStkByProdsAndWareh"
+            resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from wareh_stk where wareh_id=#{warehId} and prod_id in (
+        <foreach collection="prodIds" item="prodId" separator=",">
+            #{prodId}
+        </foreach>
+        )
+    </select>
+
+    <delete id="deleteByWarehStkWarehId" parameterType="java.lang.Long">
+    delete from wareh_stk
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+
+  </delete>
+    <delete id="deleteByWarehStk" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStk">
+    delete from wareh_stk
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </delete>
+
+    <insert id="insertWarehStk" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStk">
+        insert into wareh_stk
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="warehId != null">
+                wareh_id,
+            </if>
+            <if test="prodId != null">
+                prod_id,
+            </if>
+            <if test="stkOnHand != null">
+                stk_on_hand,
+            </if>
+            <if test="qtyExpd != null">
+                qty_expd,
+            </if>
+            <if test="qtyInTran != null">
+                qty_in_tran,
+            </if>
+            <if test="qtyBkd != null">
+                qty_bkd,
+            </if>
+            <if test="qtyCmtd != null">
+                qty_cmtd,
+            </if>
+            <if test="qtyHldn != null">
+                qty_hldn,
+            </if>
+            <if test="qtyAst != null">
+                qty_ast,
+            </if>
+            <if test="qtyBxd != null">
+                qty_bxd,
+            </if>
+            <if test="qtyPckd != null">
+                qty_pckd,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="warehId != null">
+                #{warehId,jdbcType=BIGINT},
+            </if>
+            <if test="prodId != null">
+                #{prodId,jdbcType=BIGINT},
+            </if>
+            <if test="stkOnHand != null">
+                #{stkOnHand,jdbcType=REAL},
+            </if>
+            <if test="qtyExpd != null">
+                #{qtyExpd,jdbcType=REAL},
+            </if>
+            <if test="qtyInTran != null">
+                #{qtyInTran,jdbcType=REAL},
+            </if>
+            <if test="qtyBkd != null">
+                #{qtyBkd,jdbcType=REAL},
+            </if>
+            <if test="qtyCmtd != null">
+                #{qtyCmtd,jdbcType=REAL},
+            </if>
+            <if test="qtyHldn != null">
+                #{qtyHldn,jdbcType=REAL},
+            </if>
+            <if test="qtyAst != null">
+                #{qtyAst,jdbcType=REAL},
+            </if>
+            <if test="qtyBxd != null">
+                #{qtyBxd,jdbcType=REAL},
+            </if>
+            <if test="qtyPckd != null">
+                #{qtyPckd,jdbcType=REAL},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByWarehStk" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStk">
+        update wareh_stk
+        <set>
+            <if test="stkOnHand != null">
+                stk_on_hand = #{stkOnHand,jdbcType=REAL},
+            </if>
+            <if test="qtyExpd != null">
+                qty_expd = #{qtyExpd,jdbcType=REAL},
+            </if>
+            <if test="qtyInTran != null">
+                qty_in_tran = #{qtyInTran,jdbcType=REAL},
+            </if>
+            <if test="qtyBkd != null">
+                qty_bkd = #{qtyBkd,jdbcType=REAL},
+            </if>
+            <if test="qtyCmtd != null">
+                qty_cmtd = #{qtyCmtd,jdbcType=REAL},
+            </if>
+            <if test="qtyHldn != null">
+                qty_hldn = #{qtyHldn,jdbcType=REAL},
+            </if>
+            <if test="qtyAst != null">
+                qty_ast = #{qtyAst,jdbcType=REAL},
+            </if>
+            <if test="qtyBxd != null">
+                qty_bxd = #{qtyBxd,jdbcType=REAL},
+            </if>
+            <if test="qtyPckd != null">
+                qty_pckd = #{qtyPckd,jdbcType=REAL},
+            </if>
+        </set>
+        where wareh_id = #{warehId,jdbcType=BIGINT}
+        and prod_id = #{prodId,jdbcType=BIGINT}
+    </update>
+
+
+    <!--入库修改库存-->
+    <insert id="updateAddWarehStkList">
+        insert into wareh_stk
+        (wareh_id, prod_id, stk_on_hand, qty_expd, qty_in_tran, qty_bkd,qty_cmtd, qty_hldn, qty_ast,qty_bxd,qty_pckd)
+        values
+        <foreach collection="list" item="list" separator=",">
+            (#{list.warehId},#{list.prodId},#{list.stkOnHand},#{list.qtyExpd},#{list.qtyInTran},#{list.qtyBkd},
+            #{list.qtyCmtd},#{list.qtyHldn},#{list.qtyAst},#{list.qtyBxd},#{list.qtyPckd})
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        stk_on_hand=values(stk_on_hand),
+        qty_expd =values(qty_expd),
+        qty_in_tran=values(qty_in_tran),
+        qty_bkd=values(qty_bkd),
+        qty_cmtd =values( qty_cmtd),
+        qty_hldn =values(qty_hldn),
+        qty_ast=values(qty_ast),
+        qty_bxd=values(qty_bxd),
+        qty_pckd =values(qty_pckd)
+    </insert>
+
+    <insert id="insertUpdateWarehStkList">
+        insert into wareh_stk(<include refid="Base_Column_List"></include>) values
+        <foreach collection="countCostModels" item="countCostModel" separator=",">
+            (#{warehId},#{countCostModel.prodId},#{countCostModel.qty},0,0,0,0,0,0,0,0)
+        </foreach>
+        ON DUPLICATE KEY UPDATE stk_on_hand=stk_on_hand+values(stk_on_hand)
+    </insert>
+
+
+</mapper>

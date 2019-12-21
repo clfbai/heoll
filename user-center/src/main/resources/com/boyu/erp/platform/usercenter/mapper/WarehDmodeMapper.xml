@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.WarehDmodeMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.WarehDmode">
+        <id column="WAREH_ID" jdbcType="DECIMAL" property="warehId"/>
+        <id column="DELIV_MODE" jdbcType="CHAR" property="delivMode"/>
+        <result column="AUTO_EXEC" jdbcType="CHAR" property="autoExec"/>
+        <result column="PICK_REQD" jdbcType="CHAR" property="pickReqd"/>
+        <result column="RCK_REQD" jdbcType="CHAR" property="rckReqd"/>
+        <result column="BOX_REQD" jdbcType="CHAR" property="boxReqd"/>
+        <result column="BOX_SCHD" jdbcType="CHAR" property="boxSchd"/>
+        <result column="DIFF_MTRD" jdbcType="CHAR" property="diffMtrd"/>
+        <result column="DIFF_CTRL" jdbcType="CHAR" property="diffCtrl"/>
+        <result column="MNL_RWD" jdbcType="CHAR" property="mnlRwd"/>
+        <result column="INST_STL" jdbcType="CHAR" property="instStl"/>
+        <result column="FIXED_UNIT_PRICE" jdbcType="CHAR" property="fixedUnitPrice"/>
+        <result column="RCV_UNIT_REQD" jdbcType="CHAR" property="rcvUnitReqd"/>
+        <result column="RCV_WAREH_REQD" jdbcType="CHAR" property="rcvWarehReqd"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    WAREH_ID, DELIV_MODE, AUTO_EXEC, PICK_REQD, RCK_REQD, BOX_REQD, BOX_SCHD, DIFF_MTRD, 
+    DIFF_CTRL, MNL_RWD, INST_STL, FIXED_UNIT_PRICE, RCV_UNIT_REQD, RCV_WAREH_REQD
+  </sql>
+
+    <resultMap id="querylistbyid" type="com.boyu.erp.platform.usercenter.vo.warehouse.WarehDmodeVO">
+        <id column="WAREH_ID" jdbcType="DECIMAL" property="warehId"/>
+        <id column="DELIV_MODE" jdbcType="CHAR" property="delivMode"/>
+        <result column="AUTO_EXEC" jdbcType="CHAR" property="autoExec"/>
+        <result column="PICK_REQD" jdbcType="CHAR" property="pickReqd"/>
+        <result column="RCK_REQD" jdbcType="CHAR" property="rckReqd"/>
+        <result column="BOX_REQD" jdbcType="CHAR" property="boxReqd"/>
+        <result column="BOX_SCHD" jdbcType="CHAR" property="boxSchd"/>
+        <result column="DIFF_MTRD" jdbcType="CHAR" property="diffMtrd"/>
+        <result column="DIFF_CTRL" jdbcType="CHAR" property="diffCtrl"/>
+        <result column="MNL_RWD" jdbcType="CHAR" property="mnlRwd"/>
+        <result column="INST_STL" jdbcType="CHAR" property="instStl"/>
+        <result column="FIXED_UNIT_PRICE" jdbcType="CHAR" property="fixedUnitPrice"/>
+        <result column="RCV_UNIT_REQD" jdbcType="CHAR" property="rcvUnitReqd"/>
+        <result column="RCV_WAREH_REQD" jdbcType="CHAR" property="rcvWarehReqd"/>
+        <result column="description" property="warehDmodeNameCN"/>
+    </resultMap>
+
+    <select id="queryWDListById" resultType="com.boyu.erp.platform.usercenter.vo.OptionVo">
+        SELECT
+        scd.description AS optionName,
+        scd.`code` AS optionValue
+        FROM
+        wareh_dmode AS wd
+        INNER JOIN sys_code_dtl AS scd ON wd.DELIV_MODE = scd.`code`
+        WHERE
+        wd.WAREH_ID = #{warehId} AND
+        scd.code_type = 'DELIV_MODE'
+    </select>
+    <select id="getStbDelivModeMess" resultType="com.boyu.erp.platform.usercenter.vo.warehouse.GdnVO">
+      SELECT
+          auto_exec AS autoExec,
+          pick_reqd AS pickReqd,
+          rck_reqd AS rckReqd,
+          box_reqd AS boxReqd,
+          box_schd AS boxSchd,
+          diff_mtrd AS diffMtrd,
+          diff_ctrl AS diffCtrl,
+          mnl_rwd AS mnlRwd,
+          inst_stl AS instStl,
+          fixed_unit_price AS fixedUnitPrice
+      FROM
+          wareh_dmode
+      WHERE
+          wareh_dmode.wareh_id = #{warehId}
+       AND wareh_dmode.deliv_mode = #{delivMode}
+    </select>
+    <select id="getdelivModeByWarehId" resultType="java.util.Map">
+      SELECT
+      scd.description AS optionName,
+      scd.`code` AS optionValue
+      FROM
+      wareh_dmode wd
+      INNER JOIN sys_code_dtl scd ON wd.DELIV_MODE = scd.`code` and scd.code_type='DELIV_MODE' and wd.wareh_id=#{warehId}
+    </select>
+    <select id="loadDelivModeByWarehCode" resultType="java.util.Map">
+        select
+        wd.deliv_mode AS optionValue,scd.description AS optionName
+        from wareh_dmode AS wd
+        INNER JOIN sys_code_dtl AS scd ON scd.`code`=wd.deliv_mode AND scd.code_type='DELIV_MODE'
+        where wd.wareh_id=#{warehId}
+    </select>
+    <select id="queryAppointrcvMess" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from wareh_dmode where wareh_id=#{warehId} and
+        deliv_mode=#{delivMode}
+    </select>
+    <select id="queryDmodeByWarehIdMode"
+            resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from wareh_dmode where wareh_id=#{warehId} and
+        deliv_mode=#{delivMode}
+    </select>
+    <select id="queryDocPullDown" resultType="com.boyu.erp.platform.usercenter.vo.OperationVo">
+        SELECT
+        scd.description AS operationName,
+        wdb.doc_type AS operationCode,
+        wdb.request_url AS operationUrl
+        FROM
+        wareh_dmode_bills AS wdb
+        INNER JOIN sys_code_dtl AS scd ON wdb.doc_type = scd.`code`
+        AND scd.code_type = 'DOC_TYPE'
+        WHERE
+        wdb.wareh_dmod_code = #{delivMode}
+    </select>
+    <select id="queryFixedUnitPriceByObj" resultType="java.lang.String">
+        select fixed_unit_price from wareh_dmode where wareh_id=#{warehId} and deliv_mode=#{delivMode}
+    </select>
+
+    <select id="selectWareh" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        wareh_dmode
+        WHERE
+        wareh_id = #{warehId}
+    </select>
+
+    <insert id="addRmodeList">
+        insert into wareh_dmode (wareh_id, deliv_mode, auto_exec, pick_reqd, rck_reqd, box_reqd, box_schd, diff_mtrd,
+        diff_ctrl, mnl_rwd, inst_stl, fixed_unit_price, rcv_unit_reqd, rcv_wareh_reqd)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.warehId,jdbcType=BIGINT}, #{item.delivMode,jdbcType=VARCHAR}, #{item.autoExec},#{item.pickReqd},
+            #{item.rckReqd} #{item.boxReqd}, #{item.boxSchd}, #{item.acptReqd}, #{item.diffMtrd}, #{item.diffCtrl},
+            #{item.mnlRwd}, #{item.instStl}, #{item.fixedUnitPrice} #{item.rcvUnitReqd}, #{item.rcvWarehReqd})
+        </foreach>
+    </insert>
+</mapper>

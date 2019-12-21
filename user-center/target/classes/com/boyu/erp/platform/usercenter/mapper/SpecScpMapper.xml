@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.SpecScpMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.SpecScp">
+        <id column="spec_scp_id" jdbcType="VARCHAR" property="specScpId"/>
+        <result column="spec_grp_id" jdbcType="VARCHAR" property="specGrpId"/>
+        <result column="spec_grp_name" jdbcType="VARCHAR" property="specGrpName"/>
+        <result column="spec_scp_name" jdbcType="VARCHAR" property="specScpName"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    spec_scp_id, spec_grp_id, spec_grp_name,spec_scp_name, description
+  </sql>
+
+    <select id="selectByPrimaryKey" parameterType="SpecScp" resultMap="BaseResultMap">
+    SELECT
+    s.spec_scp_id,
+    s.spec_grp_id,
+    g.spec_grp_name,
+    s.spec_scp_name,
+    s.description
+    FROM
+    spec_scp s,spec_grp g
+    where 1=1
+    and s.spec_grp_id=g.spec_grp_id
+    and spec_scp_id = #{specScpId,jdbcType=VARCHAR}
+  </select>
+
+    <select id="selectOption" resultMap="BaseResultMap">
+     SELECT
+      *
+     FROM
+      spec_scp
+    </select>
+
+
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="SpecScp">
+        SELECT
+        s.spec_scp_id,
+        s.spec_grp_id,
+        g.spec_grp_name,
+        s.spec_scp_name,
+        s.description
+        FROM
+        spec_scp s,spec_grp g
+        where 1=1 and s.spec_grp_id=g.spec_grp_id
+        <if test="specScpId != null and specScpId!='' ">
+            and s.spec_scp_id=#{specScpId}
+        </if>
+        <if test="specGrpId != null and specGrpId!='' ">
+            and s.spec_grp_id=#{specGrpId}
+        </if>
+        <if test="specScpName != null and specScpName!='' ">
+            and s.spec_scp_name=#{specScpName}
+        </if>
+        <if test="description != null and description!='' ">
+            and s.description=#{description}
+        </if>
+    </select>
+
+    <insert id="insertSpecScp" parameterType="com.boyu.erp.platform.usercenter.entity.SpecScp">
+        insert into spec_scp
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="specScpId != null">
+                spec_scp_id,
+            </if>
+            <if test="specGrpId != null">
+                spec_grp_id,
+            </if>
+            <if test="specScpName != null">
+                spec_scp_name,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="specScpId != null">
+                #{specScpId,jdbcType=VARCHAR},
+            </if>
+            <if test="specGrpId != null">
+                #{specGrpId,jdbcType=VARCHAR},
+            </if>
+            <if test="specScpName != null">
+                #{specScpName,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateSpecScp" parameterType="com.boyu.erp.platform.usercenter.entity.SpecScp">
+        update spec_scp
+        <set>
+            <if test="specGrpId != null">
+                spec_grp_id = #{specGrpId,jdbcType=VARCHAR},
+            </if>
+            <if test="specScpName != null">
+                spec_scp_name = #{specScpName,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where spec_scp_id = #{specScpId,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteSpecScp" parameterType="SpecScp">
+    delete from spec_scp
+    where spec_scp_id = #{specScpId,jdbcType=VARCHAR}
+  </delete>
+
+</mapper>

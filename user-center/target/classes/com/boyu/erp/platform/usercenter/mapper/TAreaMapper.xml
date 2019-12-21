@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.system.TAreaMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.TArea">
+    <id column="area_id" jdbcType="INTEGER" property="areaId" />
+    <result column="area_code" jdbcType="VARCHAR" property="areaCode" />
+    <result column="area_name" jdbcType="VARCHAR" property="areaName" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="city_code" jdbcType="VARCHAR" property="cityCode" />
+    <result column="center" jdbcType="VARCHAR" property="center" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    area_id, area_code, area_name, `level`, city_code, center, parent_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_area
+    where area_id = #{areaId,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="getTArtea" parameterType="com.boyu.erp.platform.usercenter.entity.system.TArea" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_area
+    WHERE
+    1=1
+    /*等级 1 省 2 市 3 县、区*/
+    <if test="level!=null">
+    and   `level` =#{level}
+    </if>
+    /*父节点*/
+    <if test="parentId!=null">
+      and   `parent_id` =#{parentId}
+    </if>
+  </select>
+
+</mapper>

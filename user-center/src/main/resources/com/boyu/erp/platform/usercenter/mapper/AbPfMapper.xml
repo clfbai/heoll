@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.basic.AbPfMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.basic.AbPf">
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <result column="ab_type" jdbcType="VARCHAR" property="abType" />
+    <result column="init_fscl_year" jdbcType="BIGINT" property="initFsclYear" />
+    <result column="init_fscl_perd" jdbcType="BIGINT" property="initFsclPerd" />
+    <result column="cur_fscl_year" jdbcType="BIGINT" property="curFsclYear" />
+    <result column="cur_fscl_perd" jdbcType="BIGINT" property="curFsclPerd" />
+    <result column="cost_mode" jdbcType="CHAR" property="costMode" />
+    <result column="multi_cost_grp" jdbcType="CHAR" property="multiCostGrp" />
+    <result column="ab_status" jdbcType="CHAR" property="abStatus" />
+    <result column="opr_id" jdbcType="BIGINT" property="oprId" />
+    <result column="op_time" jdbcType="TIMESTAMP" property="opTime" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    unit_id, ab_type, init_fscl_year, init_fscl_perd, cur_fscl_year, cur_fscl_perd, cost_mode, 
+    multi_cost_grp, ab_status, opr_id, op_time, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ab_pf
+    where unit_id = #{unitId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ab_pf
+    where unit_id = #{unitId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.basic.AbPf">
+    insert into ab_pf (unit_id, ab_type, init_fscl_year, 
+      init_fscl_perd, cur_fscl_year, cur_fscl_perd, 
+      cost_mode, multi_cost_grp, ab_status, 
+      opr_id, op_time, remarks
+      )
+    values (#{unitId,jdbcType=BIGINT}, #{abType,jdbcType=VARCHAR}, #{initFsclYear,jdbcType=BIGINT}, 
+      #{initFsclPerd,jdbcType=BIGINT}, #{curFsclYear,jdbcType=BIGINT}, #{curFsclPerd,jdbcType=BIGINT}, 
+      #{costMode,jdbcType=CHAR}, #{multiCostGrp,jdbcType=CHAR}, #{abStatus,jdbcType=CHAR}, 
+      #{oprId,jdbcType=BIGINT}, #{opTime,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.AbPf">
+    insert into ab_pf
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="abType != null">
+        ab_type,
+      </if>
+      <if test="initFsclYear != null">
+        init_fscl_year,
+      </if>
+      <if test="initFsclPerd != null">
+        init_fscl_perd,
+      </if>
+      <if test="curFsclYear != null">
+        cur_fscl_year,
+      </if>
+      <if test="curFsclPerd != null">
+        cur_fscl_perd,
+      </if>
+      <if test="costMode != null">
+        cost_mode,
+      </if>
+      <if test="multiCostGrp != null">
+        multi_cost_grp,
+      </if>
+      <if test="abStatus != null">
+        ab_status,
+      </if>
+      <if test="oprId != null">
+        opr_id,
+      </if>
+      <if test="opTime != null">
+        op_time,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="abType != null">
+        #{abType,jdbcType=VARCHAR},
+      </if>
+      <if test="initFsclYear != null">
+        #{initFsclYear,jdbcType=BIGINT},
+      </if>
+      <if test="initFsclPerd != null">
+        #{initFsclPerd,jdbcType=BIGINT},
+      </if>
+      <if test="curFsclYear != null">
+        #{curFsclYear,jdbcType=BIGINT},
+      </if>
+      <if test="curFsclPerd != null">
+        #{curFsclPerd,jdbcType=BIGINT},
+      </if>
+      <if test="costMode != null">
+        #{costMode,jdbcType=CHAR},
+      </if>
+      <if test="multiCostGrp != null">
+        #{multiCostGrp,jdbcType=CHAR},
+      </if>
+      <if test="abStatus != null">
+        #{abStatus,jdbcType=CHAR},
+      </if>
+      <if test="oprId != null">
+        #{oprId,jdbcType=BIGINT},
+      </if>
+      <if test="opTime != null">
+        #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.AbPf">
+    update ab_pf
+    <set>
+      <if test="abType != null">
+        ab_type = #{abType,jdbcType=VARCHAR},
+      </if>
+      <if test="initFsclYear != null">
+        init_fscl_year = #{initFsclYear,jdbcType=BIGINT},
+      </if>
+      <if test="initFsclPerd != null">
+        init_fscl_perd = #{initFsclPerd,jdbcType=BIGINT},
+      </if>
+      <if test="curFsclYear != null">
+        cur_fscl_year = #{curFsclYear,jdbcType=BIGINT},
+      </if>
+      <if test="curFsclPerd != null">
+        cur_fscl_perd = #{curFsclPerd,jdbcType=BIGINT},
+      </if>
+      <if test="costMode != null">
+        cost_mode = #{costMode,jdbcType=CHAR},
+      </if>
+      <if test="multiCostGrp != null">
+        multi_cost_grp = #{multiCostGrp,jdbcType=CHAR},
+      </if>
+      <if test="abStatus != null">
+        ab_status = #{abStatus,jdbcType=CHAR},
+      </if>
+      <if test="oprId != null">
+        opr_id = #{oprId,jdbcType=BIGINT},
+      </if>
+      <if test="opTime != null">
+        op_time = #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where unit_id = #{unitId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.AbPf">
+    update ab_pf
+    set ab_type = #{abType,jdbcType=VARCHAR},
+      init_fscl_year = #{initFsclYear,jdbcType=BIGINT},
+      init_fscl_perd = #{initFsclPerd,jdbcType=BIGINT},
+      cur_fscl_year = #{curFsclYear,jdbcType=BIGINT},
+      cur_fscl_perd = #{curFsclPerd,jdbcType=BIGINT},
+      cost_mode = #{costMode,jdbcType=CHAR},
+      multi_cost_grp = #{multiCostGrp,jdbcType=CHAR},
+      ab_status = #{abStatus,jdbcType=CHAR},
+      opr_id = #{oprId,jdbcType=BIGINT},
+      op_time = #{opTime,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+  </update>
+
+</mapper>

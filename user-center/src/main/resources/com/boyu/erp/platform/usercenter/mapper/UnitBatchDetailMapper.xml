@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.UnitBatchDetailMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatchDetail">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="batch_id" jdbcType="VARCHAR" property="batchId"/>
+        <result column="batch_number" jdbcType="BIGINT" property="batchNumber"/>
+        <result column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <result column="vendee_id" jdbcType="BIGINT" property="vendeeId"/>
+        <result column="vender_id" jdbcType="BIGINT" property="venderId"/>
+        <result column="purchase_quantity" jdbcType="INTEGER" property="purchaseQuantity"/>
+        <result column="quantitymarket_quantity" jdbcType="INTEGER" property="quantitymarketQuantity"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="batch_type" jdbcType="VARCHAR" property="batchType"/>
+        <result column="batch_reverse" jdbcType="VARCHAR" property="batchReverse"/>
+        <result column="price" jdbcType="REAL" property="price"/>
+        <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, batch_id, batch_number, unit_id, vendee_id, vender_id, purchase_quantity, quantitymarket_quantity, 
+    description, batch_type, batch_reverse,  price, creat_time, opr_id
+  </sql>
+    <select id="selectBatchDetail" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from unit_batch_detail
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteBatchDetail" parameterType="java.lang.Long">
+    delete from unit_batch_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+    <insert id="insertBatchDetail" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatchDetail">
+        insert into unit_batch_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="batchId != null">
+                batch_id,
+            </if>
+            <if test="batchNumber != null">
+                batch_number,
+            </if>
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="vendeeId != null">
+                vendee_id,
+            </if>
+            <if test="venderId != null">
+                vender_id,
+            </if>
+            <if test="purchaseQuantity != null">
+                purchase_quantity,
+            </if>
+            <if test="quantitymarketQuantity != null">
+                quantitymarket_quantity,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="batchType != null">
+                batch_type,
+            </if>
+            <if test="batchReverse != null">
+                batch_reverse,
+            </if>
+
+            <if test="price != null">
+                price,
+            </if>
+            <if test="creatTime != null">
+                creat_time,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="batchId != null">
+                #{batchId,jdbcType=VARCHAR},
+            </if>
+            <if test="batchNumber != null">
+                #{batchNumber,jdbcType=INTEGER},
+            </if>
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="vendeeId != null">
+                #{vendeeId,jdbcType=BIGINT},
+            </if>
+            <if test="venderId != null">
+                #{venderId,jdbcType=BIGINT},
+            </if>
+            <if test="purchaseQuantity != null">
+                #{purchaseQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="quantitymarketQuantity != null">
+                #{quantitymarketQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="batchType != null">
+                #{batchType,jdbcType=VARCHAR},
+            </if>
+            <if test="batchReverse != null">
+                #{batchReverse,jdbcType=VARCHAR},
+            </if>
+
+            <if test="price != null">
+                #{price,jdbcType=REAL},
+            </if>
+            <if test="creatTime != null">
+                now(),
+            </if>
+            <if test="oprId != null">
+                #{oprId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateBatchDetail" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatchDetail">
+        update unit_batch_detail
+        <set>
+            <if test="batchId != null">
+                batch_id = #{batchId,jdbcType=VARCHAR},
+            </if>
+            <if test="batchNumber != null">
+                batch_number = #{batchNumber,jdbcType=BIGINT},
+            </if>
+            <if test="unitId != null">
+                unit_id = #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="vendeeId != null">
+                vendee_id = #{vendeeId,jdbcType=BIGINT},
+            </if>
+            <if test="venderId != null">
+                vender_id = #{venderId,jdbcType=BIGINT},
+            </if>
+            <if test="purchaseQuantity != null">
+                purchase_quantity = #{purchaseQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="quantitymarketQuantity != null">
+                quantitymarket_quantity = #{quantitymarketQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="batchType != null">
+                batch_type = #{batchType,jdbcType=VARCHAR},
+            </if>
+            <if test="batchReverse != null">
+                batch_reverse = #{batchReverse,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=REAL},
+            </if>
+            <if test="creatTime != null">
+                creat_time = #{creatTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

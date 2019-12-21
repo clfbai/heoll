@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.WarehRmodeMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.WarehRmode">
+        <id column="wareh_id" jdbcType="BIGINT" property="warehId"/>
+        <id column="rcv_mode" jdbcType="CHAR" property="rcvMode"/>
+        <result column="auto_exec" jdbcType="CHAR" property="autoExec"/>
+        <result column="box_reqd" jdbcType="CHAR" property="boxReqd"/>
+        <result column="box_schd" jdbcType="CHAR" property="boxSchd"/>
+        <result column="acpt_reqd" jdbcType="CHAR" property="acptReqd"/>
+        <result column="pa_reqd" jdbcType="CHAR" property="paReqd"/>
+        <result column="diff_mtrd" jdbcType="CHAR" property="diffMtrd"/>
+        <result column="diff_ctrl" jdbcType="CHAR" property="diffCtrl"/>
+        <result column="mnl_rwd" jdbcType="CHAR" property="mnlRwd"/>
+        <result column="inst_stl" jdbcType="CHAR" property="instStl"/>
+        <result column="fixed_unit_price" jdbcType="CHAR" property="fixedUnitPrice"/>
+        <result column="deliv_unit_reqd" jdbcType="CHAR" property="delivUnitReqd"/>
+        <result column="deliv_wareh_reqd" jdbcType="CHAR" property="delivWarehReqd"/>
+    </resultMap>
+
+    <resultMap id="ResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.WarehRmode">
+        <id column="wareh_id" jdbcType="BIGINT" property="warehId"/>
+        <id column="rcv_mode" jdbcType="CHAR" property="rcvMode"/>
+        <result column="auto_exec" jdbcType="CHAR" property="autoExec"/>
+        <result column="box_reqd" jdbcType="CHAR" property="boxReqd"/>
+        <result column="box_schd" jdbcType="CHAR" property="boxSchd"/>
+        <result column="acpt_reqd" jdbcType="CHAR" property="acptReqd"/>
+        <result column="pa_reqd" jdbcType="CHAR" property="paReqd"/>
+        <result column="diff_mtrd" jdbcType="CHAR" property="diffMtrd"/>
+        <result column="diff_ctrl" jdbcType="CHAR" property="diffCtrl"/>
+        <result column="mnl_rwd" jdbcType="CHAR" property="mnlRwd"/>
+        <result column="inst_stl" jdbcType="CHAR" property="instStl"/>
+        <result column="fixed_unit_price" jdbcType="CHAR" property="fixedUnitPrice"/>
+        <result column="deliv_unit_reqd" jdbcType="CHAR" property="delivUnitReqd"/>
+        <result column="deliv_wareh_reqd" jdbcType="CHAR" property="delivWarehReqd"/>
+        <result column="rcv_modeCp" jdbcType="VARCHAR" property="rcvModeCp"/>
+        <result column="auto_execCp" jdbcType="VARCHAR" property="autoExecCp"/>
+        <result column="box_reqdCp" jdbcType="VARCHAR" property="boxReqdCp"/>
+        <result column="box_schdCp" jdbcType="VARCHAR" property="boxSchdCp"/>
+        <result column="acpt_reqdCp" jdbcType="VARCHAR" property="acptReqdCp"/>
+        <result column="pa_reqdCp" jdbcType="VARCHAR" property="paReqdCp"/>
+        <result column="diff_mtrdCp" jdbcType="VARCHAR" property="diffMtrdCp"/>
+        <result column="diff_ctrlCp" jdbcType="VARCHAR" property="diffCtrlCp"/>
+        <result column="mnl_rwdCp" jdbcType="VARCHAR" property="mnlRwdCp"/>
+        <result column="inst_stlCp" jdbcType="VARCHAR" property="instStlCp"/>
+        <result column="fixed_unit_priceCp" jdbcType="VARCHAR" property="fixedUnitPriceCp"/>
+        <result column="deliv_unit_reqdCp" jdbcType="VARCHAR" property="delivUnitReqdCp"/>
+        <result column="deliv_wareh_reqdCp" jdbcType="VARCHAR" property="delivWarehReqdCp"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    wareh_id, rcv_mode, auto_exec, box_reqd, box_schd, acpt_reqd, pa_reqd, diff_mtrd, 
+    diff_ctrl, mnl_rwd, inst_stl, fixed_unit_price, deliv_unit_reqd, deliv_wareh_reqd
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehRmode"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from wareh_rmode
+        where wareh_id = #{warehId,jdbcType=BIGINT}
+        and rcv_mode = #{rcvMode,jdbcType=CHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehRmode">
+    delete from wareh_rmode
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and rcv_mode = #{rcvMode,jdbcType=CHAR}
+  </delete>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehRmode">
+        insert into wareh_rmode
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="warehId != null">
+                wareh_id,
+            </if>
+            <if test="rcvMode != null">
+                rcv_mode,
+            </if>
+            <if test="autoExec != null">
+                auto_exec,
+            </if>
+            <if test="boxReqd != null">
+                box_reqd,
+            </if>
+            <if test="boxSchd != null">
+                box_schd,
+            </if>
+            <if test="acptReqd != null">
+                acpt_reqd,
+            </if>
+            <if test="paReqd != null">
+                pa_reqd,
+            </if>
+            <if test="diffMtrd != null">
+                diff_mtrd,
+            </if>
+            <if test="diffCtrl != null">
+                diff_ctrl,
+            </if>
+            <if test="mnlRwd != null">
+                mnl_rwd,
+            </if>
+            <if test="instStl != null">
+                inst_stl,
+            </if>
+            <if test="fixedUnitPrice != null">
+                fixed_unit_price,
+            </if>
+            <if test="delivUnitReqd != null">
+                deliv_unit_reqd,
+            </if>
+            <if test="delivWarehReqd != null">
+                deliv_wareh_reqd,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="warehId != null">
+                #{warehId,jdbcType=BIGINT},
+            </if>
+            <if test="rcvMode != null">
+                #{rcvMode,jdbcType=CHAR},
+            </if>
+            <if test="autoExec != null">
+                #{autoExec,jdbcType=CHAR},
+            </if>
+            <if test="boxReqd != null">
+                #{boxReqd,jdbcType=CHAR},
+            </if>
+            <if test="boxSchd != null">
+                #{boxSchd,jdbcType=CHAR},
+            </if>
+            <if test="acptReqd != null">
+                #{acptReqd,jdbcType=CHAR},
+            </if>
+            <if test="paReqd != null">
+                #{paReqd,jdbcType=CHAR},
+            </if>
+            <if test="diffMtrd != null">
+                #{diffMtrd,jdbcType=CHAR},
+            </if>
+            <if test="diffCtrl != null">
+                #{diffCtrl,jdbcType=CHAR},
+            </if>
+            <if test="mnlRwd != null">
+                #{mnlRwd,jdbcType=CHAR},
+            </if>
+            <if test="instStl != null">
+                #{instStl,jdbcType=CHAR},
+            </if>
+            <if test="fixedUnitPrice != null">
+                #{fixedUnitPrice,jdbcType=CHAR},
+            </if>
+            <if test="delivUnitReqd != null">
+                #{delivUnitReqd,jdbcType=CHAR},
+            </if>
+            <if test="delivWarehReqd != null">
+                #{delivWarehReqd,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="addRmodeList">
+        insert into wareh_rmode (wareh_id, rcv_mode, auto_exec, box_reqd, box_schd, acpt_reqd, pa_reqd, diff_mtrd,
+        diff_ctrl, mnl_rwd, inst_stl, fixed_unit_price, deliv_unit_reqd, deliv_wareh_reqd)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.warehId,jdbcType=BIGINT}, #{item.rcvMode,jdbcType=VARCHAR}, #{item.autoExec}, #{item.boxReqd},
+            #{item.boxSchd}, #{item.acptReqd}, #{item.paReqd}, #{item.diffMtrd}, #{item.diffCtrl}, #{item.mnlRwd},
+            #{item.instStl}, #{item.fixedUnitPrice} #{item.delivUnitReqd}, #{item.delivWarehReqd})
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehRmode">
+        update wareh_rmode
+        <set>
+            <if test="autoExec != null">
+                auto_exec = #{autoExec,jdbcType=CHAR},
+            </if>
+            <if test="boxReqd != null">
+                box_reqd = #{boxReqd,jdbcType=CHAR},
+            </if>
+            <if test="boxSchd != null">
+                box_schd = #{boxSchd,jdbcType=CHAR},
+            </if>
+            <if test="acptReqd != null">
+                acpt_reqd = #{acptReqd,jdbcType=CHAR},
+            </if>
+            <if test="paReqd != null">
+                pa_reqd = #{paReqd,jdbcType=CHAR},
+            </if>
+            <if test="diffMtrd != null">
+                diff_mtrd = #{diffMtrd,jdbcType=CHAR},
+            </if>
+            <if test="diffCtrl != null">
+                diff_ctrl = #{diffCtrl,jdbcType=CHAR},
+            </if>
+            <if test="mnlRwd != null">
+                mnl_rwd = #{mnlRwd,jdbcType=CHAR},
+            </if>
+            <if test="instStl != null">
+                inst_stl = #{instStl,jdbcType=CHAR},
+            </if>
+            <if test="fixedUnitPrice != null">
+                fixed_unit_price = #{fixedUnitPrice,jdbcType=CHAR},
+            </if>
+            <if test="delivUnitReqd != null">
+                deliv_unit_reqd = #{delivUnitReqd,jdbcType=CHAR},
+            </if>
+            <if test="delivWarehReqd != null">
+                deliv_wareh_reqd = #{delivWarehReqd,jdbcType=CHAR},
+            </if>
+        </set>
+        where wareh_id = #{warehId,jdbcType=BIGINT}
+        and rcv_mode = #{rcvMode,jdbcType=CHAR}
+    </update>
+    <update id="updateWarehRmodeMode" parameterType="com.boyu.erp.platform.usercenter.model.wareh.WarehRmodeMode">
+        update wareh_rmode
+        <set>
+            <if test="autoExec != null">
+                rcv_mode = #{rcvMode,jdbcType=CHAR},
+            </if>
+            <if test="autoExec != null">
+                auto_exec = #{autoExec,jdbcType=CHAR},
+            </if>
+            <if test="boxReqd != null">
+                box_reqd = #{boxReqd,jdbcType=CHAR},
+            </if>
+            <if test="boxSchd != null">
+                box_schd = #{boxSchd,jdbcType=CHAR},
+            </if>
+            <if test="acptReqd != null">
+                acpt_reqd = #{acptReqd,jdbcType=CHAR},
+            </if>
+            <if test="paReqd != null">
+                pa_reqd = #{paReqd,jdbcType=CHAR},
+            </if>
+            <if test="diffMtrd != null">
+                diff_mtrd = #{diffMtrd,jdbcType=CHAR},
+            </if>
+            <if test="diffCtrl != null">
+                diff_ctrl = #{diffCtrl,jdbcType=CHAR},
+            </if>
+            <if test="mnlRwd != null">
+                mnl_rwd = #{mnlRwd,jdbcType=CHAR},
+            </if>
+            <if test="instStl != null">
+                inst_stl = #{instStl,jdbcType=CHAR},
+            </if>
+            <if test="fixedUnitPrice != null">
+                fixed_unit_price = #{fixedUnitPrice,jdbcType=CHAR},
+            </if>
+            <if test="delivUnitReqd != null">
+                deliv_unit_reqd = #{delivUnitReqd,jdbcType=CHAR},
+            </if>
+            <if test="delivWarehReqd != null">
+                deliv_wareh_reqd = #{delivWarehReqd,jdbcType=CHAR},
+            </if>
+        </set>
+        where wareh_id = #{warehId,jdbcType=BIGINT}
+        and rcv_mode = #{updateRcvMode,jdbcType=CHAR}
+
+    </update>
+
+
+    <select id="selectWarehRmode" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehRmode"
+            resultMap="ResultMap">
+        SELECT
+        r.wareh_id,
+        r.rcv_mode,
+        r.auto_exec,
+        r.box_reqd,
+        r.box_schd,
+        r.acpt_reqd,
+        r.pa_reqd,
+        r.diff_mtrd,
+        r.diff_ctrl,
+        r.mnl_rwd,
+        r.inst_stl,
+        r.fixed_unit_price,
+        r.deliv_unit_reqd,
+        r.deliv_wareh_reqd,
+        d.`description` AS rcv_modeCp ,
+        d2.`description` AS auto_execCp,
+        d3.`description` AS box_reqdCp,
+        d4.`description` AS box_schdCp,
+        d5.`description` AS acpt_reqdCp,
+        d6.`description` AS pa_reqdCp,
+        d7.`description` AS diff_mtrdCp,
+        d8.`description` AS diff_ctrlCp,
+        d9.`description` AS mnl_rwdCp,
+        d10.`description` AS inst_stlCp,
+        d11.`description` AS fixed_unit_priceCp,
+        d12.`description` AS deliv_unit_reqdCp,
+        d13.`description` AS deliv_wareh_reqdCp
+        FROM
+        wareh_rmode r
+        INNER JOIN sys_code_dtl d
+        ON r.`rcv_mode` = d.`code`
+        AND d.`code_type` = "RCV_MODE"
+        INNER JOIN sys_code_dtl d2
+        ON r.`auto_exec` = d2.`code`
+        AND d2.`code_type` = "TandF"
+        INNER JOIN sys_code_dtl d3
+        ON r.`box_reqd` = d3.`code`
+        AND d3.`code_type` = "TandF"
+        INNER JOIN sys_code_dtl d4
+        ON r.`box_schd` = d4.`code`
+        AND d4.`code_type` = "TandF"
+        INNER JOIN sys_code_dtl d5
+        ON r.`acpt_reqd` = d5.`code`
+        AND d5.`code_type` = "TandF"
+        INNER JOIN sys_code_dtl d6
+        ON r.`pa_reqd` = d6.`code`
+        AND d6.`code_type` = "TandF"
+        INNER JOIN sys_code_dtl d7
+        ON r.`diff_mtrd` = d7.`code`
+        AND d7.`code_type` = "TandF"
+        INNER JOIN sys_code_dtl d8
+        ON r.`diff_ctrl` = d8.`code`
+        AND d8.`code_type` = "CMP_TYPE"
+        INNER JOIN sys_code_dtl d9
+        ON r.`mnl_rwd` = d9.`code`
+        AND d9.`code_type` = "TandF"
+        INNER JOIN sys_code_dtl d10
+        ON r.`inst_stl` = d10.`code`
+        AND d10.`code_type` = "TandF"
+        INNER JOIN sys_code_dtl d11
+        ON r.`fixed_unit_price` = d11.`code`
+        AND d11.`code_type` = "TandF"
+        INNER JOIN sys_code_dtl d12
+        ON r.`deliv_unit_reqd` = d12.`code`
+        AND d12.`code_type` = "TandF"
+        INNER JOIN sys_code_dtl d13
+        ON r.`deliv_wareh_reqd` = d13.`code`
+        AND d13.`code_type` = "TandF"
+        WHERE wareh_id = #{warehId}
+    </select>
+    <select id="selectWareh" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from wareh_rmode
+        where wareh_id = #{warehId,jdbcType=BIGINT}
+    </select>
+</mapper>

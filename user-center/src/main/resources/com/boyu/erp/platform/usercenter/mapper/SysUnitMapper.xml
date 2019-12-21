@@ -1,0 +1,1489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysUnitMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysUnit">
+        <id column="unit_id" property="unitId"/>
+        <result column="unit_code" jdbcType="VARCHAR" property="unitCode"/>
+        <result column="unit_name" jdbcType="VARCHAR" property="unitName"/>
+        <result column="unit_hierarchy" jdbcType="VARCHAR" property="unitHierarchy"/>
+        <result column="unit_type" jdbcType="VARCHAR" property="unitType"/>
+        <result column="lic_type" jdbcType="CHAR" property="licType"/>
+        <result column="lic_num" jdbcType="VARCHAR" property="licNum"/>
+        <result column="tel_num" jdbcType="VARCHAR" property="telNum"/>
+        <result column="fax_num" jdbcType="VARCHAR" property="faxNum"/>
+        <result column="email_addr" jdbcType="VARCHAR" property="emailAddr"/>
+        <result column="postcode" jdbcType="VARCHAR" property="postcode"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="district" jdbcType="VARCHAR" property="district"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="website" jdbcType="VARCHAR" property="website"/>
+        <result column="lm_id" jdbcType="BIGINT" property="lmId"/>
+        <result column="ctrl_unit_id" jdbcType="BIGINT" property="ctrlUnitId"/>
+        <result column="shared" jdbcType="CHAR" property="shared"/>
+        <result column="recruitable" jdbcType="CHAR" property="recruitable"/>
+        <result column="input_code" jdbcType="VARCHAR" property="inputCode"/>
+        <result column="seq_num" jdbcType="VARCHAR" property="seqNum"/>
+        <result column="unit_status" jdbcType="CHAR" property="unitStatus"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="upd_time" jdbcType="TIMESTAMP" property="updTime"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+
+    <resultMap id="BaseResultUnit" type="com.boyu.erp.platform.usercenter.vo.UnitOptionVo">
+        <result column="unitId" property="unitId"/>
+        <result column="unitCode" property="unitCode"/>
+        <result column="unitNum" property="unitNum"/>
+        <result column="unitName" property="unitName"/>
+        <result column="inputCode" property="inputCode"/>
+        <result column="telNum" property="telNum"/>
+        <result column="address" property="address"/>
+        <result column="fullName" property="fullName"/>
+        <result column="unitStatus" property="unitStatus"/>
+        <result column="unitStatusCp" property="unitStatusCp"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    unit_id, unit_code,unit_hierarchy,unit_type, unit_name, lic_type, lic_num, tel_num, fax_num, email_addr, postcode,
+    province, city, district, address, website, lm_id, ctrl_unit_id, shared, recruitable, 
+    input_code, seq_num, unit_status, opr_id, upd_time, remarks
+  </sql>
+    <!--厂商、设计方查询、组织下拉-->
+    <select id="getAll" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnit"
+            resultMap="BaseResultMap">
+        SELECT
+        u.`unit_id` AS unit_id,
+        u.`unit_code` AS unit_code,
+        u.`unit_name` AS unit_name,
+        u.`input_code` AS input_code,
+        u.`address` AS address,
+        u.`tel_num` AS tel_num,
+        u.`unit_status` AS unit_status,
+        p.`full_name` AS full_name
+        FROM
+        sys_unit u
+        LEFT JOIN sys_prsnl p
+        ON u.`lm_id` = p.`prsnl_id`
+        WHERE 1=1
+        <if test="unitStatus!='' and unitStatus!=null">
+            and u.`unit_status`=#{unitStatus}
+        </if>
+        <if test="unitCode!='' and unitCode!=null">
+            AND INSTR(u.`unit_code`, #{unitCode}) > 0
+        </if>
+        <if test="unitName!='' and unitName!=null">
+            AND INSTR(u.`unit_name`, #{unitName}) > 0
+        </if>
+        <if test="inputCode!='' and inputCode!=null">
+            AND INSTR( u.`input_code` , #{inputCode}) > 0
+        </if>
+    </select>
+    <!--供应商查询-->
+    <select id="findAll" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnit"
+            resultMap="BaseResultMap">
+        SELECT
+        u.`unit_id` AS unit_id,
+        u.`unit_code` AS unit_code,
+        u.`unit_name` AS unit_name,
+        u.`input_code` AS input_code,
+        u.`address` AS address,
+        u.`tel_num` AS tel_num,
+        u.`unit_status` AS unit_status,
+        p.`full_name` AS full_name
+        FROM
+        `vender` v
+        INNER JOIN sys_unit u
+        ON v.`vender_id` = u.`unit_id`
+        LEFT JOIN sys_prsnl p
+        ON u.`lm_id` = p.`prsnl_id`
+        WHERE v.`owner_id` =#{unitId}
+        <if test="unitStatus!='' and unitStatus!=null">
+            and u.`unit_status`=#{unitStatus}
+        </if>
+
+        <if test="unitCode!='' and unitCode!=null">
+            AND INSTR(u.`unit_code`, #{unitCode}) > 0
+        </if>
+        <if test="unitName!='' and unitName!=null">
+            AND INSTR(u.`unit_name`, #{unitName}) > 0
+        </if>
+        <if test="inputCode!='' and inputCode!=null">
+            AND INSTR( u.`input_code` , #{inputCode}) > 0
+        </if>
+    </select>
+
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_unit
+        where unit_id = #{unitId}
+    </select>
+
+
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="unitId"
+            parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnit">
+        insert into sys_unit
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="unitCode != null">
+                unit_code,
+            </if>
+            <if test="unitName != null">
+                unit_name,
+            </if>
+            <if test="unitHierarchy!=null">
+                unit_hierarchy,
+            </if>
+            <if test="unitType!=null">
+                unit_type ,
+            </if>
+            <if test="licType != null">
+                lic_type,
+            </if>
+            <if test="licNum != null">
+                lic_num,
+            </if>
+            <if test="telNum != null">
+                tel_num,
+            </if>
+            <if test="faxNum != null">
+                fax_num,
+            </if>
+            <if test="emailAddr != null">
+                email_addr,
+            </if>
+            <if test="postcode != null">
+                postcode,
+            </if>
+            <if test="province != null">
+                province,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="district != null">
+                district,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="website != null">
+                website,
+            </if>
+            <if test="lmId != null">
+                lm_id,
+            </if>
+            <if test="ctrlUnitId != null">
+                ctrl_unit_id,
+            </if>
+            <if test="shared != null">
+                shared,
+            </if>
+            <if test="recruitable != null">
+                recruitable,
+            </if>
+            <if test="inputCode != null">
+                input_code,
+            </if>
+            <if test="seqNum != null">
+                seq_num,
+            </if>
+            <if test="unitStatus != null">
+                unit_status,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+
+            upd_time,
+
+            <if test="remarks != null">
+                remarks,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId},
+            </if>
+            <if test="unitCode != null">
+                #{unitCode},
+            </if>
+            <if test="unitName != null">
+                #{unitName},
+            </if>
+            <if test="unitHierarchy!=null">
+                #{unitHierarchy},
+            </if>
+            <if test="unitType!=null">
+                #{unitType} ,
+            </if>
+            <if test="licType != null">
+                #{licType,jdbcType=CHAR},
+            </if>
+            <if test="licNum != null">
+                #{licNum},
+            </if>
+            <if test="telNum != null">
+                #{telNum},
+            </if>
+            <if test="faxNum != null">
+                #{faxNum},
+            </if>
+            <if test="emailAddr != null">
+                #{emailAddr},
+            </if>
+            <if test="postcode != null">
+                #{postcode},
+            </if>
+            <if test="province != null">
+                #{province},
+            </if>
+            <if test="city != null">
+                #{city},
+            </if>
+            <if test="district != null">
+                #{district},
+            </if>
+            <if test="address != null">
+                #{address},
+            </if>
+            <if test="website != null">
+                #{website},
+            </if>
+            <if test="lmId != null">
+                #{lmId},
+            </if>
+            <if test="ctrlUnitId != null">
+                #{ctrlUnitId},
+            </if>
+            <if test="shared != null">
+                #{shared,jdbcType=CHAR},
+            </if>
+            <if test="recruitable != null">
+                #{recruitable,jdbcType=CHAR},
+            </if>
+            <if test="inputCode != null">
+                #{inputCode},
+            </if>
+            <if test="seqNum != null">
+                #{seqNum},
+            </if>
+            <if test="unitStatus != null">
+                #{unitStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                #{oprId},
+            </if>
+            now() ,
+            <if test="remarks != null">
+                #{remarks},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnit">
+        update sys_unit
+        <set>
+            <if test="unitCode != null and unitCode !=''">
+                unit_code = #{unitCode},
+            </if>
+            <if test="unitName != null and unitName !=''">
+                unit_name = #{unitName},
+            </if>
+            <if test="unitHierarchy!=null and unitHierarchy!=''">
+                unit_hierarchy=#{unitHierarchy},
+            </if>
+            <if test="unitType!=null and unitType!=''">
+                unit_type=#{unitType} ,
+            </if>
+            <if test="licType != null and licType != 'null'">
+                lic_type = #{licType,jdbcType=CHAR},
+            </if>
+            <if test="licNum != null and licNum !=''">
+                lic_num = #{licNum},
+            </if>
+            <if test="telNum != null and telNum !=''">
+                tel_num = #{telNum},
+            </if>
+            <if test="faxNum != null and faxNum !=''">
+                fax_num = #{faxNum},
+            </if>
+            <if test="emailAddr != null and emailAddr != ''">
+                email_addr = #{emailAddr},
+            </if>
+            <if test="postcode != null and postcode != '' ">
+                postcode = #{postcode},
+            </if>
+            <if test="province != null and province != '' ">
+                province = #{province},
+            </if>
+            <if test="city != null and city != ''">
+                city = #{city},
+            </if>
+            <if test="district != null and district != ''">
+                district = #{district},
+            </if>
+            <if test="address != null  and address != ''">
+                address = #{address},
+            </if>
+            <if test="website != null and website != ''">
+                website = #{website},
+            </if>
+            <if test="lmId != null ">
+                lm_id = #{lmId},
+            </if>
+            <if test="ctrlUnitId != null">
+                ctrl_unit_id = #{ctrlUnitId},
+            </if>
+            <if test="shared != null and shared !=''">
+                shared = #{shared,jdbcType=CHAR},
+            </if>
+            <if test="recruitable!= null and recruitable !=''">
+                recruitable = #{recruitable,jdbcType=CHAR},
+            </if>
+            <if test="inputCode != null and inputCode != ''">
+                input_code = #{inputCode},
+            </if>
+            <if test="seqNum != null">
+                seq_num = #{seqNum},
+            </if>
+            <if test="unitStatus != null and unitStatus !=''">
+                unit_status = #{unitStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId},
+            </if>
+            <if test="updTime != null">
+                upd_time = now(),
+            </if>
+            <if test="remarks != null and remarks !=''">
+                remarks = #{remarks},
+            </if>
+        </set>
+        where unit_id = #{unitId}
+    </update>
+    <!--根据条件查询-->
+    <select id="selectAll" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnit"
+            resultType="com.boyu.erp.platform.usercenter.vo.DomainAndUnitVo">
+        SELECT
+        a.unit_id as unitId,
+        a.unit_code as unitCode,
+        a.unit_name as unitName,
+        a.lic_type AS licType,
+        a.lic_num AS
+        licNum,
+        a.tel_num AS telNum,
+        a.fax_num AS faxNum,
+        a.email_addr AS emailAddr,
+        a.postcode AS postcode,
+        a.province,
+        a.city,
+        a.district,
+        a.address,
+        a.website,
+        a.lm_id as lmId,
+        a.ctrl_unit_id as ctrlUnitId,
+        a.shared,
+        a.recruitable,
+        a.input_code AS inputCode,
+        a.seq_num AS seqNum,
+        unit_status AS unitStatus,
+        a.opr_id AS oprId,
+        a.upd_time AS updTime,
+        a.remarks AS remarks,
+        c.`domain_id` as domainId,
+        b.full_name as lmName
+        FROM sys_unit a
+        LEFT JOIN sys_prsnl b ON(a.`lm_id`=b.prsnl_id)
+        LEFT JOIN sys_domain c ON(c.`unit_id`=a.`unit_id`)
+        where 1=1
+        <if test="unitId != null">
+            and a.unit_id = #{unitId}
+        </if>
+        <if test="unitCode != null and unitCode!=''">
+            and instr ( a.unit_code, #{unitCode}) >0
+        </if>
+        <if test="unitName != null and unitName!=''">
+            and INSTR (a.unit_name , #{unitName}) >0
+        </if>
+        <if test="licType != null">
+            and a.lic_type = #{licType}
+        </if>
+        <if test="licNum != null">
+            and a.lic_num = #{licNum}
+        </if>
+        <if test="telNum != null">
+            and a.tel_num = #{telNum}
+        </if>
+        <if test="faxNum != null">
+            and a.fax_num = #{faxNum}
+        </if>
+        <if test="emailAddr != null">
+            and a.email_addr = #{emailAddr}
+        </if>
+        <if test="postcode != null">
+            and a.postcode = #{postcode}
+        </if>
+        <if test="province != null">
+            and a.province = #{province}
+        </if>
+        <if test="city != null">
+            and a.city = #{city}
+        </if>
+        <if test="district != null">
+            and a.district = #{district}
+        </if>
+        <if test="address != null">
+            and a.address = #{address}
+        </if>
+        <if test="website != null">
+            and a.website = #{website}
+        </if>
+        <if test="lmId != null">
+            and a.lm_id = #{lmId}
+        </if>
+        <if test="ctrlUnitId != null and  ctrlUnitId!=0">
+            and a.ctrl_unit_id = #{ctrlUnitId}
+        </if>
+        <if test="shared != null">
+            and a.shared = #{shared}
+        </if>
+        <if test="recruitable != null">
+            and a.recruitable = #{recruitable}
+        </if>
+        <if test="inputCode != null and inputCode!=''">
+            and instr (a.input_code , #{inputCode})>0
+        </if>
+        <if test="seqNum != null">
+            and a.seq_num = #{seqNum}
+        </if>
+        <if test="unitStatus != null and unitStatus!='null'">
+            and instr (a.unit_status ,#{unitStatus})>0
+        </if>
+        <if test="oprId != null">
+            and a.opr_id = #{oprId}
+        </if>
+        <if test="updTime != null">
+            and a.upd_time = #{updTime}
+        </if>
+        <if test="remarks != null">
+            and a.remarks = #{remarks}
+        </if>
+    </select>
+
+    <!--根据组织名称 和unit_code 查询防止重复添加-->
+    <select id="selectCodeAndName" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnit"
+            resultMap="BaseResultMap">
+        SELECT * FROM sys_unit WHERE 1=1
+        and unit_code =#{unitCode}
+        union
+        SELECT
+        *
+        FROM
+        sys_unit
+        WHERE 1=1
+        and unit_name =#{unitName}
+    </select>
+    <!-- 通过层级关系查询下属组织-->
+    <select id="findHierarchy" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnit"
+            resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        sys_unit su
+        WHERE su.`unit_status`='A'
+        AND INSTR(su.`unit_hierarchy`,#{unitHierarchy})>0
+
+    </select>
+
+    <!-- 通过层级关系查询下属组织-->
+    <select id="findHierarchyByType" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+        SELECT
+        su.*
+        FROM
+        sys_unit su
+		INNER JOIN
+		sys_unit_clsf  suc
+		ON
+		(suc.unit_id = su.unit_id AND suc.owner_id = #{unitId} AND suc.unit_type = #{unitType})
+        WHERE su.`unit_status`='A'
+        AND INSTR(su.`unit_hierarchy`,#{unitHierarchy})>0
+
+    </select>
+
+    <select id="countDomainCode" resultType="integer">
+        SELECT
+        COUNT( d.`unit_id`)
+        FROM sys_unit d
+        WHERE
+        d.`unit_code`=#{unitCode}
+    </select>
+    <select id="selectByunitAdmin" parameterType="Long"
+            resultType="com.boyu.erp.platform.usercenter.entity.system.SysUser">
+        SELECT
+        us.`user_id` AS userId,
+        us.`owner_id` as ownerId
+        FROM
+        sys_unit u
+        INNER JOIN sys_domain d
+        ON u.`unit_id` = d.`unit_id`
+        INNER JOIN sys_user us
+        ON d.`sa_id` = us.`user_id`
+        WHERE u.`unit_id`=#{unitId} and us.`owner_id`=#{unitId}
+    </select>
+
+    <!--采购协议 系统管理员弹窗-->
+    <select id="selectByAll" parameterType="com.boyu.erp.platform.usercenter.vo.UnitOptionVo"
+            resultMap="BaseResultUnit">
+        SELECT
+        su.unit_id AS unitId,
+        any_value(suo.UNIT_NUM) AS unitCode ,
+        any_value(su.unit_name) AS unitName,
+        any_value(su.input_code) AS inputCode,
+        any_value(su.address) AS address,
+        any_value(su.tel_num) AS telNum,
+        any_value(su.unit_status) AS unitStatus,
+        any_value(p.full_name) AS fullName
+        FROM
+        (SELECT a.* FROM SYS_UNIT_CLSF a WHERE 1=1 AND a.frz_type='0'
+        <if test="unitType != null and unitType !=''">
+            AND a.UNIT_TYPE = #{unitType}
+        </if>
+        ) suc
+        LEFT JOIN SYS_UNIT su ON su.UNIT_ID = suc.UNIT_ID
+        LEFT JOIN sys_prsnl p ON su.lm_id =p.prsnl_id
+        LEFT JOIN SYS_UNIT_OWNER suo ON suo.UNIT_ID = su.UNIT_ID AND suo.OWNER_ID = suc.OWNER_ID
+        WHERE 1=1 and su.unit_status!='D'
+        <if test="unitCode != null and unitCode !=''">
+            and suo.UNIT_NUM like CONCAT(#{unitCode}, '%')
+        </if>
+        <if test="unitName != null and unitName !=''">
+            and su.unit_name like CONCAT('%', #{unitName}, '%')
+        </if>
+        <if test="inputCode != null and inputCode !=''">
+            and su.input_code like CONCAT(#{inputCode}, '%')
+        </if>
+        <if test="unitStatus != null and unitStatus !=''">
+            and su.unit_status = #{unitStatus}
+        </if>
+        GROUP BY su.unit_id
+    </select>
+
+
+    <select id="selectByOptionCode" parameterType="com.boyu.erp.platform.usercenter.vo.UnitOptionVo"
+            resultMap="BaseResultUnit">
+        SELECT
+        su.unit_id AS unitId,
+        su.unit_code AS unitCode,
+        su.unit_name AS unitName,
+        su.input_code AS inputCode,
+        su.address AS address,
+        su.tel_num AS telNum,
+        su.unit_status AS unitStatus,
+        p.full_name AS fullName
+        FROM
+        sys_unit su
+        INNER JOIN (
+        SELECT
+        su.unit_id
+        FROM
+        sys_unit_clsf suc
+        INNER JOIN sys_unit su ON su.unit_id = suc.unit_id
+        WHERE
+        suc.owner_id = #{sUnitId} UNION
+        SELECT
+        unit_id
+        FROM
+        sys_unit
+        WHERE
+        shared = 'T'
+        ) sua ON sua.unit_id = su.unit_id
+        LEFT JOIN sys_prsnl p ON su.lm_id = p.prsnl_id
+        where 1=1 and su.unit_status!='D'
+        <if test="unitCode != null and unitCode !=''">
+            and su.unit_code like CONCAT(#{unitCode}, '%')
+        </if>
+        <if test="unitName != null and unitName !=''">
+            and su.unit_name like CONCAT('%', #{unitName}, '%')
+        </if>
+        <if test="inputCode != null and inputCode !=''">
+            and su.input_code like CONCAT(#{inputCode}, '%')
+        </if>
+        <if test="unitStatus != null and unitStatus !=''">
+            and su.unit_status = #{unitStatus}
+        </if>
+    </select>
+
+    <select id="findOptionByNum" parameterType="com.boyu.erp.platform.usercenter.vo.UnitOptionVo"
+            resultMap="BaseResultUnit">
+        SELECT
+        su.unit_id AS unitId,
+        any_value(suo.unit_num) AS unitNum ,
+        any_value(su.unit_code) AS unitCode ,
+        any_value(su.unit_name) AS unitName
+        FROM
+        (SELECT a.* FROM sys_unit_clsf a WHERE 1=1 AND a.frz_type='0'
+        AND a.UNIT_TYPE = #{unitType}
+        AND a.OWNER_ID = #{sUnitId}
+        ) suc
+        LEFT JOIN sys_unit su ON su.unit_id = suc.unit_id
+        LEFT JOIN sys_prsnl p ON su.lm_id =p.prsnl_id
+        LEFT JOIN sys_unit_owner suo ON suo.unit_id = su.unit_id AND suo.owner_id = suc.owner_id
+        WHERE 1=1 and su.unit_status!='D'
+        and suo.unit_num = #{unitNum}
+        GROUP BY su.unit_id
+    </select>
+    <select id="selectByOption" parameterType="com.boyu.erp.platform.usercenter.vo.UnitOptionVo"
+            resultMap="BaseResultUnit">
+        SELECT
+        su.unit_id AS unitId,
+        any_value(suo.unit_num) AS unitCode ,
+        any_value(su.unit_name) AS unitName,
+        any_value(su.input_code) AS inputCode,
+        any_value(su.address) AS address,
+        any_value(su.tel_num) AS telNum,
+        any_value(su.unit_status) AS unitStatus,
+        any_value(p.full_name) AS fullName
+        FROM
+        (SELECT a.* FROM SYS_UNIT_CLSF a WHERE 1=1 AND a.frz_type='0'
+        <if test="unitType != null and unitType !=''">
+            AND a.UNIT_TYPE = #{unitType}
+        </if>
+        <if test="sUnitId != null and sUnitId !=''">
+            AND a.OWNER_ID = #{sUnitId}
+        </if>
+        ) suc
+        LEFT JOIN SYS_UNIT su ON su.UNIT_ID = suc.UNIT_ID
+        LEFT JOIN sys_prsnl p ON su.lm_id =p.prsnl_id
+        LEFT JOIN SYS_UNIT_OWNER suo ON suo.UNIT_ID = su.UNIT_ID AND suo.OWNER_ID = suc.OWNER_ID
+        WHERE 1=1 and su.unit_status!='D'
+        <if test="unitCode != null and unitCode !=''">
+            and suo.unit_num like CONCAT(#{unitCode}, '%')
+        </if>
+        <if test="unitName != null and unitName !=''">
+            and su.unit_name like CONCAT('%', #{unitName}, '%')
+        </if>
+        <if test="inputCode != null and inputCode !=''">
+            and su.input_code like CONCAT(#{inputCode}, '%')
+        </if>
+        <if test="unitStatus != null and unitStatus !=''">
+            and su.unit_status = #{unitStatus}
+        </if>
+        GROUP BY su.unit_id
+    </select>
+    <!--    <select id="selectByPucOption" parameterType="com.boyu.erp.platform.usercenter.vo.UnitOptionVo"
+                resultMap="BaseResultUnit">
+            SELECT
+            su.unit_id as unitId,
+            suo.UNIT_NUM as unitCode ,
+            su.unit_name as unitName,
+            su.input_code as inputCode,
+            su.address as address,
+            su.tel_num as telNum,
+            su.unit_status as unitStatus,
+            p.full_name as fullName
+            FROM
+            (SELECT a.* FROM SYS_UNIT_CLSF a WHERE 1=1 and a.frz_type='0'
+            <if test="unitType != null and unitType !=''">
+                AND a.UNIT_TYPE = #{unitType}
+            </if>
+            AND
+            <if test="sUnitId != null and sUnitId !=''">
+                a.OWNER_ID = #{sUnitId}
+            </if>
+            ) suc
+            LEFT JOIN SYS_UNIT su ON su.UNIT_ID = suc.UNIT_ID
+            LEFT JOIN sys_prsnl p ON su.lm_id =p.prsnl_id
+            LEFT JOIN SYS_UNIT_OWNER suo ON suo.UNIT_ID = su.UNIT_ID AND suo.OWNER_ID = suc.OWNER_ID
+            WHERE 1=1 and su.unit_status!='D'
+            <if test="unitCode != null and unitCode !=''">
+                and suo.UNIT_NUM like CONCAT(#{unitCode}, '%')
+            </if>
+            <if test="unitName != null and unitName !=''">
+                and su.unit_name like CONCAT('%', #{unitName}, '%')
+            </if>
+            <if test="inputCode != null and inputCode !=''">
+                and su.input_code like CONCAT(#{inputCode}, '%')
+            </if>
+            <if test="unitStatus != null and unitStatus !=''">
+                and su.unit_status = #{unitStatus}
+            </if>
+            ORDER BY su.unit_id
+        </select>-->
+
+    <select id="selectByOptionAll" parameterType="com.boyu.erp.platform.usercenter.vo.UnitOptionVo"
+            resultMap="BaseResultUnit">
+        SELECT
+        su.unit_id AS unitId,
+        su.unit_code AS unitCode,
+        su.unit_name AS unitName,
+        su.input_code AS inputCode,
+        su.address AS address,
+        su.tel_num AS telNum,
+        su.unit_status AS unitStatus,
+        p.full_name AS fullName
+        FROM
+        SYS_UNIT su
+        LEFT JOIN sys_prsnl p ON su.lm_id =p.prsnl_id
+        where 1=1
+        <if test="unitCode != null and unitCode !=''">
+            and su.unit_code like CONCAT(#{unitCode}, '%')
+        </if>
+        <if test="unitName != null and unitName !=''">
+            and su.unit_name like CONCAT('%', #{unitName}, '%')
+        </if>
+        <if test="inputCode != null and inputCode !=''">
+            and su.input_code like CONCAT(#{inputCode}, '%')
+        </if>
+        <if test="unitStatus != null and unitStatus !=''">
+            and su.unit_status = #{unitStatus}
+        </if>
+    </select>
+
+    <!--添加-->
+    <insert id="insertByVd"
+            parameterType="java.util.Map">
+        insert into sys_unit
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vo.unitId != null and vo.unitId != '' ">
+                unit_id,
+            </if>
+            <if test="vo.unitCode != null and vo.unitCode != '' ">
+                unit_code,
+            </if>
+            <if test="vo.unitName != null and vo.unitName != '' ">
+                unit_name,
+            </if>
+            <if test="vo.unitHierarchy!=null and vo.unitHierarchy != '' ">
+                unit_hierarchy,
+            </if>
+            <if test="vo.unitType!=null and vo.unitType != '' ">
+                unit_type ,
+            </if>
+            <if test="vo.licType != null and vo.licType != '' ">
+                lic_type,
+            </if>
+            <if test="vo.licNum != null and vo.licNum != '' ">
+                lic_num,
+            </if>
+            <if test="vo.telNum != null and vo.telNum != '' ">
+                tel_num,
+            </if>
+            <if test="vo.faxNum != null and vo.faxNum != '' ">
+                fax_num,
+            </if>
+            <if test="vo.emailAddr != null and vo.emailAddr != '' ">
+                email_addr,
+            </if>
+            <if test="vo.postcode != null and vo.postcode != '' ">
+                postcode,
+            </if>
+            <if test="vo.province != null and vo.province != '' ">
+                province,
+            </if>
+            <if test="vo.city != null and vo.city != '' ">
+                city,
+            </if>
+            <if test="vo.district != null and vo.district != '' ">
+                district,
+            </if>
+            <if test="vo.address != null and vo.address != '' ">
+                address,
+            </if>
+            <if test="vo.website != null and vo.website != '' ">
+                website,
+            </if>
+            <if test="vo.lmId != null and vo.lmId != '' ">
+                lm_id,
+            </if>
+            <if test="vo.ctrlUnitId != null and vo.ctrlUnitId != '' ">
+                ctrl_unit_id,
+            </if>
+            <if test="vo.shared != null and vo.shared != '' ">
+                shared,
+            </if>
+            <if test="vo.recruitable != null and vo.recruitable != '' ">
+                recruitable,
+            </if>
+            <if test="vo.inputCode != null and vo.inputCode != '' ">
+                input_code,
+            </if>
+            <if test="vo.seqNum != null and vo.seqNum != '' ">
+                seq_num,
+            </if>
+            <if test="vo.unitStatus != null and vo.unitStatus != '' ">
+                unit_status,
+            </if>
+            <if test="vo.oprId != null and vo.oprId != '' ">
+                opr_id,
+            </if>
+
+            upd_time,
+
+            <if test="vo.remarks != null and vo.remarks != '' ">
+                remarks,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vo.unitId != null and vo.unitId != '' ">
+                #{vo.unitId},
+            </if>
+            <if test="vo.unitCode != null and vo.unitCode != '' ">
+                #{vo.unitCode},
+            </if>
+            <if test="vo.unitName != null and vo.unitName != '' ">
+                #{vo.unitName},
+            </if>
+            <if test="vo.unitHierarchy!=null and vo.unitHierarchy != '' ">
+                #{vo.unitHierarchy},
+            </if>
+            <if test="vo.unitType!=null and vo.unitType != '' ">
+                #{vo.unitType} ,
+            </if>
+            <if test="vo.licType != null and vo.licType != '' ">
+                #{vo.licType},
+            </if>
+            <if test="vo.licNum != null and vo.licNum != '' ">
+                #{vo.licNum},
+            </if>
+            <if test="vo.telNum != null and vo.telNum != '' ">
+                #{vo.telNum},
+            </if>
+            <if test="vo.faxNum != null and vo.faxNum != '' ">
+                #{vo.faxNum},
+            </if>
+            <if test="vo.emailAddr != null and vo.emailAddr != '' ">
+                #{vo.emailAddr},
+            </if>
+            <if test="vo.postcode != null and vo.postcode != '' ">
+                #{vo.postcode},
+            </if>
+            <if test="vo.province != null and vo.province != '' ">
+                #{vo.province},
+            </if>
+            <if test="vo.city != null and vo.city != '' ">
+                #{vo.city},
+            </if>
+            <if test="vo.district != null and vo.district != '' ">
+                #{vo.district},
+            </if>
+            <if test="vo.address != null and vo.address != '' ">
+                #{vo.address},
+            </if>
+            <if test="vo.website != null and vo.website != '' ">
+                #{vo.website},
+            </if>
+            <if test="vo.lmId != null and vo.lmId != '' ">
+                #{vo.lmId},
+            </if>
+            <if test="vo.ctrlUnitId != null and vo.ctrlUnitId != '' ">
+                #{vo.ctrlUnitId},
+            </if>
+            <if test="vo.shared != null and vo.shared != '' ">
+                #{vo.shared,jdbcType=CHAR},
+            </if>
+            <if test="vo.recruitable != null and vo.recruitable != '' ">
+                #{vo.recruitable,jdbcType=CHAR},
+            </if>
+            <if test="vo.inputCode != null and vo.inputCode != '' ">
+                #{vo.inputCode},
+            </if>
+            <if test="vo.seqNum != null and vo.seqNum != '' ">
+                #{vo.seqNum},
+            </if>
+            <if test="vo.unitStatus != null and vo.unitStatus != '' ">
+                #{vo.unitStatus,jdbcType=CHAR},
+            </if>
+            <if test="vo.oprId != null and vo.oprId != '' ">
+                #{vo.oprId},
+            </if>
+
+            now() ,
+
+            <if test="vo.remarks != null and vo.remarks != '' ">
+                #{vo.remarks},
+            </if>
+        </trim>
+    </insert>
+    <!--通过组织代码查询组织-->
+    <select id="selectByUnitCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_unit
+        where unit_code = #{unitCode}
+    </select>
+
+    <select id="selectAllICN" resultType="com.boyu.erp.platform.usercenter.vo.system.SysUnitPgVO">
+        SELECT
+        sys_unit.unit_id AS `unitId`,
+        sys_unit.unit_code AS `unitCode`,
+        sys_unit.unit_name AS `unitName`
+        FROM
+        sys_unit
+    </select>
+
+    <!-- 通过供应商页面的修改 -->
+    <update id="updateByVd" parameterType="java.util.Map">
+        update sys_unit
+        <set>
+            <if test="vo.unitCode != null and vo.unitCode !=''">
+                unit_code = #{vo.unitCode},
+            </if>
+            <if test="vo.unitName != null and vo.unitName !=''">
+                unit_name = #{vo.unitName},
+            </if>
+            <if test="vo.unitHierarchy!=null and vo.unitHierarchy!=''">
+                unit_hierarchy=#{vo.unitHierarchy},
+            </if>
+            <if test="vo.unitType!=null and vo.unitType!=''">
+                unit_type=#{vo.unitType} ,
+            </if>
+            <if test="vo.licType != null and vo.licType != 'null'">
+                lic_type = #{vo.licType,jdbcType=CHAR},
+            </if>
+            <if test="vo.licNum != null and vo.licNum !=''">
+                lic_num = #{vo.licNum},
+            </if>
+            <if test="vo.telNum != null and vo.telNum !=''">
+                tel_num = #{vo.telNum},
+            </if>
+            <if test="vo.faxNum != null and vo.faxNum !=''">
+                fax_num = #{vo.faxNum},
+            </if>
+            <if test="vo.emailAddr != null and vo.emailAddr != ''">
+                email_addr = #{vo.emailAddr},
+            </if>
+            <if test="vo.postcode != null and vo.postcode != '' ">
+                postcode = #{vo.postcode},
+            </if>
+            <if test="vo.province != null and vo.province != '' ">
+                province = #{vo.province},
+            </if>
+            <if test="vo.city != null and vo.city != ''">
+                city = #{vo.city},
+            </if>
+            <if test="vo.district != null and vo.district != ''">
+                district = #{vo.district},
+            </if>
+            <if test="vo.address != null  and vo.address != ''">
+                address = #{vo.address},
+            </if>
+            <if test="vo.website != null and vo.website != ''">
+                website = #{vo.website},
+            </if>
+            <if test="vo.lmId != null and vo.lmId != '' ">
+                lm_id = #{vo.lmId},
+            </if>
+            <if test="vo.ctrlUnitId != null and vo.ctrlUnitId != '' ">
+                ctrl_unit_id = #{vo.ctrlUnitId},
+            </if>
+            <if test="vo.shared != null and vo.shared != '' ">
+                shared = #{vo.shared,jdbcType=CHAR},
+            </if>
+            <if test="vo.recruitable != null and vo.recruitable != '' ">
+                recruitable = #{vo.recruitable,jdbcType=CHAR},
+            </if>
+            <if test="vo.inputCode != null and vo.inputCode != ''">
+                input_code = #{vo.inputCode},
+            </if>
+            <if test="vo.seqNum != null and vo.seqNum != '' ">
+                seq_num = #{vo.seqNum},
+            </if>
+            <if test="vo.unitStatus != null and vo.unitStatus != '' ">
+                unit_status = #{vo.unitStatus,jdbcType=CHAR},
+            </if>
+            <if test="vo.oprId != null and vo.oprId != '' ">
+                opr_id = #{vo.oprId},
+                upd_time = now(),
+            </if>
+            <if test="vo.remarks != null and vo.remarks != '' ">
+                remarks = #{vo.remarks},
+            </if>
+        </set>
+        where unit_id = #{vo.unitId}
+    </update>
+
+
+    <!--查询系统内所有的组织(过滤的组织)-->
+    <select id="getUnitScope" parameterType="com.boyu.erp.platform.usercenter.vo.system.UnitDomainVo"
+            resultType="com.boyu.erp.platform.usercenter.vo.system.UnitDomainVo">
+        SELECT
+        u.`unit_id` as unitId,
+        u.`unit_code` as unitCode,
+        u.`unit_name` as unitName,
+        u.`input_code` as inputCode,
+        u.`unit_type` as unitType,
+        u.`unit_hierarchy` as unitHierarchy,
+        u.`unit_status` as unitStatus,
+        d.`domain_id` as domainId,
+        d.`domain_status` as domainStatus
+        FROM
+        sys_unit u
+        LEFT JOIN sys_domain d
+        ON u.`unit_id` = d.`unit_id`
+        <if test="privId!='' and privId!=null">
+            inner join
+            (SELECT
+            r.`unit_id` AS unit_id,
+            rp.`priv_id` AS priv_id
+            FROM
+            sys_unit_role r
+            INNER JOIN sys_role_priv rp
+            ON r.`role_id` = rp.`role_id`
+            UNION
+            SELECT
+            p.`unit_id` AS unit_id,
+            p.`priv_id` AS priv_id
+            FROM
+            sys_unit_priv p) priv on u.`unit_id`=priv.unit_id and priv.priv_id=#{privId}
+        </if>
+        WHERE u.`unit_status`="A"
+        <if test="unitCode!=null and unitCode!=''">
+            and instr(u.unit_code,#{unitCode})>0
+        </if>
+        <if test="unitName!=null and unitName!=''">
+            and instr(u.unit_name,#{unitName})>0
+        </if>
+        <if test="inputCode!=null and inputCode!=''">
+            and instr(u.`input_code`,#{inputCode})>0
+        </if>
+        <if test="domainStatus!=null and domainStatus!=''">
+            /*是否领域*/
+            and d.`domain_status` =#{domainStatus}
+        </if>
+        <if test="domainId!=null and domainId!=''">
+            /*领域Id*/
+            and (d.`domain_id` ,#{domainId})>0
+        </if>
+    </select>
+    <!--普通用户查询领域、组织-->
+    <select id="getSaveScope" parameterType="com.boyu.erp.platform.usercenter.model.system.UnitScopeModel"
+            resultType="com.boyu.erp.platform.usercenter.vo.system.UnitDomainVo">
+        SELECT
+        u.`unit_id` AS unitId,
+        u.`unit_code` AS unitCode,
+        u.`unit_name` AS unitName,
+        u.`input_code` AS inputCode,
+        u.`unit_type` AS unitType,
+        u.`unit_hierarchy` AS unitHierarchy,
+        u.`unit_status` AS unitStatus,
+        d.`domain_id` AS domainId,
+        d.`domain_status` AS domainStatus
+        FROM
+        (SELECT
+        DISTINCT
+        p.`unit_id` as unit_id
+        FROM
+        `sys_user_priv` p
+        WHERE p.`user_id` = #{userId}
+        AND p.`owner_id` = #{ownerId}
+        UNION
+        SELECT
+        DISTINCT
+        p.`unit_id` as unit_id
+        FROM
+        `sys_user_role` p
+        WHERE p.`user_id` = #{userId}
+        AND p.`owner_id` = #{ownerId}
+        union
+        select distinct
+        d.`mbr_id` as unit_id
+        from
+        sys_ug_dtl d
+        inner join sys_user_priv p
+        on d.`ug_id` = p.`ug_id`
+        WHERE p.`user_id` = #{userId}
+        AND p.`owner_id` = #{ownerId}
+        and d.`ug_id` != - 1
+        union
+        select distinct
+        d.`mbr_id` as unit_id
+        from
+        sys_ug_dtl d
+        inner join sys_user_role p
+        on d.`ug_id` = p.`ug_id`
+        WHERE p.`user_id` = #{userId}
+        AND p.`owner_id` = #{ownerId}
+        and d.`ug_id` != - 1
+        ) my
+        INNER JOIN sys_unit u
+        ON my.unit_id = u.`unit_id`
+        LEFT JOIN sys_domain d
+        ON u.`unit_id` = d.`unit_id`
+        WHERE u.`unit_status`="A"
+        <if test="unitCode!=null and unitCode!=''">
+            and instr(u.unit_code,#{unitCode})>0
+        </if>
+        <if test="unitName!=null and unitName!=''">
+            and instr(u.unit_name,#{unitName})>0
+        </if>
+        <if test="inputCode!=null and inputCode!=''">
+            and instr(u.`input_code`,#{inputCode})>0
+        </if>
+        <if test="domainStatus!=null and domainStatus!=''">
+            /*是否领域*/
+            and d.`domain_status` =#{domainStatus}
+        </if>
+        <if test="domainId!=null and domainId!=''">
+            /*领域Id*/
+            and (d.`domain_id` ,#{domainId})>0
+        </if>
+    </select>
+
+    <!--通过层级查找组织-->
+    <select id="getHierarchy" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        sys_unit
+        WHERE
+        `unit_status`='A'
+        AND
+        `unit_hierarchy`=#{unitHierarchy}
+    </select>
+    <!--根据组织Id查询是否是系统组织-->
+    <select id="getAdminUnit" parameterType="java.lang.Long"
+            resultType="com.boyu.erp.platform.usercenter.entity.system.SysUnit">
+        SELECT
+         u.unit_id as unitId ,
+         u.`opr_id` as oprId
+        FROM
+        sys_unit u
+        INNER JOIN sys_domain d
+        ON d.`unit_id` = u.`unit_id`
+        AND d.`opr_id` = u.`opr_id`
+        AND d.`opr_id` = - 1
+        WHERE d.`unit_id`=#{unitId}
+    </select>
+    <!--通过组织Id查询下属组织-->
+    <select id="getUnitId" parameterType="java.lang.Long"
+            resultType="com.boyu.erp.platform.usercenter.entity.system.SysUnit">
+        SELECT
+        unit_id as unitId
+        FROM
+        sys_unit
+        WHERE 1 = 1
+        AND INSTR(
+        `unit_hierarchy`,
+        (SELECT
+        u.`unit_hierarchy`
+        FROM
+        sys_unit u
+        WHERE u.`unit_status` = 'A'
+        AND u.unit_id = #{unitId})
+        ) > 0
+    </select>
+    <!---->
+    <select id="findHierarchyUnit" resultType="com.boyu.erp.platform.usercenter.entity.system.SysUnit"
+            resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        sys_unit
+        WHERE `unit_status`='A'
+        AND INSTR(`unit_hierarchy`,#{unitHierarchy})>0
+        <if test="unitName!=null and unitName!=''">
+            and instr(unit_name,#{unitName})>0
+        </if>
+        <if test="unitName!=null and unitName!=''">
+            and instr(unit_code,#{unitCode})>0
+        </if>
+        <if test="inputCode!=null and inputCode!=''">
+            and instr(input_code,#{inputCode})>0
+        </if>
+        <if test="unitStatus!=null and unitStatus!=''">
+            and unit_status=#{unitStatus}
+        </if>
+
+    </select>
+    <select id="judgewarehavailable" resultType="com.boyu.erp.platform.usercenter.vo.UnitOptionVo">
+        SELECT
+        su.unit_id AS unitId,
+        su.unit_code AS unitCode,
+        su.unit_name AS unitName,
+        su.tel_num AS telNum,
+        su.address,
+        su.input_code AS inputCode,
+        su.unit_type AS unitType,
+        suo.owner_id
+        FROM
+        sys_unit AS su
+        INNER JOIN sys_unit_owner AS suo ON suo.unit_id = su.unit_id AND suo.owner_id = #{ownerId} AND su.unit_type='wh'
+        and su.unit_code=#{warehCode}
+    </select>
+    <select id="queryUnitByCode" resultMap="BaseResultMap">
+        SELECT
+        su.unit_id,
+        su.unit_code,
+        su.unit_name,
+        su.unit_hierarchy,
+        su.unit_type,
+        su.lic_type,
+        su.lic_num,
+        su.tel_num,
+        su.fax_num,
+        su.email_addr,
+        su.postcode,
+        su.province,
+        su.city,
+        su.district,
+        su.address,
+        su.website,
+        su.lm_id,
+        su.ctrl_unit_id,
+        su.shared,
+        su.recruitable,
+        su.input_code,
+        su.seq_num,
+        su.unit_status,
+        su.opr_id,
+        su.upd_time,
+        su.remarks
+        FROM
+        sys_unit AS su where su.unit_code=#{warehCode}
+    </select>
+    <!--查询属主Id下组织弹窗(通用)-->
+    <select id="selectUnitOption" resultType="com.boyu.erp.platform.usercenter.vo.UnitOptionVo">
+        SELECT
+        u.unit_id AS unitId,
+        u.`unit_name` as unitName,
+        o.unit_num as unitNum,
+        u.unit_code as unitCode,
+        p.full_name as fullName,
+        p.prsnl_code as prsnlCode,
+        u.input_code as inputCode,
+        u.unit_status as unitStatus,
+        d.`description` AS unitStatusCp,
+        u.`address` as address,
+        u.`tel_num` as telNum,
+        u.unit_hierarchy AS unitHierarchy,
+        u.shared AS shared,
+        u.city AS city,
+        u.lic_type AS licType,
+        u.lm_id AS lmId,
+        u.unit_type AS unitType,
+        u.ctrl_unit_id AS ctrlUnitId,
+        u.province AS province,
+        u.upd_time AS updTime,
+        u.recruitable AS recruitable,
+        u.lic_num AS licNum,
+        u.website AS website,
+        u.seq_num AS seqNum,
+        u.postcode AS postcode,
+        u.fax_num AS faxNum,
+        u.email_addr AS emailAddr,
+        u.district AS district,
+        u.opr_id AS oprId,
+        u.remarks AS remarks
+        FROM
+        sys_unit u
+        LEFT JOIN sys_unit_owner o
+        ON (
+        u.unit_id = o.unit_id
+        AND o.owner_id = #{unitId}
+        )
+        LEFT JOIN sys_prsnl p
+        ON u.lm_id = p.prsnl_id
+        LEFT JOIN sys_code_dtl d
+        ON u.`unit_status` = d.`code`
+        AND d.`code_type` = 'UNIT_STATUS'
+        WHERE INSTR( u.unit_hierarchy, (SELECT unit_hierarchy FROM sys_unit WHERE unit_id = #{unitId}) ) > 0
+        <if test="unitCode!=null and unitCode!=''">
+            AND INSTR(u.`unit_code`,#{unitCode})>0
+        </if>
+        <if test="unitName!=null and unitName!=''">
+            AND INSTR(u.`unit_name`,#{unitName})>0
+        </if>
+        <if test="unitStatus!=null and unitStatus!=''">
+            AND u.`unit_status`=#{unitStatus}
+        </if>
+    </select>
+
+    <!-- 通过层级关系查询下属组织-->
+    <select id="findByHierarchyList" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+        SELECT
+        su.*
+        FROM
+        sys_unit su
+        INNER JOIN
+        sys_unit_clsf suc
+        ON
+        (suc.unit_id = su.unit_id AND suc.owner_id in (
+        <foreach collection="scpList" item="item" index="index" separator=",">
+            #{item.unitId}
+        </foreach>
+        ) AND suc.unit_type = #{unitType})
+        WHERE su.`unit_status`='A'
+        AND (
+        <foreach collection="scpList" item="item" index="index" separator=",">
+            INSTR(su.`unit_hierarchy`,#{item.unitHierarchy})>0
+        </foreach>
+        )
+
+    </select>
+    <select id="queryUnitByConCatCode" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from sys_unit where unit_code LIKE CONCAT(#{warehCode},'%')
+    </select>
+    <select id="queryUnitByIds" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from sys_unit where unit_id in (
+        <foreach collection="sysUnitIds" item="sysUnitId" separator=",">
+            #{sysUnitId}
+        </foreach>
+        )
+    </select>
+    <select id="queryUnitLikeProp" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from sys_unit
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="unitCode!=null and unitCode!=''">
+                and unit_code like CONCAT(#{unitCode},'%')
+            </if>
+            <if test="unitName!=null and unitName!=''">
+                and unit_name like CONCAT('%',#{unitName},'%')
+            </if>
+            <if test="inputCode!=null and inputCode!=''">
+                and input_code like CONCAT(#{inputCode},'%')
+            </if>
+        </trim>
+    </select>
+
+    <select id="selectObject" parameterType="com.boyu.erp.platform.usercenter.model.system.CommonWindowModel"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_unit
+        ${tableNameAliase}
+        <where>
+            <if test="sql!=null and sql!=''">
+                ${sql}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectCaObject" parameterType="com.boyu.erp.platform.usercenter.model.system.CommonWindowModel"
+            resultMap="BaseResultUnit">
+        SELECT
+        su.`unit_id` AS unitId,
+        suo.`unit_num` AS unitNum,
+        su.`unit_name` AS unitName
+        FROM
+        ( SELECT any_value ( unit_id ) AS unit_id, any_value ( owner_id ) AS owner_id FROM sys_unit_clsf WHERE
+        unit_type IN ( 'VD', 'VE', 'PT' ) and frz_type='0' GROUP BY unit_id ) a
+        inner join sys_unit su ON su.unit_id = a.unit_id
+        inner join sys_unit_owner suo on suo.unit_id = a.unit_id and suo.owner_id=a.owner_id
+        WHERE 1=1
+        <if test="sql!=null and sql!=''">
+            and ${sql}
+        </if>
+    </select>
+
+    <select id="selectByCaAll" parameterType="com.boyu.erp.platform.usercenter.vo.UnitOptionVo"
+            resultMap="BaseResultUnit">
+        SELECT
+        su.unit_id AS unitId,
+        suo.UNIT_NUM AS unitCode ,
+        su.unit_name AS unitName,
+        su.input_code AS inputCode,
+        su.address AS address,
+        su.tel_num AS telNum,
+        su.unit_status AS unitStatus,
+        scd.description as unitStatusCp,
+        p.full_name AS fullName
+        FROM
+        ( SELECT any_value ( unit_id ) AS unit_id, any_value ( owner_id ) AS owner_id FROM sys_unit_clsf WHERE
+        unit_type IN ( 'VD', 'VE', 'PT' ) and frz_type='0' GROUP BY unit_id ) a
+        inner join sys_unit su ON su.unit_id = a.unit_id
+        inner join sys_unit_owner suo on suo.unit_id = a.unit_id and suo.owner_id=a.owner_id
+        LEFT JOIN sys_prsnl p ON su.lm_id =p.prsnl_id
+        left join sys_code_dtl scd on scd.code = su.unit_status and scd.code_type='UNIT_STATUS'
+        WHERE 1=1
+        <if test="unitCode != null and unitCode !=''">
+            and suo.UNIT_NUM like CONCAT(#{unitCode}, '%')
+        </if>
+        <if test="unitName != null and unitName !=''">
+            and su.unit_name like CONCAT('%', #{unitName}, '%')
+        </if>
+        <if test="inputCode != null and inputCode !=''">
+            and su.input_code like CONCAT(#{inputCode}, '%')
+        </if>
+        <if test="unitStatus != null and unitStatus !=''">
+            and su.unit_status = #{unitStatus}
+        </if>
+    </select>
+
+    <select id="selectByCaOption" parameterType="com.boyu.erp.platform.usercenter.vo.UnitOptionVo"
+            resultMap="BaseResultUnit">
+        SELECT
+        su.unit_id AS unitId,
+        suo.UNIT_NUM AS unitCode ,
+        su.unit_name AS unitName,
+        su.input_code AS inputCode,
+        su.address AS address,
+        su.tel_num AS telNum,
+        su.unit_status AS unitStatus,
+        scd.description as unitStatusCp,
+        p.full_name AS fullName
+        FROM
+        ( SELECT any_value ( unit_id ) AS unit_id, any_value ( owner_id ) AS owner_id FROM sys_unit_clsf WHERE
+        unit_type IN ( 'VD', 'VE', 'PT' ) and frz_type='0' and owner_id=#{ownerId} GROUP BY unit_id ) a
+        inner join sys_unit su ON su.unit_id = a.unit_id
+        inner join sys_unit_owner suo on suo.unit_id = a.unit_id and suo.owner_id=a.owner_id
+        LEFT JOIN sys_prsnl p ON su.lm_id =p.prsnl_id
+        left join sys_code_dtl scd on scd.code = su.unit_status and scd.code_type='UNIT_STATUS'
+        WHERE 1=1
+        <if test="unitCode != null and unitCode !=''">
+            and suo.UNIT_NUM like CONCAT(#{unitCode}, '%')
+        </if>
+        <if test="unitName != null and unitName !=''">
+            and su.unit_name like CONCAT('%', #{unitName}, '%')
+        </if>
+        <if test="inputCode != null and inputCode !=''">
+            and su.input_code like CONCAT(#{inputCode}, '%')
+        </if>
+        <if test="unitStatus != null and unitStatus !=''">
+            and su.unit_status = #{unitStatus}
+        </if>
+    </select>
+
+    <select id="findWarehByOrder" resultMap="BaseResultMap">
+        SELECT
+        su.unit_id
+        FROM
+        (
+        SELECT
+        unit_id
+        FROM
+        sys_unit_clsf
+        WHERE
+        owner_id = #{ownerId}
+        AND unit_type = 'WH'
+        AND frz_type = 0
+        AND unit_id IN (
+        SELECT parm_val FROM sys_parameter WHERE 1=1
+        <if test="orderType==1">
+            parm_id = 'B_SPOT_WAREH_IDS'
+        </if>
+        <if test="orderType==2">
+            parm_id = 'B_FUTURE_WAREH_IDS'
+        </if>
+        )
+        ) suc
+        INNER JOIN sys_unit su ON su.unit_id = suc.unit_id
+        AND su.unit_status = 'A'
+    </select>
+
+    <select id="fidnByProdLine" resultType="java.lang.Long">
+        SELECT
+            unit_id
+        FROM
+            sys_unit
+        WHERE
+            unit_code =
+            ( SELECT pc.prod_line FROM product p
+            INNER JOIN prod_cls pc ON pc.prod_cls_id = p.prod_cls_id
+            WHERE p.prod_id = #{prodId} )
+    </select>
+</mapper>

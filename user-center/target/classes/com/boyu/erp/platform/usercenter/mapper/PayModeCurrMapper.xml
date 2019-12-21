@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.shop.PayModeCurrMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.shop.PayModeCurr">
+        <id column="pay_mode_id" jdbcType="INTEGER" property="payModeId"/>
+        <id column="curr_id" jdbcType="INTEGER" property="currId"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.shop.PayModeCurr">
+    delete from pay_mode_curr
+    where pay_mode_id = #{payModeId,jdbcType=INTEGER}
+      and curr_id = #{currId,jdbcType=INTEGER}
+  </delete>
+    <delete id="deletepayModeCurr" parameterType="java.lang.Integer">
+        delete from pay_mode_curr
+    where pay_mode_id = #{payModeId,jdbcType=INTEGER}
+    </delete>
+    <!--查询支付方式币种明细-->
+    <select id="getParyModeCurr" parameterType="java.lang.Integer"
+            resultType="com.boyu.erp.platform.usercenter.entity.shop.CurrType">
+        select
+        t.`curr_code` as currCode,
+        t.`curr_name` as currName
+        from
+        curr_type t
+        inner join pay_mode_curr c
+        on t.`curr_id` = c.`curr_id`
+        where c.`pay_mode_id` = #{payModeId}
+    </select>
+
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.shop.PayModeCurr">
+    insert into pay_mode_curr (pay_mode_id, curr_id)
+    values (#{payModeId,jdbcType=INTEGER}, #{currId,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.shop.PayModeCurr">
+        insert into pay_mode_curr
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="payModeId != null">
+                pay_mode_id,
+            </if>
+            <if test="currId != null">
+                curr_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="payModeId != null">
+                #{payModeId,jdbcType=INTEGER},
+            </if>
+            <if test="currId != null">
+                #{currId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+</mapper>

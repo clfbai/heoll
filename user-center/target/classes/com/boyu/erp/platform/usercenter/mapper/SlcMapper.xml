@@ -1,0 +1,1870 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sales.SlcMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.sales.Slc">
+        <id column="unit_id" jdbcType="DECIMAL" property="unitId"/>
+        <id column="slc_num" jdbcType="VARCHAR" property="slcNum"/>
+        <result column="psc_num" jdbcType="VARCHAR" property="pscNum"/>
+        <result column="slc_type" jdbcType="VARCHAR" property="slcType"/>
+        <result column="sl_brdg_mode" jdbcType="CHAR" property="slBrdgMode"/>
+        <result column="chkr_id" jdbcType="DECIMAL" property="chkrId"/>
+        <result column="chk_time" jdbcType="TIMESTAMP" property="chkTime"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="af_reqd" jdbcType="CHAR" property="afReqd"/>
+        <result column="af_bnd" jdbcType="CHAR" property="afBnd"/>
+        <result column="af_bndr_id" jdbcType="DECIMAL" property="afBndrId"/>
+        <result column="af_bnd_time" jdbcType="TIMESTAMP" property="afBndTime"/>
+        <result column="pu_ctrl" jdbcType="CHAR" property="puCtrl"/>
+        <result column="pu_fwdd" jdbcType="CHAR" property="puFwdd"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapSlc" type="com.boyu.erp.platform.usercenter.vo.purchase.PscVo">
+        <result column="unitId" property="unitId"/>
+        <result column="slcNum" property="slcNum"/>
+        <result column="pscNum" property="pscNum"/>
+        <result column="docDate" property="docDate"/>
+        <result column="slcType" property="slcType"/>
+        <result column="pscType" property="pscType"/>
+        <result column="venderId" property="venderId"/>
+        <result column="vendeeId" property="vendeeId"/>
+        <result column="vendeeNum" property="vendeeNum"/>
+        <result column="vendeeName" property="vendeeName"/>
+        <result column="psaCtlr" property="psaCtlr"/>
+        <result column="vdrWarehId" property="vdrWarehId"/>
+        <result column="vdrWarehNum" property="vdrWarehNum"/>
+        <result column="vdrWarehName" property="vdrWarehName"/>
+        <result column="vdeWarehId" property="vdeWarehId"/>
+        <result column="vdeWarehNum" property="vdeWarehNum"/>
+        <result column="vdeWarehName" property="vdeWarehName"/>
+        <result column="stUnitId" property="stUnitId"/>
+        <result column="stUnitNum" property="stUnitNum"/>
+        <result column="stUnitName" property="stUnitName"/>
+        <result column="stWarehId" property="stWarehId"/>
+        <result column="stWarehNum" property="stWarehNum"/>
+        <result column="stWarehName" property="stWarehName"/>
+        <result column="endUnitId" property="endUnitId"/>
+        <result column="endUnitNum" property="endUnitNum"/>
+        <result column="endUnitName" property="endUnitName"/>
+        <result column="endWarehId" property="endWarehId"/>
+        <result column="endWarehNum" property="endWarehNum"/>
+        <result column="endWarehName" property="endWarehName"/>
+        <result column="tranUnitId" property="tranUnitId"/>
+        <result column="tranUnitNum" property="tranUnitNum"/>
+        <result column="tranUnitName" property="tranUnitName"/>
+        <result column="vdrFsclUnitId" property="vdrFsclUnitId"/>
+        <result column="vdrFsclUnitCode" property="vdrFsclUnitCode"/>
+        <result column="vdrFsclUnitName" property="vdrFsclUnitName"/>
+        <result column="vdeFsclUnitId" property="vdeFsclUnitId"/>
+        <result column="vdeFsclUnitCode" property="vdeFsclUnitCode"/>
+        <result column="vdeFsclUnitName" property="vdeFsclUnitName"/>
+        <result column="vdeInvd" property="vdeInvd"/>
+        <result column="vdrInvd" property="vdrInvd"/>
+        <result column="slcAutoGen" property="slcAutoGen"/>
+        <result column="slcAutoChk" property="slcAutoChk"/>
+        <result column="pucAutoGen" property="pucAutoGen"/>
+        <result column="slcGen" property="slcGen"/>
+        <result column="pucAutoChk" property="pucAutoChk"/>
+        <result column="pucGen" property="pucGen"/>
+        <result column="isSlItmd" property="isSlItmd"/>
+        <result column="isPuItmd" property="isPuItmd"/>
+        <result column="slBrdgMode" property="slBrdgMode"/>
+        <result column="prcSite" property="prcSite"/>
+        <result column="isCms" property="isCms"/>
+        <result column="drDiffJgd" property="drDiffJgd"/>
+        <result column="multiImpl" property="multiImpl"/>
+        <result column="implByIns" property="implByIns"/>
+        <result column="isSpot" property="isSpot"/>
+        <result column="rqdCtrl" property="rqdCtrl"/>
+        <result column="rqdCtrlOld" property="rqdCtrlOld"/>
+        <result column="reqdDate" property="reqdDate"/>
+        <result column="psStlMthd" property="psStlMthd"/>
+        <result column="splEnabled" property="splEnabled"/>
+        <result column="deposit" property="deposit"/>
+        <result column="mfzEnabled" property="mfzEnabled"/>
+        <result column="gmEnabled" property="gmEnabled"/>
+        <result column="guaMon" property="guaMon"/>
+        <result column="exblRate" property="exblRate"/>
+        <result column="srcDocType" property="srcDocType"/>
+        <result column="srcDocUnitId" property="srcDocUnitId"/>
+        <result column="srcDocNum" property="srcDocNum"/>
+        <result column="prodCatId" property="prodCatId"/>
+        <result column="prodCatName" property="prodCatName"/>
+        <result column="ordType" property="ordType"/>
+        <result column="expdDate" property="expdDate"/>
+        <result column="delivMthd" property="delivMthd"/>
+        <result column="delivPstd" property="delivPstd"/>
+        <result column="delivAddr" property="delivAddr"/>
+        <result column="bxiEnabled" property="bxiEnabled"/>
+        <result column="ttlQty" property="ttlQty"/>
+        <result column="ttlBox" property="ttlBox"/>
+        <result column="ttlVal" property="ttlVal"/>
+        <result column="ttlTax" property="ttlTax"/>
+        <result column="ttlMkv" property="ttlMkv"/>
+        <result column="ttlDelivQty" property="ttlDelivQty"/>
+        <result column="ttlDelivBox" property="ttlDelivBox"/>
+        <result column="ttlDelivVal" property="ttlDelivVal"/>
+        <result column="ttlDelivTax" property="ttlDelivTax"/>
+        <result column="ttlDelivMkv" property="ttlDelivMkv"/>
+        <result column="ttlRcvQty" property="ttlRcvQty"/>
+        <result column="ttlRcvBox" property="ttlRcvBox"/>
+        <result column="ttlRcvVal" property="ttlRcvVal"/>
+        <result column="ttlRcvTax" property="ttlRcvTax"/>
+        <result column="ttlRcvMkv" property="ttlRcvMkv"/>
+        <result column="ttlRsQty" property="ttlRsQty"/>
+        <result column="ttlRsBox" property="ttlRsBox"/>
+        <result column="ttlRsVal" property="ttlRsVal"/>
+        <result column="ttlRsTax" property="ttlRsTax"/>
+        <result column="ttlRsMkv" property="ttlRsMkv"/>
+        <result column="ttlRpQty" property="ttlRpQty"/>
+        <result column="ttlRpBox" property="ttlRpBox"/>
+        <result column="ttlRpVal" property="ttlRpVal"/>
+        <result column="ttlRpTax" property="ttlRpTax"/>
+        <result column="ttlRpMkv" property="ttlRpMkv"/>
+        <result column="tasksInDeliv" property="tasksInDeliv"/>
+        <result column="tasksInRcv" property="tasksInRcv"/>
+        <result column="ttlExpdRwd" property="ttlExpdRwd"/>
+        <result column="ttlDelivRwd" property="ttlDelivRwd"/>
+        <result column="ttlRcvRwd" property="ttlRcvRwd"/>
+        <result column="oprId" property="oprId"/>
+        <result column="oprCode" property="oprCode"/>
+        <result column="oprName" property="oprName"/>
+        <result column="opTime" property="opTime"/>
+        <result column="chkrId" property="chkrId"/>
+        <result column="chkrNum" property="chkrNum"/>
+        <result column="chkrName" property="chkrName"/>
+        <result column="chkTime" property="chkTime"/>
+        <result column="effective" property="effective"/>
+        <result column="progress" property="progress"/>
+        <result column="suspended" property="suspended"/>
+        <result column="cancelled" property="cancelled"/>
+        <result column="renewed" property="renewed"/>
+        <result column="execPscNum" property="execPscNum"/>
+        <result column="itmdPscNum" property="itmdPscNum"/>
+        <result column="stPscNum" property="stPscNum"/>
+        <result column="endPscNum" property="endPscNum"/>
+        <result column="afReqd" property="afReqd"/>
+        <result column="planCtrl" property="planCtrl"/>
+        <result column="tfrNum" property="tfrNum"/>
+        <result column="afBndrId" property="afBndrId"/>
+        <result column="afBndrNum" property="afBndrNum"/>
+        <result column="afBndrName" property="afBndrName"/>
+        <result column="afBndTime" property="afBndTime"/>
+        <result column="puCtrl" property="puCtrl"/>
+        <result column="puFwdd" property="puFwdd"/>
+        <result column="basePscNum" property="basePscNum"/>
+        <result column="baseSlcNum" property="baseSlcNum"/>
+        <result column="remarks" property="remarks"/>
+        <result column="afBnd" property="afBnd"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapObject" type="com.boyu.erp.platform.usercenter.vo.purchase.PscVo">
+        <result column="unitId" property="unitId"/>
+        <result column="slcNum" property="slcNum"/>
+        <result column="pscNum" property="pscNum"/>
+        <result column="docDate" property="docDate"/>
+        <result column="slcType" property="slcType"/>
+        <result column="pscType" property="pscType"/>
+        <result column="venderId" property="venderId"/>
+        <result column="vendeeId" property="vendeeId"/>
+        <result column="vendeeNum" property="vendeeNum"/>
+        <result column="vendeeName" property="vendeeName"/>
+        <result column="psaCtlr" property="psaCtlr"/>
+        <result column="vdrWarehId" property="vdrWarehId"/>
+        <result column="vdrWarehNum" property="vdrWarehNum"/>
+        <result column="vdrWarehName" property="vdrWarehName"/>
+        <result column="vdeWarehId" property="vdeWarehId"/>
+        <result column="vdeWarehNum" property="vdeWarehNum"/>
+        <result column="vdeWarehName" property="vdeWarehName"/>
+        <result column="stUnitId" property="stUnitId"/>
+        <result column="stUnitNum" property="stUnitNum"/>
+        <result column="stUnitName" property="stUnitName"/>
+        <result column="stWarehId" property="stWarehId"/>
+        <result column="stWarehNum" property="stWarehNum"/>
+        <result column="stWarehName" property="stWarehName"/>
+        <result column="endUnitId" property="endUnitId"/>
+        <result column="endUnitNum" property="endUnitNum"/>
+        <result column="endUnitName" property="endUnitName"/>
+        <result column="endWarehId" property="endWarehId"/>
+        <result column="endWarehNum" property="endWarehNum"/>
+        <result column="endWarehName" property="endWarehName"/>
+        <result column="tranUnitId" property="tranUnitId"/>
+        <result column="tranUnitNum" property="tranUnitNum"/>
+        <result column="tranUnitName" property="tranUnitName"/>
+        <result column="vdrFsclUnitId" property="vdrFsclUnitId"/>
+        <result column="vdrFsclUnitCode" property="vdrFsclUnitCode"/>
+        <result column="vdrFsclUnitName" property="vdrFsclUnitName"/>
+        <result column="vdeFsclUnitId" property="vdeFsclUnitId"/>
+        <result column="vdeFsclUnitCode" property="vdeFsclUnitCode"/>
+        <result column="vdeFsclUnitName" property="vdeFsclUnitName"/>
+        <result column="vdeInvd" property="vdeInvd"/>
+        <result column="slcAutoGen" property="slcAutoGen"/>
+        <result column="slcAutoChk" property="slcAutoChk"/>
+        <result column="pucAutoGen" property="pucAutoGen"/>
+        <result column="slcGen" property="slcGen"/>
+        <result column="pucAutoChk" property="pucAutoChk"/>
+        <result column="pucGen" property="pucGen"/>
+        <result column="isSlItmd" property="isSlItmd"/>
+        <result column="isPuItmd" property="isPuItmd"/>
+        <result column="slBrdgMode" property="slBrdgMode"/>
+        <result column="prcSite" property="prcSite"/>
+        <result column="isCms" property="isCms"/>
+        <result column="drDiffJgd" property="drDiffJgd"/>
+        <result column="multiImpl" property="multiImpl"/>
+        <result column="implByIns" property="implByIns"/>
+        <result column="isSpot" property="isSpot"/>
+        <result column="rqdCtrl" property="rqdCtrl"/>
+        <result column="rqdCtrlOld" property="rqdCtrlOld"/>
+        <result column="reqdDate" property="reqdDate"/>
+        <result column="psStlMthd" property="psStlMthd"/>
+        <result column="splEnabled" property="splEnabled"/>
+        <result column="deposit" property="deposit"/>
+        <result column="mfzEnabled" property="mfzEnabled"/>
+        <result column="gmEnabled" property="gmEnabled"/>
+        <result column="guaMon" property="guaMon"/>
+        <result column="exblRate" property="exblRate"/>
+        <result column="srcDocType" property="srcDocType"/>
+        <result column="srcDocUnitId" property="srcDocUnitId"/>
+        <result column="srcDocNum" property="srcDocNum"/>
+        <result column="prodCatId" property="prodCatId"/>
+        <result column="prodCatName" property="prodCatName"/>
+        <result column="ordType" property="ordType"/>
+        <result column="expdDate" property="expdDate"/>
+        <result column="delivMthd" property="delivMthd"/>
+        <result column="delivPstd" property="delivPstd"/>
+        <result column="delivAddr" property="delivAddr"/>
+        <result column="bxiEnabled" property="bxiEnabled"/>
+        <result column="ttlQty" property="ttlQty"/>
+        <result column="ttlBox" property="ttlBox"/>
+        <result column="ttlVal" property="ttlVal"/>
+        <result column="ttlTax" property="ttlTax"/>
+        <result column="ttlMkv" property="ttlMkv"/>
+        <result column="ttlDelivQty" property="ttlDelivQty"/>
+        <result column="ttlDelivBox" property="ttlDelivBox"/>
+        <result column="ttlDelivVal" property="ttlDelivVal"/>
+        <result column="ttlDelivTax" property="ttlDelivTax"/>
+        <result column="ttlDelivMkv" property="ttlDelivMkv"/>
+        <result column="ttlRcvQty" property="ttlRcvQty"/>
+        <result column="ttlRcvBox" property="ttlRcvBox"/>
+        <result column="ttlRcvVal" property="ttlRcvVal"/>
+        <result column="ttlRcvTax" property="ttlRcvTax"/>
+        <result column="ttlRcvMkv" property="ttlRcvMkv"/>
+        <result column="ttlRsQty" property="ttlRsQty"/>
+        <result column="ttlRsBox" property="ttlRsBox"/>
+        <result column="ttlRsVal" property="ttlRsVal"/>
+        <result column="ttlRsTax" property="ttlRsTax"/>
+        <result column="ttlRsMkv" property="ttlRsMkv"/>
+        <result column="ttlRpQty" property="ttlRpQty"/>
+        <result column="ttlRpBox" property="ttlRpBox"/>
+        <result column="ttlRpVal" property="ttlRpVal"/>
+        <result column="ttlRpTax" property="ttlRpTax"/>
+        <result column="ttlRpMkv" property="ttlRpMkv"/>
+        <result column="tasksInDeliv" property="tasksInDeliv"/>
+        <result column="tasksInRcv" property="tasksInRcv"/>
+        <result column="ttlExpdRwd" property="ttlExpdRwd"/>
+        <result column="ttlDelivRwd" property="ttlDelivRwd"/>
+        <result column="ttlRcvRwd" property="ttlRcvRwd"/>
+        <result column="oprId" property="oprId"/>
+        <result column="oprCode" property="oprCode"/>
+        <result column="oprName" property="oprName"/>
+        <result column="opTime" property="opTime"/>
+        <result column="chkrId" property="chkrId"/>
+        <result column="chkrNum" property="chkrNum"/>
+        <result column="chkrName" property="chkrName"/>
+        <result column="chkTime" property="chkTime"/>
+        <result column="effective" property="effective"/>
+        <result column="progress" property="progress"/>
+        <result column="suspended" property="suspended"/>
+        <result column="cancelled" property="cancelled"/>
+        <result column="renewed" property="renewed"/>
+        <result column="execPscNum" property="execPscNum"/>
+        <result column="itmdPscNum" property="itmdPscNum"/>
+        <result column="stPscNum" property="stPscNum"/>
+        <result column="endPscNum" property="endPscNum"/>
+        <result column="afReqd" property="afReqd"/>
+        <result column="planCtrl" property="planCtrl"/>
+        <result column="tfrNum" property="tfrNum"/>
+        <result column="afBndrId" property="afBndrId"/>
+        <result column="afBndrNum" property="afBndrNum"/>
+        <result column="afBndrName" property="afBndrName"/>
+        <result column="afBndTime" property="afBndTime"/>
+        <result column="puCtrl" property="puCtrl"/>
+        <result column="puFwdd" property="puFwdd"/>
+        <result column="basePscNum" property="basePscNum"/>
+        <result column="basePucNum" property="basePucNum"/>
+        <result column="remarks" property="remarks"/>
+        <result column="afBnd" property="afBnd"/>
+
+        <collection property="pscDtlList" resultMap="pscDtlResultMap">
+        </collection>
+    </resultMap>
+
+    <resultMap id="pscDtlResultMap" type="com.boyu.erp.platform.usercenter.vo.purchase.PscDtlVo">
+        <id column="psc_num" jdbcType="VARCHAR" property="pscNum"/>
+        <id column="prod_id" jdbcType="BIGINT" property="prodId"/>
+        <result column="prodCode" property="prodCode"/>
+        <result column="seqNum" property="seqNum"/>
+        <result column="qty" jdbcType="DECIMAL" property="qty"/>
+        <result column="prodName" property="prodName"/>
+        <result column="inputCode" property="inputCode"/>
+        <result column="uom" property="uom"/>
+        <result column="color" property="color"/>
+        <result column="spec" property="spec"/>
+        <result column="edition" property="edition"/>
+        <result column="unit_price" jdbcType="DECIMAL" property="unitPrice"/>
+        <result column="mk_unit_price" jdbcType="DECIMAL" property="mkUnitPrice"/>
+
+        <result column="val" jdbcType="DECIMAL" property="val"/>
+        <result column="mkv" jdbcType="DECIMAL" property="mkv"/>
+        <result column="deliv_qty" jdbcType="DECIMAL" property="delivQty"/>
+        <result column="deliv_val" jdbcType="DECIMAL" property="delivVal"/>
+        <result column="deliv_tax" jdbcType="DECIMAL" property="delivTax"/>
+        <result column="deliv_mkv" jdbcType="DECIMAL" property="delivMkv"/>
+        <result column="rcv_qty" jdbcType="DECIMAL" property="rcvQty"/>
+        <result column="rcv_tax" jdbcType="DECIMAL" property="rcvTax"/>
+        <result column="rcv_mkv" jdbcType="DECIMAL" property="rcvMkv"/>
+        <result column="rs_qty" jdbcType="DECIMAL" property="rsQty"/>
+        <result column="rs_val" jdbcType="DECIMAL" property="rsVal"/>
+        <result column="rs_mkv" jdbcType="DECIMAL" property="rsMkv"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="prodCatId" property="prodCatId"/>
+        <result column="tax" jdbcType="DECIMAL" property="tax"/>
+        <result column="discRate" property="discRate"/>
+        <result column="taxRate" property="taxRate"/>
+        <result column="fnlPrice" property="fnlPrice"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapWareh" type="com.boyu.erp.platform.usercenter.vo.warehouse.WarehSrcInfoVo">
+        <result column="cntrNum" property="cntrNum"/>
+        <result column="bxiEnabled" property="bxiEnabled"/>
+        <result column="ttlQty" property="ttlQty"/>
+        <result column="ttlBox" property="ttlBox"/>
+        <result column="ttlVal" property="ttlVal"/>
+        <result column="ttlTax" property="ttlTax"/>
+        <result column="ttlMkv" property="ttlMkv"/>
+        <result column="brdgMode" property="brdgMode"/>
+        <result column="tranUnitId" property="tranUnitId"/>
+        <result column="rcvUnitId" property="rcvUnitId"/>
+        <result column="rcvWarehId" property="rcvWarehId"/>
+        <result column="endUnitId" property="endUnitId"/>
+        <result column="endWarehId" property="endWarehId"/>
+        <result column="delivUnitId" property="delivUnitId"/>
+        <result column="delivWarehId" property="delivWarehId"/>
+        <result column="stUnitId" property="stUnitId"/>
+        <result column="stWarehId" property="stWarehId"/>
+        <result column="delivMthd" property="delivMthd"/>
+        <result column="delivPstd" property="delivPstd"/>
+        <result column="delivAddr" property="delivAddr"/>
+        <result column="ttlRwd" property="ttlRwd"/>
+        <result column="intervene" property="intervene"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+    unit_id, slc_num, psc_num, slc_type, sl_brdg_mode, chkr_id, chk_time, suspended, 
+    af_reqd, af_bnd, af_bndr_id, af_bnd_time, pu_ctrl, pu_fwdd
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.sales.Slc"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from slc
+        where unit_id = #{unitId,jdbcType=DECIMAL}
+        and slc_num = #{slcNum,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.sales.Slc">
+    delete from slc
+    where unit_id = #{unitId,jdbcType=DECIMAL}
+      and slc_num = #{slcNum,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.sales.Slc">
+    insert into slc (unit_id, slc_num, psc_num, 
+      slc_type, sl_brdg_mode, chkr_id, 
+      chk_time, suspended, af_reqd, 
+      af_bnd, af_bndr_id, af_bnd_time, 
+      pu_ctrl, pu_fwdd)
+    values (#{unitId,jdbcType=DECIMAL}, #{slcNum,jdbcType=VARCHAR}, #{pscNum,jdbcType=VARCHAR}, 
+      #{slcType,jdbcType=VARCHAR}, #{slBrdgMode,jdbcType=CHAR}, #{chkrId,jdbcType=DECIMAL}, 
+      #{chkTime,jdbcType=TIMESTAMP}, #{suspended,jdbcType=CHAR}, #{afReqd,jdbcType=CHAR}, 
+      #{afBnd,jdbcType=CHAR}, #{afBndrId,jdbcType=DECIMAL}, #{afBndTime,jdbcType=TIMESTAMP}, 
+      #{puCtrl,jdbcType=CHAR}, #{puFwdd,jdbcType=CHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.sales.Slc">
+        insert into slc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null and unitId != '' ">
+                unit_id,
+            </if>
+            <if test="slcNum != null and slcNum != ''">
+                slc_num,
+            </if>
+            <if test="pscNum != null and pscNum != ''">
+                psc_num,
+            </if>
+            <if test="slcType != null and slcType != ''">
+                slc_type,
+            </if>
+            <if test="slBrdgMode != null and slBrdgMode != ''">
+                sl_brdg_mode,
+            </if>
+            <if test="chkrId != null and chkrId != ''">
+                chkr_id,
+            </if>
+            <if test="chkTime != null and chkTime != ''">
+                chk_time,
+            </if>
+            <if test="suspended != null and suspended != ''">
+                suspended,
+            </if>
+            <if test="afReqd != null and afReqd != ''">
+                af_reqd,
+            </if>
+            <if test="afBnd != null and afBnd != ''">
+                af_bnd,
+            </if>
+            <if test="afBndrId != null and afBndrId != ''">
+                af_bndr_id,
+            </if>
+            <if test="afBndTime != null and afBndTime != ''">
+                af_bnd_time,
+            </if>
+            <if test="puCtrl != null and puCtrl != ''">
+                pu_ctrl,
+            </if>
+            <if test="puFwdd != null and puFwdd != ''">
+                pu_fwdd,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null and unitId != ''">
+                #{unitId,jdbcType=DECIMAL},
+            </if>
+            <if test="slcNum != null and slcNum != ''">
+                #{slcNum,jdbcType=VARCHAR},
+            </if>
+            <if test="pscNum != null and pscNum != ''">
+                #{pscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="slcType != null and slcType != ''">
+                #{slcType,jdbcType=VARCHAR},
+            </if>
+            <if test="slBrdgMode != null and slBrdgMode != ''">
+                #{slBrdgMode,jdbcType=CHAR},
+            </if>
+            <if test="chkrId != null and chkrId != ''">
+                #{chkrId,jdbcType=DECIMAL},
+            </if>
+            <if test="chkTime != null and chkTime != ''">
+                #{chkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="suspended != null and suspended != ''">
+                #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="afReqd != null and afReqd != ''">
+                #{afReqd,jdbcType=CHAR},
+            </if>
+            <if test="afBnd != null and afBnd != ''">
+                #{afBnd,jdbcType=CHAR},
+            </if>
+            <if test="afBndrId != null and afBndrId != ''">
+                #{afBndrId,jdbcType=DECIMAL},
+            </if>
+            <if test="afBndTime != null and afBndTime != ''">
+                #{afBndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="puCtrl != null and puCtrl != ''">
+                #{puCtrl,jdbcType=CHAR},
+            </if>
+            <if test="puFwdd != null and puFwdd != ''">
+                #{puFwdd,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.sales.Slc">
+        update slc
+        <set>
+            <if test="pscNum != null">
+                psc_num = #{pscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="slcType != null">
+                slc_type = #{slcType,jdbcType=VARCHAR},
+            </if>
+            <if test="slBrdgMode != null">
+                sl_brdg_mode = #{slBrdgMode,jdbcType=CHAR},
+            </if>
+            <if test="chkrId != null">
+                chkr_id = #{chkrId,jdbcType=DECIMAL},
+            </if>
+            <if test="chkTime != null">
+                chk_time = #{chkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="suspended != null">
+                suspended = #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="afReqd != null">
+                af_reqd = #{afReqd,jdbcType=CHAR},
+            </if>
+            <if test="afBnd != null">
+                af_bnd = #{afBnd,jdbcType=CHAR},
+            </if>
+            <if test="afBndrId != null">
+                af_bndr_id = #{afBndrId,jdbcType=DECIMAL},
+            </if>
+            <if test="afBndTime != null">
+                af_bnd_time = #{afBndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="puCtrl != null">
+                pu_ctrl = #{puCtrl,jdbcType=CHAR},
+            </if>
+            <if test="puFwdd != null">
+                pu_fwdd = #{puFwdd,jdbcType=CHAR},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=DECIMAL}
+        and slc_num = #{slcNum,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByChkr" parameterType="java.lang.String">
+        update slc
+        <set>
+            <choose>
+                <when test="chkrId!=null">
+                    chkr_id = #{chkrId},
+                    chk_time = now()
+                </when>
+                <when test="chkrId==null">
+                    chkr_id = null,
+                    chk_time = null
+                </when>
+            </choose>
+        </set>
+        where psc_num = #{pscNum}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.sales.Slc">
+    update slc
+    set psc_num = #{pscNum,jdbcType=VARCHAR},
+      slc_type = #{slcType,jdbcType=VARCHAR},
+      sl_brdg_mode = #{slBrdgMode,jdbcType=CHAR},
+      chkr_id = #{chkrId,jdbcType=DECIMAL},
+      chk_time = #{chkTime,jdbcType=TIMESTAMP},
+      suspended = #{suspended,jdbcType=CHAR},
+      af_reqd = #{afReqd,jdbcType=CHAR},
+      af_bnd = #{afBnd,jdbcType=CHAR},
+      af_bndr_id = #{afBndrId,jdbcType=DECIMAL},
+      af_bnd_time = #{afBndTime,jdbcType=TIMESTAMP},
+      pu_ctrl = #{puCtrl,jdbcType=CHAR},
+      pu_fwdd = #{puFwdd,jdbcType=CHAR}
+    where unit_id = #{unitId,jdbcType=DECIMAL}
+      and slc_num = #{slcNum,jdbcType=VARCHAR}
+  </update>
+
+    <select id="selectALL" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PscVo"
+            resultMap="BaseResultMapSlc">
+        SELECT
+        slc.unit_id AS unitId,
+        slc.slc_num AS slcNum,
+        slc.psc_num AS pscNum,
+        psc.doc_date AS docDate,
+        slc.slc_type AS slcType,
+        psc.psc_type AS pscType,
+        psc.vender_id AS venderId,
+        psc.vendee_id AS vendeeId,
+        suo.unit_num AS vendeeNum,
+        su.unit_name AS vendeeName,
+        v.psa_ctlr AS psaCtlr,
+        su1.unit_id AS vdrWarehId,
+        suo1.unit_num AS vdrWarehNum,
+        su1.unit_name AS vdrWarehName,
+        su2.unit_id AS vdeWarehId,
+        suo2.unit_num AS vdeWarehNum,
+        su2.unit_name AS vdeWarehName,
+        su3.unit_id AS stUnitId,
+        suo3.unit_num AS stUnitNum,
+        su3.unit_name AS stUnitName,
+        su5.unit_id AS stWarehId,
+        suo5.unit_num AS stWarehNum,
+        su5.unit_name AS stWarehName,
+        su6.unit_id AS endUnitId,
+        suo6.unit_num AS endUnitNum,
+        su6.unit_name AS endUnitName,
+        su7.unit_id AS endWarehId,
+        suo7.unit_num AS endWarehNum,
+        su7.unit_name AS endWarehName,
+        su8.unit_id AS tranUnitId,
+        suo8.unit_num AS tranUnitNum,
+        su8.unit_name AS tranUnitName,
+        su9.unit_id AS vdrFsclUnitId,
+        su9.unit_code AS vdrFsclUnitCode,
+        su9.unit_name AS vdrFsclUnitName,
+        su10.unit_id AS vdeFsclUnitId,
+        su10.unit_code AS vdeFsclUnitCode,
+        su10.unit_name AS vdeFsclUnitName,
+        psc.vde_invd AS vdeInvd,
+        psc.puc_auto_gen AS pucAutoGen,
+        psc.puc_auto_chk AS pucAutoChk,
+        psc.puc_gen AS pucGen,
+        psc.slc_auto_gen AS slcAutoGen,
+        psc.slc_gen AS slcGen,
+        psc.slc_auto_chk AS slcAutoChk,
+        psc.is_sl_itmd AS isSlItmd,
+        psc.is_pu_itmd AS isPuItmd,
+        slc.sl_brdg_mode AS slBrdgMode,
+        psc.prc_site AS prcSite,
+        psc.is_cms AS isCms,
+        psc.dr_diff_jgd AS drDiffJgd,
+        psc.multi_impl AS multiImpl,
+        psc.impl_by_ins AS implByIns,
+        psc.is_spot AS isSpot,
+        psc.rqd_ctrl AS rqdCtrl,
+        psc.rqd_ctrl AS rqdCtrlOld,
+        psc.reqd_date AS reqdDate,
+        psc.ps_stl_mthd AS psStlMthd,
+        psc.spl_enabled AS splEnabled,
+        psc.deposit AS deposit,
+        psc.mfz_enabled AS mfzEnabled,
+        psc.gm_enabled AS gmEnabled,
+        psc.gua_mon AS guaMon,
+        psc.exbl_rate AS exblRate,
+        psc.ps_mfz_site AS psMfzSite,
+        psc.src_doc_type AS srcDocType,
+        psc.src_doc_unit_id AS srcDocUnitId,
+        psc.src_doc_num AS srcDocNum,
+        psc.prod_cat_id AS prodCatId,
+        pc.prod_cat_name AS prodCatName,
+        psc.ord_type AS ordType,
+        psc.expd_date AS expdDate,
+        psc.deliv_mthd AS delivMthd,
+        psc.deliv_pstd AS delivPstd,
+        psc.deliv_addr AS delivAddr,
+        psc.bxi_enabled AS bxiEnabled,
+        psc.ttl_qty AS ttlQty,
+        psc.ttl_box AS ttlBox,
+        psc.ttl_val AS ttlVal,
+        psc.ttl_tax AS ttlTax,
+        psc.tasks_in_deliv AS tasksInDeliv,
+        psc.tasks_in_rcv AS tasksInRcv,
+        psc.ttl_mkv AS ttlMkv,
+        psc.ttl_deliv_qty AS ttlDelivQty,
+        psc.ttl_deliv_box AS ttlDelivBox,
+        psc.ttl_deliv_val AS ttlDelivVal,
+        psc.ttl_deliv_tax AS ttlDelivTax,
+        psc.ttl_deliv_mkv AS ttlDelivMkv,
+        psc.ttl_rcv_qty AS ttlRcvQty,
+        psc.ttl_rcv_box AS ttlRcvBox,
+        psc.ttl_rcv_tax AS ttlRcvTax,
+        psc.ttl_rcv_val AS ttlRcvVal,
+        psc.ttl_rcv_mkv AS ttlRcvMkv,
+        psc.ttl_rs_qty AS ttlRsQty,
+        psc.ttl_rs_box AS ttlRsBox,
+        psc.ttl_rs_val AS ttlRsVal,
+        psc.ttl_rs_tax AS ttlRsTax,
+        psc.ttl_rs_mkv AS ttlRsMkv,
+        psc.ttl_rp_qty AS ttlRpQty,
+        psc.ttl_rp_box AS ttlRpBox,
+        psc.ttl_rp_val AS ttlRpVal,
+        psc.ttl_rp_tax AS ttlRpTax,
+        psc.ttl_rp_mkv AS ttlRpMkv,
+        psc.ttl_expd_rwd AS ttlExpdRwd,
+        psc.ttl_deliv_rwd AS ttlDelivRwd,
+        psc.ttl_rcv_rwd AS ttlRcvRwd,
+        sp.prsnl_id AS oprId,
+        sp.prsnl_code AS oprCode,
+        sp.full_name AS oprName,
+        psc.op_time AS opTime,
+        slc.chkr_id AS chkrId,
+        spo1.prsnl_num AS chkrNum,
+        sp1.full_name AS chkrName,
+        slc.chk_time AS chkTime,
+        psc.effective AS effective,
+        psc.progress AS progress,
+        slc.suspended AS suspended,
+        psc.cancelled AS cancelled,
+        psc.renewed AS renewed,
+        psc.exec_psc_num AS execPscNum,
+        psc.itmd_psc_num AS itmdPscNum,
+        psc.st_psc_num AS stPscNum,
+        psc.end_psc_num AS endPscNum,
+        slc.af_reqd AS afReqd,
+        psc.plan_ctrl AS planCtrl,
+        psc.tfr_num AS tfrNum,
+        slc.af_bnd AS afBnd,
+        slc.af_bndr_id AS afBndrId,
+        spo.prsnl_num AS afBndrNum,
+        sp2.full_name AS afBndrName,
+        slc.af_bnd_time AS afBndTime,
+        slc.pu_ctrl AS puCtrl,
+        slc.pu_fwdd AS puFwdd,
+        psc.base_psc_num AS basePscNum,
+        slc1.slc_num AS baseSlcNum,
+        psc.remarks AS remarks
+        FROM
+        ( SELECT a.* FROM slc a WHERE 1 = 1
+        )
+        slc
+        inner join psc psc on psc.psc_num = slc.psc_num
+        left join slc slc1 on slc1.psc_num = psc.base_psc_num
+        left join vender v on v.vender_id = psc.vender_id
+        and v.owner_id = psc.vendee_id
+        left join sys_unit su on su.unit_id = psc.vendee_id
+        left join sys_unit_owner suo on suo.unit_id = psc.vendee_id
+        and suo.owner_id = psc.vender_id
+        left join sys_unit su1 on su1.unit_id = psc.vdr_wareh_id
+        left join sys_unit_owner suo1 on suo1.unit_id = psc.vdr_wareh_id
+        and suo1.owner_id = psc.vender_id
+        left join sys_unit su2 on su2.unit_id = psc.vde_wareh_id
+        left join sys_unit_owner suo2 on suo2.unit_id = psc.vde_wareh_id
+        and suo2.owner_id = psc.vendee_id
+        left join sys_unit su3 on su3.unit_id = psc.st_unit_id
+        left join sys_unit_owner suo3 on suo3.unit_id = psc.st_unit_id
+        and suo3.owner_id = psc.vender_id
+        left join sys_unit su5 on su5.unit_id = psc.st_wareh_id
+        left join sys_unit_owner suo5 on suo5.unit_id = psc.st_wareh_id
+        and suo5.owner_id = psc.st_unit_id
+        left join sys_unit su6 on su6.unit_id = psc.end_unit_id
+        left join sys_unit_owner suo6 on suo6.unit_id = psc.end_unit_id
+        and suo6.owner_id = psc.vendee_id
+        left join sys_unit su7 on su7.unit_id = psc.end_wareh_id
+        left join sys_unit_owner suo7 on suo7.unit_id = psc.end_wareh_id
+        and suo7.owner_id = psc.end_unit_id
+        left join sys_unit su8 on su8.unit_id = psc.tran_unit_id
+        left join sys_unit_owner suo8 on suo8.unit_id = psc.tran_unit_id
+        and suo8.owner_id = psc.vendee_id
+        left join sys_unit su9 on su9.unit_id = psc.vdr_fscl_unit_id
+        left join sys_unit su10 on su10.unit_id = psc.vde_fscl_unit_id
+        left join prod_cat pc on pc.prod_cat_id = psc.prod_cat_id
+        left join sys_prsnl sp on sp.prsnl_id = psc.opr_id
+        left join sys_prsnl sp1 on sp1.prsnl_id = slc.chkr_id
+        left join sys_prsnl_owner spo1 on spo1.prsnl_id = slc.chkr_id
+        and spo1.owner_id = psc.vendee_id
+        left join sys_prsnl_owner spo on spo.prsnl_id = slc.af_bndr_id
+        and spo.owner_id = psc.vendee_id
+        left join sys_prsnl sp2 on sp2.prsnl_id = slc.af_bndr_id
+        WHERE
+        1 =1
+        <if test="pscNum != null and pscNum != '' and pscNum != 'null'">
+            and psc.psc_num like CONCAT( #{pscNum} )
+        </if>
+        <if test="slcNum != null and slcNum != '' and slcNum != 'null'">
+            and slc.slc_num like CONCAT( #{slcNum}, '%')
+        </if>
+        <if test="vendeeNum != null and vendeeNum != '' and vendeeNum != 'null'">
+            and suo.unit_num like CONCAT( #{vendeeNum}, '%')
+        </if>
+        <if test="vdrWarehNum != null and vdrWarehNum != '' and vdrWarehNum != 'null'">
+            and suo1.unit_num like CONCAT( #{vdrWarehNum}, '%')
+        </if>
+        <if test="vdeWarehNum != null and vdeWarehNum != '' and vdeWarehNum != 'null'">
+            and suo2.unit_num like CONCAT( #{vdeWarehNum}, '%')
+        </if>
+        <if test="progress != null and progress != '' and progress != 'null' ">
+            and psc.progress = #{progress}
+        </if>
+        <if test="effective != null and effective != '' and effective != 'null'">
+            and psc.effective = #{effective}
+        </if>
+        <if test="implByIns != null and implByIns != '' and implByIns != 'null'">
+            and psc.impl_by_ins = #{implByIns}
+        </if>
+        <if test="startTime != null and startTime != '' ">
+            and psc.doc_date &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' ">
+            and psc.doc_date &lt;= #{endTime}
+        </if>
+    </select>
+
+    <select id="selectByUnit" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PscVo"
+            resultMap="BaseResultMapSlc">
+        SELECT
+        slc.unit_id AS unitId,
+        slc.slc_num AS slcNum,
+        slc.psc_num AS pscNum,
+        psc.doc_date AS docDate,
+        slc.slc_type AS slcType,
+        psc.psc_type AS pscType,
+        psc.vender_id AS venderId,
+        psc.vendee_id AS vendeeId,
+        suo.unit_num AS vendeeNum,
+        su.unit_name AS vendeeName,
+        v.psa_ctlr AS psaCtlr,
+        su1.unit_id AS vdrWarehId,
+        suo1.unit_num AS vdrWarehNum,
+        su1.unit_name AS vdrWarehName,
+        su2.unit_id AS vdeWarehId,
+        suo2.unit_num AS vdeWarehNum,
+        su2.unit_name AS vdeWarehName,
+        su3.unit_id AS stUnitId,
+        suo3.unit_num AS stUnitNum,
+        su3.unit_name AS stUnitName,
+        su5.unit_id AS stWarehId,
+        suo5.unit_num AS stWarehNum,
+        su5.unit_name AS stWarehName,
+        su6.unit_id AS endUnitId,
+        suo6.unit_num AS endUnitNum,
+        su6.unit_name AS endUnitName,
+        su7.unit_id AS endWarehId,
+        suo7.unit_num AS endWarehNum,
+        su7.unit_name AS endWarehName,
+        su8.unit_id AS tranUnitId,
+        suo8.unit_num AS tranUnitNum,
+        su8.unit_name AS tranUnitName,
+        su9.unit_id AS vdrFsclUnitId,
+        su9.unit_code AS vdrFsclUnitCode,
+        su9.unit_name AS vdrFsclUnitName,
+        su10.unit_id AS vdeFsclUnitId,
+        su10.unit_code AS vdeFsclUnitCode,
+        su10.unit_name AS vdeFsclUnitName,
+        psc.vde_invd AS vdeInvd,
+        psc.vdr_invd AS vdrInvd,
+        psc.puc_auto_gen AS pucAutoGen,
+        psc.puc_auto_chk AS pucAutoChk,
+        psc.puc_gen AS pucGen,
+        psc.slc_auto_gen AS slcAutoGen,
+        psc.slc_gen AS slcGen,
+        psc.slc_auto_chk AS slcAutoChk,
+        psc.is_sl_itmd AS isSlItmd,
+        psc.is_pu_itmd AS isPuItmd,
+        slc.sl_brdg_mode AS slBrdgMode,
+        psc.prc_site AS prcSite,
+        psc.is_cms AS isCms,
+        psc.dr_diff_jgd AS drDiffJgd,
+        psc.multi_impl AS multiImpl,
+        psc.impl_by_ins AS implByIns,
+        psc.is_spot AS isSpot,
+        psc.rqd_ctrl AS rqdCtrl,
+        psc.rqd_ctrl AS rqdCtrlOld,
+        psc.reqd_date AS reqdDate,
+        psc.ps_stl_mthd AS psStlMthd,
+        psc.spl_enabled AS splEnabled,
+        psc.deposit AS deposit,
+        psc.mfz_enabled AS mfzEnabled,
+        psc.gm_enabled AS gmEnabled,
+        psc.gua_mon AS guaMon,
+        psc.exbl_rate AS exblRate,
+        psc.ps_mfz_site AS psMfzSite,
+        psc.src_doc_type AS srcDocType,
+        psc.src_doc_unit_id AS srcDocUnitId,
+        psc.src_doc_num AS srcDocNum,
+        psc.prod_cat_id AS prodCatId,
+        pc.prod_cat_name AS prodCatName,
+        psc.ord_type AS ordType,
+        psc.expd_date AS expdDate,
+        psc.deliv_mthd AS delivMthd,
+        psc.deliv_pstd AS delivPstd,
+        psc.deliv_addr AS delivAddr,
+        psc.bxi_enabled AS bxiEnabled,
+        psc.ttl_qty AS ttlQty,
+        psc.ttl_box AS ttlBox,
+        psc.ttl_val AS ttlVal,
+        psc.ttl_tax AS ttlTax,
+        psc.tasks_in_deliv AS tasksInDeliv,
+        psc.tasks_in_rcv AS tasksInRcv,
+        psc.ttl_mkv AS ttlMkv,
+        psc.ttl_deliv_qty AS ttlDelivQty,
+        psc.ttl_deliv_box AS ttlDelivBox,
+        psc.ttl_deliv_val AS ttlDelivVal,
+        psc.ttl_deliv_tax AS ttlDelivTax,
+        psc.ttl_deliv_mkv AS ttlDelivMkv,
+        psc.ttl_rcv_qty AS ttlRcvQty,
+        psc.ttl_rcv_box AS ttlRcvBox,
+        psc.ttl_rcv_tax AS ttlRcvTax,
+        psc.ttl_rcv_val AS ttlRcvVal,
+        psc.ttl_rcv_mkv AS ttlRcvMkv,
+        psc.ttl_rs_qty AS ttlRsQty,
+        psc.ttl_rs_box AS ttlRsBox,
+        psc.ttl_rs_val AS ttlRsVal,
+        psc.ttl_rs_tax AS ttlRsTax,
+        psc.ttl_rs_mkv AS ttlRsMkv,
+        psc.ttl_rp_qty AS ttlRpQty,
+        psc.ttl_rp_box AS ttlRpBox,
+        psc.ttl_rp_val AS ttlRpVal,
+        psc.ttl_rp_tax AS ttlRpTax,
+        psc.ttl_rp_mkv AS ttlRpMkv,
+        psc.ttl_expd_rwd AS ttlExpdRwd,
+        psc.ttl_deliv_rwd AS ttlDelivRwd,
+        psc.ttl_rcv_rwd AS ttlRcvRwd,
+        sp.prsnl_id AS oprId,
+        sp.prsnl_code AS oprCode,
+        sp.full_name AS oprName,
+        psc.op_time AS opTime,
+        slc.chkr_id AS chkrId,
+        spo1.prsnl_num AS chkrNum,
+        sp1.full_name AS chkrName,
+        slc.chk_time AS chkTime,
+        psc.effective AS effective,
+        psc.progress AS progress,
+        slc.suspended AS suspended,
+        psc.cancelled AS cancelled,
+        psc.renewed AS renewed,
+        psc.exec_psc_num AS execPscNum,
+        psc.itmd_psc_num AS itmdPscNum,
+        psc.st_psc_num AS stPscNum,
+        psc.end_psc_num AS endPscNum,
+        slc.af_reqd AS afReqd,
+        psc.plan_ctrl AS planCtrl,
+        psc.tfr_num AS tfrNum,
+        slc.af_bnd AS afBnd,
+        slc.af_bndr_id AS afBndrId,
+        spo.prsnl_num AS afBndrNum,
+        sp2.full_name AS afBndrName,
+        slc.af_bnd_time AS afBndTime,
+        slc.pu_ctrl AS puCtrl,
+        slc.pu_fwdd AS puFwdd,
+        psc.base_psc_num AS basePscNum,
+        slc1.slc_num AS baseSlcNum,
+        psc.remarks AS remarks
+        FROM
+        ( SELECT a.* FROM slc a WHERE 1 = 1 AND
+        a.unit_id = #{sUnitId}
+        )
+        slc
+        inner join psc psc on psc.psc_num = slc.psc_num
+        left join slc slc1 on slc1.psc_num = psc.base_psc_num
+        left join vender v on v.vender_id = psc.vender_id
+        and v.owner_id = psc.vendee_id
+        left join sys_unit su on su.unit_id = psc.vendee_id
+        left join sys_unit_owner suo on suo.unit_id = psc.vendee_id
+        and suo.owner_id = psc.vender_id
+        left join sys_unit su1 on su1.unit_id = psc.vdr_wareh_id
+        left join sys_unit_owner suo1 on suo1.unit_id = psc.vdr_wareh_id
+        and suo1.owner_id = psc.vender_id
+        left join sys_unit su2 on su2.unit_id = psc.vde_wareh_id
+        left join sys_unit_owner suo2 on suo2.unit_id = psc.vde_wareh_id
+        and suo2.owner_id = psc.vendee_id
+        left join sys_unit su3 on su3.unit_id = psc.st_unit_id
+        left join sys_unit_owner suo3 on suo3.unit_id = psc.st_unit_id
+        and suo3.owner_id = psc.vender_id
+        left join sys_unit su5 on su5.unit_id = psc.st_wareh_id
+        left join sys_unit_owner suo5 on suo5.unit_id = psc.st_wareh_id
+        and suo5.owner_id = psc.st_unit_id
+        left join sys_unit su6 on su6.unit_id = psc.end_unit_id
+        left join sys_unit_owner suo6 on suo6.unit_id = psc.end_unit_id
+        and suo6.owner_id = psc.vendee_id
+        left join sys_unit su7 on su7.unit_id = psc.end_wareh_id
+        left join sys_unit_owner suo7 on suo7.unit_id = psc.end_wareh_id
+        and suo7.owner_id = psc.end_unit_id
+        left join sys_unit su8 on su8.unit_id = psc.tran_unit_id
+        left join sys_unit_owner suo8 on suo8.unit_id = psc.tran_unit_id
+        and suo8.owner_id = psc.vendee_id
+        left join sys_unit su9 on su9.unit_id = psc.vdr_fscl_unit_id
+        left join sys_unit su10 on su10.unit_id = psc.vde_fscl_unit_id
+        left join prod_cat pc on pc.prod_cat_id = psc.prod_cat_id
+        left join sys_prsnl sp on sp.prsnl_id = psc.opr_id
+        left join sys_prsnl sp1 on sp1.prsnl_id = slc.chkr_id
+        left join sys_prsnl_owner spo1 on spo1.prsnl_id = slc.chkr_id
+        and spo1.owner_id = psc.vendee_id
+        left join sys_prsnl_owner spo on spo.prsnl_id = slc.af_bndr_id
+        and spo.owner_id = psc.vendee_id
+        left join sys_prsnl sp2 on sp2.prsnl_id = slc.af_bndr_id
+        WHERE
+        1 =1
+        <if test="pscNum != null and pscNum != '' and pscNum != 'null'">
+            and psc.psc_num like CONCAT( #{pscNum}, '%')
+        </if>
+        <if test="slcNum != null and slcNum != '' and slcNum != 'null'">
+            and slc.slc_num like CONCAT( #{slcNum}, '%')
+        </if>
+        <if test="vendeeNum != null and vendeeNum != '' and vendeeNum != 'null'">
+            and suo.unit_num like CONCAT( #{venderNum}, '%')
+        </if>
+        <if test="vdrWarehNum != null and vdrWarehNum != '' and vdrWarehNum != 'null'">
+            and suo1.unit_num like CONCAT( #{vdrWarehNum}, '%')
+        </if>
+        <if test="vdeWarehNum != null and vdeWarehNum != '' and vdeWarehNum != 'null'">
+            and suo2.unit_num like CONCAT( #{vdeWarehNum}, '%')
+        </if>
+        <if test="progress != null and progress != '' and progress != 'null' ">
+            and psc.progress = #{progress}
+        </if>
+        <if test="effective != null and effective != '' and effective != 'null'">
+            and psc.effective = #{effective}
+        </if>
+        <if test="implByIns != null and implByIns != '' and implByIns != 'null'">
+            and psc.impl_by_ins = #{implByIns}
+        </if>
+        <if test="startTime != null and startTime != '' ">
+            and psc.DOC_DATE &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' ">
+            and psc.DOC_DATE &lt;= #{endTime}
+        </if>
+    </select>
+
+    <select id="selectByPscNum" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from slc
+        where psc_num = #{pscNum}
+    </select>
+
+
+    <insert id="insertByPscVo" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PscVo">
+        insert into slc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="venderId != null and venderId != '' ">
+                unit_id,
+            </if>
+            <if test="slcNum != null and slcNum != '' ">
+                slc_num,
+            </if>
+            <if test="pscNum != null and pscNum != '' ">
+                psc_num,
+            </if>
+            <if test="slcType != null and slcType != '' ">
+                slc_type,
+            </if>
+            <if test="slBrdgMode != null and slBrdgMode != ''">
+                sl_brdg_mode,
+            </if>
+            <if test="chkrId != null and chkrId != '' ">
+                chkr_id,
+                chk_time,
+            </if>
+            <if test="suspended != null and suspended != '' ">
+                suspended,
+            </if>
+            <if test="afReqd != null and afReqd != '' ">
+                af_reqd,
+                af_bnd,
+            </if>
+            <if test="puCtrl != null and puCtrl != '' ">
+                pu_ctrl,
+            </if>
+            <if test="puFwdd != null and puFwdd != '' ">
+                pu_fwdd,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="venderId != null and venderId != '' ">
+                #{venderId,jdbcType=BIGINT},
+            </if>
+            <if test="slcNum != null and slcNum != '' ">
+                #{slcNum,jdbcType=VARCHAR},
+            </if>
+            <if test="pscNum != null and pscNum != '' ">
+                #{pscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="slcType != null and slcType != '' ">
+                #{slcType,jdbcType=VARCHAR},
+            </if>
+            <if test="slBrdgMode != null and slBrdgMode != '' ">
+                #{slBrdgMode,jdbcType=CHAR},
+            </if>
+            <if test="chkrId != null and chkrId != '' ">
+                #{chkrId,jdbcType=BIGINT},
+                now(),
+            </if>
+            <if test="suspended != null and suspended != '' ">
+                #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="afReqd != null and afReqd != '' ">
+                #{afReqd,jdbcType=CHAR},
+                #{afReqd,jdbcType=CHAR},
+            </if>
+            <if test="puCtrl != null and puCtrl != '' ">
+                #{puCtrl,jdbcType=CHAR},
+            </if>
+            <if test="puFwdd != null and puFwdd != '' ">
+                #{puFwdd,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPscVo" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PscVo">
+        update slc
+        <set>
+            <if test="pscNum != null and pscNum != '' ">
+                psc_num = #{pscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="slcType != null and slcType != '' ">
+                slc_type = #{slcType,jdbcType=VARCHAR},
+            </if>
+            <if test="slBrdgMode != null and slBrdgMode != '' ">
+                sl_brdg_mode = #{slBrdgMode,jdbcType=CHAR},
+            </if>
+            <if test="chkrId != null and chkrId != '' ">
+                chkr_id = #{chkrId,jdbcType=BIGINT},
+            </if>
+            <if test="chkTime != null and chkTime != '' ">
+                chk_time = #{chkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="suspended != null and suspended != '' ">
+                suspended = #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="afReqd != null and afReqd != '' ">
+                af_reqd = #{afReqd,jdbcType=CHAR},
+            </if>
+            <if test="afBnd != null and afBnd != '' ">
+                af_bnd = #{afBnd,jdbcType=CHAR},
+            </if>
+            <if test="afBndrId != null and afBndrId != '' ">
+                af_bndr_id = #{afBndrId,jdbcType=BIGINT},
+                af_bnd_time = #{afBndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="puCtrl != null and puCtrl != '' ">
+                pu_ctrl = #{puCtrl,jdbcType=CHAR},
+            </if>
+            <if test="puFwdd != null and puFwdd != '' ">
+                pu_fwdd = #{puFwdd,jdbcType=CHAR},
+            </if>
+        </set>
+        where unit_id = #{venderId,jdbcType=BIGINT}
+        and slc_num = #{slcNum,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deletePscVo" parameterType="java.lang.String">
+    delete from slc
+    where unit_id = #{unitId}
+      and slc_num = #{slcNum}
+  </delete>
+
+    <delete id="deleteByPscNum" parameterType="java.lang.String">
+    delete from slc
+    where psc_num = #{pscNum}
+  </delete>
+
+    <select id="selectObject" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PscVo"
+            resultMap="BaseResultMapObject">
+    SELECT
+        slc.unit_id AS unitId,
+        slc.slc_num AS slcNum,
+        slc.psc_num AS pscNum,
+        psc.doc_date AS docDate,
+        slc.slc_type AS slcType,
+        psc.psc_type AS pscType,
+        psc.vender_id AS venderId,
+        psc.vendee_id AS vendeeId,
+        suo.unit_num AS vendeeNum,
+        su.unit_name AS vendeeName,
+        v.psa_ctlr AS psaCtlr,
+        su1.unit_id AS vdrWarehId,
+        suo1.unit_num AS vdrWarehNum,
+        su1.unit_name AS vdrWarehName,
+        su2.unit_id AS vdeWarehId,
+        suo2.unit_num AS vdeWarehNum,
+        su2.unit_name AS vdeWarehName,
+        su3.unit_id AS stUnitId,
+        suo3.unit_num AS stUnitNum,
+        su3.unit_name AS stUnitName,
+        su5.unit_id AS stWarehId,
+        suo5.unit_num AS stWarehNum,
+        su5.unit_name AS stWarehName,
+        su6.unit_id AS endUnitId,
+        suo6.unit_num AS endUnitNum,
+        su6.unit_name AS endUnitName,
+        su7.unit_id AS endWarehId,
+        suo7.unit_num AS endWarehNum,
+        su7.unit_name AS endWarehName,
+        su8.unit_id AS tranUnitId,
+        suo8.unit_num AS tranUnitNum,
+        su8.unit_name AS tranUnitName,
+        su9.unit_id AS vdrFsclUnitId,
+        su9.unit_code AS vdrFsclUnitCode,
+        su9.unit_name AS vdrFsclUnitName,
+        su10.unit_id AS vdeFsclUnitId,
+        su10.unit_code AS vdeFsclUnitCode,
+        su10.unit_name AS vdeFsclUnitName,
+        psc.vde_invd AS vdeInvd,
+        psc.puc_auto_gen AS pucAutoGen,
+        psc.puc_auto_chk AS pucAutoChk,
+        psc.puc_gen AS pucGen,
+        psc.slc_auto_gen AS slcAutoGen,
+        psc.slc_gen AS slcGen,
+        psc.slc_auto_chk AS slcAutoChk,
+        psc.is_sl_itmd AS isSlItmd,
+        psc.is_pu_itmd AS isPuItmd,
+        slc.sl_brdg_mode AS slBrdgMode,
+        psc.prc_site AS prcSite,
+        psc.is_cms AS isCms,
+        psc.dr_diff_jgd AS drDiffJgd,
+        psc.multi_impl AS multiImpl,
+        psc.impl_by_ins AS implByIns,
+        psc.is_spot AS isSpot,
+        psc.rqd_ctrl AS rqdCtrl,
+        psc.rqd_ctrl AS rqdCtrlOld,
+        psc.reqd_date AS reqdDate,
+        psc.ps_stl_mthd AS psStlMthd,
+        psc.spl_enabled AS splEnabled,
+        psc.deposit AS deposit,
+        psc.mfz_enabled AS mfzEnabled,
+        psc.gm_enabled AS gmEnabled,
+        psc.gua_mon AS guaMon,
+        psc.exbl_rate AS exblRate,
+        psc.ps_mfz_site AS psMfzSite,
+        psc.src_doc_type AS srcDocType,
+        psc.src_doc_unit_id AS srcDocUnitId,
+        psc.src_doc_num AS srcDocNum,
+        psc.prod_cat_id AS prodCatId,
+        pc.prod_cat_name AS prodCatName,
+        psc.ord_type AS ordType,
+        psc.expd_date AS expdDate,
+        psc.deliv_mthd AS delivMthd,
+        psc.deliv_pstd AS delivPstd,
+        psc.deliv_addr AS delivAddr,
+        psc.bxi_enabled AS bxiEnabled,
+        psc.ttl_qty AS ttlQty,
+        psc.ttl_box AS ttlBox,
+        psc.ttl_val AS ttlVal,
+        psc.ttl_tax AS ttlTax,
+        psc.tasks_in_deliv AS tasksInDeliv,
+        psc.tasks_in_rcv AS tasksInRcv,
+        psc.ttl_mkv AS ttlMkv,
+        psc.ttl_deliv_qty AS ttlDelivQty,
+        psc.ttl_deliv_box AS ttlDelivBox,
+        psc.ttl_deliv_val AS ttlDelivVal,
+        psc.ttl_deliv_tax AS ttlDelivTax,
+        psc.ttl_deliv_mkv AS ttlDelivMkv,
+        psc.ttl_rcv_qty AS ttlRcvQty,
+        psc.ttl_rcv_box AS ttlRcvBox,
+        psc.ttl_rcv_tax AS ttlRcvTax,
+        psc.ttl_rcv_val AS ttlRcvVal,
+        psc.ttl_rcv_mkv AS ttlRcvMkv,
+        psc.ttl_rs_qty AS ttlRsQty,
+        psc.ttl_rs_box AS ttlRsBox,
+        psc.ttl_rs_val AS ttlRsVal,
+        psc.ttl_rs_tax AS ttlRsTax,
+        psc.ttl_rs_mkv AS ttlRsMkv,
+        psc.ttl_rp_qty AS ttlRpQty,
+        psc.ttl_rp_box AS ttlRpBox,
+        psc.ttl_rp_val AS ttlRpVal,
+        psc.ttl_rp_tax AS ttlRpTax,
+        psc.ttl_rp_mkv AS ttlRpMkv,
+        psc.ttl_expd_rwd AS ttlExpdRwd,
+        psc.ttl_deliv_rwd AS ttlDelivRwd,
+        psc.ttl_rcv_rwd AS ttlRcvRwd,
+        sp.prsnl_id AS oprId,
+        sp.prsnl_code AS oprCode,
+        sp.full_name AS oprName,
+        psc.op_time AS opTime,
+        slc.chkr_id AS chkrId,
+        spo1.prsnl_num AS chkrNum,
+        sp1.full_name AS chkrName,
+        slc.chk_time AS chkTime,
+        psc.effective AS effective,
+        psc.progress AS progress,
+        slc.suspended AS suspended,
+        psc.cancelled AS cancelled,
+        psc.renewed AS renewed,
+        psc.exec_psc_num AS execPscNum,
+        psc.itmd_psc_num AS itmdPscNum,
+        psc.st_psc_num AS stPscNum,
+        psc.end_psc_num AS endPscNum,
+        slc.af_reqd AS afReqd,
+        psc.plan_ctrl AS planCtrl,
+        psc.tfr_num AS tfrNum,
+        slc.af_bnd AS afBnd,
+        slc.af_bndr_id AS afBndrId,
+        spo.prsnl_num AS afBndrNum,
+        spo.prsnl_num AS afBndrNum,
+        sp2.full_name AS afBndrName,
+        slc.af_bnd_time AS afBndTime,
+        slc.pu_ctrl AS puCtrl,
+        slc.pu_fwdd AS puFwdd,
+        psc.base_psc_num AS basePscNum,
+        slc1.slc_num AS baseSlcNum,
+        psc.remarks AS remarks,
+        pDtl.psc_num,
+        pDtl.prod_id,
+        p.prod_code as prodCode,
+        pCls.seq_num as seqNum,
+        pDtl.qty,
+        pCls.prod_name as prodName,
+        pCls.input_code as inputCode,
+        scd1.description AS uom,
+        c.color_name AS color,
+        s.spec_name AS spec,
+        scd.description AS edition,
+        pDtl.unit_price,
+        pDtl.mk_unit_price,
+        pDtl.val,
+        pDtl.mkv,
+        pDtl.deliv_qty,
+        pDtl.deliv_val,
+        pDtl.deliv_mkv,
+        pDtl.deliv_tax,
+        pDtl.rcv_qty,
+        pDtl.rcv_mkv,
+        pDtl.rcv_tax,
+        pDtl.rs_qty,
+        pDtl.rs_val,
+        pDtl.rs_mkv,
+        pDtl.remarks,
+        pCls.prod_cat_id AS prodCatId,
+        pDtl.tax,
+        pDtl.disc_rate AS discRate,
+        pDtl.tax_rate AS taxRate,
+        pDtl.fnl_price AS fnlPrice
+        FROM
+        ( SELECT a.* FROM slc a WHERE 1 = 1 and a.unit_id=#{unitId} and a.slc_num=#{slcNum}
+        )
+        slc
+        inner join psc psc on psc.psc_num = slc.psc_num
+        left join slc slc1 on slc1.psc_num = psc.base_psc_num
+        left join vender v on v.vender_id = psc.vender_id
+        and v.owner_id = psc.vendee_id
+        left join sys_unit su on su.unit_id = psc.vendee_id
+        left join sys_unit_owner suo on suo.unit_id = psc.vendee_id
+        and suo.owner_id = psc.vender_id
+        left join sys_unit su1 on su1.unit_id = psc.vdr_wareh_id
+        left join sys_unit_owner suo1 on suo1.unit_id = psc.vdr_wareh_id
+        and suo1.owner_id = psc.vender_id
+        left join sys_unit su2 on su2.unit_id = psc.vde_wareh_id
+        left join sys_unit_owner suo2 on suo2.unit_id = psc.vde_wareh_id
+        and suo2.owner_id = psc.vendee_id
+        left join sys_unit su3 on su3.unit_id = psc.st_unit_id
+        left join sys_unit_owner suo3 on suo3.unit_id = psc.st_unit_id
+        and suo3.owner_id = psc.vender_id
+        left join sys_unit su5 on su5.unit_id = psc.st_wareh_id
+        left join sys_unit_owner suo5 on suo5.unit_id = psc.st_wareh_id
+        and suo5.owner_id = psc.st_unit_id
+        left join sys_unit su6 on su6.unit_id = psc.end_unit_id
+        left join sys_unit_owner suo6 on suo6.unit_id = psc.end_unit_id
+        and suo6.owner_id = psc.vendee_id
+        left join sys_unit su7 on su7.unit_id = psc.end_wareh_id
+        left join sys_unit_owner suo7 on suo7.unit_id = psc.end_wareh_id
+        and suo7.owner_id = psc.end_unit_id
+        left join sys_unit su8 on su8.unit_id = psc.tran_unit_id
+        left join sys_unit_owner suo8 on suo8.unit_id = psc.tran_unit_id
+        and suo8.owner_id = psc.vendee_id
+        left join sys_unit su9 on su9.unit_id = psc.vdr_fscl_unit_id
+        left join sys_unit su10 on su10.unit_id = psc.vde_fscl_unit_id
+        left join prod_cat pc on pc.prod_cat_id = psc.prod_cat_id
+        left join sys_prsnl sp on sp.prsnl_id = psc.opr_id
+        left join sys_prsnl sp1 on sp1.prsnl_id = slc.chkr_id
+        left join sys_prsnl_owner spo1 on spo1.prsnl_id = slc.chkr_id
+        and spo1.owner_id = psc.vendee_id
+        left join sys_prsnl_owner spo on spo.prsnl_id = slc.af_bndr_id
+        and spo.owner_id = psc.vendee_id
+        left join sys_prsnl sp2 on sp2.prsnl_id = slc.af_bndr_id
+
+        left join psc_dtl pdtl on pdtl.psc_num = psc.psc_num
+        left join product p on p.prod_id = pdtl.prod_id
+        left join prod_cls pcls on pcls.prod_cls_id = p.prod_cls_id
+        left join sys_code_dtl scd on scd.code = p.edition and scd.code_type='EDITION'
+        left join sys_code_dtl scd1 on scd1.code = pcls.uom and scd1.code_type='UOM'
+        left join color c on c.color_id = p.color_id
+        left join spec s on s.spec_id = p.spec_id
+        WHERE
+        1 =1
+  </select>
+
+    <select id="selectByOnly" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PscVo"
+            resultMap="BaseResultMapSlc">
+    SELECT
+        slc.unit_id AS unitId,
+        slc.slc_num AS slcNum,
+        slc.psc_num AS pscNum,
+        psc.doc_date AS docDate,
+        slc.slc_type AS slcType,
+        psc.psc_type AS pscType,
+        psc.vender_id AS venderId,
+        psc.vendee_id AS vendeeId,
+        suo.unit_num AS vendeeNum,
+        su.unit_name AS vendeeName,
+        v.psa_ctlr AS psaCtlr,
+        su1.unit_id AS vdrWarehId,
+        suo1.unit_num AS vdrWarehNum,
+        su1.unit_name AS vdrWarehName,
+        su2.unit_id AS vdeWarehId,
+        suo2.unit_num AS vdeWarehNum,
+        su2.unit_name AS vdeWarehName,
+        su3.unit_id AS stUnitId,
+        suo3.unit_num AS stUnitNum,
+        su3.unit_name AS stUnitName,
+        su5.unit_id AS stWarehId,
+        suo5.unit_num AS stWarehNum,
+        su5.unit_name AS stWarehName,
+        su6.unit_id AS endUnitId,
+        suo6.unit_num AS endUnitNum,
+        su6.unit_name AS endUnitName,
+        su7.unit_id AS endWarehId,
+        suo7.unit_num AS endWarehNum,
+        su7.unit_name AS endWarehName,
+        su8.unit_id AS tranUnitId,
+        suo8.unit_num AS tranUnitNum,
+        su8.unit_name AS tranUnitName,
+        su9.unit_id AS vdrFsclUnitId,
+        su9.unit_code AS vdrFsclUnitCode,
+        su9.unit_name AS vdrFsclUnitName,
+        su10.unit_id AS vdeFsclUnitId,
+        su10.unit_code AS vdeFsclUnitCode,
+        su10.unit_name AS vdeFsclUnitName,
+        psc.vde_invd AS vdeInvd,
+        psc.vdr_invd AS vdrInvd,
+        psc.puc_auto_gen AS pucAutoGen,
+        psc.puc_auto_chk AS pucAutoChk,
+        psc.puc_gen AS pucGen,
+        psc.slc_auto_gen AS slcAutoGen,
+        psc.slc_gen AS slcGen,
+        psc.slc_auto_chk AS slcAutoChk,
+        psc.is_sl_itmd AS isSlItmd,
+        psc.is_pu_itmd AS isPuItmd,
+        slc.sl_brdg_mode AS slBrdgMode,
+        psc.prc_site AS prcSite,
+        psc.is_cms AS isCms,
+        psc.dr_diff_jgd AS drDiffJgd,
+        psc.multi_impl AS multiImpl,
+        psc.impl_by_ins AS implByIns,
+        psc.is_spot AS isSpot,
+        psc.rqd_ctrl AS rqdCtrl,
+        psc.rqd_ctrl AS rqdCtrlOld,
+        psc.reqd_date AS reqdDate,
+        psc.ps_stl_mthd AS psStlMthd,
+        psc.spl_enabled AS splEnabled,
+        psc.deposit AS deposit,
+        psc.mfz_enabled AS mfzEnabled,
+        psc.gm_enabled AS gmEnabled,
+        psc.gua_mon AS guaMon,
+        psc.exbl_rate AS exblRate,
+        psc.ps_mfz_site AS psMfzSite,
+        psc.src_doc_type AS srcDocType,
+        psc.src_doc_unit_id AS srcDocUnitId,
+        psc.src_doc_num AS srcDocNum,
+        psc.prod_cat_id AS prodCatId,
+        pc.prod_cat_name AS prodCatName,
+        psc.ord_type AS ordType,
+        psc.expd_date AS expdDate,
+        psc.deliv_mthd AS delivMthd,
+        psc.deliv_pstd AS delivPstd,
+        psc.deliv_addr AS delivAddr,
+        psc.bxi_enabled AS bxiEnabled,
+        psc.ttl_qty AS ttlQty,
+        psc.ttl_box AS ttlBox,
+        psc.ttl_val AS ttlVal,
+        psc.ttl_tax AS ttlTax,
+        psc.tasks_in_deliv AS tasksInDeliv,
+        psc.tasks_in_rcv AS tasksInRcv,
+        psc.ttl_mkv AS ttlMkv,
+        psc.ttl_deliv_qty AS ttlDelivQty,
+        psc.ttl_deliv_box AS ttlDelivBox,
+        psc.ttl_deliv_val AS ttlDelivVal,
+        psc.ttl_deliv_tax AS ttlDelivTax,
+        psc.ttl_deliv_mkv AS ttlDelivMkv,
+        psc.ttl_rcv_qty AS ttlRcvQty,
+        psc.ttl_rcv_box AS ttlRcvBox,
+        psc.ttl_rcv_tax AS ttlRcvTax,
+        psc.ttl_rcv_val AS ttlRcvVal,
+        psc.ttl_rcv_mkv AS ttlRcvMkv,
+        psc.ttl_rs_qty AS ttlRsQty,
+        psc.ttl_rs_box AS ttlRsBox,
+        psc.ttl_rs_val AS ttlRsVal,
+        psc.ttl_rs_tax AS ttlRsTax,
+        psc.ttl_rs_mkv AS ttlRsMkv,
+        psc.ttl_rp_qty AS ttlRpQty,
+        psc.ttl_rp_box AS ttlRpBox,
+        psc.ttl_rp_val AS ttlRpVal,
+        psc.ttl_rp_tax AS ttlRpTax,
+        psc.ttl_rp_mkv AS ttlRpMkv,
+        psc.ttl_expd_rwd AS ttlExpdRwd,
+        psc.ttl_deliv_rwd AS ttlDelivRwd,
+        psc.ttl_rcv_rwd AS ttlRcvRwd,
+        sp.prsnl_id AS oprId,
+        sp.prsnl_code AS oprCode,
+        sp.full_name AS oprName,
+        psc.op_time AS opTime,
+        slc.chkr_id AS chkrId,
+        spo1.prsnl_num AS chkrNum,
+        sp1.full_name AS chkrName,
+        slc.chk_time AS chkTime,
+        psc.effective AS effective,
+        psc.progress AS progress,
+        slc.suspended AS suspended,
+        psc.cancelled AS cancelled,
+        psc.renewed AS renewed,
+        psc.exec_psc_num AS execPscNum,
+        psc.itmd_psc_num AS itmdPscNum,
+        psc.st_psc_num AS stPscNum,
+        psc.end_psc_num AS endPscNum,
+        slc.af_reqd AS afReqd,
+        psc.plan_ctrl AS planCtrl,
+        psc.tfr_num AS tfrNum,
+        slc.af_bnd AS afBnd,
+        slc.af_bndr_id AS afBndrId,
+        spo.prsnl_num AS afBndrNum,
+        sp2.full_name AS afBndrName,
+        slc.af_bnd_time AS afBndTime,
+        slc.pu_ctrl AS puCtrl,
+        slc.pu_fwdd AS puFwdd,
+        psc.base_psc_num AS basePscNum,
+        slc1.slc_num AS baseSlcNum,
+        psc.remarks AS remarks
+    FROM
+    ( SELECT a.* FROM slc a WHERE 1 = 1
+    )
+    slc
+    inner join psc psc on psc.psc_num = slc.psc_num
+    left join slc slc1 on slc1.psc_num = psc.base_psc_num
+    left join vender v on v.vender_id = psc.vender_id
+    and v.owner_id = psc.vendee_id
+    left join sys_unit su on su.unit_id = psc.vendee_id
+    left join sys_unit_owner suo on suo.unit_id = psc.vendee_id
+    and suo.owner_id = psc.vender_id
+    left join sys_unit su1 on su1.unit_id = psc.vdr_wareh_id
+    left join sys_unit_owner suo1 on suo1.unit_id = psc.vdr_wareh_id
+    and suo1.owner_id = psc.vender_id
+    left join sys_unit su2 on su2.unit_id = psc.vde_wareh_id
+    left join sys_unit_owner suo2 on suo2.unit_id = psc.vde_wareh_id
+    and suo2.owner_id = psc.vendee_id
+    left join sys_unit su3 on su3.unit_id = psc.st_unit_id
+    left join sys_unit_owner suo3 on suo3.unit_id = psc.st_unit_id
+    and suo3.owner_id = psc.vender_id
+    left join sys_unit su5 on su5.unit_id = psc.st_wareh_id
+    left join sys_unit_owner suo5 on suo5.unit_id = psc.st_wareh_id
+    and suo5.owner_id = psc.st_unit_id
+    left join sys_unit su6 on su6.unit_id = psc.end_unit_id
+    left join sys_unit_owner suo6 on suo6.unit_id = psc.end_unit_id
+    and suo6.owner_id = psc.vendee_id
+    left join sys_unit su7 on su7.unit_id = psc.end_wareh_id
+    left join sys_unit_owner suo7 on suo7.unit_id = psc.end_wareh_id
+    and suo7.owner_id = psc.end_unit_id
+    left join sys_unit su8 on su8.unit_id = psc.tran_unit_id
+    left join sys_unit_owner suo8 on suo8.unit_id = psc.tran_unit_id
+    and suo8.owner_id = psc.vendee_id
+    left join sys_unit su9 on su9.unit_id = psc.vdr_fscl_unit_id
+    left join sys_unit su10 on su10.unit_id = psc.vde_fscl_unit_id
+    left join prod_cat pc on pc.prod_cat_id = psc.prod_cat_id
+    left join sys_prsnl sp on sp.prsnl_id = psc.opr_id
+    left join sys_prsnl sp1 on sp1.prsnl_id = slc.chkr_id
+    left join sys_prsnl_owner spo1 on spo1.prsnl_id = slc.chkr_id
+    and spo1.owner_id = psc.vendee_id
+    left join sys_prsnl_owner spo on spo.prsnl_id = slc.af_bndr_id
+    and spo.owner_id = psc.vendee_id
+    left join sys_prsnl sp2 on sp2.prsnl_id = slc.af_bndr_id
+    WHERE
+    1 =1
+    and psc.psc_num  = #{pscNum}
+  </select>
+
+    <select id="selectByWareh" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PscVo"
+            resultMap="BaseResultMapWareh">
+    SELECT
+    slc.psc_num AS cntrNum,
+    psc.vender_id AS delivUnitId,
+    psc.vendee_id AS rcvUnitId,
+    psc.vdr_wareh_id AS delivWarehId,
+    psc.vde_wareh_id AS rcvWarehId,
+    psc.st_unit_id AS stUnitId,
+    psc.st_wareh_id AS stWarehId,
+    psc.end_unit_id AS endUnitId,
+    psc.end_wareh_id AS endWarehId,
+    psc.tran_unit_id AS tranUnitId,
+    slc.sl_brdg_mode AS brdgMode,
+    psc.deliv_mthd AS delivMthd,
+    psc.deliv_pstd AS delivPstd,
+    psc.deliv_addr AS delivAddr,
+    psc.bxi_enabled AS bxiEnabled,
+    psc.ttl_qty AS ttlQty,
+    psc.ttl_box AS ttlBox,
+    psc.ttl_val AS ttlVal,
+    psc.ttl_tax AS ttlTax,
+    psc.ttl_mkv AS ttlMkv,
+    psc.ttl_expd_rwd AS ttlRwd
+    FROM
+    ( SELECT a.* FROM slc a WHERE 1 = 1 and a.unit_id=#{unitId} and a.slc_num=#{slcNum}
+    )
+    slc
+    INNER JOIN psc psc ON psc.psc_num = slc.psc_num
+    WHERE
+    1 =1
+  </select>
+
+    <select id="findByWareh" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PscVo"
+            resultMap="BaseResultMapWareh">
+    SELECT
+    slc.psc_num AS cntrNum,
+    psc.vender_id AS delivUnitId,
+    psc.vendee_id AS rcvUnitId,
+    psc.vdr_wareh_id AS delivWarehId,
+    psc.vde_wareh_id AS rcvWarehId,
+    psc.st_unit_id AS stUnitId,
+    psc.st_wareh_id AS stWarehId,
+    psc.end_unit_id AS endUnitId,
+    psc.end_wareh_id AS endWarehId,
+    psc.tran_unit_id AS tranUnitId,
+    slc.sl_brdg_mode AS brdgMode,
+    psc.deliv_mthd AS delivMthd,
+    psc.deliv_pstd AS delivPstd,
+    psc.deliv_addr AS delivAddr,
+    psc.bxi_enabled AS bxiEnabled,
+    IF
+        (
+            psc.vdr_invd = 'T',
+            1 ,
+            0
+        ) AS intervene,
+	SUM(IFNULL(pDtl.qty, 0 ) - IFNULL(pDtl.deliv_qty,0)) AS ttlQty,
+	( IFNULL( psc.ttl_box, 0 ) - IFNULL( psc.ttl_deliv_box, 0 ) ) AS ttlBox,
+	( IFNULL( psc.ttl_expd_rwd, 0 ) - IFNULL( psc.ttl_deliv_rwd, 0 ) ) AS ttlRwd,
+	SUM(IFNULL(pDtl.val, 0 ) - IFNULL(pDtl.deliv_val,0)) AS ttlVal,
+	SUM(IFNULL(pDtl.tax, 0 ) - IFNULL(pDtl.deliv_tax,0)) AS ttlTax,
+	SUM(IFNULL(pDtl.mkv, 0 ) - IFNULL(pDtl.deliv_mkv,0)) AS ttlMkv
+    FROM
+    ( SELECT a.* FROM slc a WHERE 1 = 1 and a.unit_id=#{unitId} and a.slc_num=#{slcNum}
+    )
+    slc
+    INNER JOIN PSC psc ON psc.psc_num = slc.psc_num
+	left JOIN psc_dtl pDtl ON pDtl.psc_num = slc.psc_num AND IFNULL(pDtl.qty,0) &gt; IFNULL(pDtl.deliv_qty,0)
+    WHERE
+    1 =1
+  </select>
+
+    <select id="getSlcByStb" resultMap="BaseResultMapSlc">
+        SELECT
+        slc.unit_id AS unitId,
+        slc.slc_num AS slcNum,
+        slc.psc_num AS pscNum,
+        psc.doc_date AS docDate,
+        slc.slc_type AS slcType,
+        psc.psc_type AS pscType,
+        psc.vender_id AS venderId,
+        psc.vendee_id AS vendeeId,
+        v.psa_ctlr AS psaCtlr,
+        psc.vdr_wareh_id AS vdrWarehId,
+        psc.vde_wareh_id AS vdeWarehId,
+        psc.st_unit_id AS stUnitId,
+        psc.st_wareh_id AS stWarehId,
+        psc.end_unit_id AS endUnitId,
+        psc.end_wareh_id AS endWarehId,
+        psc.tran_unit_id AS tranUnitId,
+        psc.vdr_fscl_unit_id AS vdrFsclUnitId,
+        psc.vde_fscl_unit_id	AS vdeFsclUnitId,
+        psc.vde_invd AS vdeInvd,
+        psc.puc_auto_gen AS pucAutoGen,
+        psc.puc_auto_chk AS pucAutoChk,
+        psc.puc_gen AS pucGen,
+        psc.slc_auto_gen AS slcAutoGen,
+        psc.slc_gen AS slcGen,
+        psc.slc_auto_chk AS slcAutoChk,
+        psc.is_sl_itmd AS isSlItmd,
+        psc.is_pu_itmd AS isPuItmd,
+        slc.sl_brdg_mode AS slBrdgMode,
+        psc.prc_site AS prcSite,
+        psc.is_cms AS isCms,
+        psc.dr_diff_jgd AS drDiffJgd,
+        psc.multi_impl AS multiImpl,
+        psc.impl_by_ins AS implByIns,
+        psc.is_spot AS isSpot,
+        psc.rqd_ctrl AS rqdCtrl,
+        psc.rqd_ctrl AS rqdCtrlOld,
+        psc.reqd_date AS reqdDate,
+        psc.ps_stl_mthd AS psStlMthd,
+        psc.spl_enabled AS splEnabled,
+        psc.deposit AS deposit,
+        psc.mfz_enabled AS mfzEnabled,
+        psc.gm_enabled AS gmEnabled,
+        psc.gua_mon AS guaMon,
+        psc.exbl_rate AS exblRate,
+        psc.ps_mfz_site AS psMfzSite,
+        psc.src_doc_type AS srcDocType,
+        psc.src_doc_unit_id AS srcDocUnitId,
+        psc.src_doc_num AS srcDocNum,
+        psc.prod_cat_id AS prodCatId,
+        psc.ord_type AS ordType,
+        psc.expd_date AS expdDate,
+        psc.deliv_mthd AS delivMthd,
+        psc.deliv_pstd AS delivPstd,
+        psc.deliv_addr AS delivAddr,
+        psc.bxi_enabled AS bxiEnabled,
+        psc.ttl_qty AS ttlQty,
+        psc.ttl_box AS ttlBox,
+        psc.ttl_val AS ttlVal,
+        psc.ttl_tax AS ttlTax,
+        psc.tasks_in_deliv AS tasksInDeliv,
+        psc.tasks_in_rcv AS tasksInRcv,
+        psc.ttl_mkv AS ttlMkv,
+        <choose>
+            <when test="flag">
+                ifnull(psc.ttl_deliv_qty,0)+stb.ttl_qty AS ttlDelivQty,
+                ifnull(psc.ttl_deliv_box,0)+stb.ttl_box AS ttlDelivBox,
+                ifnull(psc.ttl_deliv_val,0)+stb.ttl_val AS ttlDelivVal,
+                ifnull(psc.ttl_deliv_tax,0)+stb.ttl_tax AS ttlDelivTax,
+                ifnull(psc.ttl_deliv_mkv,0)+stb.ttl_mkv AS ttlDelivMkv,
+            </when>
+            <otherwise>
+                ifnull(psc.ttl_deliv_qty,0)-stb.ttl_qty AS ttlDelivQty,
+                ifnull(psc.ttl_deliv_box,0)-stb.ttl_box AS ttlDelivBox,
+                ifnull(psc.ttl_deliv_val,0)-stb.ttl_val AS ttlDelivVal,
+                ifnull(psc.ttl_deliv_tax,0)-stb.ttl_tax AS ttlDelivTax,
+                ifnull(psc.ttl_deliv_mkv,0)-stb.ttl_mkv AS ttlDelivMkv,
+            </otherwise>
+        </choose>
+        psc.ttl_rcv_qty AS ttlRcvQty,
+        psc.ttl_rcv_box AS ttlRcvBox,
+        psc.ttl_rcv_tax AS ttlRcvTax,
+        psc.ttl_rcv_val AS ttlRcvVal,
+        psc.ttl_rcv_mkv AS ttlRcvMkv,
+        psc.ttl_rs_qty AS ttlRsQty,
+        psc.ttl_rs_box AS ttlRsBox,
+        psc.ttl_rs_val AS ttlRsVal,
+        psc.ttl_rs_tax AS ttlRsTax,
+        psc.ttl_rs_mkv AS ttlRsMkv,
+        psc.ttl_rp_qty AS ttlRpQty,
+        psc.ttl_rp_box AS ttlRpBox,
+        psc.ttl_rp_val AS ttlRpVal,
+        psc.ttl_rp_tax AS ttlRpTax,
+        psc.ttl_rp_mkv AS ttlRpMkv,
+        psc.ttl_expd_rwd AS ttlExpdRwd,
+        psc.ttl_deliv_rwd AS ttlDelivRwd,
+        psc.ttl_rcv_rwd AS ttlRcvRwd,
+        psc.opr_id AS oprId,
+        psc.op_time AS opTime,
+        slc.chkr_id AS chkrId,
+        slc.chk_time AS chkTime,
+        psc.effective AS effective,
+        psc.progress AS progress,
+        slc.suspended AS suspended,
+        psc.cancelled AS cancelled,
+        psc.renewed AS renewed,
+        psc.exec_psc_num AS execPscNum,
+        psc.itmd_psc_num AS itmdPscNum,
+        psc.st_psc_num AS stPscNum,
+        psc.end_psc_num AS endPscNum,
+        slc.af_reqd AS afReqd,
+        psc.plan_ctrl AS planCtrl,
+        psc.tfr_num AS tfrNum,
+        slc.af_bnd AS afBnd,
+        slc.af_bndr_id AS afBndrId,
+        slc.af_bnd_time AS afBndTime,
+        slc.pu_ctrl AS puCtrl,
+        slc.pu_fwdd AS puFwdd,
+        psc.base_psc_num AS basePscNum,
+        slc1.slc_num AS baseSlcNum,
+        psc.remarks AS remarks
+        FROM
+        ( SELECT a.* FROM slc a WHERE 1 = 1 and a.unit_id=#{srcDocUnitId}
+        and a.slc_num=#{srcDocNum}
+        )
+        slc
+        INNER JOIN psc psc ON psc.psc_num = slc.psc_num
+        LEFT JOIN stb stb ON stb.unit_id=#{docUnitId} and stb.stb_num=#{docNum}
+        LEFT JOIN slc slc1 ON slc1.psc_num = psc.base_psc_num
+        LEFT JOIN vender v ON v.vender_id = psc.vender_id
+        AND v.owner_id = psc.vendee_id
+        WHERE
+        1 =1
+    </select>
+
+    <select id="selectByRgo" resultMap="BaseResultMapSlc">
+        SELECT
+        slc.unit_id AS unitId,
+        slc.slc_num AS slcNum,
+        slc.psc_num AS pscNum,
+        psc.doc_date AS docDate,
+        slc.slc_type AS slcType,
+        psc.psc_type AS pscType,
+        psc.vender_id AS venderId,
+        psc.vendee_id AS vendeeId,
+        v.psa_ctlr AS psaCtlr,
+        psc.vdr_wareh_id AS vdrWarehId,
+        psc.vde_wareh_id AS vdeWarehId,
+        psc.st_unit_id AS stUnitId,
+        psc.st_wareh_id AS stWarehId,
+        psc.end_unit_id AS endUnitId,
+        psc.end_wareh_id AS endWarehId,
+        psc.tran_unit_id AS tranUnitId,
+        psc.vdr_fscl_unit_id AS vdrFsclUnitId,
+        psc.vde_fscl_unit_id	AS vdeFsclUnitId,
+        psc.vde_invd AS vdeInvd,
+        psc.puc_auto_gen AS pucAutoGen,
+        psc.puc_auto_chk AS pucAutoChk,
+        psc.puc_gen AS pucGen,
+        psc.slc_auto_gen AS slcAutoGen,
+        psc.slc_gen AS slcGen,
+        psc.slc_auto_chk AS slcAutoChk,
+        psc.is_sl_itmd AS isSlItmd,
+        psc.is_pu_itmd AS isPuItmd,
+        slc.sl_brdg_mode AS slBrdgMode,
+        psc.prc_site AS prcSite,
+        psc.is_cms AS isCms,
+        psc.dr_diff_jgd AS drDiffJgd,
+        psc.multi_impl AS multiImpl,
+        psc.impl_by_ins AS implByIns,
+        psc.is_spot AS isSpot,
+        psc.rqd_ctrl AS rqdCtrl,
+        psc.rqd_ctrl AS rqdCtrlOld,
+        psc.reqd_date AS reqdDate,
+        psc.ps_stl_mthd AS psStlMthd,
+        psc.spl_enabled AS splEnabled,
+        psc.deposit AS deposit,
+        psc.mfz_enabled AS mfzEnabled,
+        psc.gm_enabled AS gmEnabled,
+        psc.gua_mon AS guaMon,
+        psc.exbl_rate AS exblRate,
+        psc.ps_mfz_site AS psMfzSite,
+        psc.src_doc_type AS srcDocType,
+        psc.src_doc_unit_id AS srcDocUnitId,
+        psc.src_doc_num AS srcDocNum,
+        psc.prod_cat_id AS prodCatId,
+        psc.ord_type AS ordType,
+        psc.expd_date AS expdDate,
+        psc.deliv_mthd AS delivMthd,
+        psc.deliv_pstd AS delivPstd,
+        psc.deliv_addr AS delivAddr,
+        psc.bxi_enabled AS bxiEnabled,
+        psc.ttl_qty AS ttlQty,
+        psc.ttl_box AS ttlBox,
+        psc.ttl_val AS ttlVal,
+        psc.ttl_tax AS ttlTax,
+        psc.tasks_in_deliv AS tasksInDeliv,
+        psc.tasks_in_rcv AS tasksInRcv,
+        psc.ttl_mkv AS ttlMkv,
+        psc.ttl_deliv_qty AS ttlDelivQty,
+        psc.ttl_deliv_box AS ttlDelivBox,
+        psc.ttl_deliv_val AS ttlDelivVal,
+        psc.ttl_deliv_tax AS ttlDelivTax,
+        psc.ttl_deliv_mkv AS ttlDelivMkv,
+        psc.ttl_rcv_qty AS ttlRcvQty,
+        psc.ttl_rcv_box AS ttlRcvBox,
+        psc.ttl_rcv_tax AS ttlRcvTax,
+        psc.ttl_rcv_val AS ttlRcvVal,
+        psc.ttl_rcv_mkv AS ttlRcvMkv,
+        psc.ttl_rs_qty AS ttlRsQty,
+        psc.ttl_rs_box AS ttlRsBox,
+        psc.ttl_rs_val AS ttlRsVal,
+        psc.ttl_rs_tax AS ttlRsTax,
+        psc.ttl_rs_mkv AS ttlRsMkv,
+        psc.ttl_rp_qty AS ttlRpQty,
+        psc.ttl_rp_box AS ttlRpBox,
+        psc.ttl_rp_val AS ttlRpVal,
+        psc.ttl_rp_tax AS ttlRpTax,
+        psc.ttl_rp_mkv AS ttlRpMkv,
+        psc.ttl_expd_rwd AS ttlExpdRwd,
+        psc.ttl_deliv_rwd AS ttlDelivRwd,
+        psc.ttl_rcv_rwd AS ttlRcvRwd,
+        psc.opr_id AS oprId,
+        psc.op_time AS opTime,
+        slc.chkr_id AS chkrId,
+        slc.chk_time AS chkTime,
+        psc.effective AS effective,
+        psc.progress AS progress,
+        slc.suspended AS suspended,
+        psc.cancelled AS cancelled,
+        psc.renewed AS renewed,
+        psc.exec_psc_num AS execPscNum,
+        psc.itmd_psc_num AS itmdPscNum,
+        psc.st_psc_num AS stPscNum,
+        psc.end_psc_num AS endPscNum,
+        slc.af_reqd AS afReqd,
+        psc.plan_ctrl AS planCtrl,
+        psc.tfr_num AS tfrNum,
+        slc.af_bnd AS afBnd,
+        slc.af_bndr_id AS afBndrId,
+        slc.af_bnd_time AS afBndTime,
+        slc.pu_ctrl AS puCtrl,
+        slc.pu_fwdd AS puFwdd,
+        psc.base_psc_num AS basePscNum,
+        slc1.slc_num AS baseSlcNum,
+        psc.remarks AS remarks
+        FROM
+        ( SELECT a.* FROM slc a WHERE 1 = 1 and a.unit_id=#{unitId}
+        )
+        slc
+        INNER JOIN psc psc ON psc.psc_num = slc.psc_num
+        LEFT JOIN slc slc1 ON slc1.psc_num = psc.base_psc_num
+        LEFT JOIN vender v ON v.vender_id = psc.vender_id
+        AND v.owner_id = psc.vendee_id
+        WHERE
+        1 =1 and psc.vendee_id=#{vendeeId} and psc.src_doc_unit_id=#{unitId} and psc.src_doc_num = #{rgoNum}
+    </select>
+
+</mapper>

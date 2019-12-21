@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysUserRoleMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.vo.system.UserRoleVo">
+        <id column="user_id" property="userId"/>
+        <id column="owner_id" property="ownerId"/>
+        <id column="unlimited" jdbcType="CHAR" property="unlimited"/>
+        <id column="ug_id" property="ugId"/>
+        <id column="unit_id" property="unitId"/>
+        <id column="role_id" jdbcType="VARCHAR" property="roleId"/>
+        <id column="roleType" jdbcType="VARCHAR" property="roleType"/>
+        <id column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+
+
+    <sql id="baseSql">
+    user_id,owner_id,unlimited,ug_id,unit_id,role_id
+  </sql>
+
+    <!--删除组织下用户角色-->
+    <delete id="deleteUserRole" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUserRoleKey">
+        delete from sys_user_role
+        where
+        unit_id = #{unitId}
+        and
+         role_id=#{roleId}
+    </delete>
+    <delete id="deletUserRole" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysRole">
+        delete from sys_user_role
+        where
+         role_id=#{roleId}
+    </delete>
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUserRoleKey">
+        delete from sys_user_role
+        where user_id = #{userId}
+        <if test="ownerId!=null">
+            and owner_id = #{ownerId}
+        </if>
+        <if test="unlimited!=null">
+            and unlimited = #{unlimited}
+        </if>
+
+        <if test="ugId!=null">
+            and ug_id = #{ugId}
+        </if>
+
+        <if test="unitId!=null">
+            and unit_id = #{unitId}
+        </if>
+
+        <if test="roleId!=null">
+            and role_id = #{roleId}
+        </if>
+
+    </delete>
+    <delete id="deleteList">
+        <foreach collection="list" item="role" index="index" open="" close="" separator=";">
+            delete from sys_user_role
+            where user_id = #{role.userId}
+            and owner_id= #{role.ownerId}
+            and role_id=#{role.roleId}
+            <if test="role.unitId!=null and role.unitId!=0">
+                and unit_id = #{role.unitId}
+            </if>
+            <if test="role.ugId!=null and role.ugId!=0">
+                and ug_id = #{role.ugId}
+            </if>
+        </foreach>
+    </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUserRoleKey">
+    insert into sys_user_role (user_id, owner_id, unlimited, 
+      ug_id, unit_id, role_id
+      )
+    values (#{userId}, #{ownerId}, #{unlimited,jdbcType=CHAR}, 
+      #{ugId}, #{unitId}, #{roleId}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUserRoleKey">
+        insert into sys_user_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="ownerId != null">
+                owner_id,
+            </if>
+            <if test="unlimited != null">
+                unlimited,
+            </if>
+            <if test="ugId != null">
+                ug_id,
+            </if>
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="ownerId != null">
+                #{ownerId},
+            </if>
+            <if test="unlimited != null">
+                #{unlimited,jdbcType=CHAR},
+            </if>
+            <if test="ugId != null">
+                #{ugId},
+            </if>
+            <if test="unitId != null">
+                #{unitId},
+            </if>
+            <if test="roleId != null">
+                #{roleId},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertList">
+        insert into
+        sys_user_role (user_id,owner_id,unlimited,ug_id,unit_id,role_id)
+        values
+        <foreach collection="list" item="role" index="index" separator=",">
+            (#{role.userId},#{role.ownerId},#{role.unlimited},#{role.ugId},#{role.unitId},#{role.roleId})
+        </foreach>
+
+    </insert>
+
+    <!--查询用户角色-->
+    <select id="selectAll" parameterType="com.boyu.erp.platform.usercenter.vo.system.UserRoleVo"
+            resultType="com.boyu.erp.platform.usercenter.vo.system.UserRoleVo">
+        SELECT
+        a.user_id as userId,
+        a.owner_id as ownerId,
+        b.`description` AS description,
+        b.`role_id` AS roleId,
+        b.`role_type` AS roleType,
+        a.`ug_id` as ugId,
+        a.`unit_id` as unitId,
+        a.`unlimited` as unlimited,
+        c.`description` AS unlimitedCp,
+        u.`ug_num` as ugNum,
+        u.`ug_name` as ugName,
+        u2.`unit_code` as unitCode,
+        u2.`unit_name` as unitName
+        FROM
+        sys_user_role a
+        INNER JOIN sys_role b
+        ON (a.role_id = b.`role_id`)
+        left join sys_code_dtl c
+        on a.unlimited = c.`code`
+        and c.`code_type` = 'TandF'
+        left join sys_unit u2
+        on u2.`unit_id` = a.unit_id
+        left join sys_ug u
+        on a.ug_id = u.`ug_id`
+        WHERE a.`user_id` = #{userId}
+        AND a.`owner_id` = #{ownerId}
+        <if test="description!=null">
+            AND INSTR(b.`description`, #{description}) > 0
+        </if>
+        <if test="roleId!=null">
+            AND INSTR(b.`role_id`, #{roleId}) > 0
+        </if>
+        <if test="roleType!=null">
+            AND INSTR(b.`role_type`, #{roleType}) > 0
+        </if>
+    </select>
+    <!--查询管理员角色-->
+    <select id="adminRole" parameterType="com.boyu.erp.platform.usercenter.vo.system.UserRoleVo"
+            resultType="com.boyu.erp.platform.usercenter.entity.system.SysRole">
+        SELECT
+        t.`description` AS description,
+        t.`role_id` AS roleId,
+        t.`role_type` AS roleType
+        FROM
+        sys_unit_role r
+        INNER JOIN sys_role t
+        ON r.`role_id` = t.`role_id`
+        WHERE r.`unit_id` = #{ownerId}
+        <if test="roleId!=null">
+            AND INSTR (t.role_id, #{roleId}) > 0
+        </if>
+        <if test="roleType!=null">
+            AND INSTR (t.`role_type` ,#{roleType})>0
+        </if>
+        <if test="description!=null">
+            AND INSTR (t.`description` ,#{description})>0
+        </if>
+    </select>
+
+    <!--查询系统管理员角色-->
+    <select id="getRole" parameterType="com.boyu.erp.platform.usercenter.vo.system.UserRoleVo" resultType="SysRole">
+        SELECT
+        `description` AS description,
+        `role_id` AS roleId,
+        `role_type` AS roleType
+        FROM
+        sys_role
+        WHERE 1 = 1
+        <if test="roleId!=null">
+            AND INSTR(role_id, #{roleId}) > 0
+        </if>
+        <if test="roleType!=null">
+            AND INSTR(role_type ,#{roleType})>0
+        </if>
+        <if test="description!=null">
+            AND INSTR(description ,#{description})>0
+        </if>
+    </select>
+
+</mapper>

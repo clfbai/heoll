@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sales.SlcTypeMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.sales.SlcType">
+    <id column="SLC_TYPE" jdbcType="VARCHAR" property="slcType" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="PSC_TYPE" jdbcType="VARCHAR" property="pscType" />
+    <result column="SL_BRDG_MODE" jdbcType="CHAR" property="slBrdgMode" />
+    <result column="SL_BRDG_MODE_ALT" jdbcType="CHAR" property="slBrdgModeAlt" />
+    <result column="AF_REQD" jdbcType="CHAR" property="afReqd" />
+    <result column="AF_REQD_ALT" jdbcType="CHAR" property="afReqdAlt" />
+    <result column="ACTIVE" jdbcType="CHAR" property="active" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapByPscAuto" type="com.boyu.erp.platform.usercenter.vo.purchase.PscAutoVo">
+    <result column="slcType" property="slcType"/>
+    <result column="pscType" property="pscType"/>
+    <result column="slBrdgMode" property="slBrdgMode"/>
+    <result column="slBrdgModeAlt" property="slBrdgModeAlt"/>
+    <result column="afReqd" property="afReqd"/>
+    <result column="afReqdAlt" property="afReqdAlt"/>
+    <result column="rcvWarehReqd" property="rcvWarehReqd"/>
+    <result column="pucAutoGen" property="pucAutoGen"/>
+    <result column="pucAutoChk" property="pucAutoChk"/>
+    <result column="isPuItmd" property="isPuItmd"/>
+    <result column="isPuItmdAlt" property="isPuItmdAlt"/>
+    <result column="delivWarehReqd" property="delivWarehReqd"/>
+    <result column="slcAutoGen" property="slcAutoGen"/>
+    <result column="slcAutoChk" property="slcAutoChk"/>
+    <result column="isSlItmd" property="isSlItmd"/>
+    <result column="isSlItmdAlt" property="isSlItmdAlt"/>
+    <result column="tranUnitReqd" property="tranUnitReqd"/>
+    <result column="drDiffJgd" property="drDiffJgd"/>
+    <result column="drDiffJgdAlt" property="drDiffJgdAlt"/>
+    <result column="implByIns" property="implByIns"/>
+    <result column="implByInsAlt" property="implByInsAlt"/>
+    <result column="multiImpl" property="multiImpl"/>
+    <result column="multiImplAlt" property="multiImplAlt"/>
+    <result column="isSpot" property="isSpot"/>
+    <result column="isSpotAlt" property="isSpotAlt"/>
+    <result column="prcSite" property="prcSite"/>
+    <result column="prcSiteAlt" property="prcSiteAlt"/>
+    <result column="rqdCtrl" property="rqdCtrl"/>
+    <result column="rqdCtrlAlt" property="rqdCtrlAlt"/>
+    <result column="splEnabled" property="splEnabled"/>
+    <result column="splEnabledAlt" property="splEnabledAlt"/>
+    <result column="exblRate" property="exblRate"/>
+    <result column="isCms" property="isCms"/>
+    <result column="isCmsAlt" property="isCmsAlt"/>
+    <result column="psStlMthd" property="psStlMthd"/>
+    <result column="psStlMthdAlt" property="psStlMthdAlt"/>
+    <result column="mfzEnabled" property="mfzEnabled"/>
+    <result column="mfzEnabledAlt" property="mfzEnabledAlt"/>
+    <result column="psMfzSite" property="psMfzSite"/>
+    <result column="psMfzSiteAlt" property="psMfzSiteAlt"/>
+    <result column="dpstRate" property="dpstRate"/>
+    <result column="gmEnabled" property="gmEnabled"/>
+    <result column="gmEnabledAlt" property="gmEnabledAlt"/>
+    <result column="gmRate" property="gmRate"/>
+    <result column="planCtrl" property="planCtrl"/>
+    <result column="planCtrlAlt" property="planCtrlAlt"/>
+    <result column="bxiEnabled" property="bxiEnabled"/>
+    <result column="bxiEnabledAlt" property="bxiEnabledAlt"/>
+
+  </resultMap>
+
+  <resultMap id="BaseResultMapOption" type="com.boyu.erp.platform.usercenter.vo.system.PurKeyValue">
+    <result column="optionValue" property="optionValue"/>
+    <result column="optionName" property="optionName"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    SLC_TYPE, DESCRIPTION, PSC_TYPE, SL_BRDG_MODE, SL_BRDG_MODE_ALT, AF_REQD, AF_REQD_ALT, 
+    ACTIVE
+  </sql>
+  <delete id="deleteBySlcType" parameterType="com.boyu.erp.platform.usercenter.entity.sales.SlcType">
+    delete from slc_type
+    where SLC_TYPE = #{slcType,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.sales.SlcType">
+    insert into slc_type (SLC_TYPE, DESCRIPTION, PSC_TYPE, 
+      SL_BRDG_MODE, SL_BRDG_MODE_ALT, AF_REQD, 
+      AF_REQD_ALT, ACTIVE)
+    values (#{slcType,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{pscType,jdbcType=VARCHAR}, 
+      #{slBrdgMode,jdbcType=CHAR}, #{slBrdgModeAlt,jdbcType=CHAR}, #{afReqd,jdbcType=CHAR}, 
+      #{afReqdAlt,jdbcType=CHAR}, #{active,jdbcType=CHAR})
+  </insert>
+  <update id="updateBySlcType" parameterType="com.boyu.erp.platform.usercenter.entity.sales.SlcType">
+    update slc_type
+    set DESCRIPTION = #{description,jdbcType=VARCHAR},
+      PSC_TYPE = #{pscType,jdbcType=VARCHAR},
+      SL_BRDG_MODE = #{slBrdgMode,jdbcType=CHAR},
+      SL_BRDG_MODE_ALT = #{slBrdgModeAlt,jdbcType=CHAR},
+      AF_REQD = #{afReqd,jdbcType=CHAR},
+      AF_REQD_ALT = #{afReqdAlt,jdbcType=CHAR},
+      ACTIVE = #{active,jdbcType=CHAR}
+    where SLC_TYPE = #{slcType,jdbcType=VARCHAR}
+  </update>
+  <select id="getSlcTypeList" parameterType="com.boyu.erp.platform.usercenter.entity.sales.SlcType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from slc_type
+    where
+    1 = 1
+    <if test="slcType != null and slcType != '' and slcType != 'null' ">
+      and slc_type like CONCAT( #{slcType,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="description != null and description != '' and description != 'null' ">
+      and description like  CONCAT(#{description,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="pscType != null and pscType != '' and pscType != 'null' ">
+      and psc_type like  CONCAT( #{pscType,jdbcType=VARCHAR}, '%')
+    </if>
+  </select>
+
+  <select id="selecyByPscType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from slc_type
+    where
+    1 = 1
+    and PSC_TYPE = #{pscType}
+  </select>
+
+  <!--销售合同类别下拉-->
+  <select id="selectByPscAuto" parameterType="java.lang.String"
+          resultMap="BaseResultMapByPscAuto">
+      SELECT
+    slc.slc_type  AS slcType,
+    psc.psc_type as  pscType,
+    slc.sl_brdg_mode AS slBrdgMode,
+    slc.sl_brdg_mode_alt AS slBrdgModeAlt,
+    slc.af_reqd AS afReqd,
+    slc.af_reqd_alt AS afReqdAlt,
+    psc.rcv_wareh_reqd AS rcvWarehReqd,
+    psc.puc_auto_gen AS pucAutoGen,
+    psc.puc_auto_chk AS pucAutoChk,
+    psc.is_pu_itmd AS isPuItmd,
+    psc.is_pu_itmd_alt AS isPuItmdAlt,
+    psc.deliv_wareh_reqd AS delivWarehReqd,
+    psc.slc_auto_gen AS slcAutoGen,
+    psc.slc_auto_chk AS slcAutoChk,
+    psc.is_sl_itmd AS isSlItmd,
+    psc.is_sl_itmd_alt AS isSlItmdAlt,
+    psc.tran_unit_reqd AS tranUnitReqd,
+    psc.dr_diff_jgd AS drDiffJgd,
+    psc.dr_diff_jgd_alt AS drDiffJgdAlt,
+    psc.impl_by_ins AS implByIns,
+    psc.impl_by_ins_alt AS implByInsAlt,
+    psc.multi_impl AS multiImpl,
+    psc.multi_impl_alt AS multiImplAlt,
+    psc.is_spot AS isSpot,
+    psc.is_spot_alt AS isSpotAlt,
+    psc.prc_site AS prcSite,
+    psc.prc_site_alt AS prcSiteAlt,
+    psc.rqd_ctrl AS rqdCtrl,
+    psc.rqd_ctrl_alt AS rqdCtrlAlt,
+    psc.spl_enabled AS splEnabled,
+    psc.spl_enabled_alt AS splEnabledAlt,
+    psc.exbl_rate AS exblRate,
+    psc.is_cms AS isCms,
+    psc.is_cms_alt AS isCmsAlt,
+    psc.ps_stl_mthd AS psStlMthd,
+    psc.ps_stl_mthd_alt AS psStlMthdAlt,
+    psc.mfz_enabled AS mfzEnabled,
+    psc.mfz_enabled_alt AS mfzEnabledAlt,
+    psc.ps_mfz_site AS psMfzSite,
+    psc.ps_mfz_site_alt AS psMfzSiteAlt,
+    psc.dpst_rate AS dpstRate,
+    psc.gm_enabled AS gmEnabled,
+    psc.gm_enabled_alt AS gmEnabledAlt,
+    psc.gm_rate AS gmRate,
+    psc.plan_ctrl AS planCtrl,
+    psc.plan_ctrl_alt AS planCtrlAlt,
+    psc.bxi_enabled AS bxiEnabled,
+    psc.bxi_enabled_alt AS bxiEnabledAlt
+    FROM
+    slc_type slc
+    LEFT JOIN psc_type psc ON psc.psc_type = slc.psc_type
+    WHERE 1=1 AND slc.slc_type = #{slcType}
+</select>
+
+  <select id="listBySlcType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from slc_type
+    where
+    1 = 1
+    <if test="slcType!=null and slcType!='' ">
+    and SLC_TYPE = #{slcType}
+    </if>
+    <if test="pscType!=null and pscType!='' ">
+      and PSC_TYPE = #{pscType}
+    </if>
+  </select>
+
+  <select id="listByPscType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from slc_type
+    where
+    1 = 1
+    <if test="slcType!=null and slcType!='' ">
+      and SLC_TYPE != #{slcType}
+    </if>
+    <if test="pscType!=null and pscType!='' ">
+      and PSC_TYPE = #{pscType}
+    </if>
+  </select>
+
+  <!--采购合同类别下拉-->
+  <select id="optionGet" resultMap="BaseResultMapOption">
+  SELECT slc_type as optionValue , description as optionName
+  FROM
+   slc_type
+  WHERE
+   slc_type!=''
+</select>
+
+</mapper>

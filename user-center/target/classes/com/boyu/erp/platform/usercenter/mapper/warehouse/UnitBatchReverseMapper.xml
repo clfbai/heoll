@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.UnitBatchReverseMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatchReverse">
+        <id column="batch_id" jdbcType="VARCHAR" property="batchId"/>
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="prod_id" jdbcType="BIGINT" property="prodId"/>
+        <result column="num" jdbcType="INTEGER" property="num"/>
+        <result column="move_qty" jdbcType="INTEGER" property="moveQty"/>
+        <result column="doc_num" jdbcType="VARCHAR" property="docNum"/>
+        <result column="doc_type" jdbcType="VARCHAR" property="docType"/>
+        <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime"/>
+        <result column="is_del" jdbcType="VARCHAR" property="isDel"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    batch_id, unit_id, prod_id, num, move_qty, doc_num, doc_type, creat_time,is_del
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatchReverse"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from unit_batch_reverse
+        where batch_id = #{batchId,jdbcType=VARCHAR}
+        and unit_id = #{unitId,jdbcType=BIGINT}
+        and prod_id = #{prodId,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectList" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatchNum"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from unit_batch_reverse
+        where doc_num = #{docNum,jdbcType=VARCHAR}
+        and doc_type=#{docType,jdbcType=VARCHAR}
+        and is_del='T'
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatchReverse">
+    delete from unit_batch_reverse
+    where batch_id = #{batchId,jdbcType=VARCHAR}
+      and unit_id = #{unitId,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </delete>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatchReverse">
+        insert into unit_batch_reverse
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="batchId != null">
+                batch_id,
+            </if>
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="prodId != null">
+                prod_id,
+            </if>
+            <if test="num != null">
+                num,
+            </if>
+            <if test="moveQty != null">
+                move_qty,
+            </if>
+            <if test="docNum != null">
+                doc_num,
+            </if>
+            <if test="docType != null">
+                doc_type,
+            </if>
+            <if test="creatTime != null">
+                creat_time,
+            </if>
+            <if test="isDel != null and isDel != ''">
+                is_del,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="batchId != null">
+                #{batchId,jdbcType=VARCHAR},
+            </if>
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="prodId != null">
+                #{prodId,jdbcType=BIGINT},
+            </if>
+            <if test="num != null">
+                #{num,jdbcType=BIGINT},
+            </if>
+            <if test="moveQty != null">
+                #{moveQty,jdbcType=INTEGER},
+            </if>
+            <if test="docNum != null">
+                #{docNum,jdbcType=VARCHAR},
+            </if>
+            <if test="docType != null">
+                #{docType,jdbcType=VARCHAR},
+            </if>
+            <if test="creatTime != null">
+                #{creatTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDel != null and isDel != ''">
+                #{isDel},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatchReverse">
+        update unit_batch_reverse
+        <set>
+            <if test="num != null">
+                num = #{num,jdbcType=BIGINT},
+            </if>
+            <if test="moveQty != null">
+                move_qty = #{moveQty,jdbcType=INTEGER},
+            </if>
+            <if test="docNum != null">
+                doc_num = #{docNum,jdbcType=VARCHAR},
+            </if>
+            <if test="docType != null">
+                doc_type = #{docType,jdbcType=VARCHAR},
+            </if>
+            <if test="creatTime != null">
+                creat_time = #{creatTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDel != null and isDel != ''">
+                is_del=#{isDel},
+            </if>
+        </set>
+        where batch_id = #{batchId,jdbcType=VARCHAR}
+        and unit_id = #{unitId,jdbcType=BIGINT}
+        and prod_id = #{prodId,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateUnitBatchReverseList" parameterType="java.util.List">
+        <foreach collection="list" item="list" separator=";">
+            update unit_batch_reverse
+            <set>
+                <if test="list.num != null">
+                    num = #{list.num,jdbcType=BIGINT},
+                </if>
+                <if test="list.moveQty != null">
+                    move_qty = #{list.moveQty,jdbcType=INTEGER},
+                </if>
+                <if test="list.docNum != null">
+                    doc_num = #{list.docNum,jdbcType=VARCHAR},
+                </if>
+                <if test="list.docType != null">
+                    doc_type = #{list.docType,jdbcType=VARCHAR},
+                </if>
+                <if test="list.isDel != null and list.isDel != ''">
+                    is_del = #{list.isDel},
+                </if>
+            </set>
+            where batch_id = #{list.batchId,jdbcType=VARCHAR}
+            and unit_id = #{list.unitId,jdbcType=BIGINT}
+            and prod_id = #{list.prodId,jdbcType=BIGINT}
+        </foreach>
+    </update>
+
+</mapper>

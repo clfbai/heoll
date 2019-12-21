@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.Price.XplMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.Price.Xpl">
+        <id column="vender_id" jdbcType="BIGINT" property="venderId"/>
+        <id column="vendee_id" jdbcType="BIGINT" property="vendeeId"/>
+        <id column="prc_ctlr" jdbcType="CHAR" property="prcCtlr"/>
+        <id column="xp_type" jdbcType="CHAR" property="xpType"/>
+        <id column="prod_cls_id" jdbcType="BIGINT" property="prodClsId"/>
+        <result column="prc_plcy" jdbcType="CHAR" property="prcPlcy"/>
+        <result column="unit_price" jdbcType="DECIMAL" property="unitPrice"/>
+        <result column="disc_rate" jdbcType="DECIMAL" property="discRate"/>
+        <result column="fnl_price" jdbcType="DECIMAL" property="fnlPrice"/>
+        <result column="tax_rate" jdbcType="DECIMAL" property="taxRate"/>
+        <result column="spec_ofr" jdbcType="CHAR" property="specOfr"/>
+        <result column="expd_date" jdbcType="DATE" property="expdDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    vender_id, vendee_id, prc_ctlr, xp_type, prod_cls_id, prc_plcy, unit_price, disc_rate, 
+    fnl_price, tax_rate, spec_ofr, expd_date
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.Price.Xpl"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from xpl
+        where vender_id = #{venderId,jdbcType=BIGINT}
+        and vendee_id = #{vendeeId,jdbcType=BIGINT}
+        and prc_ctlr = #{prcCtlr,jdbcType=CHAR}
+        and xp_type = #{xpType,jdbcType=CHAR}
+        and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.Price.Xpl">
+    delete from xpl
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and prc_ctlr = #{prcCtlr,jdbcType=CHAR}
+      and xp_type = #{xpType,jdbcType=CHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.Price.Xpl">
+    insert into xpl (vender_id, vendee_id, prc_ctlr, 
+      xp_type, prod_cls_id, prc_plcy, 
+      unit_price, disc_rate, fnl_price, 
+      tax_rate, spec_ofr, expd_date
+      )
+    values (#{venderId,jdbcType=BIGINT}, #{vendeeId,jdbcType=BIGINT}, #{prcCtlr,jdbcType=CHAR}, 
+      #{xpType,jdbcType=CHAR}, #{prodClsId,jdbcType=BIGINT}, #{prcPlcy,jdbcType=CHAR}, 
+      #{unitPrice,jdbcType=DECIMAL}, #{discRate,jdbcType=DECIMAL}, #{fnlPrice,jdbcType=DECIMAL}, 
+      #{taxRate,jdbcType=DECIMAL}, #{specOfr,jdbcType=CHAR}, #{expdDate,jdbcType=DATE}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.Price.Xpl">
+        insert into xpl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="venderId != null">
+                vender_id,
+            </if>
+            <if test="vendeeId != null">
+                vendee_id,
+            </if>
+            <if test="prcCtlr != null">
+                prc_ctlr,
+            </if>
+            <if test="xpType != null">
+                xp_type,
+            </if>
+            <if test="prodClsId != null">
+                prod_cls_id,
+            </if>
+            <if test="prcPlcy != null">
+                prc_plcy,
+            </if>
+            <if test="unitPrice != null">
+                unit_price,
+            </if>
+            <if test="discRate != null">
+                disc_rate,
+            </if>
+            <if test="fnlPrice != null">
+                fnl_price,
+            </if>
+            <if test="taxRate != null">
+                tax_rate,
+            </if>
+            <if test="specOfr != null">
+                spec_ofr,
+            </if>
+            <if test="expdDate != null">
+                expd_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="venderId != null">
+                #{venderId,jdbcType=BIGINT},
+            </if>
+            <if test="vendeeId != null">
+                #{vendeeId,jdbcType=BIGINT},
+            </if>
+            <if test="prcCtlr != null">
+                #{prcCtlr,jdbcType=CHAR},
+            </if>
+            <if test="xpType != null">
+                #{xpType,jdbcType=CHAR},
+            </if>
+            <if test="prodClsId != null">
+                #{prodClsId,jdbcType=BIGINT},
+            </if>
+            <if test="prcPlcy != null">
+                #{prcPlcy,jdbcType=CHAR},
+            </if>
+            <if test="unitPrice != null">
+                #{unitPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="discRate != null">
+                #{discRate,jdbcType=DECIMAL},
+            </if>
+            <if test="fnlPrice != null">
+                #{fnlPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="taxRate != null">
+                #{taxRate,jdbcType=DECIMAL},
+            </if>
+            <if test="specOfr != null">
+                #{specOfr,jdbcType=CHAR},
+            </if>
+            <if test="expdDate != null">
+                #{expdDate,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.Price.Xpl">
+        update xpl
+        <set>
+            <if test="prcPlcy != null">
+                prc_plcy = #{prcPlcy,jdbcType=CHAR},
+            </if>
+            <if test="unitPrice != null">
+                unit_price = #{unitPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="discRate != null">
+                disc_rate = #{discRate,jdbcType=DECIMAL},
+            </if>
+            <if test="fnlPrice != null">
+                fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="taxRate != null">
+                tax_rate = #{taxRate,jdbcType=DECIMAL},
+            </if>
+            <if test="specOfr != null">
+                spec_ofr = #{specOfr,jdbcType=CHAR},
+            </if>
+            <if test="expdDate != null">
+                expd_date = #{expdDate,jdbcType=DATE},
+            </if>
+        </set>
+        where vender_id = #{venderId,jdbcType=BIGINT}
+        and vendee_id = #{vendeeId,jdbcType=BIGINT}
+        and prc_ctlr = #{prcCtlr,jdbcType=CHAR}
+        and xp_type = #{xpType,jdbcType=CHAR}
+        and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.Price.Xpl">
+    update xpl
+    set prc_plcy = #{prcPlcy,jdbcType=CHAR},
+      unit_price = #{unitPrice,jdbcType=DECIMAL},
+      disc_rate = #{discRate,jdbcType=DECIMAL},
+      fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+      tax_rate = #{taxRate,jdbcType=DECIMAL},
+      spec_ofr = #{specOfr,jdbcType=CHAR},
+      expd_date = #{expdDate,jdbcType=DATE}
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and prc_ctlr = #{prcCtlr,jdbcType=CHAR}
+      and xp_type = #{xpType,jdbcType=CHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+  </update>
+    <!--缺省且不保留组织定价-->
+    <select id="selectByRsvF" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from xpl
+        where 1=1
+        <choose>
+            <when test="venderId=='0'">
+                and vender_id != #{venderId}
+                and vendee_id = #{vendeeId}
+            </when>
+            <when test="vendeeId=='0'">
+                and vender_id = #{venderId}
+                and vendee_id != #{vendeeId}
+            </when>
+        </choose>
+        and prc_ctlr = #{prcCtlr}
+    </select>
+
+    <delete id="deleteByImplementF" parameterType="java.util.Map">
+        delete from xpl
+        where 1=1
+        <choose>
+            <when test=" venderId!=null and venderId!= '' and venderId!='0' ">
+                and vender_id = #{venderId}
+            </when>
+            <when test=" vendeeId!=null and vendeeId!= '' and vendeeId!='0'  ">
+                and vendee_id = #{vendeeId}
+            </when>
+        </choose>
+        and prc_ctlr = #{prcCtlr}
+        and prod_cls_id in (
+        <foreach collection="dtlList" index="index" item="item" separator=",">
+            #{prodClsId}
+        </foreach>
+        )
+    </delete>
+
+    <delete id="deleteByHierImplementF" parameterType="java.util.Map">
+        delete from xpl
+        where 1=1
+        and vender_id in (
+        <foreach collection="list" index="index" item="item" separator=",">
+            #{item.unitId}
+        </foreach>
+        )
+        and vendee_id != 0
+        and prc_ctlr = #{prcCtlr}
+        and prod_cls_id in (
+        <foreach collection="dtlList" index="index" item="item" separator=",">
+            #{prodClsId}
+        </foreach>
+        )
+    </delete>
+
+    <delete id="deleteByImplementT" parameterType="java.util.Map">
+
+        <foreach collection="list" open="" close="" item="item" separator=";">
+            delete from xpl
+            where vender_id = #{item.venderId}
+            and vendee_id = #{item.unitId}
+            and prc_ctlr = #{prcCtlr}
+            and prod_cls_id in (
+            <foreach collection="dtlList" index="index" item="dtlItem" separator=",">
+                #{dtlItem.prodClsId}
+            </foreach>
+            )
+        </foreach>
+
+
+    </delete>
+
+    <insert id="insertByList" parameterType="java.util.Map">
+        insert into xpl (vender_id, vendee_id, prc_ctlr,
+        xp_type, prod_cls_id, prc_plcy,
+        unit_price, disc_rate, fnl_price,
+        tax_rate, spec_ofr, expd_date
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            <foreach collection="dtlList" item="dtlItem" index="index" separator=",">
+                (#{item.venderId,jdbcType=BIGINT}, #{dtlItem.unitId}, 'E',
+                #{xpType,jdbcType=CHAR}, #{dtlItem.prodClsId,jdbcType=BIGINT}, #{dtlItem.prcPlcy,jdbcType=CHAR},
+                #{dtlItem.unitPrice,jdbcType=DECIMAL}, #{dtlItem.discRate,jdbcType=DECIMAL},
+                #{dtlItem.fnlPrice,jdbcType=DECIMAL},
+                #{dtlItem.taxRate,jdbcType=DECIMAL}, #{dtlItem.specOfr,jdbcType=CHAR}, #{expdDate,jdbcType=DATE}
+                )
+            </foreach>
+        </foreach>
+    </insert>
+
+    <insert id="insertByHierList" parameterType="java.util.Map">
+        insert into xpl (vender_id, vendee_id, prc_ctlr,
+        xp_type, prod_cls_id, prc_plcy,
+        unit_price, disc_rate, fnl_price,
+        tax_rate, spec_ofr, expd_date
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            <foreach collection="dtlList" item="dtlItem" index="index" separator=",">
+                (#{item.unitId,jdbcType=BIGINT}, #{dtlItem.unitId}, 'E',
+                #{xpType,jdbcType=CHAR}, #{dtlItem.prodClsId,jdbcType=BIGINT}, #{dtlItem.prcPlcy,jdbcType=CHAR},
+                #{dtlItem.unitPrice,jdbcType=DECIMAL}, #{dtlItem.discRate,jdbcType=DECIMAL},
+                #{dtlItem.fnlPrice,jdbcType=DECIMAL},
+                #{dtlItem.taxRate,jdbcType=DECIMAL}, #{dtlItem.specOfr,jdbcType=CHAR}, #{expdDate,jdbcType=DATE}
+                )
+            </foreach>
+        </foreach>
+    </insert>
+
+    <!--缺省且不保留组织定价-->
+    <select id="selectByHierarchyList" parameterType="java.util.List" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from xpl
+        where 1=1
+        and vender_id in (
+        <foreach collection="list" item="item" index="index" separator=",">
+            #{item.unitId}
+        </foreach>
+        )
+        and vendee_id != 0
+        and prc_ctlr = 'R'
+    </select>
+</mapper>

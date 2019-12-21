@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PsxTypeMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.PsxType">
+    <id column="psx_type" jdbcType="VARCHAR" property="psxType" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="vde_reqd" jdbcType="CHAR" property="vdeReqd" />
+    <result column="rcv_wareh_reqd" jdbcType="CHAR" property="rcvWarehReqd" />
+    <result column="pua_auto_gen" jdbcType="CHAR" property="puaAutoGen" />
+    <result column="pua_auto_chk" jdbcType="CHAR" property="puaAutoChk" />
+    <result column="vdr_reqd" jdbcType="CHAR" property="vdrReqd" />
+    <result column="deliv_wareh_reqd" jdbcType="CHAR" property="delivWarehReqd" />
+    <result column="sla_auto_gen" jdbcType="CHAR" property="slaAutoGen" />
+    <result column="sla_auto_chk" jdbcType="CHAR" property="slaAutoChk" />
+    <result column="rqd_ctrl" jdbcType="CHAR" property="rqdCtrl" />
+    <result column="rqd_ctrl_alt" jdbcType="CHAR" property="rqdCtrlAlt" />
+    <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled" />
+    <result column="bxi_enabled_alt" jdbcType="CHAR" property="bxiEnabledAlt" />
+    <result column="psc_type" jdbcType="VARCHAR" property="pscType" />
+    <result column="prod_cat_id" jdbcType="VARCHAR" property="prodCatId" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapByVo" type="com.boyu.erp.platform.usercenter.vo.partner.PsxTypeVo">
+    <id column="psx_type" jdbcType="VARCHAR" property="psxType" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="vde_reqd" jdbcType="CHAR" property="vdeReqd" />
+    <result column="rcv_wareh_reqd" jdbcType="CHAR" property="rcvWarehReqd" />
+    <result column="pua_auto_gen" jdbcType="CHAR" property="puaAutoGen" />
+    <result column="pua_auto_chk" jdbcType="CHAR" property="puaAutoChk" />
+    <result column="vdr_reqd" jdbcType="CHAR" property="vdrReqd" />
+    <result column="deliv_wareh_reqd" jdbcType="CHAR" property="delivWarehReqd" />
+    <result column="sla_auto_gen" jdbcType="CHAR" property="slaAutoGen" />
+    <result column="sla_auto_chk" jdbcType="CHAR" property="slaAutoChk" />
+    <result column="rqd_ctrl" jdbcType="CHAR" property="rqdCtrl" />
+    <result column="rqd_ctrl_alt" jdbcType="CHAR" property="rqdCtrlAlt" />
+    <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled" />
+    <result column="bxi_enabled_alt" jdbcType="CHAR" property="bxiEnabledAlt" />
+    <result column="psc_type" jdbcType="VARCHAR" property="pscType" />
+    <result column="prod_cat_id" jdbcType="VARCHAR" property="prodCatId" />
+    <result column="prodCatName" property="prodCatName" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    psx_type, description, vde_reqd, rcv_wareh_reqd, pua_auto_gen, pua_auto_chk, vdr_reqd, 
+    deliv_wareh_reqd, sla_auto_gen, sla_auto_chk, rqd_ctrl, rqd_ctrl_alt, bxi_enabled, 
+    bxi_enabled_alt, psc_type, prod_cat_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from psx_type
+    where psx_type = #{psxType}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from psx_type
+    where psx_type = #{psxType,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsxType">
+    insert into psx_type (psx_type, description, vde_reqd, 
+      rcv_wareh_reqd, pua_auto_gen, pua_auto_chk, 
+      vdr_reqd, deliv_wareh_reqd, sla_auto_gen, 
+      sla_auto_chk, rqd_ctrl, rqd_ctrl_alt, 
+      bxi_enabled, bxi_enabled_alt, psc_type, 
+      prod_cat_id)
+    values (#{psxType,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{vdeReqd,jdbcType=CHAR}, 
+      #{rcvWarehReqd,jdbcType=CHAR}, #{puaAutoGen,jdbcType=CHAR}, #{puaAutoChk,jdbcType=CHAR}, 
+      #{vdrReqd,jdbcType=CHAR}, #{delivWarehReqd,jdbcType=CHAR}, #{slaAutoGen,jdbcType=CHAR}, 
+      #{slaAutoChk,jdbcType=CHAR}, #{rqdCtrl,jdbcType=CHAR}, #{rqdCtrlAlt,jdbcType=CHAR}, 
+      #{bxiEnabled,jdbcType=CHAR}, #{bxiEnabledAlt,jdbcType=CHAR}, #{pscType,jdbcType=VARCHAR}, 
+      #{prodCatId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsxType">
+    insert into psx_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="psxType != null">
+        psx_type,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="vdeReqd != null">
+        vde_reqd,
+      </if>
+      <if test="rcvWarehReqd != null">
+        rcv_wareh_reqd,
+      </if>
+      <if test="puaAutoGen != null">
+        pua_auto_gen,
+      </if>
+      <if test="puaAutoChk != null">
+        pua_auto_chk,
+      </if>
+      <if test="vdrReqd != null">
+        vdr_reqd,
+      </if>
+      <if test="delivWarehReqd != null">
+        deliv_wareh_reqd,
+      </if>
+      <if test="slaAutoGen != null">
+        sla_auto_gen,
+      </if>
+      <if test="slaAutoChk != null">
+        sla_auto_chk,
+      </if>
+      <if test="rqdCtrl != null">
+        rqd_ctrl,
+      </if>
+      <if test="rqdCtrlAlt != null">
+        rqd_ctrl_alt,
+      </if>
+      <if test="bxiEnabled != null">
+        bxi_enabled,
+      </if>
+      <if test="bxiEnabledAlt != null">
+        bxi_enabled_alt,
+      </if>
+      <if test="pscType != null">
+        psc_type,
+      </if>
+      <if test="prodCatId != null">
+        prod_cat_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="psxType != null">
+        #{psxType,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="vdeReqd != null">
+        #{vdeReqd,jdbcType=CHAR},
+      </if>
+      <if test="rcvWarehReqd != null">
+        #{rcvWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="puaAutoGen != null">
+        #{puaAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="puaAutoChk != null">
+        #{puaAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="vdrReqd != null">
+        #{vdrReqd,jdbcType=CHAR},
+      </if>
+      <if test="delivWarehReqd != null">
+        #{delivWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="slaAutoGen != null">
+        #{slaAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="slaAutoChk != null">
+        #{slaAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="rqdCtrl != null">
+        #{rqdCtrl,jdbcType=CHAR},
+      </if>
+      <if test="rqdCtrlAlt != null">
+        #{rqdCtrlAlt,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabled != null">
+        #{bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabledAlt != null">
+        #{bxiEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="pscType != null">
+        #{pscType,jdbcType=VARCHAR},
+      </if>
+      <if test="prodCatId != null">
+        #{prodCatId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsxType">
+    update psx_type
+    <set>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="vdeReqd != null">
+        vde_reqd = #{vdeReqd,jdbcType=CHAR},
+      </if>
+      <if test="rcvWarehReqd != null">
+        rcv_wareh_reqd = #{rcvWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="puaAutoGen != null">
+        pua_auto_gen = #{puaAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="puaAutoChk != null">
+        pua_auto_chk = #{puaAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="vdrReqd != null">
+        vdr_reqd = #{vdrReqd,jdbcType=CHAR},
+      </if>
+      <if test="delivWarehReqd != null">
+        deliv_wareh_reqd = #{delivWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="slaAutoGen != null">
+        sla_auto_gen = #{slaAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="slaAutoChk != null">
+        sla_auto_chk = #{slaAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="rqdCtrl != null">
+        rqd_ctrl = #{rqdCtrl,jdbcType=CHAR},
+      </if>
+      <if test="rqdCtrlAlt != null">
+        rqd_ctrl_alt = #{rqdCtrlAlt,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabled != null">
+        bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabledAlt != null">
+        bxi_enabled_alt = #{bxiEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="pscType != null">
+        psc_type = #{pscType,jdbcType=VARCHAR},
+      </if>
+
+        prod_cat_id = #{prodCatId},
+    </set>
+    where psx_type = #{psxType,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsxType">
+    update psx_type
+    set description = #{description,jdbcType=VARCHAR},
+      vde_reqd = #{vdeReqd,jdbcType=CHAR},
+      rcv_wareh_reqd = #{rcvWarehReqd,jdbcType=CHAR},
+      pua_auto_gen = #{puaAutoGen,jdbcType=CHAR},
+      pua_auto_chk = #{puaAutoChk,jdbcType=CHAR},
+      vdr_reqd = #{vdrReqd,jdbcType=CHAR},
+      deliv_wareh_reqd = #{delivWarehReqd,jdbcType=CHAR},
+      sla_auto_gen = #{slaAutoGen,jdbcType=CHAR},
+      sla_auto_chk = #{slaAutoChk,jdbcType=CHAR},
+      rqd_ctrl = #{rqdCtrl,jdbcType=CHAR},
+      rqd_ctrl_alt = #{rqdCtrlAlt,jdbcType=CHAR},
+      bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+      bxi_enabled_alt = #{bxiEnabledAlt,jdbcType=CHAR},
+      psc_type = #{pscType,jdbcType=VARCHAR},
+      prod_cat_id = #{prodCatId,jdbcType=VARCHAR}
+    where psx_type = #{psxType,jdbcType=VARCHAR}
+  </update>
+
+  <!--购销申请类别下拉-->
+  <select id="optionList" resultMap="BaseResultMap">
+      SELECT *
+      FROM
+       psx_type
+      WHERE
+       psx_type!=''
+    </select>
+
+  <sql id="Base_Column_List_Vo">
+    pt.psx_type, pt.description, pt.vde_reqd, pt.rcv_wareh_reqd, pt.pua_auto_gen, pt.pua_auto_chk, pt.vdr_reqd,
+    pt.deliv_wareh_reqd, pt.sla_auto_gen, pt.sla_auto_chk, pt.rqd_ctrl, pt.rqd_ctrl_alt, pt.bxi_enabled,
+    pt.bxi_enabled_alt, pt.psc_type, pt.prod_cat_id
+  </sql>
+
+  <!-- 购销申请查询 -->
+  <select id="selectALL" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsxType" resultMap="BaseResultMapByVo">
+    select
+    pc.prod_cat_name as prodCatName,
+    <include refid="Base_Column_List_Vo" />
+    from psx_type pt
+    left join prod_cat pc on pc.prod_cat_id = pt.prod_cat_id
+    where 1=1
+    <if test="psxType!=null and psxType!=''  ">
+      and pt.psx_type like CONCAT('%',#{psxType}, '%')
+    </if>
+    <if test="pscType!=null and pscType!=''  ">
+      and pt.psc_type like CONCAT('%',#{pscType}, '%')
+    </if>
+    <if test="description != null and description!='' ">
+      and pt.description like CONCAT('%', #{description}, '%')
+    </if>
+  </select>
+
+</mapper>

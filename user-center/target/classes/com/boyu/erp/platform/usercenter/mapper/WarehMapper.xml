@@ -1,0 +1,868 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.WarehMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.Wareh">
+        <id column="WAREH_ID" jdbcType="BIGINT" property="warehId"/>
+        <result column="OWNER_ID" jdbcType="BIGINT" property="ownerId"/>
+        <result column="WAREH_PROP" jdbcType="VARCHAR" property="warehProp"/>
+        <result column="STK_ADOPTED" jdbcType="CHAR" property="stkAdopted"/>
+        <result column="UID_ADOPTED" jdbcType="CHAR" property="uidAdopted"/>
+        <result column="NEG_ATK" jdbcType="CHAR" property="negAtk"/>
+        <result column="NEG_STK" jdbcType="CHAR" property="negStk"/>
+        <result column="AST_ADOPTED" jdbcType="CHAR" property="astAdopted"/>
+        <result column="BST_ADOPTED" jdbcType="CHAR" property="bstAdopted"/>
+        <result column="LOC_ADOPTED" jdbcType="CHAR" property="locAdopted"/>
+        <result column="NEG_LOC_ATK" jdbcType="CHAR" property="negLocAtk"/>
+        <result column="NEG_LOC_STK" jdbcType="CHAR" property="negLocStk"/>
+        <result column="DELIV_LOC_ID" jdbcType="DECIMAL" property="delivLocId"/>
+        <result column="RCV_LOC_ID" jdbcType="DECIMAL" property="rcvLocId"/>
+        <result column="PCK_LOC_ID" jdbcType="DECIMAL" property="pckLocId"/>
+        <result column="UPK_LOC_ID" jdbcType="DECIMAL" property="upkLocId"/>
+        <result column="ACPT_UID_REQD" jdbcType="CHAR" property="acptUidReqd"/>
+        <result column="PA_UID_REQD" jdbcType="CHAR" property="paUidReqd"/>
+        <result column="PICK_UID_REQD" jdbcType="CHAR" property="pickUidReqd"/>
+        <result column="RCK_UID_REQD" jdbcType="CHAR" property="rckUidReqd"/>
+        <result column="BOX_UID_REQD" jdbcType="CHAR" property="boxUidReqd"/>
+        <result column="FSCL_UNIT_ID" jdbcType="DECIMAL" property="fsclUnitId"/>
+        <result column="COST_GRP_ID" jdbcType="BIGINT" property="costGrpId"/>
+        <result column="PROP_OWNER_ID" jdbcType="DECIMAL" property="propOwnerId"/>
+        <result column="WAREH_STATUS" jdbcType="CHAR" property="warehStatus"/>
+        <result column="OPR_ID" jdbcType="BIGINT" property="oprId"/>
+        <result column="UPD_TIME" jdbcType="TIMESTAMP" property="updTime"/>
+        <result column="CLN_AREA_ADOPTED" jdbcType="CHAR" property="clnAreaAdopted"/>
+        <result column="CLN_RCK_REQD" jdbcType="CHAR" property="clnRckReqd"/>
+    </resultMap>
+    <resultMap id="BaseResultMapVo" type="com.boyu.erp.platform.usercenter.vo.warehouse.WarehVo">
+        <id column="wareh_id" jdbcType="BIGINT" property="warehId"/>
+        <result column="owner_id" jdbcType="BIGINT" property="ownerId"/>
+        <result column="wareh_prop" jdbcType="VARCHAR" property="warehProp"/>
+        <result column="STK_ADOPTED" jdbcType="CHAR" property="stkAdopted"/>
+        <result column="UID_ADOPTED" jdbcType="CHAR" property="uidAdopted"/>
+        <result column="NEG_ATK" jdbcType="CHAR" property="negAtk"/>
+        <result column="NEG_STK" jdbcType="CHAR" property="negStk"/>
+        <result column="AST_ADOPTED" jdbcType="CHAR" property="astAdopted"/>
+        <result column="BST_ADOPTED" jdbcType="CHAR" property="bstAdopted"/>
+        <result column="LOC_ADOPTED" jdbcType="CHAR" property="locAdopted"/>
+        <result column="NEG_LOC_ATK" jdbcType="CHAR" property="negLocAtk"/>
+        <result column="NEG_LOC_STK" jdbcType="CHAR" property="negLocStk"/>
+        <result column="DELIV_LOC_ID" jdbcType="DECIMAL" property="delivLocId"/>
+        <result column="RCV_LOC_ID" jdbcType="DECIMAL" property="rcvLocId"/>
+        <result column="PCK_LOC_ID" jdbcType="DECIMAL" property="pckLocId"/>
+        <result column="UPK_LOC_ID" jdbcType="DECIMAL" property="upkLocId"/>
+        <result column="ACPT_UID_REQD" jdbcType="CHAR" property="acptUidReqd"/>
+        <result column="PA_UID_REQD" jdbcType="CHAR" property="paUidReqd"/>
+        <result column="PICK_UID_REQD" jdbcType="CHAR" property="pickUidReqd"/>
+        <result column="RCK_UID_REQD" jdbcType="CHAR" property="rckUidReqd"/>
+        <result column="BOX_UID_REQD" jdbcType="CHAR" property="boxUidReqd"/>
+        <result column="FSCL_UNIT_ID" jdbcType="DECIMAL" property="fsclUnitId"/>
+        <result column="COST_GRP_ID" jdbcType="BIGINT" property="costGrpId"/>
+        <result column="PROP_OWNER_ID" jdbcType="BIGINT" property="propOwnerId"/>
+        <result column="WAREH_STATUS" jdbcType="CHAR" property="warehStatus"/>
+        <result column="OPR_ID" jdbcType="BIGINT" property="oprId"/>
+        <result column="UPD_TIME" jdbcType="TIMESTAMP" property="updTime"/>
+        <result column="CLN_AREA_ADOPTED" jdbcType="CHAR" property="clnAreaAdopted"/>
+        <result column="CLN_RCK_REQD" jdbcType="CHAR" property="clnRckReqd"/>
+        <result column="unit_num" jdbcType="VARCHAR" property="unitNum"/>
+        <result column="sw_unit_code" jdbcType="VARCHAR" property="swUnitCode"/>
+        <result column="sw_unit_name" jdbcType="VARCHAR" property="swUnitName"/>
+        <result column="ad_full_name" jdbcType="VARCHAR" property="adFullName"/>
+        <result column="ad_prsnl_code" jdbcType="VARCHAR" property="adPrsnlCode"/>
+        <result column="ad_unit_name" jdbcType="VARCHAR" property="adUnitName"/>
+        <result column="ad_unit_code" jdbcType="VARCHAR" property="adUnitCode"/>
+        <result column="ups_prsnl_code" jdbcType="VARCHAR" property="upsPrsnlCode"/>
+        <result column="prop_unit_name" jdbcType="VARCHAR" property="propUnitName"/>
+        <result column="prop_unit_code" jdbcType="VARCHAR" property="propUnitCode"/>
+
+        <!--组织信息-->
+        <result column="unit_id" property="unitId"/>
+        <result column="unit_code" jdbcType="VARCHAR" property="unitCode"/>
+        <result column="unit_name" jdbcType="VARCHAR" property="unitName"/>
+        <result column="unit_hierarchy" jdbcType="VARCHAR" property="unitHierarchy"/>
+        <result column="unit_type" jdbcType="VARCHAR" property="unitType"/>
+        <result column="lic_type" jdbcType="CHAR" property="licType"/>
+        <result column="lic_num" jdbcType="VARCHAR" property="licNum"/>
+        <result column="tel_num" jdbcType="VARCHAR" property="telNum"/>
+        <result column="fax_num" jdbcType="VARCHAR" property="faxNum"/>
+        <result column="email_addr" jdbcType="VARCHAR" property="emailAddr"/>
+        <result column="postcode" jdbcType="VARCHAR" property="postcode"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="district" jdbcType="VARCHAR" property="district"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="website" jdbcType="VARCHAR" property="website"/>
+        <result column="lm_id" jdbcType="VARCHAR" property="lmId"/>
+        <result column="ctrl_unit_id" jdbcType="VARCHAR" property="ctrlUnitId"/>
+        <result column="shared" jdbcType="CHAR" property="shared"/>
+        <result column="recruitable" jdbcType="CHAR" property="recruitable"/>
+        <result column="input_code" jdbcType="VARCHAR" property="inputCode"/>
+        <result column="seq_num" jdbcType="VARCHAR" property="seqNum"/>
+        <result column="unit_status" jdbcType="CHAR" property="unitStatus"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="cost_grp_name" jdbcType="VARCHAR" property="costGrpName"/>
+        <result column="cost_grp_name" jdbcType="VARCHAR" property="costGrpName"/>
+        <result column="cost_grp_name" jdbcType="VARCHAR" property="costGrpName"/>
+    </resultMap>
+    <resultMap id="WarehPopUpVOResultMap" type="com.boyu.erp.platform.usercenter.vo.warehouse.WarehPopUpVO">
+        <id column="WAREH_ID" jdbcType="BIGINT" property="warehId"/>
+        <result column="OWNER_ID" jdbcType="BIGINT" property="ownerId"/>
+        <result column="WAREH_PROP" jdbcType="VARCHAR" property="warehProp"/>
+        <result column="STK_ADOPTED" jdbcType="CHAR" property="stkAdopted"/>
+        <result column="UID_ADOPTED" jdbcType="CHAR" property="uidAdopted"/>
+        <result column="NEG_ATK" jdbcType="CHAR" property="negAtk"/>
+        <result column="NEG_STK" jdbcType="CHAR" property="negStk"/>
+        <result column="AST_ADOPTED" jdbcType="CHAR" property="astAdopted"/>
+        <result column="BST_ADOPTED" jdbcType="CHAR" property="bstAdopted"/>
+        <result column="LOC_ADOPTED" jdbcType="CHAR" property="locAdopted"/>
+        <result column="NEG_LOC_ATK" jdbcType="CHAR" property="negLocAtk"/>
+        <result column="NEG_LOC_STK" jdbcType="CHAR" property="negLocStk"/>
+        <result column="DELIV_LOC_ID" jdbcType="DECIMAL" property="delivLocId"/>
+        <result column="RCV_LOC_ID" jdbcType="DECIMAL" property="rcvLocId"/>
+        <result column="PCK_LOC_ID" jdbcType="DECIMAL" property="pckLocId"/>
+        <result column="UPK_LOC_ID" jdbcType="DECIMAL" property="upkLocId"/>
+        <result column="ACPT_UID_REQD" jdbcType="CHAR" property="acptUidReqd"/>
+        <result column="PA_UID_REQD" jdbcType="CHAR" property="paUidReqd"/>
+        <result column="PICK_UID_REQD" jdbcType="CHAR" property="pickUidReqd"/>
+        <result column="RCK_UID_REQD" jdbcType="CHAR" property="rckUidReqd"/>
+        <result column="BOX_UID_REQD" jdbcType="CHAR" property="boxUidReqd"/>
+        <result column="FSCL_UNIT_ID" jdbcType="DECIMAL" property="fsclUnitId"/>
+        <result column="COST_GRP_ID" jdbcType="BIGINT" property="costGrpId"/>
+        <result column="PROP_OWNER_ID" jdbcType="DECIMAL" property="propOwnerId"/>
+        <result column="WAREH_STATUS" jdbcType="CHAR" property="warehStatus"/>
+        <result column="OPR_ID" jdbcType="BIGINT" property="oprId"/>
+        <result column="UPD_TIME" jdbcType="TIMESTAMP" property="updTime"/>
+        <result column="CLN_AREA_ADOPTED" jdbcType="CHAR" property="clnAreaAdopted"/>
+        <result column="CLN_RCK_REQD" jdbcType="CHAR" property="clnRckReqd"/>
+    </resultMap>
+    <resultMap id="BaseResultOption" type="com.boyu.erp.platform.usercenter.vo.warehouse.WarehUnitOptionVo">
+        <result column="wareh_id" jdbcType="BIGINT" property="warehId"/>
+        <result column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <result column="unit_num" jdbcType="BIGINT" property="unitNum"/>
+        <result column="unit_code" jdbcType="BIGINT" property="unitCode"/>
+        <result column="input_code" jdbcType="VARCHAR" property="inputCode"/>
+        <result column="unit_name" jdbcType="VARCHAR" property="unitName"/>
+        <result column="tel_num" jdbcType="VARCHAR" property="telNum"/>
+        <result column="email_addr" jdbcType="VARCHAR" property="emailAddr"/>
+        <result column="unit_status" jdbcType="VARCHAR" property="unitStatus"/>
+        <result column="full_name" jdbcType="VARCHAR" property="fullName"/>
+        <result column="ad_unit_code" jdbcType="VARCHAR" property="adUnitCode"/>
+        <result column="ad_unit_name" jdbcType="VARCHAR" property="adUnitName"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    wareh_id, owner_id, wareh_prop, stk_adopted, uid_adopted, neg_atk, neg_stk, ast_adopted,
+    bst_adopted, loc_adopted, neg_loc_atk, neg_loc_stk, deliv_loc_id, rcv_loc_id, pck_loc_id,
+    upk_loc_id, acpt_uid_reqd, pa_uid_reqd, pick_uid_reqd, rck_uid_reqd, box_uid_reqd,
+    fscl_unit_id, cost_grp_id, prop_owner_id, wareh_status, opr_id, upd_time, cln_area_adopted,
+    cln_rck_reqd
+  </sql>
+    <select id="getOptionVo" parameterType="java.lang.Long" resultType="com.boyu.erp.platform.usercenter.vo.OptionVo">
+        SELECT
+        u.`unit_name` as optionName,
+        a.`wareh_id` as  optionValue
+        FROM
+        `wareh_a` a
+        INNER JOIN `sys_unit_clsf` c
+        ON a.`wareh_id` = c.`unit_id`
+        INNER JOIN sys_unit u
+        ON a.`wareh_id` = u.`unit_id`
+        AND a.`owner_id` = c.`owner_id`
+        WHERE a.`owner_id` = #{warehId}
+        AND c.`unit_type` = "WH"
+    </select>
+    <select id="getCompanyOption" parameterType="com.boyu.erp.platform.usercenter.vo.warehouse.WarehUnitOptionVo"
+            resultMap="BaseResultOption">
+        SELECT
+        c.`company_id` AS unit_id,
+        uo.`unit_num` as `unit_num` ,
+        u.`unit_code` as unit_code,
+        u.`input_code` as `input_code` ,
+        u.`unit_name` as `unit_name`,
+        u.`tel_num` as `tel_num`,
+        u.`email_addr` as `email_addr`,
+        u.`unit_status` as `unit_status`,
+        p.`full_name` as `full_name`
+        FROM
+        company c
+        LEFT JOIN sys_unit_owner uo
+        ON c.company_id = uo.unit_id
+        INNER JOIN sys_unit u
+        ON c.company_id = u.unit_id
+        LEFT JOIN sys_prsnl p
+        ON u.`lm_id` = p.`prsnl_id`
+        WHERE
+        1 = 1
+        and
+        u.`unit_status`='A'
+        <if test="unitNum!=null and unitNum!=''">
+            and instr (uo.unit_num,#{unitNum})>0
+        </if>
+        <if test="unitName!=null and unitName!=''">
+            and instr (u.unit_name,#{unitName})>0
+        </if>
+        <if test="inputCode!=null and inputCode!=''">
+            and instr (u.input_code,#{inputCode})
+        </if>
+        <if test="unitStatus!=null and unitStatus!=''">
+            and u.`unit_status`=#{unitStatus}
+        </if>
+    </select>
+    <select id="getUintOption" parameterType="com.boyu.erp.platform.usercenter.vo.warehouse.WarehUnitOptionVo"
+            resultMap="BaseResultOption">
+        SELECT
+        a.`wareh_id` AS `wareh_id`,
+        uo.`unit_num` AS `unit_num`,
+        u.`input_code` AS `input_code`,
+        u.`unit_name` AS `unit_name`,
+        u.`tel_num` AS `tel_num`,
+        u.`email_addr` AS `email_addr`,
+        u.`unit_status` AS `unit_status`,
+        p.`full_name` AS `full_name`,
+        u3.`unit_code` AS ad_unit_code,
+        u3.`unit_name` AS ad_unit_name,
+        u2.`unit_code` as unit_code,
+        u2.`unit_id` as unit_id
+        FROM
+        `wareh_a` a
+        inner join `sys_unit_clsf` c
+        on a.`wareh_id` = c.`unit_id`
+        and a.`owner_id` = c.`owner_id`
+        and c.`unit_type` = 'WH'
+        LEFT JOIN `sys_unit_owner` uo
+        ON a.`wareh_id` = uo.`unit_id`
+        INNER JOIN sys_unit u
+        ON a.`wareh_id` = u.`unit_id`
+        LEFT JOIN sys_prsnl p
+        ON u.`lm_id` = p.`prsnl_id`
+        /*管理组织信息*/
+        LEFT JOIN sys_unit u2
+        ON a.`wareh_id` = u2.`unit_id`
+        LEFT JOIN sys_unit u3
+        ON u2.`ctrl_unit_id` = u3.`unit_id`
+        WHERE a.`owner_id` = #{unitId}
+        <if test="unitNum!=null and unitNum!=''">
+            and instr (uo.unit_num,#{unitNum})>0
+        </if>
+        <if test="unitName!=null and unitName!=''">
+            and instr (u.unit_name,#{unitName})>0
+        </if>
+        <if test="inputCode!=null and inputCode!=''">
+            and instr (u.input_code,#{inputCode})
+        </if>
+        <if test="unitStatus!=null and unitStatus!=''">
+            and u.`unit_status`=#{unitStatus}
+        </if>
+    </select>
+    <!--选择组织后查询当前组织的仓库-->
+    <select id="getOwnerIdOption" parameterType="com.boyu.erp.platform.usercenter.vo.warehouse.WarehUnitOptionVo"
+            resultMap="BaseResultOption">
+        SELECT
+        a.`wareh_id` AS `wareh_id`,
+        uo.`unit_num` AS `unit_num`,
+        u.`input_code` AS `input_code`,
+        u.`unit_name` AS `unit_name`,
+        u.`tel_num` AS `tel_num`,
+        u.`email_addr` AS `email_addr`,
+        u.`unit_status` AS `unit_status`,
+        p.`full_name` AS `full_name`,
+        u3.`unit_code` AS ad_unit_code,
+        u3.`unit_name` AS ad_unit_name,
+        u2.`unit_code` as unit_code,
+        u2.`unit_id` as unit_id
+        FROM
+        `wareh_a` a
+        inner join `sys_unit_clsf` c
+        on a.`wareh_id` = c.`unit_id`
+        and a.`owner_id` = c.`owner_id`
+        and c.`unit_type` = 'WH'
+        LEFT JOIN `sys_unit_owner` uo
+        ON a.`wareh_id` = uo.`unit_id`
+        INNER JOIN sys_unit u
+        ON a.`wareh_id` = u.`unit_id`
+        LEFT JOIN sys_prsnl p
+        ON u.`lm_id` = p.`prsnl_id`
+        /*管理组织信息*/
+        LEFT JOIN sys_unit u2
+        ON a.`wareh_id` = u2.`unit_id`
+        LEFT JOIN sys_unit u3
+        ON u2.`ctrl_unit_id` = u3.`unit_id`
+        WHERE a.`owner_id` = #{unitId}
+        <if test="unitNum!=null and unitNum!=''">
+            and instr (uo.unit_num,#{unitNum})>0
+        </if>
+        <if test="unitName!=null and unitName!=''">
+            and instr (u.unit_name,#{unitName})>0
+        </if>
+        <if test="inputCode!=null and inputCode!=''">
+            and instr (u.input_code,#{inputCode})
+        </if>
+        <if test="unitStatus!=null and unitStatus!=''">
+            and u.`unit_status`=#{unitStatus}
+        </if>
+    </select>
+    <select id="selectByWarehId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from wareh_a
+        where WAREH_ID = #{warehId,jdbcType=BIGINT}
+    </select>
+
+    <select id="getUintWareh" parameterType="com.boyu.erp.platform.usercenter.vo.warehouse.WarehVo"
+            resultMap="BaseResultMapVo">
+        SELECT
+        wu.*,
+        gc.`cost_grp_name` AS cost_grp_name,
+        uow.`unit_num` AS unit_num,
+        us.`unit_code` AS sw_unit_code,
+        us.`unit_name` AS sw_unit_name,
+        p.`prsnl_code` AS ad_prsnl_code,
+        p.`full_name` AS ad_full_name,
+        a.*,
+        u.`unit_name` AS ad_unit_name,
+        u.`unit_code` AS ad_unit_code,
+        p2.`prsnl_code` AS ups_prsnl_code,
+        u2.`unit_code` AS prop_unit_code,
+        u2.`unit_name` AS prop_unit_name
+        FROM
+        wareh_a a
+        INNER JOIN `sys_unit_clsf` c
+        ON (
+        a.`wareh_id` = c.`unit_id`
+        AND a.`owner_id` = c.`owner_id`
+        AND c.`unit_type` = "SW"
+        )
+        /*属主信息表*/
+        INNER JOIN sys_unit u
+        ON a.`owner_id` = u.`unit_id`
+        /*仓库组织信息表*/
+        INNER JOIN sys_unit wu
+        ON a.`wareh_id` = wu.`unit_id`
+        /*仓库属主对应表 这个判断属组下所有仓库*/
+        INNER JOIN `sys_unit_owner` uow
+        ON a.`wareh_id` = uow.`unit_id`
+        AND uow.`owner_id` = a.`owner_id`
+        /*仓库会计组织信息表*/
+        LEFT JOIN sys_unit_clsf uu
+        ON a.`wareh_id` = uu.`unit_id`
+        AND uu.`unit_type` = 'SW'
+        LEFT JOIN sys_unit us
+        ON uu.`owner_id` = us.`unit_id`
+        /*操作人员员信息表*/
+        LEFT JOIN sys_prsnl p
+        ON a.`opr_id` = p.`prsnl_id`
+        LEFT JOIN `cost_grp` gc
+        ON a.`cost_grp_id` = gc.`cost_grp_id`
+        AND gc.`unit_id` = a.`wareh_id`
+        /*仓库组织联系人信息*/
+        LEFT JOIN sys_prsnl p2
+        ON u.`lm_id` = p2.`prsnl_id`
+        /*产权方信息*/
+        LEFT JOIN sys_unit u2
+        ON a.`prop_owner_id` = u2.`unit_id`
+        WHERE 1=1
+        AND a.`owner_id` = #{warehId}
+        AND a.`wareh_status`='A'
+        <if test="unitNum!=null and unitNum!=''">
+            AND INSTR(uow.`unit_num`,#{unitNum})>0
+        </if>
+        <if test="unitCode!=null and unitCode!=''">
+            AND INSTR(wu.`unit_code`,#{unitCode})>0
+        </if>
+        <if test="unitName!=null and unitName!=''">
+            AND INSTR(wu.`unit_name`,#{unitName})>0
+        </if>
+        <if test="unitStatus!=null and unitStatus!=''">
+            AND wu.`unit_status`=#{unitStatus}
+        </if>
+        <if test="inputCode!=null and inputCode!=''">
+            AND INSTR(wu.`input_code`,#{inputCode})>0
+        </if>
+    </select>
+    <!--组织代码弹窗查询-->
+    <select id="getWarehCodeOption" parameterType="com.boyu.erp.platform.usercenter.model.wareh.WarehOptinModel"
+            resultType="com.boyu.erp.platform.usercenter.vo.warehouse.WarehUnitOptionVo">
+        SELECT
+        a.`wareh_id` AS `warehId` ,
+        u.`unit_id` AS unitId,
+        u.`unit_code`AS unidCode,
+        u.`input_code` AS `inputCode` ,
+        u.`unit_name` AS `unitName`,
+        u.`tel_num` AS `telNum`,
+        u.`email_addr` AS `emailAddr`,
+        u.`unit_status` AS `unitStatus`,
+        p.`full_name` AS `fullName`,
+        u3.`unit_code` AS adUnitCode,
+        u3.`unit_name` AS adUnitName,
+        u2.`unit_code` AS unitCode,
+        uo.`unit_num` AS `unitNum`
+        FROM
+        `wareh_a` a
+        LEFT JOIN `sys_unit_owner` uo
+        ON a.`wareh_id` = uo.`unit_id`
+        INNER JOIN sys_unit u
+        ON a.`wareh_id` = u.`unit_id`
+        LEFT JOIN sys_prsnl p
+        ON u.`lm_id` = p.`prsnl_id`
+        /*管理组织信息*/
+        LEFT JOIN sys_unit u2
+        ON a.`wareh_id` = u2.`unit_id`
+        LEFT JOIN sys_unit u3
+        ON u2.`ctrl_unit_id` = u3.`unit_id`
+        WHERE a.`owner_id` =#{unitId}
+        <if test="unitCode!=null and unitCode!=''">
+            and instr (u.`unit_code`,#{unitCode})>0
+        </if>
+        <if test="unitName!=null and unitName!=''">
+            and instr (u.unit_name,#{unitName})>0
+        </if>
+        <if test="inputCode!=null and inputCode!=''">
+            and instr (u.input_code,#{inputCode})
+        </if>
+        <if test="unitStatus!=null and unitStatus!=''">
+            and u.`unit_status`=#{unitStatus}
+        </if>
+    </select>
+    <select id="judgewarehavailable1" resultType="com.boyu.erp.platform.usercenter.vo.UnitOptionVo">
+        select su.unit_id AS unitId,
+        su.unit_code AS unitCode,
+        su.unit_name AS unitName,
+        su.tel_num AS telNum,
+        su.address,
+        su.input_code AS inputCode,
+        su.unit_type AS unitType,
+        w.owner_id
+        from wareh AS w INNER JOIN sys_unit AS su ON w.wareh_id=su.unit_id
+        where w.owner_id=#{unitId} and su.unit_code=#{warehCode}
+    </select>
+    <select id="judgewarehavailable" resultMap="BaseResultMapVo">
+        SELECT
+        w.wareh_id,
+        w.owner_id,
+        w.wareh_prop,
+        w.stk_adopted,
+        w.uid_adopted,
+        w.neg_atk,
+        w.neg_stk,
+        w.ast_adopted,
+        w.bst_adopted,
+        w.loc_adopted,
+        w.neg_loc_atk,
+        w.neg_loc_stk,
+        w.deliv_loc_id,
+        w.rcv_loc_id,
+        w.pck_loc_id,
+        w.upk_loc_id,
+        w.acpt_uid_reqd,
+        w.pa_uid_reqd,
+        w.pick_uid_reqd,
+        w.rck_uid_reqd,
+        w.box_uid_reqd,
+        w.fscl_unit_id,
+        w.cost_grp_id,
+        w.prop_owner_id,
+        w.wareh_status,
+        w.opr_id,
+        w.upd_time,
+        w.cln_area_adopted,
+        w.cln_rck_reqd,
+        su.unit_code,
+        su.unit_name,
+        su2.unit_code AS sw_unit_code,
+        su2.unit_name AS sw_unit_name
+        FROM
+        wareh AS w inner join sys_unit AS su ON su.unit_id=w.wareh_id
+        left join sys_unit AS su2 ON w.fscl_unit_id=su2.unit_id
+        where w.owner_id=#{unitId} and w.wareh_id=#{warehId}
+    </select>
+    <select id="warehPopUp" resultMap="WarehPopUpVOResultMap">
+        select <include refid="Base_Column_List"></include> from wareh
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="warehIds!=null and warehIds.size()>0">
+                and wareh_id in (
+                <foreach collection="warehIds" item="warehId" separator=",">
+                    #{warehId}
+                </foreach>
+                )
+            </if>
+            <if test="unitStatus!=null and unitStatus!=''">
+                and wareh_status=#{unitStatus}
+            </if>
+            and owner_id=#{warehOwnerId}
+        </trim>
+    </select>
+    <select id="queryWarehById" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from wareh
+        <trim prefix="where" prefixOverrides="and|or">
+            wareh_id=#{warehId}
+        </trim>
+    </select>
+    <select id="querywarehByUnitId" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from wareh where owner_id=#{ownerId} and wareh_id=#{warehId}
+        and wareh_id != #{ownerId}
+    </select>
+    <select id="querywarehByUnitIdInA" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from wareh where
+        owner_id=#{unitId} and wareh_id=#{warehId} and wareh_id != #{unitId} and wareh_status='A'
+    </select>
+    <select id="judgeReWarehIds" resultType="java.lang.Long">
+        select wareh_id from wareh where wareh_id in(
+        <foreach collection="warehIds" item="warehId" separator=",">
+            #{warehId}
+        </foreach>
+        ) and owner_id = #{unitId} and wareh_id!=#{unitId}
+    </select>
+    <!--查询发货方信息-->
+    <select id="getDelivOption" parameterType="com.boyu.erp.platform.usercenter.vo.warehouse.WarehUnitOptionVo"
+            resultMap="BaseResultOption">
+        select
+        c.`unit_id` as `unit_id`,
+        c.`owner_id` as `owner_id`,
+        o.`unit_num` as `unit_num`,
+        u.`unit_name` as `unit_name`,
+        u.`unit_status` as `unit_status`,
+        u.`input_code` as `input_code`,
+        u.`tel_num` as `tel_num`,
+        u.`address` as `address`,
+        p.`full_name` as `full_name`
+        from
+        sys_unit_clsf c
+        inner join sys_unit u
+        on c.`unit_id` = u.`unit_id`
+        and c.`unit_type` = 'VD'
+        inner join sys_unit_owner o
+        on c.`unit_id` = o.`unit_id`
+        and c.`owner_id` = o.`owner_id`
+        left join sys_prsnl p
+        on u.`lm_id` = p.`prsnl_id`
+        where
+        c.`owner_id` =#{ownerId} and u.`unit_status`='A'
+        <if test="unitNum!=null and unitNum!=''">
+            and instr (o.unit_num,#{unitNum})>0
+        </if>
+        <if test="unitName!=null and unitName!=''">
+            and instr (u.unit_name,#{unitName})>0
+        </if>
+        <if test="inputCode!=null and inputCode!=''">
+            and instr (u.input_code,#{inputCode})
+        </if>
+        <if test="unitStatus!=null and unitStatus!=''">
+            and u.`unit_status`=#{unitStatus}
+        </if>
+    </select>
+
+    <select id="selectWarehCode" resultType="com.boyu.erp.platform.usercenter.entity.warehouse.Wareh">
+        select
+        w.pck_loc_id AS pckLocId,
+        w.cost_grp_id AS costGrpId,
+        w.prop_owner_id AS propOwnerId,
+        w.wareh_id AS warehId,
+        w.loc_adopted AS locAdopted,
+        w.owner_id AS ownerId,
+        w.pa_uid_reqd AS paUidReqd,
+        w.stk_adopted AS stkAdopted,
+        w.neg_stk AS negStk,
+        w.fscl_unit_id AS fsclUnitId,
+        w.upd_time AS updTime,
+        w.rcv_loc_id AS rcvLocId,
+        w.cln_rck_reqd AS clnRckReqd,
+        w.neg_atk AS negAtk,
+        w.uid_adopted AS uidAdopted,
+        w.pick_uid_reqd AS pickUidReqd,
+        w.neg_loc_stk AS negLocStk,
+        w.ast_adopted AS astAdopted,
+        w.wareh_prop AS warehProp,
+        w.wareh_status AS warehStatus,
+        w.neg_loc_atk AS negLocAtk,
+        w.rck_uid_reqd AS rckUidReqd,
+        w.upk_loc_id AS upkLocId,
+        w.box_uid_reqd AS boxUidReqd,
+        w.deliv_loc_id AS delivLocId,
+        w.opr_id AS oprId,
+        w.acpt_uid_reqd AS acptUidReqd,
+        w.cln_area_adopted AS clnAreaAdopted
+        from
+        wareh w inner join
+        sys_unit u on w.wareh_id= u.unit_id
+        where
+        w.wareh_status='A' and
+        u.unit_code=#{warehCode}
+    </select>
+
+
+    <delete id="deleteWarehId" parameterType="java.lang.Long">
+    delete from wareh_a
+    where WAREH_ID = #{warehId,jdbcType=BIGINT}
+  </delete>
+
+    <insert id="insertWareh" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Wareh">
+        insert into wareh_a
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="warehId != null">
+                WAREH_ID,
+            </if>
+            <if test="ownerId != null">
+                OWNER_ID,
+            </if>
+            <if test="warehProp != null">
+                WAREH_PROP,
+            </if>
+            <if test="stkAdopted != null">
+                STK_ADOPTED,
+            </if>
+            <if test="uidAdopted != null">
+                UID_ADOPTED,
+            </if>
+            <if test="negAtk != null">
+                NEG_ATK,
+            </if>
+            <if test="negStk != null">
+                NEG_STK,
+            </if>
+            <if test="astAdopted != null">
+                AST_ADOPTED,
+            </if>
+            <if test="bstAdopted != null">
+                BST_ADOPTED,
+            </if>
+            <if test="locAdopted != null">
+                LOC_ADOPTED,
+            </if>
+            <if test="negLocAtk != null">
+                NEG_LOC_ATK,
+            </if>
+            <if test="negLocStk != null">
+                NEG_LOC_STK,
+            </if>
+            <if test="delivLocId != null">
+                DELIV_LOC_ID,
+            </if>
+            <if test="rcvLocId != null">
+                RCV_LOC_ID,
+            </if>
+            <if test="pckLocId != null">
+                PCK_LOC_ID,
+            </if>
+            <if test="upkLocId != null">
+                UPK_LOC_ID,
+            </if>
+            <if test="acptUidReqd != null">
+                ACPT_UID_REQD,
+            </if>
+            <if test="paUidReqd != null">
+                PA_UID_REQD,
+            </if>
+            <if test="pickUidReqd != null">
+                PICK_UID_REQD,
+            </if>
+            <if test="rckUidReqd != null">
+                RCK_UID_REQD,
+            </if>
+            <if test="boxUidReqd != null">
+                BOX_UID_REQD,
+            </if>
+            <if test="fsclUnitId != null">
+                FSCL_UNIT_ID,
+            </if>
+            <if test="costGrpId != null">
+                COST_GRP_ID,
+            </if>
+            <if test="propOwnerId != null">
+                PROP_OWNER_ID,
+            </if>
+            <if test="warehStatus != null">
+                WAREH_STATUS,
+            </if>
+            <if test="oprId != null">
+                OPR_ID,
+            </if>
+            <if test="updTime != null">
+                UPD_TIME,
+            </if>
+            <if test="clnAreaAdopted != null">
+                CLN_AREA_ADOPTED,
+            </if>
+            <if test="clnRckReqd != null">
+                CLN_RCK_REQD,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="warehId != null">
+                #{warehId,jdbcType=DECIMAL},
+            </if>
+            <if test="ownerId != null">
+                #{ownerId,jdbcType=DECIMAL},
+            </if>
+            <if test="warehProp != null">
+                #{warehProp,jdbcType=VARCHAR},
+            </if>
+            <if test="stkAdopted != null">
+                #{stkAdopted,jdbcType=CHAR},
+            </if>
+            <if test="uidAdopted != null">
+                #{uidAdopted,jdbcType=CHAR},
+            </if>
+            <if test="negAtk != null">
+                #{negAtk,jdbcType=CHAR},
+            </if>
+            <if test="negStk != null">
+                #{negStk,jdbcType=CHAR},
+            </if>
+            <if test="astAdopted != null">
+                #{astAdopted,jdbcType=CHAR},
+            </if>
+            <if test="bstAdopted != null">
+                #{bstAdopted,jdbcType=CHAR},
+            </if>
+            <if test="locAdopted != null">
+                #{locAdopted,jdbcType=CHAR},
+            </if>
+            <if test="negLocAtk != null">
+                #{negLocAtk,jdbcType=CHAR},
+            </if>
+            <if test="negLocStk != null">
+                #{negLocStk,jdbcType=CHAR},
+            </if>
+            <if test="delivLocId != null">
+                #{delivLocId,jdbcType=DECIMAL},
+            </if>
+            <if test="rcvLocId != null">
+                #{rcvLocId,jdbcType=DECIMAL},
+            </if>
+            <if test="pckLocId != null">
+                #{pckLocId,jdbcType=DECIMAL},
+            </if>
+            <if test="upkLocId != null">
+                #{upkLocId,jdbcType=DECIMAL},
+            </if>
+            <if test="acptUidReqd != null">
+                #{acptUidReqd,jdbcType=CHAR},
+            </if>
+            <if test="paUidReqd != null">
+                #{paUidReqd,jdbcType=CHAR},
+            </if>
+            <if test="pickUidReqd != null">
+                #{pickUidReqd,jdbcType=CHAR},
+            </if>
+            <if test="rckUidReqd != null">
+                #{rckUidReqd,jdbcType=CHAR},
+            </if>
+            <if test="boxUidReqd != null">
+                #{boxUidReqd,jdbcType=CHAR},
+            </if>
+            <if test="fsclUnitId != null">
+                #{fsclUnitId,jdbcType=DECIMAL},
+            </if>
+            <if test="costGrpId != null">
+                #{costGrpId,jdbcType=BIGINT},
+            </if>
+            <if test="propOwnerId != null">
+                #{propOwnerId,jdbcType=BIGINT},
+            </if>
+            <if test="warehStatus != null">
+                #{warehStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                #{oprId,jdbcType=DECIMAL},
+            </if>
+            <if test="updTime != null">
+                now(),
+            </if>
+            <if test="clnAreaAdopted != null">
+                #{clnAreaAdopted,jdbcType=CHAR},
+            </if>
+            <if test="clnRckReqd != null">
+                #{clnRckReqd,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByWareh" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Wareh">
+        update wareh_a
+        <set>
+            <if test="ownerId != null">
+                OWNER_ID = #{ownerId,jdbcType=BIGINT},
+            </if>
+            <if test="warehProp != null and warehProp != ''">
+                WAREH_PROP = #{warehProp,jdbcType=VARCHAR},
+            </if>
+            <if test="stkAdopted != null and stkAdopted != ''">
+                STK_ADOPTED = #{stkAdopted,jdbcType=CHAR},
+            </if>
+            <if test="uidAdopted != null and uidAdopted != ''">
+                UID_ADOPTED = #{uidAdopted,jdbcType=CHAR},
+            </if>
+            <if test="negAtk != null and negAtk != null">
+                NEG_ATK = #{negAtk,jdbcType=CHAR},
+            </if>
+            <if test="negStk != null and negStk != ''">
+                NEG_STK = #{negStk,jdbcType=CHAR},
+            </if>
+            <if test="astAdopted != null and astAdopted != ''">
+                AST_ADOPTED = #{astAdopted,jdbcType=CHAR},
+            </if>
+            <if test="bstAdopted != null and bstAdopted != ''">
+                BST_ADOPTED = #{bstAdopted,jdbcType=CHAR},
+            </if>
+            <if test="locAdopted != null and locAdopted != ''">
+                LOC_ADOPTED = #{locAdopted,jdbcType=CHAR},
+            </if>
+            <if test="negLocAtk != null and negLocAtk != ''">
+                NEG_LOC_ATK = #{negLocAtk,jdbcType=CHAR},
+            </if>
+            <if test="negLocStk != null and negLocStk != ''">
+                NEG_LOC_STK = #{negLocStk,jdbcType=CHAR},
+            </if>
+            <if test="delivLocId != null  ">
+                DELIV_LOC_ID = #{delivLocId,jdbcType=DECIMAL},
+            </if>
+            <if test="rcvLocId != null">
+                RCV_LOC_ID = #{rcvLocId,jdbcType=DECIMAL},
+            </if>
+            <if test="pckLocId != null">
+                PCK_LOC_ID = #{pckLocId,jdbcType=DECIMAL},
+            </if>
+            <if test="upkLocId != null">
+                UPK_LOC_ID = #{upkLocId,jdbcType=DECIMAL},
+            </if>
+            <if test="acptUidReqd != null and acptUidReqd !=''">
+                ACPT_UID_REQD = #{acptUidReqd,jdbcType=CHAR},
+            </if>
+            <if test="paUidReqd != null and paUidReqd !=''">
+                PA_UID_REQD = #{paUidReqd,jdbcType=CHAR},
+            </if>
+            <if test="pickUidReqd != null and pickUidReqd !=''">
+                PICK_UID_REQD = #{pickUidReqd,jdbcType=CHAR},
+            </if>
+            <if test="rckUidReqd != null and rckUidReqd !=''">
+                RCK_UID_REQD = #{rckUidReqd,jdbcType=CHAR},
+            </if>
+            <if test="boxUidReqd != null and boxUidReqd !=''">
+                BOX_UID_REQD = #{boxUidReqd,jdbcType=CHAR},
+            </if>
+            <if test="fsclUnitId != null">
+                FSCL_UNIT_ID = #{fsclUnitId,jdbcType=DECIMAL},
+            </if>
+            <if test="costGrpId != null">
+                COST_GRP_ID = #{costGrpId,jdbcType=BIGINT},
+            </if>
+            <if test="propOwnerId != null">
+                PROP_OWNER_ID = #{propOwnerId,jdbcType=BIGINT},
+            </if>
+            <if test="warehStatus != null and warehStatus!=''">
+                WAREH_STATUS = #{warehStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                OPR_ID = #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="updTime != null">
+                UPD_TIME = now(),
+            </if>
+            <if test="clnAreaAdopted != null and clnAreaAdopted!=''">
+                CLN_AREA_ADOPTED = #{clnAreaAdopted,jdbcType=CHAR},
+            </if>
+            <if test="clnRckReqd != null and clnRckReqd!=''">
+                CLN_RCK_REQD = #{clnRckReqd,jdbcType=CHAR},
+            </if>
+        </set>
+        where WAREH_ID = #{warehId,jdbcType=BIGINT}
+    </update>
+
+</mapper>

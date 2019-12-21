@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysDomainMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysDomain">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <result column="domain_id" jdbcType="VARCHAR" property="domainId"/>
+        <result column="sa_id" jdbcType="BIGINT" property="saId"/>
+        <result column="priv_date_fml" jdbcType="VARCHAR" property="privDateFml"/>
+        <result column="domain_status" jdbcType="CHAR" property="domainStatus"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="upd_time" jdbcType="TIMESTAMP" property="updTime"/>
+    </resultMap>
+
+
+    <resultMap id="prsnl" type="com.boyu.erp.platform.usercenter.entity.system.SysPrsnl">
+        <id column="prsnl_id" property="prsnlId"/>
+        <result column="prsnl_code" property="prsnlCode"/>
+        <result column="surname" property="surname"/>
+        <result column="given_name" property="givenName"/>
+        <result column="full_name" property="fullName"/>
+        <result column="gender" property="gender"/>
+        <result column="id_type" property="idType"/>
+        <result column="id_num" property="idNum"/>
+        <result column="office_num" property="officeNum"/>
+        <result column="mobile_num" property="mobileNum"/>
+        <result column="home_num" property="homeNum"/>
+        <result column="fax_num" property="faxNum"/>
+        <result column="tlgp_num" property="tlgpNum"/>
+        <result column="email_addr" property="emailAddr"/>
+        <result column="im_id" property="imId"/>
+        <result column="postcode" property="postcode"/>
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="district" property="district"/>
+        <result column="address" property="address"/>
+        <result column="ctrl_unit_id" property="ctrlUnitId"/>
+        <result column="shared" property="shared"/>
+        <result column="input_code" property="inputCode"/>
+        <result column="seq_num" property="seqNum"/>
+        <result column="prsnl_status" property="prsnlStatus"/>
+        <result column="opr_id" property="oprId"/>
+        <result column="upd_time" property="updTime"/>
+        <result column="remarks" property="remarks"/>
+        <result column="ctrlUnitCode" property="ctrlUnitCode"/>
+        <result column="ctrlUnitName" property="ctrlUnitName"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    unit_id, domain_id, sa_id, priv_date_fml, domain_status, opr_id, upd_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_domain
+        where unit_id = #{unitId}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_domain
+    where unit_id = #{unitId}
+  </delete>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysDomain">
+        insert into sys_domain
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="domainId != null">
+                domain_id,
+            </if>
+            <if test="saId != null">
+                sa_id,
+            </if>
+            <if test="privDateFml != null">
+                priv_date_fml,
+            </if>
+            <if test="domainStatus != null">
+                domain_status,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+            <if test="updTime != null">
+                upd_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId},
+            </if>
+            <if test="domainId != null">
+                #{domainId},
+            </if>
+            <if test="saId != null">
+                #{saId},
+            </if>
+            <if test="privDateFml != null">
+                #{privDateFml},
+            </if>
+            <if test="domainStatus != null">
+                #{domainStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                #{oprId},
+            </if>
+            <if test="updTime != null">
+                #{updTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysDomain">
+        update sys_domain
+        <trim prefix="set" suffixOverrides=",">
+            <if test="domainId != null and domainId !=''">
+                domain_id = #{domainId},
+            </if>
+            <if test="saId != null and saId != ''">
+                sa_id = #{saId},
+            </if>
+            <if test="privDateFml != null and privDateFml != ''">
+                priv_date_fml = #{privDateFml},
+            </if>
+            <if test="domainStatus != null and domainStatus !=''">
+                domain_status = #{domainStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId},
+            </if>
+            <if test="updTime != null">
+                upd_time = #{updTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+        where unit_id = #{unitId}
+    </update>
+
+    <!--用户能看-->
+    <select id="domiangetAll" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUser"
+            resultType="com.boyu.erp.platform.usercenter.vo.DomainAndUnitVo">
+        SELECT
+        tr.unit_name AS ctrlUnitName,
+        tr.unit_code AS ctrlUnitCode,
+        tr.full_name AS fullName,
+        tr.unit_type AS unitType,
+        tr.prsnl_code AS prsnlCode,
+        ps1.`prsnl_code` AS lmCode,
+        ps1.`full_name` AS lmName,
+        tr.domain_id AS domainId,
+        tr.unit_id AS unitId,
+        tr.unit_code AS unitCode,
+        tr.unit_name AS unitName,
+        tr.lic_type AS licType,
+        tr.lic_num AS licNum,
+        tr.tel_num AS telNum,
+        tr.email_addr AS emailAddr,
+        tr.postcode AS postcode,
+        tr.province AS province,
+        tr.city AS city,
+        tr.district AS district,
+        tr.address AS address,
+        tr.website AS website,
+        tr.lm_id AS lmId,
+        tr.ctrl_unit_Id AS ctrlUnitId,
+        tr.shared AS shared,
+        tr.recruitable AS recruitable,
+        tr.input_code AS inputCode,
+        tr.seq_num AS seqNum,
+        tr.unit_status AS unitStatus,
+        tr.opr_id AS oprId,
+        tr.upd_time AS updTime,
+        tr.remarks AS remarks,
+        tr.sa_id AS saId,
+        tr.prsnl_code AS prsnlCode,
+        tr.full_name AS fullName,
+        tr.`fax_num` AS faxNum
+        FROM
+        (SELECT
+        ma.`domain_id`,
+        ma.`sa_id`,
+        ps.`prsnl_id`,
+        ps.`full_name`,
+        ps.`prsnl_code`,
+        un.*
+        FROM
+        sys_prsnl ps
+        INNER JOIN sys_user us
+        ON ps.`prsnl_id` = us.`user_id`
+        INNER JOIN sys_domain ma
+        ON us.`owner_id` = ma.`unit_id`
+        INNER JOIN sys_unit un
+        ON un.`unit_id` = ma.`unit_id`
+        WHERE ps.`prsnl_id` = #{userId}
+        AND us.`owner_id` =#{ownerId}) tr
+        LEFT JOIN sys_prsnl ps1
+        ON tr.`lm_id` = ps1.`prsnl_id`
+        WHERE 1=1
+        AND tr.unit_status='A'
+        <if test="domain.domainId!=null">
+            AND
+            INSTR (tr.domain_id,#{domain.domainId})>0
+        </if>
+        <if test="unit.unitCode!=null">
+            AND
+            INSTR (tr.unit_code,#{unit.unitCode})>0
+        </if>
+        <if test="unit.unitStatus!=null and unit.unitStatus!='null'">
+            AND INSTR (tr.unit_status,#{unit.unitStatus})>0
+        </if>
+        <if test="unit.inputCode!=null and unit.inputCode!=''">
+            AND INSTR (tr.input_code,#{unit.inputCode})>0
+        </if>
+    </select>
+
+    <!--系统管理员或管理员查看的领域-->
+    <select id="findAll" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUser"
+            resultType="com.boyu.erp.platform.usercenter.vo.DomainAndUnitVo">
+        SELECT
+        (select unit_name from sys_unit where unit_id = tr.ctrl_unit_Id) AS ctrlUnitName,
+        tr.unit_id AS unitId,
+        tr.unit_type AS unitType,
+        tr.ctrl_unit_Id AS ctrlUnitId,
+        (select unit_code from sys_unit where unit_id = tr.ctrl_unit_Id) AS ctrlUnitCode,
+        tr.full_name AS fullName,
+        tr.prsnl_code AS prsnlCode,
+        ps1.`prsnl_code` AS lmCode,
+        ps1.`full_name` AS lmName,
+        tr.domain_id AS domainId,
+        tr.unit_code AS unitCode,
+        tr.unit_name AS unitName,
+        tr.lic_type AS licType,
+        tr.lic_num AS licNum,
+        tr.tel_num AS telNum,
+        tr.email_addr AS emailAddr,
+        tr.postcode AS postcode,
+        tr.province AS province,
+        tr.city AS city,
+        tr.district AS district,
+        tr.address AS address,
+        tr.website AS website,
+        tr.lm_id AS lmId,
+        tr.shared AS shared,
+        tr.recruitable AS recruitable,
+        tr.input_code AS inputCode,
+        tr.seq_num AS seqNum,
+        tr.unit_status AS unitStatus,
+        tr.opr_id AS oprId,
+        tr.upd_time AS updTime,
+        tr.remarks AS remarks,
+        tr.sa_id AS saId,
+        tr.prsnl_code AS prsnlCode,
+        tr.full_name AS fullName,
+        tr.`fax_num` AS faxNum,
+        tr.`domain_status` AS domainStatus
+        FROM
+        (SELECT
+        ma.`domain_id`,
+        ma.`domain_status`,
+        ma.`sa_id`,
+        ps.`prsnl_id`,
+        ps.`full_name`,
+        ps.`prsnl_code`,
+        un.*
+        FROM
+        (SELECT
+        si.*
+        FROM
+        (SELECT
+        *
+        FROM
+        sys_unit) s
+        INNER JOIN sys_unit si
+        ON s.unit_id = si.`ctrl_unit_id`) un
+        INNER JOIN sys_domain ma
+        ON un.`unit_id` = ma.`unit_id`
+        INNER JOIN sys_prsnl ps
+        ON ma.`sa_id` = ps.`prsnl_id`) tr
+        LEFT JOIN sys_prsnl ps1
+        ON tr.`lm_id` = ps1.`prsnl_id`
+        WHERE 1=1
+        AND tr.unit_status='A'
+        <if test="domain.domainId!=null and domain.domainId!=''">
+            AND
+            INSTR (tr.domain_id,#{domain.domainId})>0
+        </if>
+        <if test="unit.unitCode!=null and unit.unitCode!=''">
+            AND
+            INSTR (tr.unit_code,#{unit.unitCode})>0
+        </if>
+        <if test="unit.unitStatus!=null and unit.unitStatus!='null'">
+
+            AND INSTR (tr.unit_status,#{unit.unitStatus})>0
+        </if>
+        <if test="unit.inputCode!=null and unit.inputCode!=''">
+            AND INSTR (tr.input_code,#{unit.inputCode})>0
+        </if>
+    </select>
+
+
+    <!--查询组织管理员-->
+    <select id="queryUnitSa" resultMap="prsnl"
+            parameterType="com.boyu.erp.platform.usercenter.vo.system.SysPrsnlVo">
+        SELECT a.* FROM sys_prsnl a INNER JOIN sys_domain b ON(a.`prsnl_id`=b.`sa_id`)
+        WHERE b.`unit_id`=#{unitId}
+        <if test="prsnlCode != null and prsnlCode !=''">
+            and a.prsnl_code like CONCAT('%', #{prsnlCode}, '%')
+        </if>
+        <if test="fullName != null and fullName!=''">
+            and a.full_name like CONCAT('%', #{fullName}, '%')
+        </if>
+        <if test="mobileNum != null and mobileNum!=''">
+            and a.mobile_num like CONCAT('%', #{mobileNum}, '%')
+        </if>
+        <if test="prsnlStatus != null and prsnlStatus!='null' and prsnlStatus!=''">
+            and a.prsnl_status = #{prsnlStatus,jdbcType=CHAR}
+        </if>
+    </select>
+
+    <select id="selectdomain" parameterType="com.boyu.erp.platform.usercenter.vo.DomainAndUnitVo"
+            resultType="com.boyu.erp.platform.usercenter.vo.DomainAndUnitVo">
+        SELECT
+        a.unit_id AS unitId,
+        a.unit_code AS unitCode,
+        a.unit_type AS unitType,
+        a.unit_name AS unitName,
+        a.lic_type AS licType,
+        a.lic_num AS licNum,
+        a.tel_num AS telNum,
+        a.fax_num AS faxNum,
+        a.email_addr AS emailAddr,
+        a.postcode AS postcode,
+        a.province,
+        a.city,
+        a.district,
+        a.address,
+        a.website,
+        a.lm_id AS lmId,
+        a.ctrl_unit_id AS ctrlUnitId,
+        a.shared,
+        a.recruitable,
+        d.unit_code AS ctrlUnitCode,
+        d.unit_name AS ctrlUnitName,
+        a.input_code AS inputCode,
+        a.seq_num AS seqNum,
+        a.unit_status AS unitStatus,
+        a.opr_id AS oprId,
+        a.upd_time AS updTime,
+        a.remarks AS remarks,
+        c.`domain_id` AS domainId,
+        b.full_name AS lmName,
+        b.`prsnl_code` AS lmCode,
+        e.`prsnl_code` AS prsnlCode,
+        e.`full_name` AS fullName,
+        c.`priv_date_fml` AS privDateFml,
+        c.`domain_status` AS domainStatus
+        FROM
+        sys_unit a
+        LEFT JOIN sys_prsnl b
+        ON (a.`lm_id` = b.prsnl_id)
+        LEFT JOIN sys_domain c
+        ON (c.`unit_id` = a.`unit_id`)
+        LEFT JOIN sys_unit d
+        ON (d.unit_id = a.ctrl_unit_id)
+        LEFT JOIN sys_prsnl e
+        ON(e.`prsnl_id`=c.sa_id)
+        WHERE 1 = 1
+        <if test="unitId != null">
+            and a.unit_id = #{unitId}
+        </if>
+        <if test="unitCode != null and unitCode!=''">
+            and a.unit_code like CONCAT('%', #{unitCode}, '%')
+        </if>
+        <if test="unitName != null and unitName!=''">
+            and a.unit_name like CONCAT('%', #{unitName}, '%')
+        </if>
+        <if test="licType != null">
+            and a.lic_type = #{licType}
+        </if>
+        <if test="licNum != null">
+            and a.lic_num = #{licNum}
+        </if>
+        <if test="telNum != null">
+            and a.tel_num = #{telNum}
+        </if>
+        <if test="faxNum != null">
+            and a.fax_num = #{faxNum}
+        </if>
+        <if test="emailAddr != null">
+            and a.email_addr = #{emailAddr}
+        </if>
+        <if test="postcode != null">
+            and a.postcode = #{postcode}
+        </if>
+        <if test="province != null">
+            and a.province = #{province}
+        </if>
+        <if test="city != null">
+            and a.city = #{city}
+        </if>
+        <if test="district != null">
+            and a.district = #{district}
+        </if>
+        <if test="address != null">
+            and a.address = #{address}
+        </if>
+        <if test="website != null">
+            and a.website = #{website}
+        </if>
+        <if test="lmId != null">
+            and a.lm_id = #{lmId}
+        </if>
+        <if test="ctrlUnitId != null and  ctrlUnitId!=0">
+            and a.ctrl_unit_id = #{ctrlUnitId}
+        </if>
+        <if test="shared != null">
+            and a.shared = #{shared}
+        </if>
+        <if test="recruitable != null">
+            and a.recruitable = #{recruitable}
+        </if>
+        <if test="inputCode != null and inputCode!=''">
+            and a.input_code like CONCAT('%', #{inputCode}, '%')
+        </if>
+        <if test="seqNum != null">
+            and a.seq_num = #{seqNum}
+        </if>
+        <if test="unitStatus != null and unitStatus!='null'">
+            and a.unit_status like CONCAT('%', #{unitStatus}, '%')
+        </if>
+        <if test="oprId != null">
+            and a.opr_id = #{oprId}
+        </if>
+        <if test="updTime != null">
+            and a.upd_time = #{updTime}
+        </if>
+        <if test="remarks != null">
+            and a.remarks = #{remarks}
+        </if>
+    </select>
+    <!--查询damainCode有无重复-->
+    <select id="countDomainCode" resultType="integer">
+       SELECT COUNT( d.`unit_id`)
+        FROM sys_domain d
+        WHERE d.`domain_id`=#{domianCode}
+   </select>
+    <!--切换领域返回登陆用户模型-->
+    <select id="cutDomain" parameterType="java.lang.Long" resultType="com.boyu.erp.platform.usercenter.vo.LoginModel">
+        SELECT
+        u.`user_pswd` AS userPwd,
+        p.`prsnl_code` AS prsnlCode,
+        d.`unit_id` AS `domainId`
+        FROM
+        sys_domain d
+        INNER JOIN sys_user u
+        ON d.`sa_id` = u.`user_id`
+        INNER JOIN sys_prsnl p
+        ON u.`user_id` = p.`prsnl_id`
+        where d.unit_id=#{unitId}
+        and u.`owner_id`=#{unitId}
+    </select>
+    <!--回到员领域返回登陆用户模型-->
+    <select id="originDomain" resultType="com.boyu.erp.platform.usercenter.vo.LoginModel"
+            parameterType="com.boyu.erp.platform.usercenter.vo.OriginDomainModel">
+        SELECT
+        u.`user_pswd` AS userPwd,
+        p.`prsnl_code` AS prsnlCode,
+        d.`unit_id` AS `domainId`
+        FROM
+        sys_user u
+        INNER JOIN sys_prsnl p
+        ON u.`user_id` = p.`prsnl_id`
+        INNER JOIN sys_unit d ON u.`owner_id`=d.`unit_id`
+        WHERE
+        u.`user_id`=#{userId}
+         AND u.`owner_id`=#{unitId}
+    </select>
+
+    <select id="statusDomain" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysDomain"
+            resultType="com.boyu.erp.platform.usercenter.entity.system.SysDomain">
+        SELECT
+        s.`unit_id` AS unitId,
+        s.`domain_id` AS domainId,
+        s.`sa_id` AS saId,
+        s.`priv_date_fml` AS privDateFml,
+        s.`domain_status` AS domainStatus,
+        s.`opr_id` AS oprId,
+        s.`upd_time` AS updTime,
+        u.`unit_name` AS unitName,
+        u.unit_code as unitCode
+        FROM
+        sys_domain s
+        INNER JOIN sys_unit u
+        ON s.`unit_id` = u.`unit_id`
+        WHERE s.`domain_status` = "A"
+        <if test="unitId!=null">
+            AND s.`unit_id` = #{unitId}
+        </if>
+        <if test="unitCode!=null and unitCode!=''">
+            AND instr(u.`unit_code` , #{unitCode})>0
+        </if>
+        <if test="domainId!=null and domainId!=''">
+            AND INSTR(s.`domain_id`, #{domainId}) > 0
+        </if>
+        <if test="unitName!=null and unitName!=''">
+            AND INSTR(u.`unit_name`,#{unitName}) > 0
+        </if>
+    </select>
+    <!--查询普通用户能切换的领域-->
+    <select id="selectOrdinaryDomain" parameterType="com.boyu.erp.platform.usercenter.model.system.OrdinaryDomainModel"
+            resultType="com.boyu.erp.platform.usercenter.model.system.OrdinaryDomainModel">
+        SELECT
+        d.`unit_id` as unitId,
+        d.`domain_id` as domainId,
+        u.`user_id` as userId ,
+        u.`owner_id` as ownerId,
+        u2.`unit_name` as unitName,
+        u2.unit_code as unitCode,
+        u2.`unit_status` as unitStatus
+        FROM
+        sys_user u
+        INNER JOIN sys_domain d
+        ON u.`owner_id` = d.`unit_id`
+        INNER JOIN sys_unit u2
+        ON d.`unit_id` = u2.`unit_id`
+        WHERE u.`user_id` = #{userId}
+        AND u.`user_status`='A'
+        AND d.`domain_status`='A'
+        AND u2.`unit_status` = 'A'
+        /*普通用户查看屏蔽当前组织，管理员无需屏蔽*/
+        <if test="unitId!=null and unitId!=0">
+            AND d.unit_id !=#{unitId}
+        </if>
+        <if test="domainId!='' and domainId!=null">
+            and instr(u2.unit_code,#{domainId})>0
+        </if>
+        <if test="unitCode!='' and unitCode!=null">
+            and instr(u2.unit_code,#{unitCode})>0
+        </if>
+        <if test="unitName!='' and unitName!=null">
+            and instr(u2.unit_name,#{unitName})>0
+        </if>
+    </select>
+    <!--管理员或系统管理员查询可以授予某个用户的领域信息-->
+    <select id="getDomain" parameterType="com.boyu.erp.platform.usercenter.vo.system.DomainVo"
+            resultType="com.boyu.erp.platform.usercenter.vo.system.DomainVo">
+        SELECT
+        d.`unit_id` as unitId,
+        u.`unit_code` as unitCode,
+        u.`unit_name` as unitName,
+        u.`unit_hierarchy` as unitHierarchy,
+        u.`unit_status` as unitStatus
+        FROM
+        sys_domain d
+        INNER JOIN sys_unit u
+        ON d.`unit_id` = u.unit_id
+        WHERE
+        d.`domain_status`='A'
+        and u.`unit_status` = 'A'
+        AND INSTR(
+        u.`unit_hierarchy`,
+        (
+        SELECT unit_hierarchy FROM sys_unit WHERE `unit_id` = #{unitId}
+        )
+        ) > 0
+        <if test="unitCode!=null and unitCode!=''">
+            AND INSTR(u.`unit_code`,#{unitCode})>0
+        </if>
+        <if test="unitName!=null and unitName!=''">
+            AND INSTR(u.`unit_name`,#{unitName})>0
+        </if>
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.WarehStkXMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStkX">
+    <id column="snpt_time" jdbcType="TIMESTAMP" property="snptTime" />
+    <id column="wareh_id" jdbcType="BIGINT" property="warehId" />
+    <id column="prod_id" jdbcType="BIGINT" property="prodId" />
+    <result column="stk_on_hand" jdbcType="REAL" property="stkOnHand" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    snpt_time, wareh_id, prod_id, stk_on_hand
+  </sql>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStkX">
+    insert into wareh_stk_x (snpt_time, wareh_id, prod_id, 
+      stk_on_hand)
+    values (#{snptTime,jdbcType=TIMESTAMP}, #{warehId,jdbcType=BIGINT}, #{prodId,jdbcType=BIGINT}, 
+      #{stkOnHand,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStkX">
+    insert into wareh_stk_x
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="snptTime != null">
+        snpt_time,
+      </if>
+      <if test="warehId != null">
+        wareh_id,
+      </if>
+      <if test="prodId != null">
+        prod_id,
+      </if>
+      <if test="stkOnHand != null">
+        stk_on_hand,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="snptTime != null">
+        #{snptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="warehId != null">
+        #{warehId,jdbcType=BIGINT},
+      </if>
+      <if test="prodId != null">
+        #{prodId,jdbcType=BIGINT},
+      </if>
+      <if test="stkOnHand != null">
+        #{stkOnHand,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+    <insert id="addWarehStkXList">
+      insert into wareh_stk_x(<include refid="Base_Column_List"></include>) values
+      <foreach collection="warehStkXList" item="warehStkX" separator=",">
+        (#{snptTime},#{warehStkX.warehId},#{warehStkX.prodId},#{warehStkX.stkOnHand})
+      </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStkX">
+    update wareh_stk_x
+    <set>
+      <if test="stkOnHand != null">
+        stk_on_hand = #{stkOnHand,jdbcType=REAL},
+      </if>
+    </set>
+    where snpt_time = #{snptTime,jdbcType=TIMESTAMP}
+      and wareh_id = #{warehId,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStkX">
+    update wareh_stk_x
+    set stk_on_hand = #{stkOnHand,jdbcType=REAL}
+    where snpt_time = #{snptTime,jdbcType=TIMESTAMP}
+      and wareh_id = #{warehId,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </update>
+    <select id="queryWarehStkXList" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from wareh_stk_x where wareh_id=#{warehId} and snpt_time=#{snptTime}
+    </select>
+</mapper>

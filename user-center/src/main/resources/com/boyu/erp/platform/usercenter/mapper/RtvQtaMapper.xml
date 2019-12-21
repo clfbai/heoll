@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.basic.RtvQtaMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.basic.RtvQta">
+        <id column="vender_id" jdbcType="BIGINT" property="venderId"/>
+        <id column="vendee_id" jdbcType="BIGINT" property="vendeeId"/>
+        <id column="psa_ctlr" jdbcType="CHAR" property="psaCtlr"/>
+        <result column="rtv_qta" jdbcType="DECIMAL" property="rtvQta"/>
+        <result column="adj_qta" jdbcType="DECIMAL" property="adjQta"/>
+        <result column="used_val" jdbcType="DECIMAL" property="usedVal"/>
+        <result column="frz_val" jdbcType="DECIMAL" property="frzVal"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    vender_id, vendee_id, psa_ctlr, rtv_qta, adj_qta, used_val, frz_val
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.RtvQta"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from rtv_qta
+        where vender_id = #{venderId,jdbcType=BIGINT}
+        and vendee_id = #{vendeeId,jdbcType=BIGINT}
+        and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.RtvQta">
+    delete from rtv_qta
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.basic.RtvQta">
+    insert into rtv_qta (vender_id, vendee_id, psa_ctlr, 
+      rtv_qta, adj_qta, used_val, 
+      frz_val)
+    values (#{venderId,jdbcType=BIGINT}, #{vendeeId,jdbcType=BIGINT}, #{psaCtlr,jdbcType=CHAR}, 
+      #{rtvQta,jdbcType=DECIMAL}, #{adjQta,jdbcType=DECIMAL}, #{usedVal,jdbcType=DECIMAL}, 
+      #{frzVal,jdbcType=DECIMAL})
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.RtvQta">
+        insert into rtv_qta
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="venderId != null">
+                vender_id,
+            </if>
+            <if test="vendeeId != null">
+                vendee_id,
+            </if>
+            <if test="psaCtlr != null">
+                psa_ctlr,
+            </if>
+            <if test="rtvQta != null">
+                rtv_qta,
+            </if>
+            <if test="adjQta != null">
+                adj_qta,
+            </if>
+            <if test="usedVal != null">
+                used_val,
+            </if>
+            <if test="frzVal != null">
+                frz_val,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="venderId != null">
+                #{venderId,jdbcType=BIGINT},
+            </if>
+            <if test="vendeeId != null">
+                #{vendeeId,jdbcType=BIGINT},
+            </if>
+            <if test="psaCtlr != null">
+                #{psaCtlr,jdbcType=CHAR},
+            </if>
+            <if test="rtvQta != null">
+                #{rtvQta,jdbcType=DECIMAL},
+            </if>
+            <if test="adjQta != null">
+                #{adjQta,jdbcType=DECIMAL},
+            </if>
+            <if test="usedVal != null">
+                #{usedVal,jdbcType=DECIMAL},
+            </if>
+            <if test="frzVal != null">
+                #{frzVal,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.RtvQta">
+        update rtv_qta
+        <set>
+            <if test="rtvQta != null">
+                rtv_qta = #{rtvQta,jdbcType=DECIMAL},
+            </if>
+            <if test="adjQta != null">
+                adj_qta = #{adjQta,jdbcType=DECIMAL},
+            </if>
+            <if test="usedVal != null">
+                used_val = #{usedVal,jdbcType=DECIMAL},
+            </if>
+            <if test="frzVal != null">
+                frz_val = #{frzVal,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where vender_id = #{venderId,jdbcType=BIGINT}
+        and vendee_id = #{vendeeId,jdbcType=BIGINT}
+        and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.RtvQta">
+    update rtv_qta
+    set rtv_qta = #{rtvQta,jdbcType=DECIMAL},
+      adj_qta = #{adjQta,jdbcType=DECIMAL},
+      used_val = #{usedVal,jdbcType=DECIMAL},
+      frz_val = #{frzVal,jdbcType=DECIMAL}
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+  </update>
+
+    <update id="updateByRtvQtaPg" parameterType="com.boyu.erp.platform.usercenter.entity.basic.RtvQtaPg">
+    update rtv_qta
+    set
+      frz_val = frz_val - #{frzVal,jdbcType=DECIMAL}
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+  </update>
+
+    <insert id="insertOrUpdate" parameterType="java.util.Map">
+        <selectKey keyProperty="count" resultType="int" order="BEFORE">
+            select count(*) from rtv_qta where vender_id = #{psa.venderId}
+            and vendee_id = #{psa.vendeeId}
+            and psa_ctlr = #{psa.psaCtlr}
+        </selectKey>
+        <if test="count > 0">
+            update rtv_qta
+            <set>
+                <if test="dtl.delivVal != null">
+                    <choose>
+                        <when test="flag">
+                            rtv_qta = rtv_qta+#{dtl.delivVal},
+                        </when>
+                        <otherwise>
+                            rtv_qta = rtv_qta-#{dtl.delivVal},
+                        </otherwise>
+                    </choose>
+                </if>
+            </set>
+            where vender_id = #{psa.venderId}
+            and vendee_id = #{psa.vendeeId}
+            and psa_ctlr = #{psa.psaCtlr}
+        </if>
+        <if test="count == 0">
+            insert into rtv_qta
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="psa.venderId != null">
+                    vender_id,
+                </if>
+                <if test="psa.vendeeId != null">
+                    vendee_id,
+                </if>
+                <if test="psa.psaCtlr != null">
+                    psa_ctlr,
+                </if>
+                <if test="dtl.delivVal != null">
+                    rtv_qta,
+                </if>
+            </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="psa.venderId != null">
+                    #{psa.venderId,jdbcType=BIGINT},
+                </if>
+                <if test="psa.vendeeId != null">
+                    #{psa.vendeeId,jdbcType=BIGINT},
+                </if>
+                <if test="psa.psaCtlr != null">
+                    #{psa.psaCtlr,jdbcType=CHAR},
+                </if>
+                <if test="dtl.delivVal != null">
+                    <choose>
+                        <when test="flag">
+                            #{dtl.delivVal,jdbcType=DECIMAL},
+                        </when>
+                        <otherwise>
+                            0-#{dtl.delivVal,jdbcType=DECIMAL},
+                        </otherwise>
+                    </choose>
+                </if>
+            </trim>
+        </if>
+    </insert>
+</mapper>

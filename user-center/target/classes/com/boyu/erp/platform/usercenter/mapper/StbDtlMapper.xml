@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.StbDtlMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.StbDtl">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="stb_num" jdbcType="VARCHAR" property="stbNum"/>
+        <id column="prod_id" jdbcType="BIGINT" property="prodId"/>
+        <result column="line_num" jdbcType="BIGINT" property="lineNum"/>
+        <result column="row_num" jdbcType="BIGINT" property="rowNum"/>
+        <result column="unit_price" jdbcType="DECIMAL" property="unitPrice"/>
+        <result column="disc_rate" jdbcType="DECIMAL" property="discRate"/>
+        <result column="fnl_price" jdbcType="DECIMAL" property="fnlPrice"/>
+        <result column="tax_rate" jdbcType="DECIMAL" property="taxRate"/>
+        <result column="expd_qty" jdbcType="DECIMAL" property="expdQty"/>
+        <result column="qty" jdbcType="DECIMAL" property="qty"/>
+        <result column="val" jdbcType="DECIMAL" property="val"/>
+        <result column="rwd" jdbcType="DECIMAL" property="rwd"/>
+        <result column="tax" jdbcType="DECIMAL" property="tax"/>
+        <result column="mk_unit_price" jdbcType="DECIMAL" property="mkUnitPrice"/>
+        <result column="mkv" jdbcType="DECIMAL" property="mkv"/>
+        <result column="app_price" jdbcType="DECIMAL" property="appPrice"/>
+        <result column="unit_cost" jdbcType="DECIMAL" property="unitCost"/>
+        <result column="cost" jdbcType="DECIMAL" property="cost"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+    <resultMap id="BaseStbDtlMap" type="com.boyu.erp.platform.usercenter.vo.warehouse.StbDtlVo">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="stb_num" jdbcType="VARCHAR" property="stbNum"/>
+        <id column="prod_id" jdbcType="BIGINT" property="prodId"/>
+        <result column="line_num" jdbcType="BIGINT" property="lineNum"/>
+        <result column="row_num" jdbcType="BIGINT" property="rowNum"/>
+        <result column="unit_price" jdbcType="DECIMAL" property="unitPrice"/>
+        <result column="disc_rate" jdbcType="DECIMAL" property="discRate"/>
+        <result column="fnl_price" jdbcType="DECIMAL" property="fnlPrice"/>
+        <result column="tax_rate" jdbcType="DECIMAL" property="taxRate"/>
+        <result column="expd_qty" jdbcType="DECIMAL" property="expdQty"/>
+        <result column="qty" jdbcType="DECIMAL" property="qty"/>
+        <result column="val" jdbcType="DECIMAL" property="val"/>
+        <result column="rwd" jdbcType="DECIMAL" property="rwd"/>
+        <result column="tax" jdbcType="DECIMAL" property="tax"/>
+        <result column="mk_unit_price" jdbcType="DECIMAL" property="mkUnitPrice"/>
+        <result column="mkv" jdbcType="DECIMAL" property="mkv"/>
+        <result column="app_price" jdbcType="DECIMAL" property="appPrice"/>
+        <result column="unit_cost" jdbcType="DECIMAL" property="unitCost"/>
+        <result column="cost" jdbcType="DECIMAL" property="cost"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="prodCode" jdbcType="VARCHAR" property="prodCode"/>
+        <result column="prodName" jdbcType="VARCHAR" property="prodName"/>
+        <result column="inputCode" jdbcType="VARCHAR" property="inputCode"/>
+        <result column="seqNum" jdbcType="VARCHAR" property="seqNum"/>
+        <result column="uom" jdbcType="VARCHAR" property="uom"/>
+        <result column="colorName" jdbcType="VARCHAR" property="colorName"/>
+        <result column="specName" jdbcType="VARCHAR" property="specName"/>
+        <result column="edition" jdbcType="VARCHAR" property="edition"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    unit_id, stb_num, prod_id, line_num, row_num, unit_price, disc_rate, fnl_price, tax_rate, 
+    expd_qty, qty, val, rwd, tax, mk_unit_price, mkv, app_price, unit_cost, cost, remarks
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbDtl"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from stb_dtl
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and stb_num = #{stbNum,jdbcType=VARCHAR}
+        and prod_id = #{prodId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbDtl">
+        delete from stb_dtl
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and stb_num = #{stbNum,jdbcType=VARCHAR}
+        <if test="prodId != 0 and prodId!= null">
+            and prod_id = #{prodId,jdbcType=BIGINT}
+        </if>
+    </delete>
+    <delete id="delByNumAndId">
+    delete from stb_dtl where unit_id=#{unitId} and stb_num=#{stbNum}
+  </delete>
+
+    <insert id="insertStbDtl" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbDtl">
+        insert into stb_dtl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="stbNum != null">
+                stb_num,
+            </if>
+            <if test="prodId != null">
+                prod_id,
+            </if>
+            <if test="lineNum != null">
+                line_num,
+            </if>
+            <if test="rowNum != null">
+                row_num,
+            </if>
+            <if test="unitPrice != null">
+                unit_price,
+            </if>
+            <if test="discRate != null">
+                disc_rate,
+            </if>
+            <if test="fnlPrice != null">
+                fnl_price,
+            </if>
+            <if test="taxRate != null">
+                tax_rate,
+            </if>
+            <if test="expdQty != null">
+                expd_qty,
+            </if>
+            <if test="qty != null">
+                qty,
+            </if>
+            <if test="val != null">
+                val,
+            </if>
+            <if test="rwd != null">
+                rwd,
+            </if>
+            <if test="tax != null">
+                tax,
+            </if>
+            <if test="mkUnitPrice != null">
+                mk_unit_price,
+            </if>
+            <if test="mkv != null">
+                mkv,
+            </if>
+            <if test="appPrice != null">
+                app_price,
+            </if>
+            <if test="unitCost != null">
+                unit_cost,
+            </if>
+            <if test="cost != null">
+                cost,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="stbNum != null">
+                #{stbNum,jdbcType=VARCHAR},
+            </if>
+            <if test="prodId != null">
+                #{prodId,jdbcType=BIGINT},
+            </if>
+            <if test="lineNum != null">
+                #{lineNum,jdbcType=BIGINT},
+            </if>
+            <if test="rowNum != null">
+                #{rowNum,jdbcType=BIGINT},
+            </if>
+            <if test="unitPrice != null">
+                #{unitPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="discRate != null">
+                #{discRate,jdbcType=DECIMAL},
+            </if>
+            <if test="fnlPrice != null">
+                #{fnlPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="taxRate != null">
+                #{taxRate,jdbcType=DECIMAL},
+            </if>
+            <if test="expdQty != null">
+                #{expdQty,jdbcType=DECIMAL},
+            </if>
+            <if test="qty != null">
+                #{qty,jdbcType=DECIMAL},
+            </if>
+            <if test="val != null">
+                #{val,jdbcType=DECIMAL},
+            </if>
+            <if test="rwd != null">
+                #{rwd,jdbcType=DECIMAL},
+            </if>
+            <if test="tax != null">
+                #{tax,jdbcType=DECIMAL},
+            </if>
+            <if test="mkUnitPrice != null">
+                #{mkUnitPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="mkv != null">
+                #{mkv,jdbcType=DECIMAL},
+            </if>
+            <if test="appPrice != null">
+                #{appPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="unitCost != null">
+                #{unitCost,jdbcType=DECIMAL},
+            </if>
+            <if test="cost != null">
+                #{cost,jdbcType=DECIMAL},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateStbDtl" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbDtl">
+        update stb_dtl
+        <set>
+            <if test="lineNum != null">
+                line_num = #{lineNum,jdbcType=BIGINT},
+            </if>
+            <if test="rowNum != null">
+                row_num = #{rowNum,jdbcType=BIGINT},
+            </if>
+            <if test="unitPrice != null">
+                unit_price = #{unitPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="discRate != null">
+                disc_rate = #{discRate,jdbcType=DECIMAL},
+            </if>
+            <if test="fnlPrice != null">
+                fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="taxRate != null">
+                tax_rate = #{taxRate,jdbcType=DECIMAL},
+            </if>
+            <if test="expdQty != null">
+                expd_qty = #{expdQty,jdbcType=DECIMAL},
+            </if>
+            <if test="qty != null">
+                qty = #{qty,jdbcType=DECIMAL},
+            </if>
+            <if test="val != null">
+                val = #{val,jdbcType=DECIMAL},
+            </if>
+            <if test="rwd != null">
+                rwd = #{rwd,jdbcType=DECIMAL},
+            </if>
+            <if test="tax != null">
+                tax = #{tax,jdbcType=DECIMAL},
+            </if>
+            <if test="mkUnitPrice != null">
+                mk_unit_price = #{mkUnitPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="mkv != null">
+                mkv = #{mkv,jdbcType=DECIMAL},
+            </if>
+            <if test="appPrice != null">
+                app_price = #{appPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="unitCost != null">
+                unit_cost = #{unitCost,jdbcType=DECIMAL},
+            </if>
+            <if test="cost != null">
+                cost = #{cost,jdbcType=DECIMAL},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and stb_num = #{stbNum,jdbcType=VARCHAR}
+        and prod_id = #{prodId,jdbcType=BIGINT}
+    </update>
+
+
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbDtl">
+        insert into stb_dtl (unit_id, stb_num, prod_id,
+        line_num, row_num, unit_price,
+        disc_rate, fnl_price, tax_rate,
+        expd_qty, qty, val,
+        rwd, tax, mk_unit_price,
+        mkv, app_price, unit_cost,
+        cost, remarks)
+        values (#{unitId,jdbcType=BIGINT}, #{stbNum,jdbcType=VARCHAR}, #{prodId,jdbcType=BIGINT},
+        #{lineNum,jdbcType=BIGINT}, #{rowNum,jdbcType=BIGINT}, #{unitPrice,jdbcType=DECIMAL},
+        #{discRate,jdbcType=DECIMAL}, #{fnlPrice,jdbcType=DECIMAL}, #{taxRate,jdbcType=DECIMAL},
+        #{expdQty,jdbcType=DECIMAL}, #{qty,jdbcType=DECIMAL}, #{val,jdbcType=DECIMAL},
+        #{rwd,jdbcType=DECIMAL}, #{tax,jdbcType=DECIMAL}, #{mkUnitPrice,jdbcType=DECIMAL},
+        #{mkv,jdbcType=DECIMAL}, #{appPrice,jdbcType=DECIMAL}, #{unitCost,jdbcType=DECIMAL},
+        #{cost,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR})
+        ON DUPLICATE KEY UPDATE
+        nit_id=values(nit_id), stb_num=values(stb_num),prod_id=values(prod_id),
+        line_num=values(line_num), row_num=values(row_num), unit_price=values(unit_price),
+        disc_rate=values(disc_rate), fnl_price=values(fnl_price), tax_rate=values(tax_rate),
+        expd_qty=values( expd_qty), qty=values(qty), val=values(val),
+        rwd=values(rwd), tax=values(tax), mk_unit_price=values(mk_unit_price),
+        mkv=values(mkv), app_price=values(app_price), unit_cost=values(unit_cost),
+        cost=values(cost), remarks=values(remarks)
+
+    </insert>
+    <insert id="insertStbDtlVO">
+        insert into stb_dtl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            unit_id,
+            stb_num,
+            <if test="stbDtlVos.get(0).prodId != null">
+                prod_id,
+            </if>
+            <if test="stbDtlVos.get(0).lineNum != null">
+                line_num,
+            </if>
+            <if test="stbDtlVos.get(0).rowNum != null">
+                row_num,
+            </if>
+            <if test="stbDtlVos.get(0).unitPrice != null">
+                unit_price,
+            </if>
+            <if test="stbDtlVos.get(0).discRate != null">
+                disc_rate,
+            </if>
+            <if test="stbDtlVos.get(0).fnlPrice != null">
+                fnl_price,
+            </if>
+            <if test="stbDtlVos.get(0).taxRate != null">
+                tax_rate,
+            </if>
+            <if test="stbDtlVos.get(0).expdQty != null">
+                expd_qty,
+            </if>
+            <if test="stbDtlVos.get(0).qty != null">
+                qty,
+            </if>
+            <if test="stbDtlVos.get(0).val != null">
+                val,
+            </if>
+            <if test="stbDtlVos.get(0).rwd != null">
+                rwd,
+            </if>
+            <if test="stbDtlVos.get(0).tax != null">
+                tax,
+            </if>
+            <if test="stbDtlVos.get(0).mkUnitPrice != null">
+                mk_unit_price,
+            </if>
+            <if test="stbDtlVos.get(0).mkv != null">
+                mkv,
+            </if>
+            <if test="stbDtlVos.get(0).appPrice != null">
+                app_price,
+            </if>
+            <if test="stbDtlVos.get(0).unitCost != null">
+                unit_cost,
+            </if>
+            <if test="stbDtlVos.get(0).cost != null">
+                cost,
+            </if>
+            <if test="stbDtlVos.get(0).remarks != null">
+                remarks,
+            </if>
+        </trim>
+        values
+        <foreach collection="stbDtlVos" item="stbDtlVo" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                #{unitId},
+                #{alwaysNum},
+                <if test="stbDtlVo.prodId != null">
+                    #{stbDtlVo.prodId,jdbcType=BIGINT},
+                </if>
+                <if test="stbDtlVo.lineNum != null">
+                    #{stbDtlVo.lineNum,jdbcType=BIGINT},
+                </if>
+                <if test="stbDtlVo.rowNum != null">
+                    #{stbDtlVo.rowNum,jdbcType=BIGINT},
+                </if>
+                <if test="stbDtlVo.unitPrice != null">
+                    #{stbDtlVo.unitPrice,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtlVo.discRate != null">
+                    #{stbDtlVo.discRate,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtlVo.fnlPrice != null">
+                    #{stbDtlVo.fnlPrice,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtlVo.taxRate != null">
+                    #{stbDtlVo.taxRate,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtlVo.expdQty != null">
+                    #{stbDtlVo.expdQty,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtlVo.qty != null">
+                    #{stbDtlVo.qty,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtlVo.val != null">
+                    #{stbDtlVo.val,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtlVo.rwd != null">
+                    #{stbDtlVo.rwd,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtlVo.tax != null">
+                    #{stbDtlVo.tax,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtlVo.mkUnitPrice != null">
+                    #{stbDtlVo.mkUnitPrice,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtlVo.mkv != null">
+                    #{stbDtlVo.mkv,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtlVo.appPrice != null">
+                    #{stbDtlVo.appPrice,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtlVo.unitCost != null">
+                    #{stbDtlVo.unitCost,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtlVo.cost != null">
+                    #{stbDtlVo.cost,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtlVo.remarks != null">
+                    #{stbDtlVo.remarks,jdbcType=VARCHAR},
+                </if>
+            </trim>
+        </foreach>
+    </insert>
+    <insert id="insertStbDtl2CreateGdn">
+        insert into stb_dtl(unit_id, stb_num, prod_id, line_num, row_num, unit_price, disc_rate, fnl_price, tax_rate,
+        expd_qty, qty, val, rwd, tax, mk_unit_price, mkv, app_price, unit_cost, cost, remarks)
+        values
+        <foreach collection="stbDtlVos" item="stbDtlVo" open="(" close=")" separator=",">
+            #{unitId},#{stbNum},#{stbDtlVo.prodId},#{stbDtlVo.lineNum},#{stbDtlVo.rowNum},#{stbDtlVo.unitPrice},#{stbDtlVo.discRate},#{stbDtlVo.fnlPrice},#{stbDtlVo.taxRate},#{stbDtlVo.expdQty},#{stbDtlVo.qty},#{stbDtlVo.val},#{stbDtlVo.rwd},#{stbDtlVo.tax},#{stbDtlVo.mkUnitPrice},#{stbDtlVo.mkv},#{stbDtlVo.appPrice},#{stbDtlVo.unitCost},#{stbDtlVo.cost},#{stbDtlVo.remarks}
+        </foreach>
+    </insert>
+    <insert id="insertStbDtlList">
+        insert into stb_dtl(<include refid="Base_Column_List"></include>) values
+        <foreach collection="list" item="stbDtl" separator=",">
+            (#{stbDtl.unitId},#{stbDtl.stbNum},#{stbDtl.prodId},#{stbDtl.lineNum},#{stbDtl.rowNum},#{stbDtl.unitPrice},#{stbDtl.discRate},#{stbDtl.fnlPrice},#{stbDtl.taxRate},
+            #{stbDtl.expdQty},#{stbDtl.qty},#{stbDtl.val},#{stbDtl.rwd},#{stbDtl.tax},#{stbDtl.mkUnitPrice},#{stbDtl.mkv},#{stbDtl.appPrice},#{stbDtl.unitCost},#{stbDtl.cost},#{stbDtl.remarks})
+        </foreach>
+    </insert>
+    <insert id="insertStbDtlListAndUnitId">
+        insert into stb_dtl(<include refid="Base_Column_List"></include>) values
+        <foreach collection="stbDtlList" item="stbDtl" separator=",">
+            (#{unitId},#{stbDtl.stbNum},#{stbDtl.prodId},#{stbDtl.lineNum},#{stbDtl.rowNum},#{stbDtl.unitPrice},#{stbDtl.discRate},#{stbDtl.fnlPrice},#{stbDtl.taxRate},
+            #{stbDtl.expdQty},#{stbDtl.qty},#{stbDtl.val},#{stbDtl.rwd},#{stbDtl.tax},#{stbDtl.mkUnitPrice},#{stbDtl.mkv},#{stbDtl.appPrice},#{stbDtl.unitCost},#{stbDtl.cost},#{stbDtl.remarks})
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbDtl">
+    update stb_dtl
+    set line_num = #{lineNum,jdbcType=BIGINT},
+      row_num = #{rowNum,jdbcType=BIGINT},
+      unit_price = #{unitPrice,jdbcType=DECIMAL},
+      disc_rate = #{discRate,jdbcType=DECIMAL},
+      fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+      tax_rate = #{taxRate,jdbcType=DECIMAL},
+      expd_qty = #{expdQty,jdbcType=DECIMAL},
+      qty = #{qty,jdbcType=DECIMAL},
+      val = #{val,jdbcType=DECIMAL},
+      rwd = #{rwd,jdbcType=DECIMAL},
+      tax = #{tax,jdbcType=DECIMAL},
+      mk_unit_price = #{mkUnitPrice,jdbcType=DECIMAL},
+      mkv = #{mkv,jdbcType=DECIMAL},
+      app_price = #{appPrice,jdbcType=DECIMAL},
+      unit_cost = #{unitCost,jdbcType=DECIMAL},
+      cost = #{cost,jdbcType=DECIMAL},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and stb_num = #{stbNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </update>
+    <update id="updateStbDtlCostList">
+        <foreach collection="stbDtls" item="stbDtl" separator=";">
+            update stb_dtl set unit_cost=#{stbDtl.unitCost} , cost=#{stbDtl.cost} where unit_id=#{stbDtl.unitId} and
+            stb_num=#{stbDtl.stbNum} and prod_id=#{stbDtl.prodId}
+        </foreach>
+    </update>
+    <update id="updateStbDtlList">
+        <foreach collection="stbDtlList" item="stbDtl" separator=";">
+            update stb_dtl
+            <set>
+                <if test="stbDtl.lineNum != null">
+                    line_num = #{stbDtl.lineNum},
+                </if>
+                <if test="stbDtl.rowNum != null">
+                    row_num = #{stbDtl.rowNum,jdbcType=BIGINT},
+                </if>
+                <if test="stbDtl.unitPrice != null">
+                    unit_price = #{stbDtl.unitPrice,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtl.discRate != null">
+                    disc_rate = #{stbDtl.discRate,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtl.fnlPrice != null">
+                    fnl_price = #{stbDtl.fnlPrice,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtl.taxRate != null">
+                    tax_rate = #{stbDtl.taxRate,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtl.expdQty != null">
+                    expd_qty = #{stbDtl.expdQty,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtl.qty != null">
+                    qty = #{stbDtl.qty,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtl.val != null">
+                    val = #{stbDtl.val,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtl.rwd != null">
+                    rwd = #{stbDtl.rwd,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtl.tax != null">
+                    tax = #{stbDtl.tax,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtl.mkUnitPrice != null">
+                    mk_unit_price = #{stbDtl.mkUnitPrice,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtl.mkv != null">
+                    mkv = #{stbDtl.mkv,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtl.appPrice != null">
+                    app_price = #{stbDtl.appPrice,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtl.unitCost != null">
+                    unit_cost = #{stbDtl.unitCost,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtl.cost != null">
+                    cost = #{stbDtl.cost,jdbcType=DECIMAL},
+                </if>
+                <if test="stbDtl.remarks != null">
+                    remarks = #{stbDtl.remarks,jdbcType=VARCHAR},
+                </if>
+            </set>
+            where unit_id = #{unitId,jdbcType=BIGINT}
+            and stb_num = #{stbNum,jdbcType=VARCHAR}
+            and prod_id = #{prodId,jdbcType=BIGINT}
+        </foreach>
+    </update>
+    <select id="getStbDtlList" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbDtl"
+            resultMap="BaseStbDtlMap">
+        SELECT
+        t.*,
+        t1.prod_code as prodCode,
+        t2.prod_name as prodName,
+        t2.input_code as inputCode,
+        t2.seq_num as seqNum,
+        t2.uom as uom,
+        t3.color_name as colorName,
+        t4.spec_name as specName,
+        t1.edition as edition
+        FROM
+        stb_dtl t
+        LEFT JOIN product t1 ON t.prod_id = t1.prod_id
+        LEFT JOIN prod_cls t2 ON t2.prod_cls_id = t1.prod_cls_id
+        LEFT JOIN color t3 ON t1.color_id = t3.color_id
+        LEFT JOIN spec t4 ON t2.spec_id = t4.spec_id
+        WHERE 1 = 1
+        <if test="unitId != 0">
+            and t.unit_id = #{unitId}
+        </if>
+        <if test="stbNum !=null and stbNum !=''">
+            and t.stb_num = #{stbNum}
+        </if>
+    </select>
+    <select id="queryTotStbDtlsBySonStbNums"
+            resultType="com.boyu.erp.platform.usercenter.vo.warehouse.StbDtlVo">
+        SELECT
+        stb_dtl.unit_id AS unitId,
+        stb_dtl.stb_num AS stbNum,
+        stb_dtl.prod_id AS prodId,
+        stb_dtl.line_num AS lineNum,
+        stb_dtl.row_num AS rowNum,
+        stb_dtl.unit_price AS unitPrice,
+        stb_dtl.disc_rate AS discRate,
+        stb_dtl.fnl_price AS fnlPrice,
+        stb_dtl.tax_rate AS taxRate,
+        stb_dtl.expd_qty AS expdQty,
+        stb_dtl.qty,
+        stb_dtl.val,
+        stb_dtl.rwd,
+        stb_dtl.tax,
+        stb_dtl.mk_unit_price AS mkUnitPrice,
+        stb_dtl.mkv,
+        stb_dtl.app_price AS appPrice,
+        stb_dtl.unit_cost AS unitCost,
+        stb_dtl.cost,
+        stb_dtl.remarks,
+        color.color_name AS colorName,
+        prod_cls.uom,
+        sys_unit.unit_name AS prodLine,
+        product.prod_code AS prodCode,
+        prod_cls.prod_name AS prodName,
+        prod_cls.input_code AS inputCode,
+        prod_cls.seq_num AS seqNum,
+        prod_cls.sample_num AS sampleNum,
+        spec.spec_name AS specName,
+        product.edition
+        FROM
+        stb_dtl
+        INNER JOIN product ON stb_dtl.prod_id = product.prod_id
+        INNER JOIN prod_cls ON product.prod_cls_id = prod_cls.prod_cls_id
+        INNER JOIN color ON product.color_id = color.color_id
+        LEFT JOIN sys_unit ON prod_cls.prod_line = sys_unit.unit_code
+        LEFT JOIN spec ON product.spec_id = spec.spec_id
+        where stb_dtl.unit_id=#{ownerId} and stb_dtl.stb_num in (
+        <foreach collection="sonStbNums" separator="," item="stbNum">
+            #{stbNum}
+        </foreach>
+        )
+    </select>
+    <select id="queryStbDtlsByStbNums" resultType="com.boyu.erp.platform.usercenter.vo.warehouse.StbDtlVo">
+        SELECT
+        stb_dtl.unit_id AS unitId,
+        stb_dtl.stb_num AS stbNum,
+        stb_dtl.prod_id AS prodId,
+        stb_dtl.line_num AS lineNum,
+        stb_dtl.row_num AS rowNum,
+        stb_dtl.unit_price AS unitPrice,
+        stb_dtl.disc_rate AS discRate,
+        stb_dtl.fnl_price AS fnlPrice,
+        stb_dtl.tax_rate AS taxRate,
+        stb_dtl.expd_qty AS expdQty,
+        stb_dtl.qty,
+        stb_dtl.val,
+        stb_dtl.rwd,
+        stb_dtl.tax,
+        stb_dtl.mk_unit_price AS mkUnitPrice,
+        stb_dtl.mkv,
+        stb_dtl.app_price AS appPrice,
+        stb_dtl.unit_cost AS unitCost,
+        stb_dtl.cost,
+        stb_dtl.remarks,
+        color.color_name AS colorName,
+        prod_cls.uom,
+        sys_unit.unit_name AS prodLine,
+        product.prod_code AS prodCode,
+        prod_cls.prod_name AS prodName,
+        prod_cls.input_code AS inputCode,
+        prod_cls.seq_num AS seqNum,
+        prod_cls.sample_num AS sampleNum,
+        spec.spec_name AS specName,
+        product.edition
+        FROM
+        stb_dtl
+        INNER JOIN product ON stb_dtl.prod_id = product.prod_id
+        INNER JOIN prod_cls ON product.prod_cls_id = prod_cls.prod_cls_id
+        INNER JOIN color ON product.color_id = color.color_id
+        LEFT JOIN sys_unit ON prod_cls.prod_line = sys_unit.unit_code
+        LEFT JOIN spec ON product.spec_id = spec.spec_id
+        where stb_dtl.unit_id=#{ownerId} and stb_dtl.stb_num=#{stbNum}
+    </select>
+    <select id="queryStbDtlsByNumAndUnit" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from stb_dtl where stb_num=#{stbNum} and unit_id=#{unitId}
+    </select>
+
+    <select id="selectDiff" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        FROM
+        stb_dtl
+        WHERE
+        prod_id NOT IN ( select prod_id from psc_dtl where psc_num = #{pscNum} )
+        AND unit_id = #{unitId}
+        AND stb_num = #{stbNum}
+    </select>
+    <select id="queryDtlCountByObj" resultType="java.lang.Long">
+        select count(1) from stb_dtl where stb_num=#{stbNum} and unit_id=#{unitId}
+    </select>
+
+    <select id="selectProdId" resultMap="BaseResultMap">
+        <foreach collection="list" item="list" separator="UNION">
+            (
+            SELECT
+            <include refid="Base_Column_List"/>
+            FROM
+            stb_dtl
+            WHERE prod_id=#{list} AND `unit_id`=#{unitId}
+            )
+        </foreach>
+    </select>
+</mapper>

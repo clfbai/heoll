@@ -1,0 +1,951 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PscTypeMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.PscType">
+    <id column="psc_type" jdbcType="VARCHAR" property="pscType" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="rcv_wareh_reqd" jdbcType="CHAR" property="rcvWarehReqd" />
+    <result column="puc_auto_gen" jdbcType="CHAR" property="pucAutoGen" />
+    <result column="puc_auto_chk" jdbcType="CHAR" property="pucAutoChk" />
+    <result column="is_pu_itmd" jdbcType="CHAR" property="isPuItmd" />
+    <result column="is_pu_itmd_alt" jdbcType="CHAR" property="isPuItmdAlt" />
+    <result column="deliv_wareh_reqd" jdbcType="CHAR" property="delivWarehReqd" />
+    <result column="slc_auto_gen" jdbcType="CHAR" property="slcAutoGen" />
+    <result column="slc_auto_chk" jdbcType="CHAR" property="slcAutoChk" />
+    <result column="is_sl_itmd" jdbcType="CHAR" property="isSlItmd" />
+    <result column="is_sl_itmd_alt" jdbcType="CHAR" property="isSlItmdAlt" />
+    <result column="tran_unit_reqd" jdbcType="CHAR" property="tranUnitReqd" />
+    <result column="dr_diff_jgd" jdbcType="CHAR" property="drDiffJgd" />
+    <result column="dr_diff_jgd_alt" jdbcType="CHAR" property="drDiffJgdAlt" />
+    <result column="impl_by_ins" jdbcType="CHAR" property="implByIns" />
+    <result column="impl_by_ins_alt" jdbcType="CHAR" property="implByInsAlt" />
+    <result column="multi_impl" jdbcType="CHAR" property="multiImpl" />
+    <result column="multi_impl_alt" jdbcType="CHAR" property="multiImplAlt" />
+    <result column="is_spot" jdbcType="CHAR" property="isSpot" />
+    <result column="is_spot_alt" jdbcType="CHAR" property="isSpotAlt" />
+    <result column="prc_site" jdbcType="CHAR" property="prcSite" />
+    <result column="prc_site_alt" jdbcType="CHAR" property="prcSiteAlt" />
+    <result column="fixed_unit_price" jdbcType="CHAR" property="fixedUnitPrice" />
+    <result column="rqd_ctrl" jdbcType="CHAR" property="rqdCtrl" />
+    <result column="rqd_ctrl_alt" jdbcType="CHAR" property="rqdCtrlAlt" />
+    <result column="spl_enabled" jdbcType="CHAR" property="splEnabled" />
+    <result column="spl_enabled_alt" jdbcType="CHAR" property="splEnabledAlt" />
+    <result column="exbl_rate" jdbcType="DECIMAL" property="exblRate" />
+    <result column="is_cms" jdbcType="CHAR" property="isCms" />
+    <result column="is_cms_alt" jdbcType="CHAR" property="isCmsAlt" />
+    <result column="ps_stl_mthd" jdbcType="CHAR" property="psStlMthd" />
+    <result column="ps_stl_mthd_alt" jdbcType="CHAR" property="psStlMthdAlt" />
+    <result column="mfz_enabled" jdbcType="CHAR" property="mfzEnabled" />
+    <result column="mfz_enabled_alt" jdbcType="CHAR" property="mfzEnabledAlt" />
+    <result column="ps_mfz_site" jdbcType="CHAR" property="psMfzSite" />
+    <result column="ps_mfz_site_alt" jdbcType="CHAR" property="psMfzSiteAlt" />
+    <result column="dpst_rate" jdbcType="DECIMAL" property="dpstRate" />
+    <result column="gm_enabled" jdbcType="CHAR" property="gmEnabled" />
+    <result column="gm_enabled_alt" jdbcType="CHAR" property="gmEnabledAlt" />
+    <result column="gm_rate" jdbcType="DECIMAL" property="gmRate" />
+    <result column="plan_ctrl" jdbcType="CHAR" property="planCtrl" />
+    <result column="plan_ctrl_alt" jdbcType="CHAR" property="planCtrlAlt" />
+    <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled" />
+    <result column="bxi_enabled_alt" jdbcType="CHAR" property="bxiEnabledAlt" />
+    <result column="prod_cat_id" jdbcType="VARCHAR" property="prodCatId" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapByVo" type="com.boyu.erp.platform.usercenter.vo.partner.PscTypeVo">
+    <id column="psc_type" jdbcType="VARCHAR" property="pscType" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="rcv_wareh_reqd" jdbcType="CHAR" property="rcvWarehReqd" />
+    <result column="puc_auto_gen" jdbcType="CHAR" property="pucAutoGen" />
+    <result column="puc_auto_chk" jdbcType="CHAR" property="pucAutoChk" />
+    <result column="is_pu_itmd" jdbcType="CHAR" property="isPuItmd" />
+    <result column="is_pu_itmd_alt" jdbcType="CHAR" property="isPuItmdAlt" />
+    <result column="deliv_wareh_reqd" jdbcType="CHAR" property="delivWarehReqd" />
+    <result column="slc_auto_gen" jdbcType="CHAR" property="slcAutoGen" />
+    <result column="slc_auto_chk" jdbcType="CHAR" property="slcAutoChk" />
+    <result column="is_sl_itmd" jdbcType="CHAR" property="isSlItmd" />
+    <result column="is_sl_itmd_alt" jdbcType="CHAR" property="isSlItmdAlt" />
+    <result column="tran_unit_reqd" jdbcType="CHAR" property="tranUnitReqd" />
+    <result column="dr_diff_jgd" jdbcType="CHAR" property="drDiffJgd" />
+    <result column="dr_diff_jgd_alt" jdbcType="CHAR" property="drDiffJgdAlt" />
+    <result column="impl_by_ins" jdbcType="CHAR" property="implByIns" />
+    <result column="impl_by_ins_alt" jdbcType="CHAR" property="implByInsAlt" />
+    <result column="multi_impl" jdbcType="CHAR" property="multiImpl" />
+    <result column="multi_impl_alt" jdbcType="CHAR" property="multiImplAlt" />
+    <result column="is_spot" jdbcType="CHAR" property="isSpot" />
+    <result column="is_spot_alt" jdbcType="CHAR" property="isSpotAlt" />
+    <result column="prc_site" jdbcType="CHAR" property="prcSite" />
+    <result column="prc_site_alt" jdbcType="CHAR" property="prcSiteAlt" />
+    <result column="fixed_unit_price" jdbcType="CHAR" property="fixedUnitPrice" />
+    <result column="rqd_ctrl" jdbcType="CHAR" property="rqdCtrl" />
+    <result column="rqd_ctrl_alt" jdbcType="CHAR" property="rqdCtrlAlt" />
+    <result column="spl_enabled" jdbcType="CHAR" property="splEnabled" />
+    <result column="spl_enabled_alt" jdbcType="CHAR" property="splEnabledAlt" />
+    <result column="exbl_rate" jdbcType="DECIMAL" property="exblRate" />
+    <result column="is_cms" jdbcType="CHAR" property="isCms" />
+    <result column="is_cms_alt" jdbcType="CHAR" property="isCmsAlt" />
+    <result column="ps_stl_mthd" jdbcType="CHAR" property="psStlMthd" />
+    <result column="ps_stl_mthd_alt" jdbcType="CHAR" property="psStlMthdAlt" />
+    <result column="mfz_enabled" jdbcType="CHAR" property="mfzEnabled" />
+    <result column="mfz_enabled_alt" jdbcType="CHAR" property="mfzEnabledAlt" />
+    <result column="ps_mfz_site" jdbcType="CHAR" property="psMfzSite" />
+    <result column="ps_mfz_site_alt" jdbcType="CHAR" property="psMfzSiteAlt" />
+    <result column="dpst_rate" jdbcType="DECIMAL" property="dpstRate" />
+    <result column="gm_enabled" jdbcType="CHAR" property="gmEnabled" />
+    <result column="gm_enabled_alt" jdbcType="CHAR" property="gmEnabledAlt" />
+    <result column="gm_rate" jdbcType="DECIMAL" property="gmRate" />
+    <result column="plan_ctrl" jdbcType="CHAR" property="planCtrl" />
+    <result column="plan_ctrl_alt" jdbcType="CHAR" property="planCtrlAlt" />
+    <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled" />
+    <result column="bxi_enabled_alt" jdbcType="CHAR" property="bxiEnabledAlt" />
+    <result column="prod_cat_id" jdbcType="VARCHAR" property="prodCatId" />
+    <result column="prodCatName" property="prodCatName" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapOption" type="com.boyu.erp.platform.usercenter.vo.system.PurKeyValue">
+    <result column="optionValue" property="optionValue" />
+    <result column="optionName" property="optionName" />
+  </resultMap>
+
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    psc_type, description, rcv_wareh_reqd, puc_auto_gen, puc_auto_chk, is_pu_itmd, is_pu_itmd_alt, 
+    deliv_wareh_reqd, slc_auto_gen, slc_auto_chk, is_sl_itmd, is_sl_itmd_alt, tran_unit_reqd, 
+    dr_diff_jgd, dr_diff_jgd_alt, impl_by_ins, impl_by_ins_alt, multi_impl, multi_impl_alt, 
+    is_spot, is_spot_alt, prc_site, prc_site_alt, fixed_unit_price, rqd_ctrl, rqd_ctrl_alt, 
+    spl_enabled, spl_enabled_alt, exbl_rate, is_cms, is_cms_alt, ps_stl_mthd, ps_stl_mthd_alt, 
+    mfz_enabled, mfz_enabled_alt, ps_mfz_site, ps_mfz_site_alt, dpst_rate, gm_enabled, 
+    gm_enabled_alt, gm_rate, plan_ctrl, plan_ctrl_alt, bxi_enabled, bxi_enabled_alt, 
+    prod_cat_id
+  </sql>
+  <select id="selectByExample" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscType" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from psc_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from psc_type
+    where psc_type = #{pscType,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from psc_type
+    where psc_type = #{pscType,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscType">
+    delete from psc_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscType">
+    insert into psc_type (psc_type, description, rcv_wareh_reqd, 
+      puc_auto_gen, puc_auto_chk, is_pu_itmd, 
+      is_pu_itmd_alt, deliv_wareh_reqd, slc_auto_gen, 
+      slc_auto_chk, is_sl_itmd, is_sl_itmd_alt, 
+      tran_unit_reqd, dr_diff_jgd, dr_diff_jgd_alt, 
+      impl_by_ins, impl_by_ins_alt, multi_impl, 
+      multi_impl_alt, is_spot, is_spot_alt, 
+      prc_site, prc_site_alt, fixed_unit_price, 
+      rqd_ctrl, rqd_ctrl_alt, spl_enabled, 
+      spl_enabled_alt, exbl_rate, is_cms, 
+      is_cms_alt, ps_stl_mthd, ps_stl_mthd_alt, 
+      mfz_enabled, mfz_enabled_alt, ps_mfz_site, 
+      ps_mfz_site_alt, dpst_rate, gm_enabled, 
+      gm_enabled_alt, gm_rate, plan_ctrl, 
+      plan_ctrl_alt, bxi_enabled, bxi_enabled_alt, 
+      prod_cat_id)
+    values (#{pscType,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{rcvWarehReqd,jdbcType=CHAR}, 
+      #{pucAutoGen,jdbcType=CHAR}, #{pucAutoChk,jdbcType=CHAR}, #{isPuItmd,jdbcType=CHAR}, 
+      #{isPuItmdAlt,jdbcType=CHAR}, #{delivWarehReqd,jdbcType=CHAR}, #{slcAutoGen,jdbcType=CHAR}, 
+      #{slcAutoChk,jdbcType=CHAR}, #{isSlItmd,jdbcType=CHAR}, #{isSlItmdAlt,jdbcType=CHAR}, 
+      #{tranUnitReqd,jdbcType=CHAR}, #{drDiffJgd,jdbcType=CHAR}, #{drDiffJgdAlt,jdbcType=CHAR}, 
+      #{implByIns,jdbcType=CHAR}, #{implByInsAlt,jdbcType=CHAR}, #{multiImpl,jdbcType=CHAR}, 
+      #{multiImplAlt,jdbcType=CHAR}, #{isSpot,jdbcType=CHAR}, #{isSpotAlt,jdbcType=CHAR}, 
+      #{prcSite,jdbcType=CHAR}, #{prcSiteAlt,jdbcType=CHAR}, #{fixedUnitPrice,jdbcType=CHAR}, 
+      #{rqdCtrl,jdbcType=CHAR}, #{rqdCtrlAlt,jdbcType=CHAR}, #{splEnabled,jdbcType=CHAR}, 
+      #{splEnabledAlt,jdbcType=CHAR}, #{exblRate,jdbcType=DECIMAL}, #{isCms,jdbcType=CHAR}, 
+      #{isCmsAlt,jdbcType=CHAR}, #{psStlMthd,jdbcType=CHAR}, #{psStlMthdAlt,jdbcType=CHAR}, 
+      #{mfzEnabled,jdbcType=CHAR}, #{mfzEnabledAlt,jdbcType=CHAR}, #{psMfzSite,jdbcType=CHAR}, 
+      #{psMfzSiteAlt,jdbcType=CHAR}, #{dpstRate,jdbcType=DECIMAL}, #{gmEnabled,jdbcType=CHAR}, 
+      #{gmEnabledAlt,jdbcType=CHAR}, #{gmRate,jdbcType=DECIMAL}, #{planCtrl,jdbcType=CHAR}, 
+      #{planCtrlAlt,jdbcType=CHAR}, #{bxiEnabled,jdbcType=CHAR}, #{bxiEnabledAlt,jdbcType=CHAR}, 
+      #{prodCatId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscType">
+    insert into psc_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pscType != null">
+        psc_type,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="rcvWarehReqd != null">
+        rcv_wareh_reqd,
+      </if>
+      <if test="pucAutoGen != null">
+        puc_auto_gen,
+      </if>
+      <if test="pucAutoChk != null">
+        puc_auto_chk,
+      </if>
+      <if test="isPuItmd != null">
+        is_pu_itmd,
+      </if>
+      <if test="isPuItmdAlt != null">
+        is_pu_itmd_alt,
+      </if>
+      <if test="delivWarehReqd != null">
+        deliv_wareh_reqd,
+      </if>
+      <if test="slcAutoGen != null">
+        slc_auto_gen,
+      </if>
+      <if test="slcAutoChk != null">
+        slc_auto_chk,
+      </if>
+      <if test="isSlItmd != null">
+        is_sl_itmd,
+      </if>
+      <if test="isSlItmdAlt != null">
+        is_sl_itmd_alt,
+      </if>
+      <if test="tranUnitReqd != null">
+        tran_unit_reqd,
+      </if>
+      <if test="drDiffJgd != null">
+        dr_diff_jgd,
+      </if>
+      <if test="drDiffJgdAlt != null">
+        dr_diff_jgd_alt,
+      </if>
+      <if test="implByIns != null">
+        impl_by_ins,
+      </if>
+      <if test="implByInsAlt != null">
+        impl_by_ins_alt,
+      </if>
+      <if test="multiImpl != null">
+        multi_impl,
+      </if>
+      <if test="multiImplAlt != null">
+        multi_impl_alt,
+      </if>
+      <if test="isSpot != null">
+        is_spot,
+      </if>
+      <if test="isSpotAlt != null">
+        is_spot_alt,
+      </if>
+      <if test="prcSite != null">
+        prc_site,
+      </if>
+      <if test="prcSiteAlt != null">
+        prc_site_alt,
+      </if>
+      <if test="fixedUnitPrice != null">
+        fixed_unit_price,
+      </if>
+      <if test="rqdCtrl != null">
+        rqd_ctrl,
+      </if>
+      <if test="rqdCtrlAlt != null">
+        rqd_ctrl_alt,
+      </if>
+      <if test="splEnabled != null">
+        spl_enabled,
+      </if>
+      <if test="splEnabledAlt != null">
+        spl_enabled_alt,
+      </if>
+      <if test="exblRate != null">
+        exbl_rate,
+      </if>
+      <if test="isCms != null">
+        is_cms,
+      </if>
+      <if test="isCmsAlt != null">
+        is_cms_alt,
+      </if>
+      <if test="psStlMthd != null">
+        ps_stl_mthd,
+      </if>
+      <if test="psStlMthdAlt != null">
+        ps_stl_mthd_alt,
+      </if>
+      <if test="mfzEnabled != null">
+        mfz_enabled,
+      </if>
+      <if test="mfzEnabledAlt != null">
+        mfz_enabled_alt,
+      </if>
+      <if test="psMfzSite != null">
+        ps_mfz_site,
+      </if>
+      <if test="psMfzSiteAlt != null">
+        ps_mfz_site_alt,
+      </if>
+      <if test="dpstRate != null">
+        dpst_rate,
+      </if>
+      <if test="gmEnabled != null">
+        gm_enabled,
+      </if>
+      <if test="gmEnabledAlt != null">
+        gm_enabled_alt,
+      </if>
+      <if test="gmRate != null">
+        gm_rate,
+      </if>
+      <if test="planCtrl != null">
+        plan_ctrl,
+      </if>
+      <if test="planCtrlAlt != null">
+        plan_ctrl_alt,
+      </if>
+      <if test="bxiEnabled != null">
+        bxi_enabled,
+      </if>
+      <if test="bxiEnabledAlt != null">
+        bxi_enabled_alt,
+      </if>
+      <if test="prodCatId != null">
+        prod_cat_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pscType != null">
+        #{pscType,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvWarehReqd != null">
+        #{rcvWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="pucAutoGen != null">
+        #{pucAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="pucAutoChk != null">
+        #{pucAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="isPuItmd != null">
+        #{isPuItmd,jdbcType=CHAR},
+      </if>
+      <if test="isPuItmdAlt != null">
+        #{isPuItmdAlt,jdbcType=CHAR},
+      </if>
+      <if test="delivWarehReqd != null">
+        #{delivWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="slcAutoGen != null">
+        #{slcAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="slcAutoChk != null">
+        #{slcAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="isSlItmd != null">
+        #{isSlItmd,jdbcType=CHAR},
+      </if>
+      <if test="isSlItmdAlt != null">
+        #{isSlItmdAlt,jdbcType=CHAR},
+      </if>
+      <if test="tranUnitReqd != null">
+        #{tranUnitReqd,jdbcType=CHAR},
+      </if>
+      <if test="drDiffJgd != null">
+        #{drDiffJgd,jdbcType=CHAR},
+      </if>
+      <if test="drDiffJgdAlt != null">
+        #{drDiffJgdAlt,jdbcType=CHAR},
+      </if>
+      <if test="implByIns != null">
+        #{implByIns,jdbcType=CHAR},
+      </if>
+      <if test="implByInsAlt != null">
+        #{implByInsAlt,jdbcType=CHAR},
+      </if>
+      <if test="multiImpl != null">
+        #{multiImpl,jdbcType=CHAR},
+      </if>
+      <if test="multiImplAlt != null">
+        #{multiImplAlt,jdbcType=CHAR},
+      </if>
+      <if test="isSpot != null">
+        #{isSpot,jdbcType=CHAR},
+      </if>
+      <if test="isSpotAlt != null">
+        #{isSpotAlt,jdbcType=CHAR},
+      </if>
+      <if test="prcSite != null">
+        #{prcSite,jdbcType=CHAR},
+      </if>
+      <if test="prcSiteAlt != null">
+        #{prcSiteAlt,jdbcType=CHAR},
+      </if>
+      <if test="fixedUnitPrice != null">
+        #{fixedUnitPrice,jdbcType=CHAR},
+      </if>
+      <if test="rqdCtrl != null">
+        #{rqdCtrl,jdbcType=CHAR},
+      </if>
+      <if test="rqdCtrlAlt != null">
+        #{rqdCtrlAlt,jdbcType=CHAR},
+      </if>
+      <if test="splEnabled != null">
+        #{splEnabled,jdbcType=CHAR},
+      </if>
+      <if test="splEnabledAlt != null">
+        #{splEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="exblRate != null">
+        #{exblRate,jdbcType=DECIMAL},
+      </if>
+      <if test="isCms != null">
+        #{isCms,jdbcType=CHAR},
+      </if>
+      <if test="isCmsAlt != null">
+        #{isCmsAlt,jdbcType=CHAR},
+      </if>
+      <if test="psStlMthd != null">
+        #{psStlMthd,jdbcType=CHAR},
+      </if>
+      <if test="psStlMthdAlt != null">
+        #{psStlMthdAlt,jdbcType=CHAR},
+      </if>
+      <if test="mfzEnabled != null">
+        #{mfzEnabled,jdbcType=CHAR},
+      </if>
+      <if test="mfzEnabledAlt != null">
+        #{mfzEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="psMfzSite != null">
+        #{psMfzSite,jdbcType=CHAR},
+      </if>
+      <if test="psMfzSiteAlt != null">
+        #{psMfzSiteAlt,jdbcType=CHAR},
+      </if>
+      <if test="dpstRate != null">
+        #{dpstRate,jdbcType=DECIMAL},
+      </if>
+      <if test="gmEnabled != null">
+        #{gmEnabled,jdbcType=CHAR},
+      </if>
+      <if test="gmEnabledAlt != null">
+        #{gmEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="gmRate != null">
+        #{gmRate,jdbcType=DECIMAL},
+      </if>
+      <if test="planCtrl != null">
+        #{planCtrl,jdbcType=CHAR},
+      </if>
+      <if test="planCtrlAlt != null">
+        #{planCtrlAlt,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabled != null">
+        #{bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabledAlt != null">
+        #{bxiEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="prodCatId != null">
+        #{prodCatId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscType" resultType="java.lang.Long">
+    select count(*) from psc_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update psc_type
+    <set>
+      <if test="record.pscType != null">
+        psc_type = #{record.pscType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rcvWarehReqd != null">
+        rcv_wareh_reqd = #{record.rcvWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="record.pucAutoGen != null">
+        puc_auto_gen = #{record.pucAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="record.pucAutoChk != null">
+        puc_auto_chk = #{record.pucAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="record.isPuItmd != null">
+        is_pu_itmd = #{record.isPuItmd,jdbcType=CHAR},
+      </if>
+      <if test="record.isPuItmdAlt != null">
+        is_pu_itmd_alt = #{record.isPuItmdAlt,jdbcType=CHAR},
+      </if>
+      <if test="record.delivWarehReqd != null">
+        deliv_wareh_reqd = #{record.delivWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="record.slcAutoGen != null">
+        slc_auto_gen = #{record.slcAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="record.slcAutoChk != null">
+        slc_auto_chk = #{record.slcAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="record.isSlItmd != null">
+        is_sl_itmd = #{record.isSlItmd,jdbcType=CHAR},
+      </if>
+      <if test="record.isSlItmdAlt != null">
+        is_sl_itmd_alt = #{record.isSlItmdAlt,jdbcType=CHAR},
+      </if>
+      <if test="record.tranUnitReqd != null">
+        tran_unit_reqd = #{record.tranUnitReqd,jdbcType=CHAR},
+      </if>
+      <if test="record.drDiffJgd != null">
+        dr_diff_jgd = #{record.drDiffJgd,jdbcType=CHAR},
+      </if>
+      <if test="record.drDiffJgdAlt != null">
+        dr_diff_jgd_alt = #{record.drDiffJgdAlt,jdbcType=CHAR},
+      </if>
+      <if test="record.implByIns != null">
+        impl_by_ins = #{record.implByIns,jdbcType=CHAR},
+      </if>
+      <if test="record.implByInsAlt != null">
+        impl_by_ins_alt = #{record.implByInsAlt,jdbcType=CHAR},
+      </if>
+      <if test="record.multiImpl != null">
+        multi_impl = #{record.multiImpl,jdbcType=CHAR},
+      </if>
+      <if test="record.multiImplAlt != null">
+        multi_impl_alt = #{record.multiImplAlt,jdbcType=CHAR},
+      </if>
+      <if test="record.isSpot != null">
+        is_spot = #{record.isSpot,jdbcType=CHAR},
+      </if>
+      <if test="record.isSpotAlt != null">
+        is_spot_alt = #{record.isSpotAlt,jdbcType=CHAR},
+      </if>
+      <if test="record.prcSite != null">
+        prc_site = #{record.prcSite,jdbcType=CHAR},
+      </if>
+      <if test="record.prcSiteAlt != null">
+        prc_site_alt = #{record.prcSiteAlt,jdbcType=CHAR},
+      </if>
+      <if test="record.fixedUnitPrice != null">
+        fixed_unit_price = #{record.fixedUnitPrice,jdbcType=CHAR},
+      </if>
+      <if test="record.rqdCtrl != null">
+        rqd_ctrl = #{record.rqdCtrl,jdbcType=CHAR},
+      </if>
+      <if test="record.rqdCtrlAlt != null">
+        rqd_ctrl_alt = #{record.rqdCtrlAlt,jdbcType=CHAR},
+      </if>
+      <if test="record.splEnabled != null">
+        spl_enabled = #{record.splEnabled,jdbcType=CHAR},
+      </if>
+      <if test="record.splEnabledAlt != null">
+        spl_enabled_alt = #{record.splEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="record.exblRate != null">
+        exbl_rate = #{record.exblRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isCms != null">
+        is_cms = #{record.isCms,jdbcType=CHAR},
+      </if>
+      <if test="record.isCmsAlt != null">
+        is_cms_alt = #{record.isCmsAlt,jdbcType=CHAR},
+      </if>
+      <if test="record.psStlMthd != null">
+        ps_stl_mthd = #{record.psStlMthd,jdbcType=CHAR},
+      </if>
+      <if test="record.psStlMthdAlt != null">
+        ps_stl_mthd_alt = #{record.psStlMthdAlt,jdbcType=CHAR},
+      </if>
+      <if test="record.mfzEnabled != null">
+        mfz_enabled = #{record.mfzEnabled,jdbcType=CHAR},
+      </if>
+      <if test="record.mfzEnabledAlt != null">
+        mfz_enabled_alt = #{record.mfzEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="record.psMfzSite != null">
+        ps_mfz_site = #{record.psMfzSite,jdbcType=CHAR},
+      </if>
+      <if test="record.psMfzSiteAlt != null">
+        ps_mfz_site_alt = #{record.psMfzSiteAlt,jdbcType=CHAR},
+      </if>
+      <if test="record.dpstRate != null">
+        dpst_rate = #{record.dpstRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.gmEnabled != null">
+        gm_enabled = #{record.gmEnabled,jdbcType=CHAR},
+      </if>
+      <if test="record.gmEnabledAlt != null">
+        gm_enabled_alt = #{record.gmEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="record.gmRate != null">
+        gm_rate = #{record.gmRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.planCtrl != null">
+        plan_ctrl = #{record.planCtrl,jdbcType=CHAR},
+      </if>
+      <if test="record.planCtrlAlt != null">
+        plan_ctrl_alt = #{record.planCtrlAlt,jdbcType=CHAR},
+      </if>
+      <if test="record.bxiEnabled != null">
+        bxi_enabled = #{record.bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="record.bxiEnabledAlt != null">
+        bxi_enabled_alt = #{record.bxiEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="record.prodCatId != null">
+        prod_cat_id = #{record.prodCatId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update psc_type
+    set psc_type = #{record.pscType,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      rcv_wareh_reqd = #{record.rcvWarehReqd,jdbcType=CHAR},
+      puc_auto_gen = #{record.pucAutoGen,jdbcType=CHAR},
+      puc_auto_chk = #{record.pucAutoChk,jdbcType=CHAR},
+      is_pu_itmd = #{record.isPuItmd,jdbcType=CHAR},
+      is_pu_itmd_alt = #{record.isPuItmdAlt,jdbcType=CHAR},
+      deliv_wareh_reqd = #{record.delivWarehReqd,jdbcType=CHAR},
+      slc_auto_gen = #{record.slcAutoGen,jdbcType=CHAR},
+      slc_auto_chk = #{record.slcAutoChk,jdbcType=CHAR},
+      is_sl_itmd = #{record.isSlItmd,jdbcType=CHAR},
+      is_sl_itmd_alt = #{record.isSlItmdAlt,jdbcType=CHAR},
+      tran_unit_reqd = #{record.tranUnitReqd,jdbcType=CHAR},
+      dr_diff_jgd = #{record.drDiffJgd,jdbcType=CHAR},
+      dr_diff_jgd_alt = #{record.drDiffJgdAlt,jdbcType=CHAR},
+      impl_by_ins = #{record.implByIns,jdbcType=CHAR},
+      impl_by_ins_alt = #{record.implByInsAlt,jdbcType=CHAR},
+      multi_impl = #{record.multiImpl,jdbcType=CHAR},
+      multi_impl_alt = #{record.multiImplAlt,jdbcType=CHAR},
+      is_spot = #{record.isSpot,jdbcType=CHAR},
+      is_spot_alt = #{record.isSpotAlt,jdbcType=CHAR},
+      prc_site = #{record.prcSite,jdbcType=CHAR},
+      prc_site_alt = #{record.prcSiteAlt,jdbcType=CHAR},
+      fixed_unit_price = #{record.fixedUnitPrice,jdbcType=CHAR},
+      rqd_ctrl = #{record.rqdCtrl,jdbcType=CHAR},
+      rqd_ctrl_alt = #{record.rqdCtrlAlt,jdbcType=CHAR},
+      spl_enabled = #{record.splEnabled,jdbcType=CHAR},
+      spl_enabled_alt = #{record.splEnabledAlt,jdbcType=CHAR},
+      exbl_rate = #{record.exblRate,jdbcType=DECIMAL},
+      is_cms = #{record.isCms,jdbcType=CHAR},
+      is_cms_alt = #{record.isCmsAlt,jdbcType=CHAR},
+      ps_stl_mthd = #{record.psStlMthd,jdbcType=CHAR},
+      ps_stl_mthd_alt = #{record.psStlMthdAlt,jdbcType=CHAR},
+      mfz_enabled = #{record.mfzEnabled,jdbcType=CHAR},
+      mfz_enabled_alt = #{record.mfzEnabledAlt,jdbcType=CHAR},
+      ps_mfz_site = #{record.psMfzSite,jdbcType=CHAR},
+      ps_mfz_site_alt = #{record.psMfzSiteAlt,jdbcType=CHAR},
+      dpst_rate = #{record.dpstRate,jdbcType=DECIMAL},
+      gm_enabled = #{record.gmEnabled,jdbcType=CHAR},
+      gm_enabled_alt = #{record.gmEnabledAlt,jdbcType=CHAR},
+      gm_rate = #{record.gmRate,jdbcType=DECIMAL},
+      plan_ctrl = #{record.planCtrl,jdbcType=CHAR},
+      plan_ctrl_alt = #{record.planCtrlAlt,jdbcType=CHAR},
+      bxi_enabled = #{record.bxiEnabled,jdbcType=CHAR},
+      bxi_enabled_alt = #{record.bxiEnabledAlt,jdbcType=CHAR},
+      prod_cat_id = #{record.prodCatId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscType">
+    update psc_type
+    <set>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvWarehReqd != null">
+        rcv_wareh_reqd = #{rcvWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="pucAutoGen != null">
+        puc_auto_gen = #{pucAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="pucAutoChk != null">
+        puc_auto_chk = #{pucAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="isPuItmd != null">
+        is_pu_itmd = #{isPuItmd,jdbcType=CHAR},
+      </if>
+      <if test="isPuItmdAlt != null">
+        is_pu_itmd_alt = #{isPuItmdAlt,jdbcType=CHAR},
+      </if>
+      <if test="delivWarehReqd != null">
+        deliv_wareh_reqd = #{delivWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="slcAutoGen != null">
+        slc_auto_gen = #{slcAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="slcAutoChk != null">
+        slc_auto_chk = #{slcAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="isSlItmd != null">
+        is_sl_itmd = #{isSlItmd,jdbcType=CHAR},
+      </if>
+      <if test="isSlItmdAlt != null">
+        is_sl_itmd_alt = #{isSlItmdAlt,jdbcType=CHAR},
+      </if>
+      <if test="tranUnitReqd != null">
+        tran_unit_reqd = #{tranUnitReqd,jdbcType=CHAR},
+      </if>
+      <if test="drDiffJgd != null">
+        dr_diff_jgd = #{drDiffJgd,jdbcType=CHAR},
+      </if>
+      <if test="drDiffJgdAlt != null">
+        dr_diff_jgd_alt = #{drDiffJgdAlt,jdbcType=CHAR},
+      </if>
+      <if test="implByIns != null">
+        impl_by_ins = #{implByIns,jdbcType=CHAR},
+      </if>
+      <if test="implByInsAlt != null">
+        impl_by_ins_alt = #{implByInsAlt,jdbcType=CHAR},
+      </if>
+      <if test="multiImpl != null">
+        multi_impl = #{multiImpl,jdbcType=CHAR},
+      </if>
+      <if test="multiImplAlt != null">
+        multi_impl_alt = #{multiImplAlt,jdbcType=CHAR},
+      </if>
+      <if test="isSpot != null">
+        is_spot = #{isSpot,jdbcType=CHAR},
+      </if>
+      <if test="isSpotAlt != null">
+        is_spot_alt = #{isSpotAlt,jdbcType=CHAR},
+      </if>
+      <if test="prcSite != null">
+        prc_site = #{prcSite,jdbcType=CHAR},
+      </if>
+      <if test="prcSiteAlt != null">
+        prc_site_alt = #{prcSiteAlt,jdbcType=CHAR},
+      </if>
+      <if test="fixedUnitPrice != null">
+        fixed_unit_price = #{fixedUnitPrice,jdbcType=CHAR},
+      </if>
+      <if test="rqdCtrl != null">
+        rqd_ctrl = #{rqdCtrl,jdbcType=CHAR},
+      </if>
+      <if test="rqdCtrlAlt != null">
+        rqd_ctrl_alt = #{rqdCtrlAlt,jdbcType=CHAR},
+      </if>
+      <if test="splEnabled != null">
+        spl_enabled = #{splEnabled,jdbcType=CHAR},
+      </if>
+      <if test="splEnabledAlt != null">
+        spl_enabled_alt = #{splEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="exblRate != null">
+        exbl_rate = #{exblRate,jdbcType=DECIMAL},
+      </if>
+      <if test="isCms != null">
+        is_cms = #{isCms,jdbcType=CHAR},
+      </if>
+      <if test="isCmsAlt != null">
+        is_cms_alt = #{isCmsAlt,jdbcType=CHAR},
+      </if>
+      <if test="psStlMthd != null">
+        ps_stl_mthd = #{psStlMthd,jdbcType=CHAR},
+      </if>
+      <if test="psStlMthdAlt != null">
+        ps_stl_mthd_alt = #{psStlMthdAlt,jdbcType=CHAR},
+      </if>
+      <if test="mfzEnabled != null">
+        mfz_enabled = #{mfzEnabled,jdbcType=CHAR},
+      </if>
+      <if test="mfzEnabledAlt != null">
+        mfz_enabled_alt = #{mfzEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="psMfzSite != null">
+        ps_mfz_site = #{psMfzSite,jdbcType=CHAR},
+      </if>
+      <if test="psMfzSiteAlt != null">
+        ps_mfz_site_alt = #{psMfzSiteAlt,jdbcType=CHAR},
+      </if>
+      <if test="dpstRate != null">
+        dpst_rate = #{dpstRate,jdbcType=DECIMAL},
+      </if>
+      <if test="gmEnabled != null">
+        gm_enabled = #{gmEnabled,jdbcType=CHAR},
+      </if>
+      <if test="gmEnabledAlt != null">
+        gm_enabled_alt = #{gmEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="gmRate != null">
+        gm_rate = #{gmRate,jdbcType=DECIMAL},
+      </if>
+      <if test="planCtrl != null">
+        plan_ctrl = #{planCtrl,jdbcType=CHAR},
+      </if>
+      <if test="planCtrlAlt != null">
+        plan_ctrl_alt = #{planCtrlAlt,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabled != null">
+        bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabledAlt != null">
+        bxi_enabled_alt = #{bxiEnabledAlt,jdbcType=CHAR},
+      </if>
+        prod_cat_id = #{prodCatId,jdbcType=VARCHAR},
+    </set>
+    where psc_type = #{pscType,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscType">
+    update psc_type
+    set description = #{description,jdbcType=VARCHAR},
+      rcv_wareh_reqd = #{rcvWarehReqd,jdbcType=CHAR},
+      puc_auto_gen = #{pucAutoGen,jdbcType=CHAR},
+      puc_auto_chk = #{pucAutoChk,jdbcType=CHAR},
+      is_pu_itmd = #{isPuItmd,jdbcType=CHAR},
+      is_pu_itmd_alt = #{isPuItmdAlt,jdbcType=CHAR},
+      deliv_wareh_reqd = #{delivWarehReqd,jdbcType=CHAR},
+      slc_auto_gen = #{slcAutoGen,jdbcType=CHAR},
+      slc_auto_chk = #{slcAutoChk,jdbcType=CHAR},
+      is_sl_itmd = #{isSlItmd,jdbcType=CHAR},
+      is_sl_itmd_alt = #{isSlItmdAlt,jdbcType=CHAR},
+      tran_unit_reqd = #{tranUnitReqd,jdbcType=CHAR},
+      dr_diff_jgd = #{drDiffJgd,jdbcType=CHAR},
+      dr_diff_jgd_alt = #{drDiffJgdAlt,jdbcType=CHAR},
+      impl_by_ins = #{implByIns,jdbcType=CHAR},
+      impl_by_ins_alt = #{implByInsAlt,jdbcType=CHAR},
+      multi_impl = #{multiImpl,jdbcType=CHAR},
+      multi_impl_alt = #{multiImplAlt,jdbcType=CHAR},
+      is_spot = #{isSpot,jdbcType=CHAR},
+      is_spot_alt = #{isSpotAlt,jdbcType=CHAR},
+      prc_site = #{prcSite,jdbcType=CHAR},
+      prc_site_alt = #{prcSiteAlt,jdbcType=CHAR},
+      fixed_unit_price = #{fixedUnitPrice,jdbcType=CHAR},
+      rqd_ctrl = #{rqdCtrl,jdbcType=CHAR},
+      rqd_ctrl_alt = #{rqdCtrlAlt,jdbcType=CHAR},
+      spl_enabled = #{splEnabled,jdbcType=CHAR},
+      spl_enabled_alt = #{splEnabledAlt,jdbcType=CHAR},
+      exbl_rate = #{exblRate,jdbcType=DECIMAL},
+      is_cms = #{isCms,jdbcType=CHAR},
+      is_cms_alt = #{isCmsAlt,jdbcType=CHAR},
+      ps_stl_mthd = #{psStlMthd,jdbcType=CHAR},
+      ps_stl_mthd_alt = #{psStlMthdAlt,jdbcType=CHAR},
+      mfz_enabled = #{mfzEnabled,jdbcType=CHAR},
+      mfz_enabled_alt = #{mfzEnabledAlt,jdbcType=CHAR},
+      ps_mfz_site = #{psMfzSite,jdbcType=CHAR},
+      ps_mfz_site_alt = #{psMfzSiteAlt,jdbcType=CHAR},
+      dpst_rate = #{dpstRate,jdbcType=DECIMAL},
+      gm_enabled = #{gmEnabled,jdbcType=CHAR},
+      gm_enabled_alt = #{gmEnabledAlt,jdbcType=CHAR},
+      gm_rate = #{gmRate,jdbcType=DECIMAL},
+      plan_ctrl = #{planCtrl,jdbcType=CHAR},
+      plan_ctrl_alt = #{planCtrlAlt,jdbcType=CHAR},
+      bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+      bxi_enabled_alt = #{bxiEnabledAlt,jdbcType=CHAR},
+      prod_cat_id = #{prodCatId,jdbcType=VARCHAR}
+    where psc_type = #{pscType,jdbcType=VARCHAR}
+  </update>
+
+  <!--购销申请类别下拉-->
+  <select id="optionGet" resultMap="BaseResultMapOption">
+      SELECT psc_type as optionValue , description as optionName
+      FROM
+       psc_type
+      WHERE
+       psc_type!=''
+    </select>
+
+  <sql id="Base_Column_List_Vo">
+    pt.psc_type, pt.description, pt.rcv_wareh_reqd, pt.puc_auto_gen, pt.puc_auto_chk, pt.is_pu_itmd, pt.is_pu_itmd_alt,
+    pt.deliv_wareh_reqd, pt.slc_auto_gen, pt.slc_auto_chk, pt.is_sl_itmd, pt.is_sl_itmd_alt, pt.tran_unit_reqd,
+    pt.dr_diff_jgd, pt.dr_diff_jgd_alt, pt.impl_by_ins, pt.impl_by_ins_alt, pt.multi_impl, pt.multi_impl_alt,
+    pt.is_spot, pt.is_spot_alt, pt.prc_site, pt.prc_site_alt, pt.fixed_unit_price, pt.rqd_ctrl, pt.rqd_ctrl_alt,
+    pt.spl_enabled, pt.spl_enabled_alt, pt.exbl_rate, pt.is_cms, pt.is_cms_alt, pt.ps_stl_mthd, pt.ps_stl_mthd_alt,
+    pt.mfz_enabled, pt.mfz_enabled_alt, pt.ps_mfz_site, pt.ps_mfz_site_alt, pt.dpst_rate, pt.gm_enabled,
+    pt.gm_enabled_alt, pt.gm_rate, pt.plan_ctrl, pt.plan_ctrl_alt, pt.bxi_enabled, pt.bxi_enabled_alt,
+    pt.prod_cat_id
+  </sql>
+
+  <select id="selectALL" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscType" resultMap="BaseResultMapByVo">
+    select
+    pc.prod_cat_name as prodCatName,
+    <include refid="Base_Column_List_Vo" />
+    from psc_type pt
+    left join prod_cat pc on pc.prod_cat_id = pt.prod_cat_id
+    where 1=1
+    <if test="pscType!=null and pscType!='' ">
+      and pt.psc_type like CONCAT('%',#{pscType}, '%')
+    </if>
+    <if test="description != null and description!='' ">
+      and pt.description like CONCAT('%', #{description}, '%')
+    </if>
+  </select>
+
+</mapper>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.VdrAttrDefMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.VdrAttrDef">
+        <id column="attr_type" jdbcType="VARCHAR" property="attrType" />
+        <result column="line_num" jdbcType="BIGINT" property="lineNum" />
+        <result column="attr_name" jdbcType="VARCHAR" property="attrName" />
+        <result column="data_type" jdbcType="CHAR" property="dataType" />
+        <result column="data_len" jdbcType="BIGINT" property="dataLen" />
+        <result column="data_dec" jdbcType="BIGINT" property="dataDec" />
+        <result column="width" jdbcType="BIGINT" property="width" />
+        <result column="char_case" jdbcType="CHAR" property="charCase" />
+        <result column="val_reqd" jdbcType="CHAR" property="valReqd" />
+        <result column="edt_fml" jdbcType="VARCHAR" property="edtFml" />
+        <result column="isOpetion" jdbcType="VARCHAR" property="isOpetion"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    attr_type, line_num, attr_name, data_type, data_len, data_dec, width, char_case, val_reqd, edt_fml,isOpetion
+  </sql>
+
+    <!-- 分页查询所有的供应商属性-->
+    <select id="selectALL" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.VdrAttrDef" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from vdr_attr_def where 1=1
+        <if test="attrType != null and attrType != '' ">
+            and attr_type like CONCAT( #{attrType,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="attrName != null and attrName != '' ">
+            and attr_name like CONCAT( #{attrName,jdbcType=VARCHAR}, '%')
+        </if>
+        ORDER BY line_num asc
+    </select>
+
+    <select id="getAll" resultType="com.boyu.erp.platform.usercenter.vo.goods.ProdAttrDefVo">
+        select
+        attr_type as attrType,
+        attr_name  as attrName,
+         edt_fml as edtFml,
+        isOpetion as  isOpetion
+        from  vdr_attr_def
+    </select>
+
+    <!--增加供应商属性 -->
+    <insert id="insertVdrAttrDef" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.VdrAttrDef">
+        insert into vdr_attr_def
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="attrType != null">
+                attr_type,
+            </if>
+            <if test="lineNum != null">
+                line_num,
+            </if>
+            <if test="attrName != null">
+                attr_name,
+            </if>
+            <if test="dataType != null">
+                data_type,
+            </if>
+            <if test="dataLen != null">
+                data_len,
+            </if>
+            <if test="dataDec != null">
+                data_dec,
+            </if>
+            <if test="width != null">
+                width,
+            </if>
+            <if test="charCase != null">
+                char_case,
+            </if>
+            <if test="valReqd != null">
+                val_reqd,
+            </if>
+            <if test="edtFml != null">
+                edt_fml,
+            </if>
+            <if test="isOpetion != null">
+                isOpetion,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="attrType != null">
+                #{attrType,jdbcType=VARCHAR},
+            </if>
+            <if test="lineNum != null">
+                #{lineNum,jdbcType=BIGINT},
+            </if>
+            <if test="attrName != null">
+                #{attrName,jdbcType=VARCHAR},
+            </if>
+            <if test="dataType != null">
+                #{dataType,jdbcType=VARCHAR},
+            </if>
+            <if test="dataLen != null">
+                #{dataLen,jdbcType=BIGINT},
+            </if>
+            <if test="dataDec != null">
+                #{dataDec,jdbcType=BIGINT},
+            </if>
+            <if test="width != null">
+                #{width,jdbcType=BIGINT},
+            </if>
+            <if test="charCase != null">
+                #{charCase,jdbcType=VARCHAR},
+            </if>
+            <if test="valReqd != null">
+                #{valReqd,jdbcType=VARCHAR},
+            </if>
+            <if test="edtFml != null">
+                #{edtFml,jdbcType=VARCHAR},
+            </if>
+            <if test="isOpetion != null">
+                #{isOpetion,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 更新供应商属性-->
+    <update id="updateVdrAttrDef" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.VdrAttrDef">
+        update vdr_attr_def
+        <set>
+            <if test="lineNum != null">
+                line_num = #{lineNum,jdbcType=BIGINT},
+            </if>
+            <if test="attrName != null">
+                attr_name = #{attrName,jdbcType=VARCHAR},
+            </if>
+            <if test="dataType != null">
+                data_type = #{dataType,jdbcType=VARCHAR},
+            </if>
+            <if test="dataLen != null">
+                data_len = #{dataLen,jdbcType=BIGINT},
+            </if>
+            <if test="dataDec != null">
+                data_dec = #{dataDec,jdbcType=BIGINT},
+            </if>
+            <if test="width != null">
+                width = #{width,jdbcType=BIGINT},
+            </if>
+            <if test="charCase != null">
+                char_case = #{charCase,jdbcType=VARCHAR},
+            </if>
+            <if test="valReqd != null">
+                val_reqd = #{valReqd,jdbcType=VARCHAR},
+            </if>
+            <if test="edtFml != null">
+                edt_fml = #{edtFml,jdbcType=VARCHAR},
+            </if>
+            <if test="isOpetion != null">
+                isOpetion = #{isOpetion,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where attr_type = #{attrType,jdbcType=VARCHAR}
+    </update>
+
+    <!-- 删除颜色，打标删除-->
+    <delete id="deleteVdrAttrDef" parameterType="VdrAttrDef">
+      delete from vdr_attr_def where attr_type = #{attrType,jdbcType=VARCHAR}
+  </delete>
+
+</mapper>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.ScanTblMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.ScanTbl">
+    <id column="scan_tbl_id" jdbcType="VARCHAR" property="scanTblId" />
+    <result column="scan_tbl_name" jdbcType="VARCHAR" property="scanTblName" />
+    <result column="wareh_id" jdbcType="DECIMAL" property="warehId" />
+    <result column="scan_tbl_num" jdbcType="VARCHAR" property="scanTblNum" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="rcv_enabled" jdbcType="CHAR" property="rcvEnabled" />
+    <result column="deliv_enabled" jdbcType="CHAR" property="delivEnabled" />
+    <result column="daily_enabled" jdbcType="CHAR" property="dailyEnabled" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="active" jdbcType="CHAR" property="active" />
+    <result column="task_doc_type" jdbcType="CHAR" property="taskDocType" />
+    <result column="task_doc_unit_id" jdbcType="DECIMAL" property="taskDocUnitId" />
+    <result column="task_doc_num" jdbcType="VARCHAR" property="taskDocNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    scan_tbl_id, scan_tbl_name, wareh_id, scan_tbl_num, `location`, rcv_enabled, deliv_enabled, 
+    daily_enabled, description, active, task_doc_type, task_doc_unit_id, task_doc_num
+  </sql>
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from scan_tbl
+    where scan_tbl_id = #{scanTblId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.String">
+    delete from scan_tbl
+    where scan_tbl_id = #{scanTblId,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertScanTbl" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.ScanTbl">
+    insert into scan_tbl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="scanTblId != null">
+        scan_tbl_id,
+      </if>
+      <if test="scanTblName != null">
+        scan_tbl_name,
+      </if>
+      <if test="warehId != null">
+        wareh_id,
+      </if>
+      <if test="scanTblNum != null">
+        scan_tbl_num,
+      </if>
+      <if test="location != null">
+        `location`,
+      </if>
+      <if test="rcvEnabled != null">
+        rcv_enabled,
+      </if>
+      <if test="delivEnabled != null">
+        deliv_enabled,
+      </if>
+      <if test="dailyEnabled != null">
+        daily_enabled,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="active != null">
+        active,
+      </if>
+      <if test="taskDocType != null">
+        task_doc_type,
+      </if>
+      <if test="taskDocUnitId != null">
+        task_doc_unit_id,
+      </if>
+      <if test="taskDocNum != null">
+        task_doc_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="scanTblId != null">
+        #{scanTblId,jdbcType=VARCHAR},
+      </if>
+      <if test="scanTblName != null">
+        #{scanTblName,jdbcType=VARCHAR},
+      </if>
+      <if test="warehId != null">
+        #{warehId,jdbcType=DECIMAL},
+      </if>
+      <if test="scanTblNum != null">
+        #{scanTblNum,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvEnabled != null">
+        #{rcvEnabled,jdbcType=CHAR},
+      </if>
+      <if test="delivEnabled != null">
+        #{delivEnabled,jdbcType=CHAR},
+      </if>
+      <if test="dailyEnabled != null">
+        #{dailyEnabled,jdbcType=CHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=CHAR},
+      </if>
+      <if test="taskDocType != null">
+        #{taskDocType,jdbcType=CHAR},
+      </if>
+      <if test="taskDocUnitId != null">
+        #{taskDocUnitId,jdbcType=DECIMAL},
+      </if>
+      <if test="taskDocNum != null">
+        #{taskDocNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateScanTbl" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.ScanTbl">
+    update scan_tbl
+    <set>
+      <if test="scanTblName != null">
+        scan_tbl_name = #{scanTblName,jdbcType=VARCHAR},
+      </if>
+      <if test="warehId != null">
+        wareh_id = #{warehId,jdbcType=DECIMAL},
+      </if>
+      <if test="scanTblNum != null">
+        scan_tbl_num = #{scanTblNum,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        `location` = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvEnabled != null">
+        rcv_enabled = #{rcvEnabled,jdbcType=CHAR},
+      </if>
+      <if test="delivEnabled != null">
+        deliv_enabled = #{delivEnabled,jdbcType=CHAR},
+      </if>
+      <if test="dailyEnabled != null">
+        daily_enabled = #{dailyEnabled,jdbcType=CHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null">
+        active = #{active,jdbcType=CHAR},
+      </if>
+      <if test="taskDocType != null">
+        task_doc_type = #{taskDocType,jdbcType=CHAR},
+      </if>
+      <if test="taskDocUnitId != null">
+        task_doc_unit_id = #{taskDocUnitId,jdbcType=DECIMAL},
+      </if>
+      <if test="taskDocNum != null">
+        task_doc_num = #{taskDocNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where scan_tbl_id = #{scanTblId,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

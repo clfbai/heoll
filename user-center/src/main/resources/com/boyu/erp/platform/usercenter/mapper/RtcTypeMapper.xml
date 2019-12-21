@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.RtcTypeMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.RtcType">
+    <id column="rtc_type" jdbcType="VARCHAR" property="rtcType" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="psc_reqd" jdbcType="CHAR" property="pscReqd" />
+    <result column="deliv_wareh_reqd" jdbcType="CHAR" property="delivWarehReqd" />
+    <result column="prc_auto_gen" jdbcType="CHAR" property="prcAutoGen" />
+    <result column="prc_auto_chk" jdbcType="CHAR" property="prcAutoChk" />
+    <result column="is_pr_itmd" jdbcType="CHAR" property="isPrItmd" />
+    <result column="is_pr_itmd_alt" jdbcType="CHAR" property="isPrItmdAlt" />
+    <result column="rcv_wareh_reqd" jdbcType="CHAR" property="rcvWarehReqd" />
+    <result column="src_auto_gen" jdbcType="CHAR" property="srcAutoGen" />
+    <result column="src_auto_chk" jdbcType="CHAR" property="srcAutoChk" />
+    <result column="is_sr_itmd" jdbcType="CHAR" property="isSrItmd" />
+    <result column="is_sr_itmd_alt" jdbcType="CHAR" property="isSrItmdAlt" />
+    <result column="tran_unit_reqd" jdbcType="CHAR" property="tranUnitReqd" />
+    <result column="dr_diff_jgd" jdbcType="CHAR" property="drDiffJgd" />
+    <result column="dr_diff_jgd_alt" jdbcType="CHAR" property="drDiffJgdAlt" />
+    <result column="multi_impl" jdbcType="CHAR" property="multiImpl" />
+    <result column="multi_impl_alt" jdbcType="CHAR" property="multiImplAlt" />
+    <result column="prc_site" jdbcType="CHAR" property="prcSite" />
+    <result column="prc_site_alt" jdbcType="CHAR" property="prcSiteAlt" />
+    <result column="fixed_unit_price" jdbcType="CHAR" property="fixedUnitPrice" />
+    <result column="spl_enabled" jdbcType="CHAR" property="splEnabled" />
+    <result column="spl_enabled_alt" jdbcType="CHAR" property="splEnabledAlt" />
+    <result column="exbl_rate" jdbcType="DECIMAL" property="exblRate" />
+    <result column="is_cms" jdbcType="CHAR" property="isCms" />
+    <result column="is_cms_alt" jdbcType="CHAR" property="isCmsAlt" />
+    <result column="rtna_invd" jdbcType="CHAR" property="rtnaInvd" />
+    <result column="rtna_invd_alt" jdbcType="CHAR" property="rtnaInvdAlt" />
+    <result column="acc_enabled" jdbcType="CHAR" property="accEnabled" />
+    <result column="acc_enabled_alt" jdbcType="CHAR" property="accEnabledAlt" />
+    <result column="rtn_acc_site" jdbcType="CHAR" property="rtnAccSite" />
+    <result column="rtn_acc_site_alt" jdbcType="CHAR" property="rtnAccSiteAlt" />
+    <result column="acc_rate" jdbcType="DECIMAL" property="accRate" />
+    <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled" />
+    <result column="bxi_enabled_alt" jdbcType="CHAR" property="bxiEnabledAlt" />
+    <result column="prod_cat_id" jdbcType="VARCHAR" property="prodCatId" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapByVo" type="com.boyu.erp.platform.usercenter.vo.partner.RtcTypeVo">
+    <id column="rtc_type" jdbcType="VARCHAR" property="rtcType" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="psc_reqd" jdbcType="CHAR" property="pscReqd" />
+    <result column="deliv_wareh_reqd" jdbcType="CHAR" property="delivWarehReqd" />
+    <result column="prc_auto_gen" jdbcType="CHAR" property="prcAutoGen" />
+    <result column="prc_auto_chk" jdbcType="CHAR" property="prcAutoChk" />
+    <result column="is_pr_itmd" jdbcType="CHAR" property="isPrItmd" />
+    <result column="is_pr_itmd_alt" jdbcType="CHAR" property="isPrItmdAlt" />
+    <result column="rcv_wareh_reqd" jdbcType="CHAR" property="rcvWarehReqd" />
+    <result column="src_auto_gen" jdbcType="CHAR" property="srcAutoGen" />
+    <result column="src_auto_chk" jdbcType="CHAR" property="srcAutoChk" />
+    <result column="is_sr_itmd" jdbcType="CHAR" property="isSrItmd" />
+    <result column="is_sr_itmd_alt" jdbcType="CHAR" property="isSrItmdAlt" />
+    <result column="tran_unit_reqd" jdbcType="CHAR" property="tranUnitReqd" />
+    <result column="dr_diff_jgd" jdbcType="CHAR" property="drDiffJgd" />
+    <result column="dr_diff_jgd_alt" jdbcType="CHAR" property="drDiffJgdAlt" />
+    <result column="multi_impl" jdbcType="CHAR" property="multiImpl" />
+    <result column="multi_impl_alt" jdbcType="CHAR" property="multiImplAlt" />
+    <result column="prc_site" jdbcType="CHAR" property="prcSite" />
+    <result column="prc_site_alt" jdbcType="CHAR" property="prcSiteAlt" />
+    <result column="fixed_unit_price" jdbcType="CHAR" property="fixedUnitPrice" />
+    <result column="spl_enabled" jdbcType="CHAR" property="splEnabled" />
+    <result column="spl_enabled_alt" jdbcType="CHAR" property="splEnabledAlt" />
+    <result column="exbl_rate" jdbcType="DECIMAL" property="exblRate" />
+    <result column="is_cms" jdbcType="CHAR" property="isCms" />
+    <result column="is_cms_alt" jdbcType="CHAR" property="isCmsAlt" />
+    <result column="rtna_invd" jdbcType="CHAR" property="rtnaInvd" />
+    <result column="rtna_invd_alt" jdbcType="CHAR" property="rtnaInvdAlt" />
+    <result column="acc_enabled" jdbcType="CHAR" property="accEnabled" />
+    <result column="acc_enabled_alt" jdbcType="CHAR" property="accEnabledAlt" />
+    <result column="rtn_acc_site" jdbcType="CHAR" property="rtnAccSite" />
+    <result column="rtn_acc_site_alt" jdbcType="CHAR" property="rtnAccSiteAlt" />
+    <result column="acc_rate" jdbcType="DECIMAL" property="accRate" />
+    <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled" />
+    <result column="bxi_enabled_alt" jdbcType="CHAR" property="bxiEnabledAlt" />
+    <result column="prod_cat_id" jdbcType="VARCHAR" property="prodCatId" />
+    <result column="prodCatName" property="prodCatName" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapOption" type="com.boyu.erp.platform.usercenter.vo.system.PurKeyValue">
+    <result column="optionValue" property="optionValue" />
+    <result column="optionName" property="optionName" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    rtc_type, description, psc_reqd, deliv_wareh_reqd, prc_auto_gen, prc_auto_chk, is_pr_itmd, 
+    is_pr_itmd_alt, rcv_wareh_reqd, src_auto_gen, src_auto_chk, is_sr_itmd, is_sr_itmd_alt, 
+    tran_unit_reqd, dr_diff_jgd, dr_diff_jgd_alt, multi_impl, multi_impl_alt, prc_site, 
+    prc_site_alt, fixed_unit_price, spl_enabled, spl_enabled_alt, exbl_rate, is_cms, 
+    is_cms_alt, rtna_invd, rtna_invd_alt, acc_enabled, acc_enabled_alt, rtn_acc_site, 
+    rtn_acc_site_alt, acc_rate, bxi_enabled, bxi_enabled_alt, prod_cat_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rtc_type
+    where rtc_type = #{rtcType,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from rtc_type
+    where rtc_type = #{rtcType,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.RtcType">
+    insert into rtc_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rtcType != null">
+        rtc_type,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="pscReqd != null">
+        psc_reqd,
+      </if>
+      <if test="delivWarehReqd != null">
+        deliv_wareh_reqd,
+      </if>
+      <if test="prcAutoGen != null">
+        prc_auto_gen,
+      </if>
+      <if test="prcAutoChk != null">
+        prc_auto_chk,
+      </if>
+      <if test="isPrItmd != null">
+        is_pr_itmd,
+      </if>
+      <if test="isPrItmdAlt != null">
+        is_pr_itmd_alt,
+      </if>
+      <if test="rcvWarehReqd != null">
+        rcv_wareh_reqd,
+      </if>
+      <if test="srcAutoGen != null">
+        src_auto_gen,
+      </if>
+      <if test="srcAutoChk != null">
+        src_auto_chk,
+      </if>
+      <if test="isSrItmd != null">
+        is_sr_itmd,
+      </if>
+      <if test="isSrItmdAlt != null">
+        is_sr_itmd_alt,
+      </if>
+      <if test="tranUnitReqd != null">
+        tran_unit_reqd,
+      </if>
+      <if test="drDiffJgd != null">
+        dr_diff_jgd,
+      </if>
+      <if test="drDiffJgdAlt != null">
+        dr_diff_jgd_alt,
+      </if>
+      <if test="multiImpl != null">
+        multi_impl,
+      </if>
+      <if test="multiImplAlt != null">
+        multi_impl_alt,
+      </if>
+      <if test="prcSite != null">
+        prc_site,
+      </if>
+      <if test="prcSiteAlt != null">
+        prc_site_alt,
+      </if>
+      <if test="fixedUnitPrice != null">
+        fixed_unit_price,
+      </if>
+      <if test="splEnabled != null">
+        spl_enabled,
+      </if>
+      <if test="splEnabledAlt != null">
+        spl_enabled_alt,
+      </if>
+      <if test="exblRate != null">
+        exbl_rate,
+      </if>
+      <if test="isCms != null">
+        is_cms,
+      </if>
+      <if test="isCmsAlt != null">
+        is_cms_alt,
+      </if>
+      <if test="rtnaInvd != null">
+        rtna_invd,
+      </if>
+      <if test="rtnaInvdAlt != null">
+        rtna_invd_alt,
+      </if>
+      <if test="accEnabled != null">
+        acc_enabled,
+      </if>
+      <if test="accEnabledAlt != null">
+        acc_enabled_alt,
+      </if>
+      <if test="rtnAccSite != null">
+        rtn_acc_site,
+      </if>
+      <if test="rtnAccSiteAlt != null">
+        rtn_acc_site_alt,
+      </if>
+      <if test="accRate != null">
+        acc_rate,
+      </if>
+      <if test="bxiEnabled != null">
+        bxi_enabled,
+      </if>
+      <if test="bxiEnabledAlt != null">
+        bxi_enabled_alt,
+      </if>
+      <if test="prodCatId != null">
+        prod_cat_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rtcType != null">
+        #{rtcType,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="pscReqd != null">
+        #{pscReqd,jdbcType=CHAR},
+      </if>
+      <if test="delivWarehReqd != null">
+        #{delivWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="prcAutoGen != null">
+        #{prcAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="prcAutoChk != null">
+        #{prcAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="isPrItmd != null">
+        #{isPrItmd,jdbcType=CHAR},
+      </if>
+      <if test="isPrItmdAlt != null">
+        #{isPrItmdAlt,jdbcType=CHAR},
+      </if>
+      <if test="rcvWarehReqd != null">
+        #{rcvWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="srcAutoGen != null">
+        #{srcAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="srcAutoChk != null">
+        #{srcAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="isSrItmd != null">
+        #{isSrItmd,jdbcType=CHAR},
+      </if>
+      <if test="isSrItmdAlt != null">
+        #{isSrItmdAlt,jdbcType=CHAR},
+      </if>
+      <if test="tranUnitReqd != null">
+        #{tranUnitReqd,jdbcType=CHAR},
+      </if>
+      <if test="drDiffJgd != null">
+        #{drDiffJgd,jdbcType=CHAR},
+      </if>
+      <if test="drDiffJgdAlt != null">
+        #{drDiffJgdAlt,jdbcType=CHAR},
+      </if>
+      <if test="multiImpl != null">
+        #{multiImpl,jdbcType=CHAR},
+      </if>
+      <if test="multiImplAlt != null">
+        #{multiImplAlt,jdbcType=CHAR},
+      </if>
+      <if test="prcSite != null">
+        #{prcSite,jdbcType=CHAR},
+      </if>
+      <if test="prcSiteAlt != null">
+        #{prcSiteAlt,jdbcType=CHAR},
+      </if>
+      <if test="fixedUnitPrice != null">
+        #{fixedUnitPrice,jdbcType=CHAR},
+      </if>
+      <if test="splEnabled != null">
+        #{splEnabled,jdbcType=CHAR},
+      </if>
+      <if test="splEnabledAlt != null">
+        #{splEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="exblRate != null">
+        #{exblRate,jdbcType=DECIMAL},
+      </if>
+      <if test="isCms != null">
+        #{isCms,jdbcType=CHAR},
+      </if>
+      <if test="isCmsAlt != null">
+        #{isCmsAlt,jdbcType=CHAR},
+      </if>
+      <if test="rtnaInvd != null">
+        #{rtnaInvd,jdbcType=CHAR},
+      </if>
+      <if test="rtnaInvdAlt != null">
+        #{rtnaInvdAlt,jdbcType=CHAR},
+      </if>
+      <if test="accEnabled != null">
+        #{accEnabled,jdbcType=CHAR},
+      </if>
+      <if test="accEnabledAlt != null">
+        #{accEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="rtnAccSite != null">
+        #{rtnAccSite,jdbcType=CHAR},
+      </if>
+      <if test="rtnAccSiteAlt != null">
+        #{rtnAccSiteAlt,jdbcType=CHAR},
+      </if>
+      <if test="accRate != null">
+        #{accRate,jdbcType=DECIMAL},
+      </if>
+      <if test="bxiEnabled != null">
+        #{bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabledAlt != null">
+        #{bxiEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="prodCatId != null">
+        #{prodCatId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.RtcType">
+    update rtc_type
+    <set>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="pscReqd != null">
+        psc_reqd = #{pscReqd,jdbcType=CHAR},
+      </if>
+      <if test="delivWarehReqd != null">
+        deliv_wareh_reqd = #{delivWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="prcAutoGen != null">
+        prc_auto_gen = #{prcAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="prcAutoChk != null">
+        prc_auto_chk = #{prcAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="isPrItmd != null">
+        is_pr_itmd = #{isPrItmd,jdbcType=CHAR},
+      </if>
+      <if test="isPrItmdAlt != null">
+        is_pr_itmd_alt = #{isPrItmdAlt,jdbcType=CHAR},
+      </if>
+      <if test="rcvWarehReqd != null">
+        rcv_wareh_reqd = #{rcvWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="srcAutoGen != null">
+        src_auto_gen = #{srcAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="srcAutoChk != null">
+        src_auto_chk = #{srcAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="isSrItmd != null">
+        is_sr_itmd = #{isSrItmd,jdbcType=CHAR},
+      </if>
+      <if test="isSrItmdAlt != null">
+        is_sr_itmd_alt = #{isSrItmdAlt,jdbcType=CHAR},
+      </if>
+      <if test="tranUnitReqd != null">
+        tran_unit_reqd = #{tranUnitReqd,jdbcType=CHAR},
+      </if>
+      <if test="drDiffJgd != null">
+        dr_diff_jgd = #{drDiffJgd,jdbcType=CHAR},
+      </if>
+      <if test="drDiffJgdAlt != null">
+        dr_diff_jgd_alt = #{drDiffJgdAlt,jdbcType=CHAR},
+      </if>
+      <if test="multiImpl != null">
+        multi_impl = #{multiImpl,jdbcType=CHAR},
+      </if>
+      <if test="multiImplAlt != null">
+        multi_impl_alt = #{multiImplAlt,jdbcType=CHAR},
+      </if>
+      <if test="prcSite != null">
+        prc_site = #{prcSite,jdbcType=CHAR},
+      </if>
+      <if test="prcSiteAlt != null">
+        prc_site_alt = #{prcSiteAlt,jdbcType=CHAR},
+      </if>
+      <if test="fixedUnitPrice != null">
+        fixed_unit_price = #{fixedUnitPrice,jdbcType=CHAR},
+      </if>
+      <if test="splEnabled != null">
+        spl_enabled = #{splEnabled,jdbcType=CHAR},
+      </if>
+      <if test="splEnabledAlt != null">
+        spl_enabled_alt = #{splEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="exblRate != null">
+        exbl_rate = #{exblRate,jdbcType=DECIMAL},
+      </if>
+      <if test="isCms != null">
+        is_cms = #{isCms,jdbcType=CHAR},
+      </if>
+      <if test="isCmsAlt != null">
+        is_cms_alt = #{isCmsAlt,jdbcType=CHAR},
+      </if>
+      <if test="rtnaInvd != null">
+        rtna_invd = #{rtnaInvd,jdbcType=CHAR},
+      </if>
+      <if test="rtnaInvdAlt != null">
+        rtna_invd_alt = #{rtnaInvdAlt,jdbcType=CHAR},
+      </if>
+      <if test="accEnabled != null">
+        acc_enabled = #{accEnabled,jdbcType=CHAR},
+      </if>
+      <if test="accEnabledAlt != null">
+        acc_enabled_alt = #{accEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="rtnAccSite != null">
+        rtn_acc_site = #{rtnAccSite,jdbcType=CHAR},
+      </if>
+      <if test="rtnAccSiteAlt != null">
+        rtn_acc_site_alt = #{rtnAccSiteAlt,jdbcType=CHAR},
+      </if>
+      <if test="accRate != null">
+        acc_rate = #{accRate,jdbcType=DECIMAL},
+      </if>
+      <if test="bxiEnabled != null">
+        bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabledAlt != null">
+        bxi_enabled_alt = #{bxiEnabledAlt,jdbcType=CHAR},
+      </if>
+        prod_cat_id = #{prodCatId},
+    </set>
+    where rtc_type = #{rtcType,jdbcType=VARCHAR}
+  </update>
+
+
+  <!--退货合同类别下拉-->
+  <select id="optionGet" resultMap="BaseResultMapOption">
+      SELECT rtc_type as optionValue , description as optionName
+      FROM
+       rtc_type
+      WHERE
+       rtc_type!=''
+    </select>
+
+  <sql id="Base_Column_List_Vo">
+    rt.rtc_type, rt.description, rt.psc_reqd, rt.deliv_wareh_reqd, rt.prc_auto_gen, rt.prc_auto_chk, rt.is_pr_itmd,
+    rt.is_pr_itmd_alt, rt.rcv_wareh_reqd, rt.src_auto_gen, rt.src_auto_chk, rt.is_sr_itmd, rt.is_sr_itmd_alt,
+    rt.tran_unit_reqd, rt.dr_diff_jgd, rt.dr_diff_jgd_alt, rt.multi_impl, rt.multi_impl_alt, rt.prc_site,
+    rt.prc_site_alt, rt.fixed_unit_price, rt.spl_enabled, rt.spl_enabled_alt, rt.exbl_rate, rt.is_cms,
+    rt.is_cms_alt, rt.rtna_invd, rt.rtna_invd_alt, rt.acc_enabled, rt.acc_enabled_alt, rt.rtn_acc_site,
+    rt.rtn_acc_site_alt, rt.acc_rate, rt.bxi_enabled, rt.bxi_enabled_alt, rt.prod_cat_id
+  </sql>
+
+  <select id="selectALL" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.RtcType" resultMap="BaseResultMapByVo">
+    select
+    pc.prod_cat_name as prodCatName,
+    <include refid="Base_Column_List_Vo" />
+    from rtc_type rt
+    left join prod_cat pc on pc.prod_cat_id = rt.prod_cat_id
+    where 1=1
+    <if test="rtcType!=null and rtcType!='' ">
+      and rt.rtc_type like CONCAT('%',#{rtcType}, '%')
+    </if>
+    <if test="description != null and description!='' ">
+      and rt.description like CONCAT('%', #{description}, '%')
+    </if>
+  </select>
+
+</mapper>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysRefNumMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysRefNum">
+        <id column="ref_num_id" jdbcType="VARCHAR" property="refNumId"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="from_num" jdbcType="BIGINT" property="fromNum"/>
+        <result column="to_num" jdbcType="BIGINT" property="toNum"/>
+        <result column="step_size" jdbcType="BIGINT" property="stepSize"/>
+        <result column="is_del" jdbcType="TINYINT" property="isDel"/>
+        <result column="create_by" jdbcType="BIGINT" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="BIGINT" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ref_num_id, description, from_num, to_num, step_size, is_del, create_by, create_time, 
+    update_by, update_time
+  </sql>
+    <select id="selectByPrimary" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysRefNum" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_ref_num
+        where
+        1=1
+        and is_del='1'
+        <if test="refNumId !=null and refNumId !=''">
+            and instr(ref_num_id , #{refNumId,jdbcType=VARCHAR}) >0
+        </if>
+        <if test="description !=null and description !=''">
+            and instr(description , #{description,jdbcType=VARCHAR}) >0
+        </if>
+
+    </select>
+
+    <select id="findByByRefNum" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysRefNum" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_ref_num
+        where
+        ref_num_id = #{refNumId,jdbcType=VARCHAR}
+    </select>
+    <select id="querySysRefNumByNumId" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from sys_ref_num where ref_num_id=#{refNumId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_ref_num
+    where ref_num_id = #{refNumId,jdbcType=VARCHAR}
+  </delete>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysRefNum">
+        insert into sys_ref_num
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="refNumId != null">
+                ref_num_id,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="fromNum != null">
+                from_num,
+            </if>
+            <if test="toNum != null">
+                to_num,
+            </if>
+            <if test="stepSize != null">
+                step_size,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="refNumId != null">
+                #{refNumId,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="fromNum != null">
+                #{fromNum,jdbcType=BIGINT},
+            </if>
+            <if test="toNum != null">
+                #{toNum,jdbcType=BIGINT},
+            </if>
+            <if test="stepSize != null">
+                #{stepSize,jdbcType=BIGINT},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysRefNum">
+        update sys_ref_num
+        <set>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="fromNum != null">
+                from_num = #{fromNum,jdbcType=BIGINT},
+            </if>
+            <if test="toNum != null">
+                to_num = #{toNum,jdbcType=BIGINT},
+            </if>
+            <if test="stepSize != null">
+                step_size = #{stepSize,jdbcType=BIGINT},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ref_num_id = #{refNumId,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

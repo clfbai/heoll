@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.UnitBatchMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatch">
+        <id column="batch_id" jdbcType="VARCHAR" property="batchId"/>
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="number" jdbcType="BIGINT" property="number"/>
+        <result column="prod_id" jdbcType="BIGINT" property="prodId"/>
+        <result column="production_quantity" jdbcType="INTEGER" property="productionQuantity"/>
+        <result column="purchase_quantity" jdbcType="INTEGER" property="purchaseQuantity"/>
+        <result column="market_quantity" jdbcType="INTEGER" property="marketQuantity"/>
+        <result column="surplus_quantity" jdbcType="INTEGER" property="surplusQuantity"/>
+        <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime"/>
+        <result column="wareh_id" jdbcType="BIGINT" property="warehId"/>
+        <result column="doc_num" jdbcType="VARCHAR" property="docNum"/>
+        <result column="batch_creat_type" jdbcType="VARCHAR" property="batchCreatType"/>
+        <result column="price" jdbcType="REAL" property="price"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    batch_id, prod_id, unit_id, production_quantity, purchase_quantity, market_quantity, 
+    surplus_quantity, creat_time, wareh_id, doc_num,batch_creat_type,price,`number`
+  </sql>
+    <!--根据顾客采购查询批次-->
+    <select id="selectCilentUnitBatch" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatch"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from unit_batch
+        where batch_id = #{batchId,jdbcType=VARCHAR}
+        and unit_id=#{unitId}
+    </select>
+    <!--根据商品ID查询批次号-->
+    <select id="selectUnitBatch" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatch"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from unit_batch
+        where batch_id = #{batchId,jdbcType=VARCHAR}
+        and `number`=#{number}
+        and unit_id=#{unitId}
+    </select>
+    <!--根据商品ID、组织Id查询批次号-->
+    <select id="getUnitBatch" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatch"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from unit_batch
+        where prod_id = #{prodId,jdbcType=BIGINT}
+        and unit_id = #{unitId,jdbcType=BIGINT}
+    </select>
+    <!--根据商品ID、组织Id查询批次号-->
+    <select id="countProdCut" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatch"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from unit_batch
+        where prod_id = #{prodId,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectVendeeBatchList"
+            resultMap="BaseResultMap">
+
+    </select>
+
+    <select id="selectUnitBatchList" resultMap="BaseResultMap">
+        <foreach collection="list" item="list" index="index" separator="UNION">
+            ( select
+            <include refid="Base_Column_List"/>
+            from unit_batch
+            where
+            batch_id = #{list.batchId,jdbcType=VARCHAR}
+            and unit_id = #{list.unitId,jdbcType=BIGINT}
+            and prod_id = #{list.prodId,jdbcType=BIGINT} )
+        </foreach>
+    </select>
+
+    <select id="queryBatchsByProdIdsAndUnit"
+            resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from unit_batch
+        <trim prefix="where" prefixOverrides="and|or">
+            prod_id in(
+            <foreach collection="prodIds" item="prodId" separator=",">
+                #{prodId}
+            </foreach>
+            ) and unit_id=#{unitId}
+        </trim>
+    </select>
+
+    <delete id="deleteUnitBatch" parameterType="java.lang.String">
+    delete from unit_batch
+    where batch_id = #{batchId,jdbcType=VARCHAR}
+  </delete>
+    <!--批量删除批次信息-->
+    <delete id="deleteUnitBatchList" parameterType="java.util.List">
+        <foreach collection="list" open="" close="" item="list" separator=";">
+            delete from unit_batch
+            where batch_id = #{list.batchId,jdbcType=VARCHAR}
+            and prod_id = #{list.prodId,jdbcType=BIGINT}
+            and unit_id = #{list.unitId,jdbcType=BIGINT}
+            and `number`=#{list.number}
+        </foreach>
+    </delete>
+
+    <insert id="insertUnitBatch" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatch">
+        insert into unit_batch
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="batchId != null">
+                batch_id,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="number != null">
+                `number`,
+            </if>
+            <if test="batchCreatType != null">
+                batch_creat_type,
+            </if>
+            <if test="prodId != null">
+                prod_id,
+            </if>
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="productionQuantity != null">
+                production_quantity,
+            </if>
+            <if test="purchaseQuantity != null">
+                purchase_quantity,
+            </if>
+            <if test="marketQuantity != null">
+                market_quantity,
+            </if>
+            <if test="surplusQuantity != null">
+                surplus_quantity,
+            </if>
+            <if test="creatTime != null">
+                creat_time,
+            </if>
+            <if test="warehId != null">
+                wareh_id,
+            </if>
+            <if test="docNum != null and docNum !=''">
+                doc_num,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="batchId != null">
+                #{batchId,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price},
+            </if>
+            <if test="number != null">
+                #{number},
+            </if>
+            <if test="batchCreatType != null">
+                #{batchCreatType},
+            </if>
+            <if test="prodId != null">
+                #{prodId,jdbcType=BIGINT},
+            </if>
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="productionQuantity != null">
+                #{productionQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="purchaseQuantity != null">
+                #{purchaseQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="marketQuantity != null">
+                #{marketQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="surplusQuantity != null">
+                #{surplusQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="creatTime != null">
+                now(),
+            </if>
+            <if test="warehId != null">
+                #{warehId,jdbcType=BIGINT},
+            </if>
+            <if test="docNum != null and docNum !=''">
+                #{docNum,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateUnitBatch"
+            parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.UnitBatch">
+        update unit_batch
+        <set>
+            <if test="prodId != null">
+                prod_id = #{prodId,jdbcType=BIGINT},
+            </if>
+            <if test="price != null">
+                price= #{price},
+            </if>
+            <if test="batchCreatType != null">
+                batch_creat_type= #{batchCreatType},
+            </if>
+            <if test="productionQuantity != null">
+                production_quantity = #{productionQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="purchaseQuantity != null">
+                purchase_quantity = #{purchaseQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="marketQuantity != null">
+                market_quantity = #{marketQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="surplusQuantity != null">
+                surplus_quantity = #{surplusQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="creatTime != null">
+                creat_time = #{creatTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="warehId != null">
+                wareh_id = #{warehId,jdbcType=BIGINT},
+            </if>
+            <if test="docNum != null and docNum !=''">
+                doc_num = #{docNum,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where batch_id = #{batchId,jdbcType=VARCHAR}
+        and unit_id = #{unitId,jdbcType=BIGINT}
+        and `number`= #{number}
+    </update>
+
+    <update id="updateUnitBatchList" parameterType="java.util.List">
+        <foreach collection="list" item="list" separator=";">
+            update unit_batch
+            <set>
+                <if test="list.productionQuantity != null">
+                    production_quantity = #{list.productionQuantity,jdbcType=INTEGER},
+                </if>
+                <if test="list.purchaseQuantity != null">
+                    purchase_quantity = #{list.purchaseQuantity,jdbcType=INTEGER},
+                </if>
+                <if test="list.marketQuantity != null">
+                    market_quantity = #{list.marketQuantity,jdbcType=INTEGER},
+                </if>
+                <if test="list.surplusQuantity != null">
+                    surplus_quantity = #{list.surplusQuantity,jdbcType=INTEGER},
+                </if>
+            </set>
+            where batch_id = #{list.batchId,jdbcType=VARCHAR}
+            and unit_id = #{list.unitId,jdbcType=BIGINT}
+            and `number`= #{list.number}
+            and `prod_id`= #{list.prodId}
+        </foreach>
+    </update>
+</mapper>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.StkCostMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.StkCost">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="cost_grp_id" jdbcType="INTEGER" property="costGrpId"/>
+        <id column="prod_cls_id" jdbcType="INTEGER" property="prodClsId"/>
+        <result column="unit_cost" jdbcType="DECIMAL" property="unitCost"/>
+        <result column="pg_val" jdbcType="DECIMAL" property="pgVal"/>
+        <result column="ref_unit_cost" jdbcType="DECIMAL" property="refUnitCost"/>
+        <result column="tot_qty" jdbcType="DECIMAL" property="totQty"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    unit_id, cost_grp_id, prod_cls_id, unit_cost, pg_val, ref_unit_cost,tot_qty
+  </sql>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StkCost">
+    insert into stk_cost (unit_id, cost_grp_id, prod_cls_id, 
+      unit_cost, pg_val, pef_unit_cost
+      )
+    values (#{unitId,jdbcType=BIGINT}, #{costGrpId,jdbcType=INTEGER}, #{prodClsId,jdbcType=INTEGER}, 
+      #{unitCost,jdbcType=DECIMAL}, #{pgVal,jdbcType=DECIMAL}, #{pefUnitCost,jdbcType=DECIMAL}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StkCost">
+        insert into stk_cost
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="costGrpId != null">
+                cost_grp_id,
+            </if>
+            <if test="prodClsId != null">
+                prod_cls_id,
+            </if>
+            <if test="unitCost != null">
+                unit_cost,
+            </if>
+            <if test="pgVal != null">
+                pg_val,
+            </if>
+            <if test="pefUnitCost != null">
+                pef_unit_cost,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="costGrpId != null">
+                #{costGrpId,jdbcType=INTEGER},
+            </if>
+            <if test="prodClsId != null">
+                #{prodClsId,jdbcType=INTEGER},
+            </if>
+            <if test="unitCost != null">
+                #{unitCost,jdbcType=DECIMAL},
+            </if>
+            <if test="pgVal != null">
+                #{pgVal,jdbcType=DECIMAL},
+            </if>
+            <if test="pefUnitCost != null">
+                #{pefUnitCost,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertUpdateStkCost">
+        insert into stk_cost(unit_id,cost_grp_id,prod_cls_id,unit_cost,pg_val) values
+        <foreach collection="countCosts" item="countCost" separator=",">
+            (#{fsclUnitId},#{costGrpId},#{countCost.prodClsId},#{countCost.unitCost},#{countCost.unitPgVal})
+        </foreach>
+        ON DUPLICATE KEY UPDATE unit_cost=values(unit_cost),pg_val=values(pg_val)
+    </insert>
+
+    <insert id="insertUpdateStkCostList">
+        insert into stk_cost(unit_id,cost_grp_id,prod_cls_id,unit_cost,tot_qty) values
+        <foreach collection="list" item="list" separator=",">
+            (#{list.unitId},#{list.costGrpId},#{list.prodClsId},#{list.unitCost},#{list.totQty})
+        </foreach>
+        ON DUPLICATE KEY UPDATE unit_cost=values(unit_cost),tot_qty=values(tot_qty)
+    </insert>
+
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StkCost">
+        update stk_cost
+        <set>
+            <if test="unitCost != null">
+                unit_cost = #{unitCost,jdbcType=DECIMAL},
+            </if>
+            <if test="pgVal != null">
+                pg_val = #{pgVal,jdbcType=DECIMAL},
+            </if>
+            <if test="pefUnitCost != null">
+                pef_unit_cost = #{pefUnitCost,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and cost_grp_id = #{costGrpId,jdbcType=INTEGER}
+        and prod_cls_id = #{prodClsId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StkCost">
+    update stk_cost
+    set unit_cost = #{unitCost,jdbcType=DECIMAL},
+      pg_val = #{pgVal,jdbcType=DECIMAL},
+      pef_unit_cost = #{pefUnitCost,jdbcType=DECIMAL}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and cost_grp_id = #{costGrpId,jdbcType=INTEGER}
+      and prod_cls_id = #{prodClsId,jdbcType=INTEGER}
+  </update>
+    <update id="updateByQty">
+        <foreach collection="countCostModels" item="countCostModel" separator=";">
+            update stk_cost set tot_qty=tot_qty+#{countCostModel.qty} where unit_id=#{fsclUnitId} and prod_cls_id=#{countCostModel.prodClsId}
+        </foreach>
+    </update>
+    <select id="queryStkCostByUnitCls" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from stk_cost where unit_id=#{unitId} and prod_cls_id=#{prodClsId}
+    </select>
+    <select id="queryStkCostListByUnitproductLists"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from stk_cost
+        where unit_id=#{unitId}
+        and
+        prod_cls_id in (
+        <foreach collection="productList" item="product" separator=",">
+            #{product.prodClsId}
+        </foreach>
+        )
+    </select>
+    <select id="queryListByWarehAndClsList"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from stk_cost
+        <trim prefix="where" prefixOverrides="and|or">
+            and prod_cls_id in(
+            <foreach collection="prodClsList" item="prodCls" separator=",">
+                #{prodCls}
+            </foreach>
+            )
+            and unit_id=#{fsclUnitId}
+        </trim>
+    </select>
+</mapper>

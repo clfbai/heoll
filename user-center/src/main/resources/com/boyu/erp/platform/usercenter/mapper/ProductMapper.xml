@@ -1,0 +1,1275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.goods.ProductMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.goods.Product">
+        <id column="prod_id" jdbcType="BIGINT" property="prodId"/>
+        <result column="prod_code" jdbcType="VARCHAR" property="prodCode"/>
+        <result column="prod_cls_id" jdbcType="BIGINT" property="prodClsId"/>
+        <result column="color_id" jdbcType="BIGINT" property="colorId"/>
+        <result column="color_cmt" jdbcType="VARCHAR" property="colorCmt"/>
+        <result column="spec_id" jdbcType="BIGINT" property="specId"/>
+        <result column="spec_cmt" jdbcType="VARCHAR" property="specCmt"/>
+        <result column="edition" jdbcType="VARCHAR" property="edition"/>
+        <result column="edition_cmt" jdbcType="VARCHAR" property="editionCmt"/>
+        <result column="proportion" jdbcType="BIGINT" property="proportion"/>
+        <result column="inner_bc" jdbcType="VARCHAR" property="innerBc"/>
+        <result column="intl_bc" jdbcType="VARCHAR" property="intlBc"/>
+        <result column="max_sn" jdbcType="BIGINT" property="maxSn"/>
+        <result column="pd_dtl_prop_1" jdbcType="VARCHAR" property="pdDtlProp1"/>
+        <result column="pd_dtl_prop_2" jdbcType="VARCHAR" property="pdDtlProp2"/>
+        <result column="pd_dtl_desc" jdbcType="VARCHAR" property="pdDtlDesc"/>
+        <result column="deleted" jdbcType="CHAR" property="deleted"/>
+        <result column="is_del" jdbcType="TINYINT" property="isDel"/>
+        <result column="create_by" jdbcType="BIGINT" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="BIGINT" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="spec_num" jdbcType="VARCHAR" property="specNum"/>
+        <result column="spec_name" jdbcType="VARCHAR" property="specName"/>
+    </resultMap>
+
+    <resultMap id="BaseProdtMap" type="com.boyu.erp.platform.usercenter.vo.goods.ProductVo">
+        <id column="prod_id" jdbcType="BIGINT" property="prodId"/>
+        <result column="prod_code" jdbcType="VARCHAR" property="prodCode"/>
+        <result column="prod_cls_id" jdbcType="BIGINT" property="prodClsId"/>
+        <result column="color_id" jdbcType="BIGINT" property="colorId"/>
+        <result column="color_cmt" jdbcType="VARCHAR" property="colorCmt"/>
+        <result column="spec_id" jdbcType="BIGINT" property="specId"/>
+        <result column="spec_cmt" jdbcType="VARCHAR" property="specCmt"/>
+        <result column="edition" jdbcType="VARCHAR" property="edition"/>
+        <result column="edition_cmt" jdbcType="VARCHAR" property="editionCmt"/>
+        <result column="proportion" jdbcType="BIGINT" property="proportion"/>
+        <result column="inner_bc" jdbcType="VARCHAR" property="innerBc"/>
+        <result column="intl_bc" jdbcType="VARCHAR" property="intlBc"/>
+        <result column="max_sn" jdbcType="BIGINT" property="maxSn"/>
+        <result column="pd_dtl_prop_1" jdbcType="VARCHAR" property="pdDtlProp1"/>
+        <result column="pd_dtl_prop_2" jdbcType="VARCHAR" property="pdDtlProp2"/>
+        <result column="pd_dtl_desc" jdbcType="VARCHAR" property="pdDtlDesc"/>
+        <result column="deleted" jdbcType="CHAR" property="deleted"/>
+        <result column="is_del" jdbcType="TINYINT" property="isDel"/>
+        <result column="create_by" jdbcType="BIGINT" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="BIGINT" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="color_code" jdbcType="TIMESTAMP" property="colorCode"/>
+        <result column="color_name" jdbcType="BIGINT" property="colorName"/>
+        <result column="description" jdbcType="TIMESTAMP" property="description"/>
+        <result column="spec_code" jdbcType="BIGINT" property="specCode"/>
+        <result column="spec_grp_id" jdbcType="BIGINT" property="specGrpId"/>
+        <result column="spec_num" jdbcType="VARCHAR" property="specNum"/>
+        <result column="spec_name" jdbcType="VARCHAR" property="specName"/>
+        <result column="skuStatus" jdbcType="BIGINT" property="skuStatus"/>
+    </resultMap>
+
+
+    <resultMap id="ResultMapProdClsVo" type="com.boyu.erp.platform.usercenter.vo.goods.ProdClsGoodsVo">
+        <!--商品信息-->
+        <id column="prod_id" jdbcType="BIGINT" property="prodId"/>
+        <result column="prod_code" jdbcType="VARCHAR" property="prodCode"/>
+        <result column="prod_cls_id" jdbcType="BIGINT" property="prodClsId"/>
+        <result column="color_id" jdbcType="BIGINT" property="colorId"/>
+        <result column="color_cmt" jdbcType="VARCHAR" property="colorCmt"/>
+        <result column="spec_id" jdbcType="BIGINT" property="specId"/>
+        <result column="spec_cmt" jdbcType="VARCHAR" property="specCmt"/>
+        <result column="edition" jdbcType="VARCHAR" property="edition"/>
+        <result column="edition_cmt" jdbcType="VARCHAR" property="editionCmt"/>
+        <result column="proportion" jdbcType="BIGINT" property="proportion"/>
+        <result column="inner_bc" jdbcType="VARCHAR" property="innerBc"/>
+        <result column="intl_bc" jdbcType="VARCHAR" property="intlBc"/>
+        <result column="max_sn" jdbcType="BIGINT" property="maxSn"/>
+        <result column="skuStatus" jdbcType="BIGINT" property="skuStatus"/>
+
+        <!--商品品种信息-->
+        <result column="prod_cls_id" jdbcType="BIGINT" property="prodClsId"/>
+        <result column="prsnl_code" jdbcType="BIGINT" property="prsnlCode"/>
+        <result column="full_name" jdbcType="VARCHAR" property="fullName"/>
+        <result column="vender_id" jdbcType="BIGINT" property="venderId"/>
+        <result column="vender_code" jdbcType="VARCHAR" property="venderCode"/>
+        <result column="vender_name" jdbcType="VARCHAR" property="venderName"/>
+        <result column="unit_code" jdbcType="VARCHAR" property="unitCode"/>
+        <result column="unit_name" jdbcType="VARCHAR" property="unitName"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="upd_time" jdbcType="VARCHAR" property="updTime"/>
+        <result column="prod_cls_code" jdbcType="VARCHAR" property="prodClsCode"/>
+        <result column="prod_name" jdbcType="VARCHAR" property="prodName"/>
+        <result column="prod_cat_id" jdbcType="VARCHAR" property="prodCatId"/>
+        <result column="brand_id" jdbcType="BIGINT" property="brandId"/>
+        <result column="gender" jdbcType="CHAR" property="gender"/>
+        <result column="prod_thumb" jdbcType="LONGVARBINARY" property="prodThumb"/>
+        <result column="prod_pict" jdbcType="LONGVARBINARY" property="prodPict"/>
+        <result column="detail" jdbcType="LONGVARCHAR" property="detail"/>
+        <result column="suite_prop" jdbcType="CHAR" property="suiteProp"/>
+        <result column="suite_cls_id" jdbcType="INTEGER" property="suiteClsId"/>
+        <result column="model" jdbcType="VARCHAR" property="model"/>
+        <result column="sub_model" jdbcType="VARCHAR" property="subModel"/>
+        <result column="main_style" jdbcType="VARCHAR" property="mainStyle"/>
+        <result column="assis_style" jdbcType="VARCHAR" property="assisStyle"/>
+        <result column="sub_style" jdbcType="VARCHAR" property="subStyle"/>
+        <result column="uom" jdbcType="VARCHAR" property="uom"/>
+        <result column="qty_digit" jdbcType="DECIMAL" property="qtyDigit"/>
+        <result column="year_val" jdbcType="DECIMAL" property="yearVal"/>
+        <result column="season" jdbcType="VARCHAR" property="season"/>
+        <result column="sales_date" jdbcType="VARCHAR" property="salesDate"/>
+        <result column="expd_date" jdbcType="VARCHAR" property="expdDate"/>
+        <result column="batch_num" jdbcType="VARCHAR" property="batchNum"/>
+        <result column="mkt_grd" jdbcType="VARCHAR" property="mktGrd"/>
+        <result column="mkt_sort" jdbcType="VARCHAR" property="mktSort"/>
+        <result column="mkt_type" jdbcType="VARCHAR" property="mktType"/>
+        <result column="sales_chnl" jdbcType="VARCHAR" property="salesChnl"/>
+        <result column="prc_lvl" jdbcType="VARCHAR" property="prcLvl"/>
+        <result column="lst_price" jdbcType="DECIMAL" property="lstPrice"/>
+        <result column="out_mtrl" jdbcType="VARCHAR" property="outMtrl"/>
+        <result column="in_mtrl" jdbcType="VARCHAR" property="inMtrl"/>
+        <result column="stuffing" jdbcType="VARCHAR" property="stuffing"/>
+        <result column="technology" jdbcType="VARCHAR" property="technology"/>
+        <result column="dsgn_desc" jdbcType="VARCHAR" property="dsgnDesc"/>
+        <result column="self_made" jdbcType="CHAR" property="selfMade"/>
+        <result column="mtrl_perd" jdbcType="DECIMAL" property="mtrlPerd"/>
+        <result column="pdn_perd" jdbcType="DECIMAL" property="pdnPerd"/>
+        <result column="ado_perd" jdbcType="DECIMAL" property="adoPerd"/>
+        <result column="min_pdn_qty" jdbcType="DECIMAL" property="minPdnQty"/>
+        <result column="min_ado_qty" jdbcType="DECIMAL" property="minAdoQty"/>
+        <result column="pdn_cost" jdbcType="DECIMAL" property="pdnCost"/>
+        <result column="end_of_pdn" jdbcType="CHAR" property="endOfPdn"/>
+        <result column="origin" jdbcType="VARCHAR" property="origin"/>
+        <result column="mfr_id" jdbcType="DECIMAL" property="mfrId"/>
+        <result column="mfr_brand_id" jdbcType="VARCHAR" property="mfrBrandId"/>
+        <result column="prod_std" jdbcType="VARCHAR" property="prodStd"/>
+        <result column="prod_grd" jdbcType="VARCHAR" property="prodGrd"/>
+        <result column="dsgn_unit_id" jdbcType="DECIMAL" property="dsgnUnitId"/>
+        <result column="stylist_id" jdbcType="DECIMAL" property="stylistId"/>
+        <result column="pbp_num" jdbcType="VARCHAR" property="pbpNum"/>
+        <result column="prod_style" jdbcType="VARCHAR" property="prodStyle"/>
+        <result column="prod_line" jdbcType="VARCHAR" property="prodLine"/>
+        <result column="story_line" jdbcType="VARCHAR" property="storyLine"/>
+        <result column="is_sample" jdbcType="CHAR" property="isSample"/>
+        <result column="sample_num" jdbcType="VARCHAR" property="sampleNum"/>
+        <result column="stk_adopted" jdbcType="CHAR" property="stkAdopted"/>
+        <result column="uid_adopted" jdbcType="CHAR" property="uidAdopted"/>
+        <result column="stk_grd" jdbcType="VARCHAR" property="stkGrd"/>
+        <result column="qc_pct" jdbcType="DECIMAL" property="qcPct"/>
+        <result column="unit_wgt" jdbcType="DECIMAL" property="unitWgt"/>
+        <result column="unit_vol" jdbcType="DECIMAL" property="unitVol"/>
+        <result column="unit_len" jdbcType="DECIMAL" property="unitLen"/>
+        <result column="unit_wd" jdbcType="DECIMAL" property="unitWd"/>
+        <result column="unit_ht" jdbcType="DECIMAL" property="unitHt"/>
+        <result column="std_pack_qty" jdbcType="DECIMAL" property="stdPackQty"/>
+        <result column="std_pack_wgt" jdbcType="DECIMAL" property="stdPackWgt"/>
+        <result column="std_pack_vol" jdbcType="DECIMAL" property="stdPackVol"/>
+        <result column="std_pack_len" jdbcType="DECIMAL" property="stdPackLen"/>
+        <result column="std_pack_wd" jdbcType="DECIMAL" property="stdPackWd"/>
+        <result column="std_pack_ht" jdbcType="DECIMAL" property="stdPackHt"/>
+        <result column="inner_pck" jdbcType="VARCHAR" property="innerPck"/>
+        <result column="pck_type" jdbcType="CHAR" property="pckType"/>
+        <result column="is_pgb" jdbcType="CHAR" property="isPgb"/>
+        <result column="prod_link" jdbcType="VARCHAR" property="prodLink"/>
+        <result column="shared" jdbcType="CHAR" property="shared"/>
+        <result column="ctrl_unit_id" jdbcType="BIGINT" property="ctrlUnitId"/>
+        <result column="multi_color" jdbcType="CHAR" property="multiColor"/>
+        <result column="color_id" jdbcType="BIGINT" property="colorId"/>
+        <result column="color_cmt" jdbcType="VARCHAR" property="colorCmt"/>
+        <result column="multi_spec" jdbcType="CHAR" property="multiSpec"/>
+        <result column="spec_grp_id" jdbcType="VARCHAR" property="specGrpId"/>
+        <result column="spec_scp_id" jdbcType="VARCHAR" property="specScpId"/>
+        <result column="spec_id" jdbcType="DECIMAL" property="specId"/>
+        <result column="spec_cmt" jdbcType="VARCHAR" property="specCmt"/>
+        <result column="multi_edition" jdbcType="CHAR" property="multiEdition"/>
+        <result column="edition" jdbcType="VARCHAR" property="edition"/>
+        <result column="edition_cmt" jdbcType="VARCHAR" property="editionCmt"/>
+        <result column="input_code" jdbcType="VARCHAR" property="inputCode"/>
+        <result column="lbl_bc" jdbcType="VARCHAR" property="lblBc"/>
+        <result column="seq_num" jdbcType="DECIMAL" property="seqNum"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="prod_prop_1" jdbcType="VARCHAR" property="prodProp1"/>
+        <result column="prod_prop_2" jdbcType="VARCHAR" property="prodProp2"/>
+        <result column="prod_status" jdbcType="CHAR" property="prodStatus"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="upd_time" jdbcType="VARCHAR" property="updTime"/>
+        <result column="syn_sn" jdbcType="DECIMAL" property="synSn"/>
+        <result column="sales_mode" jdbcType="CHAR" property="salesMode"/>
+        <result column="rcmd_lvl" jdbcType="INTEGER" property="rcmdLvl"/>
+        <result column="rt_unit_price" jdbcType="REAL" property="rtUnitPrice"/>
+        <result column="ws_unit_price" jdbcType="REAL" property="wsUnitPrice"/>
+        <result column="ws_tax_rate" jdbcType="REAL" property="wsTaxRate"/>
+        <result column="pu_unit_price" jdbcType="REAL" property="puUnitPrice"/>
+        <result column="pu_tax_rate" jdbcType="REAL" property="puTaxRate"/>
+        <result column="brand_name" jdbcType="VARCHAR" property="brandName"/>
+        <result column="spec_grp_name" jdbcType="VARCHAR" property="specGrpName"/>
+        <result column="spec_scp_name" jdbcType="VARCHAR" property="specScpName"/>
+        <result column="color_code" jdbcType="VARCHAR" property="colorCode"/>
+        <result column="color_name" jdbcType="VARCHAR" property="colorName"/>
+        <result column="spec_num" jdbcType="VARCHAR" property="specNum"/>
+
+        <result column="dsgnUnitCode" jdbcType="VARCHAR" property="dsgnUnitCode"/>
+        <result column="dsgnUnitName" jdbcType="VARCHAR" property="dsgnUnitName"/>
+        <result column="dsunPrsnlCode" jdbcType="VARCHAR" property="dsunPrsnlCode"/>
+        <result column="dsunFullName" jdbcType="VARCHAR" property="dsunFullName"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    prod_id, prod_code, prod_cls_id, color_id, color_cmt, spec_id, spec_cmt, edition, 
+    edition_cmt, proportion, inner_bc, intl_bc, max_sn, pd_dtl_prop_1, pd_dtl_prop_2, 
+    pd_dtl_desc, deleted, is_del, create_by, create_time, update_by, update_time,skuStatus
+  </sql>
+    <select id="selectByProduct" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product
+        where prod_id = #{prodId,jdbcType=BIGINT}
+    </select>
+    <!--通过商品品种Id 查询商品详细信息集合-->
+    <select id="selectProdClsId" parameterType="com.boyu.erp.platform.usercenter.entity.goods.Product"
+            resultMap="BaseProdtMap">
+        SELECT
+        p.`prod_id` AS `prod_id`,
+        p.prod_code as prod_code,
+        c.color_id AS color_id,
+        c.color_code AS color_code,
+        c.color_name AS color_name,
+        s.spec_id AS spec_id,
+        s.spec_grp_id AS spec_grp_id,
+        s.spec_code AS spec_code,
+        s.`spec_num` AS spec_num,
+        s.`spec_name` AS `spec_name`,
+        d.`description` AS `description`,
+        p.proportion AS proportion,
+        p.inner_bc AS inner_bc,
+        p.intl_bc AS intl_bc,
+        p.spec_cmt AS spec_cmt,
+        p.color_cmt AS color_cmt,
+         p.`edition` AS  edition,
+        p.`edition_cmt` AS edition_cmt
+        FROM
+        product p
+        LEFT JOIN color c
+        ON c.color_id = p.color_id
+        LEFT JOIN spec s
+        ON s.spec_id = p.spec_id
+        LEFT JOIN sys_code_dtl d
+        ON p.`edition` = d.`seq_num`
+        WHERE d.code_type = 'EDITION'
+        and p.skuStatus!='D'
+        AND p.`prod_cls_id`=#{prodClsId}
+    </select>
+
+    <select id="seletProdcut" parameterType="com.boyu.erp.platform.usercenter.vo.goods.ProductVo"
+            resultType="com.boyu.erp.platform.usercenter.entity.goods.ProdCls">
+        SELECT
+        prod_cls_code as prodClsCode
+        FROM prod_cls
+        WHERE  prod_cls_id=#{prodClsId}
+    </select>
+    <select id="getProdcutClsCode" parameterType="com.boyu.erp.platform.usercenter.entity.goods.Product"
+            resultType="com.boyu.erp.platform.usercenter.entity.goods.Product">
+        SELECT
+        prod_cls_id AS prodClsId,
+        prod_code AS prodCode,
+        inner_bc AS innerBc,
+        intl_bc AS intlBc,
+        color_id AS colorId,
+        edition AS edition,
+        spec_id AS specId
+        FROM product
+        where 1=1
+
+    </select>
+    <select id="findByProdcutClsCode" parameterType="com.boyu.erp.platform.usercenter.entity.goods.Product"
+            resultType="com.boyu.erp.platform.usercenter.entity.goods.Product">
+        SELECT
+        prod_cls_id AS prodClsId,
+        prod_id as prodId,
+        prod_code AS prodCode,
+        inner_bc AS innerBc,
+        intl_bc AS intlBc,
+        color_id AS colorId,
+        edition AS edition,
+        spec_id AS specId,
+        skuStatus as skuStatus
+        FROM product
+        where 1=1
+            and prod_code=#{prodCode}
+    </select>
+    <!--系统管理员查看商品-->
+    <select id="selectAdminAll" parameterType="com.boyu.erp.platform.usercenter.model.goods.ProductModel"
+            resultMap="ResultMapProdClsVo">
+        SELECT
+        p.`prod_code` AS `prod_code`,
+        p.`color_id` AS `color_id`,
+        p.`deleted` AS `deleted`,
+        p.`inner_bc` AS `inner_bc`,
+        p.`intl_bc` AS `intl_bc`,
+        p.`max_sn` AS `max_sn`,
+        p.`pd_dtl_desc` AS `pd_dtl_desc`,
+        p.`pd_dtl_prop_1` AS `pd_dtl_prop_1`,
+        p.`pd_dtl_prop_2` AS `pd_dtl_prop_2 `,
+        p.`prod_id` AS `prod_id`,
+        p.`proportion` AS `proportion`,
+        p.`spec_id` AS `spec_id`,
+        dsunpr.`prsnl_code` AS dsunPrsnlCode,
+        dsunpr.`full_name` AS dsunFullName,
+        dsun.`unit_code` AS dsgnUnitCode,
+        dsun.`unit_name` AS dsgnUnitName,
+        c.prod_cls_id AS prod_cls_id,
+        c.prod_cls_code AS prod_cls_code,
+        c.prod_name AS prod_name,
+        c.prod_cat_id AS prod_cat_id,
+        c.brand_id AS brand_id,
+        c.gender AS gender,
+        c.suite_prop AS suite_prop,
+        c.suite_cls_id AS suite_cls_id,
+        c.model AS model,
+        c.sub_model AS sub_model,
+        c.main_style AS main_style,
+        c.assis_style AS assis_style,
+        c.sub_style AS sub_style,
+        c.uom AS uom,
+        c.qty_digit AS qty_digit,
+        c.year_val AS year_val,
+        c.season AS season,
+        DATE_FORMAT(c.sales_date, "%Y-%m-%d %T") AS sales_date,
+        DATE_FORMAT(c.expd_date, "%Y-%m-%d %T") AS expd_date,
+        c.batch_num AS batch_num,
+        c.mkt_grd AS mkt_grd,
+        c.mkt_sort AS mkt_sort,
+        c.mkt_type AS mkt_type,
+        c.sales_chnl AS sales_chnl,
+        c.prc_lvl AS prc_lvl,
+        c.lst_price AS lst_price,
+        c.out_mtrl AS out_mtrl,
+        c.in_mtrl AS in_mtrl,
+        c.stuffing AS stuffing,
+        c.technology AS technology,
+        c.dsgn_desc AS dsgn_desc,
+        c.self_made AS self_made,
+        c.mtrl_perd AS mtrl_perd,
+        c.pdn_perd AS pdn_perd,
+        c.ado_perd AS ado_perd,
+        c.min_pdn_qty AS min_pdn_qty,
+        c.min_ado_qty AS min_ado_qty,
+        c.pdn_cost AS pdn_cost,
+        c.end_of_pdn AS end_of_pdn,
+        c.origin AS origin,
+        c.mfr_id AS mfr_id,
+        c.mfr_brand_id AS mfr_brand_id,
+        c.prod_std AS prod_std,
+        c.prod_grd AS prod_grd,
+        c.dsgn_unit_id AS dsgn_unit_id,
+        c.stylist_id AS stylist_id,
+        c.pbp_num AS pbp_num,
+        c.prod_style AS prod_style,
+        c.prod_line AS prod_line,
+        c.story_line AS story_line,
+        c.is_sample AS is_sample,
+        c.sample_num AS sample_num,
+        c.stk_adopted AS stk_adopted,
+        c.uid_adopted AS uid_adopted,
+        c.stk_grd AS stk_grd,
+        c.qc_pct AS qc_pct,
+        c.unit_wgt AS unit_wgt,
+        c.unit_vol AS unit_vol,
+        c.unit_len AS unit_len,
+        c.unit_wd AS unit_wd,
+        c.unit_ht AS unit_ht,
+        c.std_pack_qty AS std_pack_qty,
+        c.std_pack_wgt AS std_pack_wgt,
+        c.std_pack_vol AS std_pack_vol,
+        c.std_pack_len AS std_pack_len,
+        c.std_pack_wd AS std_pack_wd,
+        c.std_pack_ht AS std_pack_ht,
+        c.inner_pck AS inner_pck,
+        c.pck_type AS pck_type,
+        c.is_pgb AS is_pgb,
+        c.prod_link AS prod_link,
+        c.shared AS shared,
+        c.ctrl_unit_id AS ctrl_unit_id,
+        c.multi_color AS multi_color,
+        c.color_cmt AS color_cmt,
+        c.multi_spec AS multi_spec,
+        c.spec_grp_id AS spec_grp_id,
+        c.spec_scp_id AS spec_scp_id,
+        c.spec_cmt AS spec_cmt,
+        c.multi_edition AS multi_edition,
+        c.edition AS edition,
+        c.edition_cmt AS edition_cmt,
+        c.input_code AS input_code,
+        c.lbl_bc AS lbl_bc,
+        c.seq_num AS seq_num,
+        c.description AS description,
+        c.prod_prop_1 AS prod_prop_1,
+        c.prod_prop_2 AS prod_prop_2,
+        c.prod_status AS prod_status,
+        c.opr_id AS opr_id,
+        DATE_FORMAT(c.upd_time, "%Y-%m-%d %T") AS upd_time,
+        c.syn_sn AS syn_sn,
+        c.is_del AS is_del,
+        c.create_by AS create_by,
+        c.create_time AS create_time,
+        c.update_by AS update_by,
+        c.update_time AS update_time,
+        u.`pu_tax_rate` AS `pu_tax_rate`,
+        u.`pu_unit_price` AS `pu_unit_price`,
+        u.`rcmd_lvl` AS `rcmd_lvl`,
+        u.`sales_mode` AS `sales_mode`,
+        u.`unit_id` AS `unit_id`,
+        u.`vender_id` AS `vender_id`,
+        u.`ws_tax_rate` AS `ws_tax_rate`,
+        u.`ws_unit_price` AS `ws_unit_price`,
+        us.`unit_code` AS unit_code,
+        us.`unit_name` AS unit_name,
+        ui.`unit_name` AS vender_name,
+        ui.`unit_code` AS vender_code,
+        ps.`prsnl_code` AS `prsnl_code`,
+        ps.`full_name` AS `full_name`,
+        bra.`brand_name` AS brand_name,
+        sp.`spec_grp_name` AS spec_grp_name,
+        scp.`spec_scp_name` AS spec_scp_name,
+        sss.`spec_num` AS spec_num,
+        co.`color_code` AS color_code,
+        co.`color_name` AS color_name
+        FROM
+        `unit_prod_cls` u
+        LEFT JOIN `prod_cls` c
+        ON u.`prod_cls_id` = c.`prod_cls_id`
+        INNER JOIN `product` p
+        ON u.`prod_cls_id` = p.`prod_cls_id`
+        INNER JOIN sys_prsnl ps
+        ON c.`opr_id` = ps.`prsnl_id`
+        INNER JOIN sys_unit us
+        ON us.`unit_id` = u.`unit_id`
+        INNER JOIN vender v
+        ON u.`vender_id` = v.`vender_id`
+        LEFT JOIN sys_unit ui
+        ON v.`vender_id` = ui.`unit_id`
+        INNER JOIN brand bra
+        ON bra.`brand_id` = c.`brand_id`
+        LEFT JOIN color co
+        ON c.`color_id` = co.`color_id`
+        LEFT JOIN `spec_grp` sp
+        ON c.`spec_grp_id` = sp.`spec_grp_id`
+        LEFT JOIN `spec_scp` scp
+        ON c.`spec_scp_id` = scp.`spec_scp_id`
+        LEFT JOIN `spec` sss
+        ON p.`spec_id` = sss.spec_id
+        LEFT JOIN sys_prsnl dsunpr
+        ON c.`stylist_id` = dsunpr.`prsnl_id`
+        LEFT JOIN sys_unit dsun
+        ON c.`dsgn_unit_id` = dsun.`unit_id`
+        WHERE p.`is_del`=1 and p.`skuStatus` != 'D' and c.prod_status!='D'
+        <if test="prodCode!=null and prodCode!=''">
+            AND INSTR(p.prod_code,#{prodCode})>0
+        </if>
+        <if test="prodCatId!=null and prodCatId!='' and prodCatId!='null'">
+            AND INSTR(c.prod_cat_id, #{prodCatId})
+        </if>
+        <if test="prodName!=null and prodName!=''">
+            AND INSTR(c.prod_name, #{prodName}) > 0
+        </if>
+        <if test="brandId!=null ">
+            AND c.brand_id=#{brandId}
+        </if>
+        <if test="season!=null and season!=''">
+            AND c.season=#{season}
+        </if>
+    </select>
+
+
+    <!--组织管理员或普通用户-->
+    <select id="selectAll" parameterType="com.boyu.erp.platform.usercenter.model.goods.ProductModel"
+            resultMap="ResultMapProdClsVo">
+        SELECT
+        dsunpr.`prsnl_code` AS dsunPrsnlCode,
+        dsunpr.`full_name` AS dsunFullName,
+        dsun.`unit_code` AS dsgnUnitCode,
+        dsun.`unit_name` AS dsgnUnitName,
+        c.prod_cls_id AS prod_cls_id,
+        c.prod_cls_code AS prod_cls_code,
+        c.prod_name AS prod_name,
+        c.prod_cat_id AS prod_cat_id,
+        c.brand_id AS brand_id,
+        c.gender AS gender,
+        c.suite_prop AS suite_prop,
+        c.suite_cls_id AS suite_cls_id,
+        c.model AS model,
+        c.sub_model AS sub_model,
+        c.main_style AS main_style,
+        c.assis_style AS assis_style,
+        c.sub_style AS sub_style,
+        c.uom AS uom,
+        c.qty_digit AS qty_digit,
+        c.year_val AS year_val,
+        c.season AS season,
+        DATE_FORMAT(c.sales_date, "%Y-%m-%d %T") AS sales_date,
+        DATE_FORMAT( c.expd_date, "%Y-%m-%d %T") AS expd_date,
+        c.batch_num AS batch_num,
+        c.mkt_grd AS mkt_grd,
+        c.mkt_sort AS mkt_sort,
+        c.mkt_type AS mkt_type,
+        c.sales_chnl AS sales_chnl,
+        c.prc_lvl AS prc_lvl,
+        c.lst_price AS lst_price,
+        c.out_mtrl AS out_mtrl,
+        c.in_mtrl AS in_mtrl,
+        c.stuffing AS stuffing,
+        c.technology AS technology,
+        c.dsgn_desc AS dsgn_desc,
+        c.self_made AS self_made,
+        c.mtrl_perd AS mtrl_perd,
+        c.pdn_perd AS pdn_perd,
+        c.ado_perd AS ado_perd,
+        c.min_pdn_qty AS min_pdn_qty,
+        c.min_ado_qty AS min_ado_qty,
+        c.pdn_cost AS pdn_cost,
+        c.end_of_pdn AS end_of_pdn,
+        c.origin AS origin,
+        c.mfr_id AS mfr_id,
+        c.mfr_brand_id AS mfr_brand_id,
+        c.prod_std AS prod_std,
+        c.prod_grd AS prod_grd,
+        c.dsgn_unit_id AS dsgn_unit_id,
+        c.stylist_id AS stylist_id,
+        c.pbp_num AS pbp_num,
+        c.prod_style AS prod_style,
+        c.prod_line AS prod_line,
+        c.story_line AS story_line,
+        c.is_sample AS is_sample,
+        c.sample_num AS sample_num,
+        c.stk_adopted AS stk_adopted,
+        c.uid_adopted AS uid_adopted,
+        c.stk_grd AS stk_grd,
+        c.qc_pct AS qc_pct,
+        c.unit_wgt AS unit_wgt,
+        c.unit_vol AS unit_vol,
+        c.unit_len AS unit_len,
+        c.unit_wd AS unit_wd,
+        c.unit_ht AS unit_ht,
+        c.std_pack_qty AS std_pack_qty,
+        c.std_pack_wgt AS std_pack_wgt,
+        c.std_pack_vol AS std_pack_vol,
+        c.std_pack_len AS std_pack_len,
+        c.std_pack_wd AS std_pack_wd,
+        c.std_pack_ht AS std_pack_ht,
+        c.inner_pck AS inner_pck,
+        c.pck_type AS pck_type,
+        c.is_pgb AS is_pgb,
+        c.prod_link AS prod_link,
+        c.shared AS shared,
+        c.ctrl_unit_id AS ctrl_unit_id,
+        c.multi_color AS multi_color,
+        c.color_cmt AS color_cmt,
+        c.multi_spec AS multi_spec,
+        c.spec_grp_id AS spec_grp_id,
+        c.spec_scp_id AS spec_scp_id,
+        c.spec_cmt AS spec_cmt,
+        c.multi_edition AS multi_edition,
+        c.edition AS edition,
+        c.edition_cmt AS edition_cmt,
+        c.input_code AS input_code,
+        c.lbl_bc AS lbl_bc,
+        c.seq_num AS seq_num,
+        c.description AS description,
+        c.prod_prop_1 AS prod_prop_1,
+        c.prod_prop_2 AS prod_prop_2,
+        c.prod_status AS prod_status,
+        c.opr_id AS opr_id,
+        DATE_FORMAT(c.upd_time, "%Y-%m-%d %T") AS upd_time,
+        c.syn_sn AS syn_sn,
+        c.is_del AS is_del,
+        c.create_by AS create_by,
+        c.create_time AS create_time,
+        c.update_by AS update_by,
+        c.update_time AS update_time,
+        u.`pu_tax_rate` AS `pu_tax_rate`,
+        u.`pu_unit_price` AS `pu_unit_price`,
+        u.`rcmd_lvl` AS `rcmd_lvl`,
+        u.`sales_mode` AS `sales_mode`,
+        u.`unit_id` AS `unit_id`,
+        u.`vender_id` AS `vender_id`,
+        u.`ws_tax_rate` AS `ws_tax_rate`,
+        u.`ws_unit_price` AS `ws_unit_price`,
+        p.`color_id` AS `color_id`,
+        p.`deleted` AS `deleted`,
+        p.`inner_bc` AS `inner_bc`,
+        p.`intl_bc` AS `intl_bc`,
+        p.`max_sn` AS `max_sn`,
+        p.`pd_dtl_desc` AS `pd_dtl_desc`,
+        p.`pd_dtl_prop_1` AS `pd_dtl_prop_1`,
+        p.`pd_dtl_prop_2` AS `pd_dtl_prop_2 `,
+        p.`prod_code` AS `prod_code`,
+        p.`prod_id` AS `prod_id`,
+        p.`proportion` AS `proportion`,
+        p.`spec_id` AS `spec_id`,
+        us.`unit_code` AS unit_code,
+        us.`unit_name` AS unit_name,
+        ui.`unit_name` AS vender_name,
+        ui.`unit_code` AS vender_code,
+        ps.`prsnl_code` AS `prsnl_code`,
+        ps.`full_name` AS `full_name`,
+        bra.`brand_name` AS brand_name,
+        sp.`spec_grp_name` AS spec_grp_name,
+        scp.`spec_scp_name` AS spec_scp_name,
+        sss.`spec_num` AS spec_num,
+        co.`color_code` AS color_code,
+        co.`color_name` AS color_name
+        FROM
+        `unit_prod_cls` u
+        INNER JOIN `prod_cls` c
+        ON u.`prod_cls_id` = c.`prod_cls_id`
+        INNER JOIN `product` p
+        ON u.`prod_cls_id` = p.`prod_cls_id`
+        INNER JOIN sys_prsnl ps
+        ON c.`opr_id` = ps.`prsnl_id`
+        INNER JOIN sys_unit us
+        ON us.`unit_id` = u.`unit_id`
+        INNER JOIN vender v
+        ON u.`vender_id` = v.`vender_id`
+        LEFT JOIN sys_unit ui
+        ON v.`vender_id` = ui.`unit_id`
+        INNER JOIN brand bra
+        ON bra.`brand_id` = c.`brand_id`
+        LEFT JOIN color co
+        ON p.`color_id` = co.`color_id`
+        LEFT JOIN `spec_grp` sp
+        ON c.`spec_grp_id` = sp.`spec_grp_id`
+        LEFT JOIN `spec_scp` scp
+        ON c.`spec_scp_id` = scp.`spec_scp_id`
+        LEFT JOIN `spec` sss
+        ON p.`spec_id` = sss.spec_id
+        LEFT JOIN sys_prsnl dsunpr
+        ON c.`stylist_id` = dsunpr.`prsnl_id`
+        LEFT JOIN sys_unit dsun
+        ON c.`dsgn_unit_id` = dsun.`unit_id`
+        WHERE u.`unit_id` = #{unitId} and p.skuStatus!='D' and c.prod_status!='D'
+        <if test="prodCode!=null and prodCode!=''">
+            AND INSTR(p.prod_code,#{prodCode})>0
+        </if>
+        <if test="prodCatId!=null and prodCatId!='' and prodCatId!='null'">
+            AND INSTR(c.prod_cat_id, #{prodCatId})
+        </if>
+        <if test="prodName!=null and prodName!=''">
+            AND INSTR(c.prod_name, #{prodName}) > 0
+        </if>
+        <if test="brandId!=null ">
+            AND c.brand_id=#{brandId}
+        </if>
+        <if test="season!=null and season!=''">
+            AND c.season=#{season}
+        </if>
+        UNION
+        SELECT
+        dsunpr.`prsnl_code` AS dsunPrsnlCode,
+        dsunpr.`full_name` AS dsunFullName,
+        dsun.`unit_code` AS dsgnUnitCode,
+        dsun.`unit_name` AS dsgnUnitName,
+        c.prod_cls_id AS prod_cls_id,
+        c.prod_cls_code AS prod_cls_code,
+        c.prod_name AS prod_name,
+        c.prod_cat_id AS prod_cat_id,
+        c.brand_id AS brand_id,
+        c.gender AS gender,
+        c.suite_prop AS suite_prop,
+        c.suite_cls_id AS suite_cls_id,
+        c.model AS model,
+        c.sub_model AS sub_model,
+        c.main_style AS main_style,
+        c.assis_style AS assis_style,
+        c.sub_style AS sub_style,
+        c.uom AS uom,
+        c.qty_digit AS qty_digit,
+        c.year_val AS year_val,
+        c.season AS season,
+        DATE_FORMAT(c.sales_date, "%Y-%m-%d %T") AS sales_date,
+        DATE_FORMAT( c.expd_date, "%Y-%m-%d %T") AS expd_date,
+        c.batch_num AS batch_num,
+        c.mkt_grd AS mkt_grd,
+        c.mkt_sort AS mkt_sort,
+        c.mkt_type AS mkt_type,
+        c.sales_chnl AS sales_chnl,
+        c.prc_lvl AS prc_lvl,
+        c.lst_price AS lst_price,
+        c.out_mtrl AS out_mtrl,
+        c.in_mtrl AS in_mtrl,
+        c.stuffing AS stuffing,
+        c.technology AS technology,
+        c.dsgn_desc AS dsgn_desc,
+        c.self_made AS self_made,
+        c.mtrl_perd AS mtrl_perd,
+        c.pdn_perd AS pdn_perd,
+        c.ado_perd AS ado_perd,
+        c.min_pdn_qty AS min_pdn_qty,
+        c.min_ado_qty AS min_ado_qty,
+        c.pdn_cost AS pdn_cost,
+        c.end_of_pdn AS end_of_pdn,
+        c.origin AS origin,
+        c.mfr_id AS mfr_id,
+        c.mfr_brand_id AS mfr_brand_id,
+        c.prod_std AS prod_std,
+        c.prod_grd AS prod_grd,
+        c.dsgn_unit_id AS dsgn_unit_id,
+        c.stylist_id AS stylist_id,
+        c.pbp_num AS pbp_num,
+        c.prod_style AS prod_style,
+        c.prod_line AS prod_line,
+        c.story_line AS story_line,
+        c.is_sample AS is_sample,
+        c.sample_num AS sample_num,
+        c.stk_adopted AS stk_adopted,
+        c.uid_adopted AS uid_adopted,
+        c.stk_grd AS stk_grd,
+        c.qc_pct AS qc_pct,
+        c.unit_wgt AS unit_wgt,
+        c.unit_vol AS unit_vol,
+        c.unit_len AS unit_len,
+        c.unit_wd AS unit_wd,
+        c.unit_ht AS unit_ht,
+        c.std_pack_qty AS std_pack_qty,
+        c.std_pack_wgt AS std_pack_wgt,
+        c.std_pack_vol AS std_pack_vol,
+        c.std_pack_len AS std_pack_len,
+        c.std_pack_wd AS std_pack_wd,
+        c.std_pack_ht AS std_pack_ht,
+        c.inner_pck AS inner_pck,
+        c.pck_type AS pck_type,
+        c.is_pgb AS is_pgb,
+        c.prod_link AS prod_link,
+        c.shared AS shared,
+        c.ctrl_unit_id AS ctrl_unit_id,
+        c.multi_color AS multi_color,
+        c.color_cmt AS color_cmt,
+        c.multi_spec AS multi_spec,
+        c.spec_grp_id AS spec_grp_id,
+        c.spec_scp_id AS spec_scp_id,
+        c.spec_cmt AS spec_cmt,
+        c.multi_edition AS multi_edition,
+        c.edition AS edition,
+        c.edition_cmt AS edition_cmt,
+        c.input_code AS input_code,
+        c.lbl_bc AS lbl_bc,
+        c.seq_num AS seq_num,
+        c.description AS description,
+        c.prod_prop_1 AS prod_prop_1,
+        c.prod_prop_2 AS prod_prop_2,
+        c.prod_status AS prod_status,
+        c.opr_id AS opr_id,
+        DATE_FORMAT(c.upd_time, "%Y-%m-%d %T") AS upd_time,
+        c.syn_sn AS syn_sn,
+        c.is_del AS is_del,
+        c.create_by AS create_by,
+        c.create_time AS create_time,
+        c.update_by AS update_by,
+        c.update_time AS update_time,
+        u.`pu_tax_rate` AS `pu_tax_rate`,
+        u.`pu_unit_price` AS `pu_unit_price`,
+        u.`rcmd_lvl` AS `rcmd_lvl`,
+        u.`sales_mode` AS `sales_mode`,
+        u.`unit_id` AS `unit_id`,
+        u.`vender_id` AS `vender_id`,
+        u.`ws_tax_rate` AS `ws_tax_rate`,
+        u.`ws_unit_price` AS `ws_unit_price`,
+        p.`color_id` AS `color_id`,
+        p.`deleted` AS `deleted`,
+        p.`inner_bc` AS `inner_bc`,
+        p.`intl_bc` AS `intl_bc`,
+        p.`max_sn` AS `max_sn`,
+        p.`pd_dtl_desc` AS `pd_dtl_desc`,
+        p.`pd_dtl_prop_1` AS `pd_dtl_prop_1`,
+        p.`pd_dtl_prop_2` AS `pd_dtl_prop_2 `,
+        p.`prod_code` AS `prod_code`,
+        p.`prod_id` AS `prod_id`,
+        p.`proportion` AS `proportion`,
+        p.`spec_id` AS `spec_id`,
+        us.`unit_code` AS unit_code,
+        us.`unit_name` AS unit_name,
+        ui.`unit_name` AS vender_name,
+        ui.`unit_code` AS vender_code,
+        ps.`prsnl_code` AS `prsnl_code`,
+        ps.`full_name` AS `full_name`,
+        bra.`brand_name` AS brand_name,
+        sp.`spec_grp_name` AS spec_grp_name,
+        scp.`spec_scp_name` AS spec_scp_name,
+        sss.`spec_num` AS spec_num,
+        co.`color_code` AS color_code,
+        co.`color_name` AS color_name
+        FROM
+        `unit_prod_cls` u
+        LEFT JOIN `prod_cls` c
+        ON u.`prod_cls_id` = c.`prod_cls_id`
+        INNER JOIN `product` p
+        ON u.`prod_cls_id` = p.`prod_cls_id`
+        INNER JOIN sys_prsnl ps
+        ON c.`opr_id` = ps.`prsnl_id`
+        INNER JOIN sys_unit us
+        ON us.`unit_id` = u.`unit_id`
+        INNER JOIN vender v
+        ON u.`vender_id` = v.`vender_id`
+        LEFT JOIN sys_unit ui
+        ON v.`vender_id` = ui.`unit_id`
+        INNER JOIN brand bra
+        ON bra.`brand_id` = c.`brand_id`
+        LEFT JOIN color co
+        ON p.`color_id` = co.`color_id`
+        LEFT JOIN `spec_grp` sp
+        ON c.`spec_grp_id` = sp.`spec_grp_id`
+        LEFT JOIN `spec_scp` scp
+        ON c.`spec_scp_id` = scp.`spec_scp_id`
+        LEFT JOIN `spec` sss
+        ON p.`spec_id` = sss.spec_id
+        LEFT JOIN sys_prsnl dsunpr
+        ON c.`stylist_id` = dsunpr.`prsnl_id`
+        LEFT JOIN sys_unit dsun
+        ON c.`dsgn_unit_id` = dsun.`unit_id`
+        WHERE c.`shared` = "T" and p.skuStatus!='D' and c.prod_status!='D'
+        <if test="prodCode!=null and prodCode!=''">
+            AND INSTR(p.prod_code,#{prodCode})>0
+        </if>
+        <if test="prodCatId!=null and prodCatId!='' and prodCatId!='null'">
+            AND INSTR(c.prod_cat_id, #{prodCatId})
+        </if>
+        <if test="prodName!=null and prodName!=''">
+            AND INSTR(c.prod_name, #{prodName}) > 0
+        </if>
+        <if test="brandId!=null ">
+            AND c.brand_id=#{brandId}
+        </if>
+        <if test="season!=null and season!=''">
+            AND c.season=#{season}
+        </if>
+    </select>
+    <!--根据商品Code查询是否存在商品集合
+    (生成商品代码使用) -->
+    <select id="getProdcutCode" parameterType="com.boyu.erp.platform.usercenter.entity.goods.Product"
+            resultType="com.boyu.erp.platform.usercenter.entity.goods.Product">
+          SELECT
+        prod_cls_id AS prodClsId,
+        prod_code AS prodCode,
+        inner_bc AS innerBc,
+        intl_bc AS intlBc,
+        color_id AS colorId,
+        edition AS edition,
+        spec_id AS specId
+        FROM product
+        where 1=1
+        and
+        instr(prod_code,#{prodCode})>0
+    </select>
+    <select id="queryProdMess2StbDtl" resultType="com.boyu.erp.platform.usercenter.entity.warehouse.StbDtl">
+
+    </select>
+    <select id="queryProVoByProCode" resultMap="BaseResultMap">
+        SELECT
+        product.prod_id,
+        product.prod_code,
+        product.prod_cls_id,
+        product.color_id,
+        product.color_cmt,
+        product.spec_id,
+        product.spec_cmt,
+        product.edition,
+        product.edition_cmt,
+        product.proportion,
+        product.inner_bc,
+        product.intl_bc,
+        product.max_sn,
+        product.pd_dtl_prop_1,
+        product.pd_dtl_prop_2,
+        product.pd_dtl_desc,
+        product.deleted,
+        product.is_del,
+        product.create_by,
+        product.create_time,
+        product.update_by,
+        product.update_time
+        FROM
+        product
+        WHERE
+        product.prod_code = #{proCode}
+    </select>
+    <select id="queryProductById" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from product where prod_id=#{prodId}
+    </select>
+    <select id="queryProductListByProdList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product where prod_id in
+        ( <foreach collection="list" item="prodId" separator=",">
+        #{prodId}
+    </foreach> )
+    </select>
+    <select id="queryProdIdByProdClsIdList" resultType="java.lang.Long">
+        <foreach collection="prodClsIdList" item="prodClsId" separator="UNION">
+            (select prod_id from product where prod_cls_id = #{prodClsId})
+        </foreach>
+    </select>
+
+    <select id="getProductWindow" parameterType="com.boyu.erp.platform.usercenter.vo.goods.ProductWindowVo"
+            resultType="com.boyu.erp.platform.usercenter.vo.goods.ProductWindowVo">
+        select
+        p.`prod_code` AS prodCode,
+        c.`prod_cls_id` AS prodClsId,
+        c.`prod_name` AS prodName,
+        r.`color_name` AS colorName,
+        d.`description` as description,
+        c.`input_code` as inputCode,
+        p.`spec_id` as specId,
+        uc.`rt_unit_price` as rtUnitPrice,
+        uc.`ws_unit_price` as wsUnitPrice,
+        c.`brand_id` as brandId
+        from
+        `product` p
+        inner join prod_cls c
+        on p.`prod_cls_id` = c.`prod_cls_id`
+        left join color r
+        on p.`color_id` = r.`color_id`
+        left join sys_code_dtl d
+        on p.`edition` = d.`code`
+        and d.`code_type` = 'edition'
+        left join `unit_prod_cls` uc
+        on c.`prod_cls_id` = uc.`prod_cls_id`
+        <if test="isAdmin != '' and isAdmin !=null">
+            inner join
+            (SELECT
+            upc.`prod_cls_id` AS prod_cls_id
+            FROM
+            `unit_prod_cls` upc
+            WHERE 1 = 1
+            AND upc.`unit_id` = #{unitId}
+            UNION
+            SELECT
+            c.prod_cls_id AS prod_cls_id
+            FROM
+            prod_cls c
+            WHERE c.`shared` = 'T'
+            AND c.`is_del` = '1' and c.prod_status='A') st
+            on st.prod_cls_id = p.`prod_cls_id`
+        </if>
+        where c.`is_del` = '1' and c.prod_status='A' and p.skuStatus='A'
+        <if test="prodCatId!=null and prodCatId!=''">
+            AND instr(c.`prod_cat_id` , #{prodCatId})>0
+        </if>
+        <if test="prodCode!=null and prodCode!=''">
+            AND INSTR(p.`prod_code`, #{prodCode}) > 0
+        </if>
+        <if test="prodName!=null and prodName!=''">
+            AND instr(c.`prod_name`, #{prodName}) > 0
+        </if>
+        <if test="inputCode!=null and inputCode!=''">
+            AND instr(c.`input_code`,#{inputCode})>0
+        </if>
+        <if test="brandId!=null ">
+            and c.`brand_id`=#{brandId}
+        </if>
+        <if test="prodStatus!=null and prodStatus!=''">
+            and c.`prod_status`=#{prodStatus}
+        </if>
+    </select>
+    <!--根据商品品种Id查询商品明细消息对象-->
+    <select id="selectProdClsIdMessge"
+            resultType="com.boyu.erp.platform.usercenter.entity.mq.product.ProductSku">
+        SELECT
+        p.`prod_id` AS  prodId,
+        p.prod_code AS skuCode,
+        p.prod_code AS barcode,
+        c.`color_name` AS color,
+        d.`description` AS cup,
+        p2.`rt_unit_price` AS salePrice,
+        p2.`ws_unit_price` AS supplyPrice
+        FROM
+        `product` p
+        INNER JOIN color c
+        ON p.`color_id` = c.`color_id`
+        INNER JOIN `unit_prod_cls` p2
+        ON p.`prod_cls_id` = p2.`prod_cls_id`
+        AND p2.`unit_id` =#{unitId}
+        LEFT JOIN sys_code_dtl d
+        ON d.`code` = p.`edition`
+        AND d.`code_type` = 'edition'
+        WHERE p.`skuStatus` = 'A'
+        and  p.`prod_cls_id`=#{prodClsId}
+    </select>
+
+    <select id="selectAuditType" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
+        p.`prod_id`,
+        p.`prod_code`
+        FROM
+        product p
+        WHERE p.prod_cls_id = #{prodClsId}
+        AND p.skuStatus = 'A'
+    </select>
+    <select id="queryProductsByProdIds" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from product
+        <trim prefix="where" prefixOverrides="and|or">
+            prod_id in (
+            <foreach collection="prodIds" item="prodId" separator=",">
+                #{prodId}
+            </foreach>
+            )
+        </trim>
+    </select>
+    <select id="selectProdClsIdList" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <foreach collection="list" item="prodClsId" separator="UNION">
+            ( select
+            <include refid="Base_Column_List"/>
+            from product where prod_cls_id = #{prodClsId})
+        </foreach>
+    </select>
+    <!--查询启用库存管理商品-->
+    <select id="selectProductStkAdopte" resultType="com.boyu.erp.platform.usercenter.vo.goods.ProdStkAdopte">
+        SELECT
+        g.prod_id as prodId,
+        c.prod_cls_id as prodClsId,
+        c.stk_adopted as stkAdopted
+        FROM
+        product g
+        INNER JOIN prod_cls c
+        ON g.prod_cls_id = c.prod_cls_id and c.stk_adopted=#{stkAdopted}
+        <trim prefix="where" prefixOverrides="and|or">
+            g.prod_id in (
+            <foreach collection="list" item="prodId" separator=",">
+                #{prodId}
+            </foreach>
+            )
+        </trim>
+    </select>
+    <select id="queryProductListByCodes" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from product
+        <trim prefix="where" prefixOverrides="and|or">
+            prod_code in (
+            <foreach collection="prodCodes" item="prodCode" separator=",">
+                #{prodCode}
+            </foreach>
+            )
+        </trim>
+    </select>
+
+    <delete id="deleteByProduct" parameterType="java.lang.Long">
+    delete from product
+    where prod_id = #{prodId,jdbcType=BIGINT}
+  </delete>
+
+    <!--删除商品品种下商品 -->
+    <delete id="deleteProductCls" parameterType="com.boyu.erp.platform.usercenter.entity.goods.Product">
+        delete from product
+      where prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+   </delete>
+    <insert id="insertProduct" parameterType="com.boyu.erp.platform.usercenter.entity.goods.Product">
+        insert into product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="prodId != null">
+                prod_id,
+            </if>
+            <if test="prodCode != null">
+                prod_code,
+            </if>
+            <if test="prodClsId != null">
+                prod_cls_id,
+            </if>
+            <if test="colorId != null">
+                color_id,
+            </if>
+            <if test="colorCmt != null">
+                color_cmt,
+            </if>
+            <if test="specId != null">
+                spec_id,
+            </if>
+            <if test="specCmt != null">
+                spec_cmt,
+            </if>
+            <if test="edition != null">
+                edition,
+            </if>
+            <if test="editionCmt != null">
+                edition_cmt,
+            </if>
+            <if test="proportion != null">
+                proportion,
+            </if>
+            <if test="innerBc != null">
+                inner_bc,
+            </if>
+            <if test="intlBc != null">
+                intl_bc,
+            </if>
+            <if test="maxSn != null">
+                max_sn,
+            </if>
+            <if test="pdDtlProp1 != null">
+                pd_dtl_prop_1,
+            </if>
+            <if test="pdDtlProp2 != null">
+                pd_dtl_prop_2,
+            </if>
+            <if test="pdDtlDesc != null">
+                pd_dtl_desc,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="skuStatus != null and skuStatus !=''">
+                skuStatus ,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="prodId != null">
+                #{prodId,jdbcType=BIGINT},
+            </if>
+            <if test="prodCode != null">
+                #{prodCode,jdbcType=VARCHAR},
+            </if>
+            <if test="prodClsId != null">
+                #{prodClsId,jdbcType=BIGINT},
+            </if>
+            <if test="colorId != null">
+                #{colorId,jdbcType=BIGINT},
+            </if>
+            <if test="colorCmt != null">
+                #{colorCmt,jdbcType=VARCHAR},
+            </if>
+            <if test="specId != null">
+                #{specId,jdbcType=BIGINT},
+            </if>
+            <if test="specCmt != null">
+                #{specCmt,jdbcType=VARCHAR},
+            </if>
+            <if test="edition != null">
+                #{edition,jdbcType=VARCHAR},
+            </if>
+            <if test="editionCmt != null">
+                #{editionCmt,jdbcType=VARCHAR},
+            </if>
+            <if test="proportion != null">
+                #{proportion,jdbcType=BIGINT},
+            </if>
+            <if test="innerBc != null">
+                #{innerBc,jdbcType=VARCHAR},
+            </if>
+            <if test="intlBc != null">
+                #{intlBc,jdbcType=VARCHAR},
+            </if>
+            <if test="maxSn != null">
+                #{maxSn,jdbcType=BIGINT},
+            </if>
+            <if test="pdDtlProp1 != null">
+                #{pdDtlProp1,jdbcType=VARCHAR},
+            </if>
+            <if test="pdDtlProp2 != null">
+                #{pdDtlProp2,jdbcType=VARCHAR},
+            </if>
+            <if test="pdDtlDesc != null">
+                #{pdDtlDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=CHAR},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="skuStatus != null and skuStatus !=''">
+                #{skuStatus},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateByProduct" parameterType="com.boyu.erp.platform.usercenter.entity.goods.Product">
+        update product
+        <set>
+            <if test="prodCode != null and prodCode !=''">
+                prod_code = #{prodCode,jdbcType=VARCHAR},
+            </if>
+            <if test="prodClsId != null ">
+                prod_cls_id = #{prodClsId,jdbcType=BIGINT},
+            </if>
+            <if test="colorId != null ">
+                color_id = #{colorId,jdbcType=BIGINT},
+            </if>
+            <if test="colorCmt != null and colorCmt!=''">
+                color_cmt = #{colorCmt,jdbcType=VARCHAR},
+            </if>
+            <if test="specId != null">
+                spec_id = #{specId,jdbcType=BIGINT},
+            </if>
+            <if test="specCmt != null">
+                spec_cmt = #{specCmt,jdbcType=VARCHAR},
+            </if>
+            <if test="edition != null">
+                edition = #{edition,jdbcType=VARCHAR},
+            </if>
+            <if test="editionCmt != null">
+                edition_cmt = #{editionCmt,jdbcType=VARCHAR},
+            </if>
+            <if test="proportion != null">
+                proportion = #{proportion,jdbcType=BIGINT},
+            </if>
+            <if test="innerBc != null">
+                inner_bc = #{innerBc,jdbcType=VARCHAR},
+            </if>
+            <if test="intlBc != null">
+                intl_bc = #{intlBc,jdbcType=VARCHAR},
+            </if>
+            <if test="maxSn != null">
+                max_sn = #{maxSn,jdbcType=BIGINT},
+            </if>
+            <if test="pdDtlProp1 != null">
+                pd_dtl_prop_1 = #{pdDtlProp1,jdbcType=VARCHAR},
+            </if>
+            <if test="pdDtlProp2 != null">
+                pd_dtl_prop_2 = #{pdDtlProp2,jdbcType=VARCHAR},
+            </if>
+            <if test="pdDtlDesc != null">
+                pd_dtl_desc = #{pdDtlDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=CHAR},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="skuStatus != null and skuStatus !=''">
+                skuStatus =#{skuStatus},
+            </if>
+        </set>
+        where prod_id = #{prodId,jdbcType=BIGINT}
+    </update>
+
+
+</mapper>

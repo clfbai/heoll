@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.table.TableFlieMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.table.TableFile">
+        <result column="flieName" jdbcType="VARCHAR" property="fileName"/>
+        <result column="tableFlie" jdbcType="VARCHAR" property="tableFlie"/>
+        <result column="tableName" jdbcType="VARCHAR" property="tableName"/>
+        <result column="tableChineseName" jdbcType="VARCHAR" property="tableChineseName"/>
+    </resultMap>
+
+    <!--查询指定数据库指定表：表的字段、字段注释-->
+    <select id="selectAll" resultMap="BaseResultMap"
+            parameterType="com.boyu.erp.platform.usercenter.entity.system.table.TableFile">
+        SELECT
+        `COLUMN_NAME` AS tableFlie,
+        column_comment AS flieName
+        FROM
+        INFORMATION_SCHEMA.Columns
+        WHERE
+        `table_name` = #{tableName}
+        AND
+         `table_schema` = #{databaseName}
+    </select>
+    <!--查询指定数据库所有表的表名-->
+    <select id="findByTable" resultMap="BaseResultMap"
+            parameterType="com.boyu.erp.platform.usercenter.entity.system.table.TableFile">
+        SELECT
+        `table_name` AS `tableName`,
+        `TABLE_COMMENT` AS `tableChineseName`
+        FROM
+        information_schema.tables
+        WHERE table_schema =#{databaseName}
+    </select>
+
+    <select id="tableName" resultMap="BaseResultMap"
+            parameterType="com.boyu.erp.platform.usercenter.entity.system.table.TableFile">
+        SELECT
+        `table_name` AS `tableName`,
+        `TABLE_COMMENT` AS `tableChineseName`
+        FROM
+        information_schema.tables
+        WHERE table_schema = #{databaseName}
+        AND `table_name` = #{tableName}
+    </select>
+
+
+</mapper>

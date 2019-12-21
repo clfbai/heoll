@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysUnitHierDtlMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysUnitHierDtl">
+    <id column="unit_hier_id" jdbcType="VARCHAR" property="unitHierId" />
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <result column="owner_id" jdbcType="BIGINT" property="ownerId" />
+    <result column="hierarchy" jdbcType="VARCHAR" property="hierarchy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    unit_hier_id, unit_id, owner_id, `hierarchy`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitHierDtl" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_unit_hier_dtl
+    where unit_hier_id = #{unitHierId,jdbcType=VARCHAR}
+      and unit_id = #{unitId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitHierDtl">
+    delete from sys_unit_hier_dtl
+    where unit_hier_id = #{unitHierId,jdbcType=VARCHAR}
+      and unit_id = #{unitId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitHierDtl">
+    insert into sys_unit_hier_dtl (unit_hier_id, unit_id, owner_id, 
+      `hierarchy`)
+    values (#{unitHierId,jdbcType=VARCHAR}, #{unitId,jdbcType=BIGINT}, #{ownerId,jdbcType=BIGINT}, 
+      #{hierarchy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitHierDtl">
+    insert into sys_unit_hier_dtl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitHierId != null">
+        unit_hier_id,
+      </if>
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="ownerId != null">
+        owner_id,
+      </if>
+      <if test="hierarchy != null">
+        `hierarchy`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitHierId != null">
+        #{unitHierId,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="hierarchy != null">
+        #{hierarchy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitHierDtl">
+    update sys_unit_hier_dtl
+    <set>
+      <if test="ownerId != null">
+        owner_id = #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="hierarchy != null">
+        `hierarchy` = #{hierarchy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where unit_hier_id = #{unitHierId,jdbcType=VARCHAR}
+      and unit_id = #{unitId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitHierDtl">
+    update sys_unit_hier_dtl
+    set owner_id = #{ownerId,jdbcType=BIGINT},
+      `hierarchy` = #{hierarchy,jdbcType=VARCHAR}
+    where unit_hier_id = #{unitHierId,jdbcType=VARCHAR}
+      and unit_id = #{unitId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysUserPaMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysUserPa">
+        <id column="user_pa_id" property="userPaId"/>
+        <result column="user_id" property="userId"/>
+        <result column="owner_id" jdbcType="VARCHAR" property="ownerId"/>
+        <result column="gr_rv" jdbcType="CHAR" property="grRv"/>
+        <result column="unlimited" jdbcType="CHAR" property="unlimited"/>
+        <result column="ug_id"  property="ugId"/>
+        <result column="unit_id"  property="unitId"/>
+        <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
+        <result column="priv_id" jdbcType="VARCHAR" property="privId"/>
+        <result column="opr_id" jdbcType="VARCHAR" property="oprId"/>
+        <result column="op_time" jdbcType="TIMESTAMP" property="opTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    user_pa_id, user_id, owner_id, gr_rv, unlimited, ug_id, unit_id, role_id, priv_id, 
+    opr_id, op_time
+  </sql>
+
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user_pa
+        where user_pa_id = #{userPaId}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUserPa">
+        insert into sys_user_pa
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userPaId != null">
+                user_pa_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="ownerId != null">
+                owner_id,
+            </if>
+            <if test="grRv != null">
+                gr_rv,
+            </if>
+            <if test="unlimited != null">
+                unlimited,
+            </if>
+            <if test="ugId != null">
+                ug_id,
+            </if>
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="privId != null">
+                priv_id,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+
+            op_time,
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userPaId != null">
+                #{userPaId},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="ownerId != null">
+                #{ownerId},
+            </if>
+            <if test="grRv != null">
+                #{grRv,jdbcType=CHAR},
+            </if>
+            <if test="unlimited != null">
+                #{unlimited,jdbcType=CHAR},
+            </if>
+            <if test="ugId != null">
+                #{ugId},
+            </if>
+            <if test="unitId != null">
+                #{unitId},
+            </if>
+            <if test="roleId != null">
+                #{roleId},
+            </if>
+            <if test="privId != null">
+                #{privId},
+            </if>
+            <if test="oprId != null">
+                #{oprId},
+            </if>
+
+            now(),
+
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="SysUserPa">
+        update sys_user_pa
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="ownerId != null">
+                owner_id = #{ownerId},
+            </if>
+            <if test="grRv != null">
+                gr_rv = #{grRv,jdbcType=CHAR},
+            </if>
+            <if test="unlimited != null">
+                unlimited = #{unlimited,jdbcType=CHAR},
+            </if>
+            <if test="ugId != null">
+                ug_id = #{ugId},
+            </if>
+            <if test="unitId != null">
+                unit_id = #{unitId},
+            </if>
+            <if test="roleId != null">
+                role_id = #{roleId},
+            </if>
+            <if test="privId != null">
+                priv_id = #{privId},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId},
+            </if>
+            op_time = now()
+        </set>
+        where user_pa_id = #{userPaId}
+    </update>
+
+    <!--分页查询-->
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="SysUserPa">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user_pa
+        where 1=1
+        <if test="userPaId != null">
+            and user_pa_id = #{userPaId}
+        </if>
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        <if test="ownerId != null">
+            and owner_id = #{ownerId}
+        </if>
+        <if test="grRv != null">
+            and gr_rv = #{grRv}
+        </if>
+        <if test="unlimited != null">
+            and unlimited = #{unlimited}
+        </if>
+        <if test="ugId != null">
+            and ug_id = #{ugId}
+        </if>
+        <if test="unitId != null">
+            and unit_id = #{unitId}
+        </if>
+        <if test="roleId != null">
+            and role_id = #{roleId}
+        </if>
+        <if test="privId != null">
+            and priv_id = #{privId}
+        </if>
+        <if test="oprId != null">
+            and opr_id = #{oprId}
+        </if>
+        <if test="opTime != null">
+            and op_time = #{opTime}
+        </if>
+
+    </select>
+
+    <!--授权回收-->
+    <update id="accreditRecycle" parameterType="SysUserPa">
+        update sys_user_pa
+        set gr_rv = #{grRv}
+        <if test="oprId != null">
+            ,opr_id = #{oprId}
+        </if>
+            ,op_time = now()
+        <where>
+            user_id = #{userId}
+            <if test="privId != null">
+                and priv_id = #{privId}
+            </if>
+            <if test="roleId != null">
+                and role_id = #{roleId}
+            </if>
+        </where>
+
+    </update>
+
+
+</mapper>

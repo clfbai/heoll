@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysPrsnlOwnerMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysPrsnlOwner">
+    <id column="prsnl_id" jdbcType="BIGINT" property="prsnlId" />
+    <id column="owner_id" jdbcType="BIGINT" property="ownerId" />
+    <result column="prsnl_num" jdbcType="VARCHAR" property="prsnlNum" />
+    <result column="is_del" jdbcType="TINYINT" property="isDel" />
+    <result column="create_by" jdbcType="BIGINT" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_by" jdbcType="BIGINT" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    prsnl_id, owner_id, prsnl_num, is_del, create_by, create_time, update_by, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysPrsnlOwner" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_prsnl_owner
+    where prsnl_id = #{prsnlId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+  </select>
+    <select id="queryListByOwnerAndPrsnl"
+            resultType="com.boyu.erp.platform.usercenter.model.system.OwnerPrsnlModel">
+      select a.owner_id AS ownerId,a.prsnl_num AS prsnlNum,a.prsnl_id AS prsnlId from
+      (select <include refid="Base_Column_List"></include> from sys_prsnl_owner where owner_id in(
+        <foreach collection="ownerPrsnlModelList" item="ownerPrsnlModel" separator=",">
+            #{ownerPrsnlModel.ownerId}
+        </foreach>
+      )
+      ) AS a where prsnl_id in (
+      <foreach collection="ownerPrsnlModelList" item="ownerPrsnlModel" separator=",">
+        #{ownerPrsnlModel.prsnlId}
+      </foreach>
+      )
+    </select>
+
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysPrsnlOwner">
+    insert into sys_prsnl_owner (prsnl_id, owner_id, prsnl_num, 
+      is_del, create_by, create_time, 
+      update_by, update_time)
+    values (#{prsnlId,jdbcType=BIGINT}, #{ownerId,jdbcType=BIGINT}, #{prsnlNum,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=TINYINT}, #{createBy,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysPrsnlOwner">
+    insert into sys_prsnl_owner
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prsnlId != null">
+        prsnl_id,
+      </if>
+      <if test="ownerId != null">
+        owner_id,
+      </if>
+      <if test="prsnlNum != null">
+        prsnl_num,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prsnlId != null">
+        #{prsnlId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="prsnlNum != null">
+        #{prsnlNum,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=TINYINT},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysPrsnlOwner">
+    update sys_prsnl_owner
+    <set>
+      <if test="prsnlNum != null">
+        prsnl_num = #{prsnlNum,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=TINYINT},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where prsnl_id = #{prsnlId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysPrsnlOwner">
+    update sys_prsnl_owner
+    set prsnl_num = #{prsnlNum,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=TINYINT},
+      create_by = #{createBy,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where prsnl_id = #{prsnlId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+  </update>
+</mapper>

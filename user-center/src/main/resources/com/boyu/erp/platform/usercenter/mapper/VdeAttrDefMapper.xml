@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sales.VdeAttrDefMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.sales.VdeAttrDef">
+    <id column="attr_type" jdbcType="VARCHAR" property="attrType" />
+    <result column="line_num" jdbcType="DECIMAL" property="lineNum" />
+    <result column="attr_name" jdbcType="VARCHAR" property="attrName" />
+    <result column="data_type" jdbcType="CHAR" property="dataType" />
+    <result column="data_len" jdbcType="DECIMAL" property="dataLen" />
+    <result column="data_dec" jdbcType="DECIMAL" property="dataDec" />
+    <result column="width" jdbcType="DECIMAL" property="width" />
+    <result column="char_case" jdbcType="CHAR" property="charCase" />
+    <result column="val_req" jdbcType="CHAR" property="valReqd" />
+    <result column="attr_dflt_src" jdbcType="CHAR" property="attrDfltSrc" />
+    <result column="dflt_fml" jdbcType="VARCHAR" property="dfltFml" />
+    <result column="edt_fml" jdbcType="VARCHAR" property="edtFml" />
+    <result column="isOpetion" jdbcType="CHAR" property="isOpetion" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    attr_type, line_num, attr_name, data_type, data_len, data_dec, width, char_case,
+    val_req, attr_dflt_src, dflt_fml, edt_fml, isOpetion
+  </sql>
+  <delete id="deleteByAttrType" parameterType="com.boyu.erp.platform.usercenter.entity.sales.VdeAttrDef">
+    delete from vde_attr_def
+    where attr_type = #{attrType,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.sales.VdeAttrDef">
+    insert into vde_attr_def (attr_type, line_num, attr_name, data_type, data_len, data_dec, width, char_case,
+    val_req, attr_dflt_src, dflt_fml, edt_fml, isOpetion
+      )
+    values (#{attrType,jdbcType=VARCHAR}, #{lineNum,jdbcType=DECIMAL}, #{attrName,jdbcType=VARCHAR}, 
+      #{dataType,jdbcType=CHAR}, #{dataLen,jdbcType=DECIMAL}, #{dataDec,jdbcType=DECIMAL}, 
+      #{width,jdbcType=DECIMAL}, #{charCase,jdbcType=CHAR}, #{valReqd,jdbcType=CHAR}, 
+      #{attrDfltSrc,jdbcType=CHAR}, #{dfltFml,jdbcType=VARCHAR}, #{edtFml,jdbcType=VARCHAR},
+      #{isOpetion,jdbcType=CHAR}
+      )
+  </insert>
+  <update id="updateByAttrType" parameterType="com.boyu.erp.platform.usercenter.entity.sales.VdeAttrDef">
+    update vde_attr_def
+    <set>
+      <if test="lineNum != null">
+        line_num = #{lineNum,jdbcType=DECIMAL},
+      </if>
+      <if test="attrName != null">
+        attr_name = #{attrName,jdbcType=VARCHAR},
+      </if>
+      <if test="dataType != null">
+        data_type = #{dataType,jdbcType=CHAR},
+      </if>
+      <if test="dataLen != null">
+        data_len = #{dataLen,jdbcType=DECIMAL},
+      </if>
+      <if test="dataDec != null">
+        data_dec = #{dataDec,jdbcType=DECIMAL},
+      </if>
+      <if test="width != null">
+        width = #{width,jdbcType=DECIMAL},
+      </if>
+      <if test="charCase != null">
+        char_case = #{charCase,jdbcType=CHAR},
+      </if>
+      <if test="valReqd != null">
+        val_req = #{valReqd,jdbcType=CHAR},
+      </if>
+      <if test="attrDfltSrc != null">
+        attr_dflt_src = #{attrDfltSrc,jdbcType=CHAR},
+      </if>
+      <if test="dfltFml != null">
+        dflt_fml = #{dfltFml,jdbcType=VARCHAR},
+      </if>
+      <if test="edtFml != null">
+        edt_fml = #{edtFml,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpetion != null">
+        isOpetion = #{isOpetion,jdbcType=CHAR},
+      </if>
+    </set>
+    where attr_type = #{attrType,jdbcType=VARCHAR}
+  </update>
+  <select id="getAllVdeAttrDefList" parameterType="com.boyu.erp.platform.usercenter.entity.sales.VdeAttrDef" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from vde_attr_def
+    where
+    1 = 1
+    <if test="attrType != null and attrType != '' ">
+      and attr_type like CONCAT( #{attrType,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="attrName != null and attrName != '' ">
+      and attr_name like CONCAT( #{attrName,jdbcType=VARCHAR}, '%')
+    </if>
+
+  </select>
+
+  <select id="getAll" resultType="com.boyu.erp.platform.usercenter.vo.goods.ProdAttrDefVo">
+        select
+        attr_type as attrType,
+        attr_name  as attrName,
+        edt_fml as edtFml,
+        isOpetion as  isOpetion
+        from  vde_attr_def
+    </select>
+
+</mapper>

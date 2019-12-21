@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.TPOS.mapper.WmsErpNumMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.TPOS.entity.WmsErpNum">
+        <id column="task_doc_num" jdbcType="VARCHAR" property="taskDocNum"/>
+        <result column="origin_num" jdbcType="VARCHAR" property="originNum"/>
+        <result column="origin_type" jdbcType="VARCHAR" property="originType"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    task_doc_num,origin_num,origin_type
+  </sql>
+    <select id="queryByBill" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from wms_erp_num
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="taskDocNum!=null">
+                and task_doc_num=#{taskDocNum}
+            </if>
+            <if test="originNum!=null">
+                and origin_num=#{originNum}
+            </if>
+            <if test="originType!=null">
+                and origin_type=#{originType}
+            </if>
+        </trim>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from wms_erp_num
+    where task_doc_num = #{taskDocNum,jdbcType=VARCHAR}
+  </delete>
+    <delete id="delRelation">
+        delete from wms_erp_num
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="taskDocNum!=null and taskDocNum!=''">
+                and task_doc_num=#{taskDocNum}
+            </if>
+            <if test="originNum!=null and originNum!=''">
+                and origin_num=#{originNum}
+            </if>
+        </trim>
+
+    </delete>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.TPOS.entity.WmsErpNum">
+        insert into wms_erp_num
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskDocNum != null">
+                task_doc_num,
+            </if>
+            <if test="originNum != null and originNum != ''">
+                origin_num,
+            </if>
+            <if test="originType != null">
+                origin_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskDocNum != null">
+                #{taskDocNum},
+            </if>
+            <if test="originNum != null">
+                #{originNum},
+            </if>
+            <if test="originType != null">
+                #{originType},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>

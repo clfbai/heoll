@@ -1,0 +1,1116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.GdnMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.Gdn">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="gdn_num" jdbcType="VARCHAR" property="gdnNum"/>
+        <result column="deliv_mode" jdbcType="CHAR" property="delivMode"/>
+        <result column="fscl_deliv_mode" jdbcType="CHAR" property="fsclDelivMode"/>
+        <result column="rcv_unit_id" jdbcType="BIGINT" property="rcvUnitId"/>
+        <result column="rcv_wareh_id" jdbcType="BIGINT" property="rcvWarehId"/>
+        <result column="rcv_fscl_unit_id" jdbcType="BIGINT" property="rcvFsclUnitId"/>
+        <result column="end_unit_id" jdbcType="BIGINT" property="endUnitId"/>
+        <result column="end_wareh_id" jdbcType="BIGINT" property="endWarehId"/>
+        <result column="deliv_mthd" jdbcType="VARCHAR" property="delivMthd"/>
+        <result column="deliv_pstd" jdbcType="VARCHAR" property="delivPstd"/>
+        <result column="deliv_addr" jdbcType="VARCHAR" property="delivAddr"/>
+        <result column="pick_reqd" jdbcType="CHAR" property="pickReqd"/>
+        <result column="rck_reqd" jdbcType="CHAR" property="rckReqd"/>
+        <result column="veh_reqd" jdbcType="CHAR" property="vehReqd"/>
+        <result column="vwc_num" jdbcType="VARCHAR" property="vwcNum"/>
+        <result column="cnsn_reqd" jdbcType="CHAR" property="cnsnReqd"/>
+        <result column="csb_num" jdbcType="VARCHAR" property="csbNum"/>
+        <result column="ftchr_id" jdbcType="BIGINT" property="ftchrId"/>
+        <result column="ftch_st_time" jdbcType="TIMESTAMP" property="ftchStTime"/>
+        <result column="ftch_fin_time" jdbcType="TIMESTAMP" property="ftchFinTime"/>
+        <result column="dlvr_id" jdbcType="BIGINT" property="dlvrId"/>
+        <result column="deliv_time" jdbcType="TIMESTAMP" property="delivTime"/>
+        <result column="cngnr_id" jdbcType="BIGINT" property="cngnrId"/>
+        <result column="cnsn_time" jdbcType="TIMESTAMP" property="cnsnTime"/>
+        <result column="progress" jdbcType="CHAR" property="progress"/>
+    </resultMap>
+    <resultMap id="GdnStbResultMap" type="com.boyu.erp.platform.usercenter.model.wareh.GdnStbModel">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="gdn_num" jdbcType="VARCHAR" property="gdnNum"/>
+        <id column="stb_num" jdbcType="VARCHAR" property="stbNum"/>
+        <result column="deliv_mode" jdbcType="CHAR" property="delivMode"/>
+        <result column="fscl_deliv_mode" jdbcType="CHAR" property="fsclDelivMode"/>
+        <result column="rcv_unit_id" jdbcType="BIGINT" property="rcvUnitId"/>
+        <result column="rcv_wareh_id" jdbcType="BIGINT" property="rcvWarehId"/>
+        <result column="rcv_fscl_unit_id" jdbcType="BIGINT" property="rcvFsclUnitId"/>
+        <result column="end_unit_id" jdbcType="BIGINT" property="endUnitId"/>
+        <result column="end_wareh_id" jdbcType="BIGINT" property="endWarehId"/>
+        <result column="deliv_mthd" jdbcType="VARCHAR" property="delivMthd"/>
+        <result column="deliv_pstd" jdbcType="VARCHAR" property="delivPstd"/>
+        <result column="deliv_addr" jdbcType="VARCHAR" property="delivAddr"/>
+        <result column="pick_reqd" jdbcType="CHAR" property="pickReqd"/>
+        <result column="rck_reqd" jdbcType="CHAR" property="rckReqd"/>
+        <result column="veh_reqd" jdbcType="CHAR" property="vehReqd"/>
+        <result column="vwc_num" jdbcType="VARCHAR" property="vwcNum"/>
+        <result column="cnsn_reqd" jdbcType="CHAR" property="cnsnReqd"/>
+        <result column="csb_num" jdbcType="VARCHAR" property="csbNum"/>
+        <result column="ftchr_id" jdbcType="BIGINT" property="ftchrId"/>
+        <result column="ftch_st_time" jdbcType="TIMESTAMP" property="ftchStTime"/>
+        <result column="ftch_fin_time" jdbcType="TIMESTAMP" property="ftchFinTime"/>
+        <result column="dlvr_id" jdbcType="BIGINT" property="dlvrId"/>
+        <result column="deliv_time" jdbcType="TIMESTAMP" property="delivTime"/>
+        <result column="cngnr_id" jdbcType="BIGINT" property="cngnrId"/>
+        <result column="cnsn_time" jdbcType="TIMESTAMP" property="cnsnTime"/>
+        <result column="progress" jdbcType="CHAR" property="progress"/>
+
+        <result column="doc_date" jdbcType="DATE" property="docDate"/>
+        <result column="fscl_date" jdbcType="DATE" property="fsclDate"/>
+        <result column="wareh_id" jdbcType="BIGINT" property="warehId"/>
+        <result column="fscl_unit_id" jdbcType="BIGINT" property="fsclUnitId"/>
+        <result column="cost_grp_id" jdbcType="BIGINT" property="costGrpId"/>
+        <result column="tran_unit_id" jdbcType="BIGINT" property="tranUnitId"/>
+        <result column="hldn_wareh_id" jdbcType="BIGINT" property="hldnWarehId"/>
+        <result column="hldn_cost_grp_id" jdbcType="BIGINT" property="hldnCostGrpId"/>
+        <result column="lgc_wareh_id" jdbcType="BIGINT" property="lgcWarehId"/>
+        <result column="dr_type" jdbcType="CHAR" property="drType"/>
+        <result column="src_doc_type" jdbcType="CHAR" property="srcDocType"/>
+        <result column="src_doc_unit_id" jdbcType="BIGINT" property="srcDocUnitId"/>
+        <result column="src_doc_num" jdbcType="VARCHAR" property="srcDocNum"/>
+        <result column="cntr_num" jdbcType="VARCHAR" property="cntrNum"/>
+        <result column="ldg_stb_num" jdbcType="VARCHAR" property="ldgStbNum"/>
+        <result column="loc_adopted" jdbcType="CHAR" property="locAdopted"/>
+        <result column="loc_id" jdbcType="BIGINT" property="locId"/>
+        <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled"/>
+        <result column="box_reqd" jdbcType="CHAR" property="boxReqd"/>
+        <result column="box_schd" jdbcType="CHAR" property="boxSchd"/>
+        <result column="ttl_expd_qty" jdbcType="DECIMAL" property="ttlExpdQty"/>
+        <result column="ttl_expd_box" jdbcType="BIGINT" property="ttlExpdBox"/>
+        <result column="ttl_qty" jdbcType="DECIMAL" property="ttlQty"/>
+        <result column="ttl_box" jdbcType="BIGINT" property="ttlBox"/>
+        <result column="ttl_pack" jdbcType="BIGINT" property="ttlPack"/>
+        <result column="ttl_val" jdbcType="DECIMAL" property="ttlVal"/>
+        <result column="ttl_rwd" jdbcType="DECIMAL" property="ttlRwd"/>
+        <result column="ttl_tax" jdbcType="DECIMAL" property="ttlTax"/>
+        <result column="ttl_mkv" jdbcType="DECIMAL" property="ttlMkv"/>
+        <result column="ttl_cost" jdbcType="DECIMAL" property="ttlCost"/>
+        <result column="fscl_date_aptd" jdbcType="CHAR" property="fsclDateAptd"/>
+        <result column="inst_stl" jdbcType="CHAR" property="instStl"/>
+        <result column="brdg_mode" jdbcType="CHAR" property="brdgMode"/>
+        <result column="cost_chg" jdbcType="CHAR" property="costChg"/>
+        <result column="post_ctrl" jdbcType="CHAR" property="postCtrl"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="op_time" jdbcType="TIMESTAMP" property="opTime"/>
+        <result column="effective" jdbcType="CHAR" property="effective"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="cancelled" jdbcType="CHAR" property="cancelled"/>
+        <result column="reversed" jdbcType="CHAR" property="reversed"/>
+        <result column="is_rev" jdbcType="CHAR" property="isRev"/>
+        <result column="org_stb_num" jdbcType="VARCHAR" property="orgStbNum"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="cln_area_id" jdbcType="BIGINT" property="clnAreaId"/>
+        <result column="show_doc" property="showDoc"/>
+    </resultMap>
+    <resultMap id="GdnModelResultMap" type="com.boyu.erp.platform.usercenter.vo.warehouse.GdnModelVO">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="gdn_num" jdbcType="VARCHAR" property="gdnNum"/>
+        <id column="stb_num" jdbcType="VARCHAR" property="stbNum"/>
+        <result column="deliv_mode" jdbcType="CHAR" property="delivMode"/>
+        <result column="fscl_deliv_mode" jdbcType="CHAR" property="fsclDelivMode"/>
+        <result column="rcv_unit_id" jdbcType="BIGINT" property="rcvUnitId"/>
+        <result column="rcv_wareh_id" jdbcType="BIGINT" property="rcvWarehId"/>
+        <result column="rcv_fscl_unit_id" jdbcType="BIGINT" property="rcvFsclUnitId"/>
+        <result column="end_unit_id" jdbcType="BIGINT" property="endUnitId"/>
+        <result column="end_wareh_id" jdbcType="BIGINT" property="endWarehId"/>
+        <result column="deliv_mthd" jdbcType="VARCHAR" property="delivMthd"/>
+        <result column="deliv_pstd" jdbcType="VARCHAR" property="delivPstd"/>
+        <result column="deliv_addr" jdbcType="VARCHAR" property="delivAddr"/>
+        <result column="pick_reqd" jdbcType="CHAR" property="pickReqd"/>
+        <result column="rck_reqd" jdbcType="CHAR" property="rckReqd"/>
+        <result column="veh_reqd" jdbcType="CHAR" property="vehReqd"/>
+        <result column="vwc_num" jdbcType="VARCHAR" property="vwcNum"/>
+        <result column="cnsn_reqd" jdbcType="CHAR" property="cnsnReqd"/>
+        <result column="csb_num" jdbcType="VARCHAR" property="csbNum"/>
+        <result column="ftchr_id" jdbcType="BIGINT" property="ftchrId"/>
+        <result column="ftch_st_time" jdbcType="TIMESTAMP" property="ftchStTime"/>
+        <result column="ftch_fin_time" jdbcType="TIMESTAMP" property="ftchFinTime"/>
+        <result column="dlvr_id" jdbcType="BIGINT" property="dlvrId"/>
+        <result column="deliv_time" jdbcType="TIMESTAMP" property="delivTime"/>
+        <result column="cngnr_id" jdbcType="BIGINT" property="cngnrId"/>
+        <result column="cnsn_time" jdbcType="TIMESTAMP" property="cnsnTime"/>
+        <result column="progress" jdbcType="CHAR" property="progress"/>
+
+        <result column="doc_date" jdbcType="DATE" property="docDate"/>
+        <result column="fscl_date" jdbcType="DATE" property="fsclDate"/>
+        <result column="wareh_id" jdbcType="BIGINT" property="warehId"/>
+        <result column="fscl_unit_id" jdbcType="BIGINT" property="fsclUnitId"/>
+        <result column="cost_grp_id" jdbcType="BIGINT" property="costGrpId"/>
+        <result column="tran_unit_id" jdbcType="BIGINT" property="tranUnitId"/>
+        <result column="hldn_wareh_id" jdbcType="BIGINT" property="hldnWarehId"/>
+        <result column="hldn_cost_grp_id" jdbcType="BIGINT" property="hldnCostGrpId"/>
+        <result column="lgc_wareh_id" jdbcType="BIGINT" property="lgcWarehId"/>
+        <result column="dr_type" jdbcType="CHAR" property="drType"/>
+        <result column="src_doc_type" jdbcType="CHAR" property="srcDocType"/>
+        <result column="src_doc_unit_id" jdbcType="BIGINT" property="srcDocUnitId"/>
+        <result column="src_doc_num" jdbcType="VARCHAR" property="srcDocNum"/>
+        <result column="cntr_num" jdbcType="VARCHAR" property="cntrNum"/>
+        <result column="ldg_stb_num" jdbcType="VARCHAR" property="ldgStbNum"/>
+        <result column="loc_adopted" jdbcType="CHAR" property="locAdopted"/>
+        <result column="loc_id" jdbcType="BIGINT" property="locId"/>
+        <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled"/>
+        <result column="box_reqd" jdbcType="CHAR" property="boxReqd"/>
+        <result column="box_schd" jdbcType="CHAR" property="boxSchd"/>
+        <result column="ttl_expd_qty" jdbcType="DECIMAL" property="ttlExpdQty"/>
+        <result column="ttl_expd_box" jdbcType="BIGINT" property="ttlExpdBox"/>
+        <result column="ttl_qty" jdbcType="DECIMAL" property="ttlQty"/>
+        <result column="ttl_box" jdbcType="BIGINT" property="ttlBox"/>
+        <result column="ttl_pack" jdbcType="BIGINT" property="ttlPack"/>
+        <result column="ttl_val" jdbcType="DECIMAL" property="ttlVal"/>
+        <result column="ttl_rwd" jdbcType="DECIMAL" property="ttlRwd"/>
+        <result column="ttl_tax" jdbcType="DECIMAL" property="ttlTax"/>
+        <result column="ttl_mkv" jdbcType="DECIMAL" property="ttlMkv"/>
+        <result column="ttl_cost" jdbcType="DECIMAL" property="ttlCost"/>
+        <result column="fscl_date_aptd" jdbcType="CHAR" property="fsclDateAptd"/>
+        <result column="inst_stl" jdbcType="CHAR" property="instStl"/>
+        <result column="brdg_mode" jdbcType="CHAR" property="brdgMode"/>
+        <result column="cost_chg" jdbcType="CHAR" property="costChg"/>
+        <result column="post_ctrl" jdbcType="CHAR" property="postCtrl"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="op_time" jdbcType="TIMESTAMP" property="opTime"/>
+        <result column="effective" jdbcType="CHAR" property="effective"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="cancelled" jdbcType="CHAR" property="cancelled"/>
+        <result column="reversed" jdbcType="CHAR" property="reversed"/>
+        <result column="is_rev" jdbcType="CHAR" property="isRev"/>
+        <result column="org_stb_num" jdbcType="VARCHAR" property="orgStbNum"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="cln_area_id" jdbcType="BIGINT" property="clnAreaId"/>
+        <result column="uid_adopted" property="uidAdopted"/>
+        <result column="rcv_wareh_num" property="rcvWarehNum"/>
+        <result column="rcv_wareh_name" property="rcvWarehName"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    unit_id, gdn_num, deliv_mode, fscl_deliv_mode, rcv_unit_id, rcv_wareh_id, rcv_fscl_unit_id, 
+    end_unit_id, end_wareh_id, deliv_mthd, deliv_pstd, deliv_addr, pick_reqd, rck_reqd, 
+    veh_reqd, vwc_num, cnsn_reqd, csb_num, ftchr_id, ftch_st_time, ftch_fin_time, dlvr_id, 
+    deliv_time, cngnr_id, cnsn_time, progress
+  </sql>
+    <sql id="Gdn_Column_List">
+    gdn.unit_id, gdn.gdn_num, gdn.deliv_mode, gdn.fscl_deliv_mode, gdn.rcv_unit_id, gdn.rcv_wareh_id, gdn.rcv_fscl_unit_id,
+    gdn.end_unit_id, gdn.end_wareh_id, gdn.deliv_mthd, gdn.deliv_pstd, gdn.deliv_addr, gdn.pick_reqd, gdn.rck_reqd,
+    gdn.veh_reqd, gdn.vwc_num, gdn.cnsn_reqd, gdn.csb_num, gdn.ftchr_id, gdn.ftch_st_time, gdn.ftch_fin_time, gdn.dlvr_id,
+    gdn.deliv_time, gdn.cngnr_id, gdn.cnsn_time, gdn.progress,gdn.show_doc
+  </sql>
+    <sql id="Stb_Column_List">
+    stb.stb_num, stb.doc_date, stb.fscl_date, stb.wareh_id, stb.fscl_unit_id, stb.cost_grp_id, stb.tran_unit_id,
+    stb.hldn_wareh_id, stb.hldn_cost_grp_id, stb.lgc_wareh_id, stb.dr_type, stb.src_doc_type, stb.src_doc_unit_id,
+    stb.src_doc_num, stb.cntr_num, stb.ldg_stb_num, stb.loc_adopted, stb.loc_id, stb.bxi_enabled, stb.box_reqd, stb.box_schd,
+    stb.ttl_expd_qty, stb.ttl_expd_box, stb.ttl_qty, stb.ttl_box, stb.ttl_pack, stb.ttl_val, stb.ttl_rwd, stb.ttl_tax,
+    stb.ttl_mkv, stb.ttl_cost, stb.fscl_date_aptd, stb.inst_stl, stb.brdg_mode, stb.cost_chg, stb.post_ctrl, stb.opr_id,
+    stb.op_time, stb.effective, stb.suspended, stb.cancelled, stb.reversed, stb.is_rev, stb.org_stb_num, stb.remarks,
+    stb.cln_area_id
+  </sql>
+    <select id="selectGdn" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Gdn"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from gdn
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and gdn_num = #{gdnNum,jdbcType=VARCHAR}
+    </select>
+
+    <select id="initGdnByDelivMode" resultType="com.boyu.erp.platform.usercenter.vo.warehouse.GdnVO">
+        SELECT
+        wd.WAREH_ID AS unitId,
+        wd.DELIV_MODE AS delivMode,
+        wd.AUTO_EXEC AS autoExec,
+        wd.PICK_REQD AS pickReqd,
+        wd.RCK_REQD AS rckReqd,
+        wd.BOX_REQD AS boxReqd,
+        wd.BOX_SCHD AS boxSchd,
+        wd.DIFF_MTRD AS diffMtrd,
+        wd.DIFF_CTRL AS diffCtrl,
+        wd.MNL_RWD AS mnlRwd,
+        wd.INST_STL AS instStl,
+        wd.FIXED_UNIT_PRICE AS fixedUnitPrice,
+        wd.RCV_UNIT_REQD AS rcvUnitReqd,
+        wd.RCV_WAREH_REQD AS rcvWarehReqd
+        FROM
+        wareh_dmode AS wd
+        WHERE
+        wd.WAREH_ID = #{unitId} AND
+        wd.DELIV_MODE = #{delivMode}
+    </select>
+    <select id="queryGdnDetails" resultType="com.boyu.erp.platform.usercenter.vo.warehouse.GdnListVO">
+        SELECT
+        gdn.unit_id AS unitId,
+        gdn.gdn_num AS gdnNum,
+        gdn.deliv_mode AS delivMode,
+        gdn.fscl_deliv_mode AS fsclDelivMode,
+        gdn.rcv_unit_id AS rcvUnitId,
+        gdn.rcv_wareh_id AS rcvWarehId,
+        gdn.rcv_fscl_unit_id AS rcvFsclUnitId,
+        gdn.end_unit_id AS endUnitId,
+        gdn.end_wareh_id AS endWarehId,
+        gdn.deliv_mthd AS delivMthd,
+        gdn.deliv_pstd AS delivPstd,
+        gdn.deliv_addr AS delivAddr,
+        gdn.pick_reqd AS pickReqd,
+        gdn.rck_reqd AS rckReqd,
+        gdn.veh_reqd AS vehReqd,
+        gdn.vwc_num AS vwcNum,
+        gdn.cnsn_reqd AS cnsnReqd,
+        gdn.csb_num AS csbNum,
+        gdn.ftchr_id AS ftchrId,
+        gdn.ftch_st_time AS ftchStTime,
+        gdn.ftch_fin_time AS ftchFinTime,
+        gdn.dlvr_id AS dlvrId,
+        gdn.deliv_time AS delivTime,
+        gdn.cngnr_id AS cngnrId,
+        gdn.cnsn_time AS cnsnTime,
+        gdn.progress,
+        stb.stb_num AS stbNum,
+        stb.doc_date AS docDate,
+        stb.fscl_date AS fsclDate,
+        stb.wareh_id AS warehId,
+        stb.fscl_unit_id AS fsclUnitId,
+        stb.cost_grp_id AS costGrpId,
+        stb.tran_unit_id AS tranUnitId,
+        stb.hldn_wareh_id AS hldnWarehId,
+        stb.hldn_cost_grp_id AS hldnCostGrpId,
+        stb.lgc_wareh_id AS lgcWarehId,
+        stb.dr_type AS drType,
+        stb.src_doc_type AS srcDocType,
+        stb.src_doc_unit_id AS srcDocUnitId,
+        stb.src_doc_num AS srcDocNum,
+        stb.cntr_num AS cntrNum,
+        stb.ldg_stb_num AS ldgStbNum,
+        stb.loc_adopted AS locAdopted,
+        stb.loc_id AS locId,
+        stb.bxi_enabled AS bxiEnabled,
+        stb.box_reqd AS boxReqd,
+        stb.box_schd AS boxSchd,
+        stb.ttl_expd_qty AS ttlExpdQty,
+        stb.ttl_expd_box AS ttlExpdBox,
+        stb.ttl_qty AS ttlQty,
+        stb.ttl_box AS ttlBox,
+        stb.ttl_pack AS ttlPack,
+        stb.ttl_val AS ttlVal,
+        stb.ttl_rwd AS ttlRwd,
+        stb.ttl_tax AS ttlTax,
+        stb.ttl_mkv AS ttlMkv,
+        stb.ttl_cost AS ttlCost,
+        stb.fscl_date_aptd AS fsclDateAptd,
+        stb.inst_stl AS instStl,
+        stb.brdg_mode AS brdgMode,
+        stb.cost_chg AS costChg,
+        stb.post_ctrl AS postCtrl,
+        stb.opr_id AS oprId,
+        stb.op_time AS opTime,
+        stb.effective,
+        stb.suspended,
+        stb.cancelled,
+        stb.reversed,
+        stb.is_rev AS isRev,
+        stb.org_stb_num AS orgStbNum,
+        stb.remarks,
+        stb.cln_area_id AS clnAreaId
+        FROM
+        gdn INNER JOIN stb ON gdn_num=stb_num
+        WHERE gdn_num=#{stbNum} and unit_id = #{unitId}
+    </select>
+    <select id="getGdnByGdnNum" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from gdn where gdn_num=#{gdnNum}
+    </select>
+    <select id="queryDelivWarehIdBySrcDocMess" resultType="java.lang.Long">
+        select stb.wareh_id AS warehId from stb INNER JOIN gdn on stb.stb_num = gdn.gdn_num and stb.src_doc_type=#{srcDocType} and stb.src_doc_num=#{srcDocNum} and stb.src_doc_unit_id=#{srcDocUnitId} and gdn.rcv_unit_id=#{rcvUnitId}
+    </select>
+
+    <select id="queryRcvWarehIdBySrcDocMess" resultType="java.lang.Long">
+        select stb.wareh_id AS warehId from stb INNER JOIN grn on stb.stb_num = grn.grn_num and stb.src_doc_type=#{srcDocType} and stb.src_doc_num=#{srcDocNum} and stb.src_doc_unit_id=#{srcDocUnitId} and grn.deliv_unit_id=#{delivUnitId}
+    </select>
+
+    <select id="queryGdnByNumAndUnit" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from gdn where gdn_num=#{gdnNum} and unit_id = #{unitId}
+    </select>
+    <select id="queryGdnStbByNumAndUnit" resultMap="GdnStbResultMap">
+        select <include refid="Gdn_Column_List"></include>,<include refid="Stb_Column_List"></include> from gdn AS gdn
+        inner join stb AS stb on gdn.gdn_num=stb.stb_num and gdn.unit_id = stb.unit_id where stb.stb_num=#{stbNum} and
+        stb.unit_id = #{unitId}
+    </select>
+    <select id="queryGdnStbListByFtr" resultMap="GdnModelResultMap">
+        select <include refid="Gdn_Column_List"></include>,<include refid="Stb_Column_List"></include>,w.uid_adopted,
+        su.unit_name AS rcv_wareh_name, suo.unit_num AS rcv_wareh_num
+        from gdn inner join stb on gdn.gdn_num=stb.stb_num and gdn.unit_id=stb.unit_id
+        inner join wareh AS w on w.wareh_id=stb.wareh_id
+        left join sys_unit_owner AS suo ON gdn.rcv_wareh_id=suo.unit_id and gdn.rcv_unit_id=suo.owner_id
+        left join sys_unit AS su ON gdn.rcv_wareh_id=su.unit_id
+        <trim prefix="where" prefixOverrides="and|or">
+            and stb.unit_id=#{sUnitId}
+            <if test="dateType=='doc'">
+                <if test="minTime!=null and minTime!=''">
+                    and stb.doc_date>=#{minTime}
+                </if>
+                <if test="maxTime!=null and maxTime!=''">
+                    and stb.doc_date&lt;=#{maxTime}
+                </if>
+            </if>
+            <if test="dateType=='fscl'">
+                <if test="minTime!=null and minTime!=''">
+                    and stb.fscl_date>=#{minTime}
+                </if>
+                <if test="maxTime!=null and maxTime!=''">
+                    and stb.fscl_date&lt;=#{maxTime}
+                </if>
+            </if>
+            <if test="stbNum!=null and stbNum!=''">
+                and stb.stb_num like concat(#{stbNum},'%')
+            </if>
+            <if test="warehIdList!=null and warehIdList.size()>0">
+                and stb.wareh_id in(
+                <foreach collection="warehIdList" item="warehId" separator=",">
+                    #{warehId}
+                </foreach>
+                )
+            </if>
+            <if test="rcvUnitIdList!=null and rcvUnitIdList.size()>0">
+                and gdn.rcv_unit_id in (
+                <foreach collection="rcvUnitIdList" item="rcvUnitId" separator=",">
+                    #{rcvUnitId}
+                </foreach>
+                )
+            </if>
+            <if test="rcvWarehIdList!=null and rcvWarehIdList.size()>0">
+                and gdn.rcv_wareh_id in(
+                <foreach collection="rcvWarehIdList" item="rcvWarehId" separator=",">
+                    #{rcvWarehId}
+                </foreach>
+                )
+            </if>
+            <if test="progress!=null and progress!=''">
+                and progress = #{progress}
+            </if>
+            <if test="ugWarehIds!=null and ugWarehIds.size()>0">
+                and stb.wareh_id in (
+                <foreach collection="ugWarehIds" item="ugWarehId" separator=",">
+                    #{ugWarehId}
+                </foreach>
+                )
+            </if>
+            and gdn.show_doc!='F'
+        </trim>
+        order by stb.doc_date desc,gdn.gdn_num desc
+    </select>
+    <select id="getListTotal" resultType="java.util.Map">
+        select SUM(stb.ttl_qty) AS ttlQty,SUM(stb.ttl_val) AS ttlVal
+        from gdn inner join stb on gdn.gdn_num=stb.stb_num and gdn.unit_id=stb.unit_id
+        -- 判断仓库编号
+        inner join sys_unit_owner AS suo on stb.wareh_id=suo.unit_id
+        -- 判断收货方代码
+        left join sys_unit AS su on gdn.rcv_unit_id = su.unit_id
+        -- 判断收货方仓库编号
+        left join sys_unit_owner AS suo1 on gdn.rcv_wareh_id=suo1.unit_id
+        <trim prefix="where" prefixOverrides="and|or">
+            and stb.unit_id=#{sUnitId}
+            <if test="dateType=='doc'">
+                and stb.doc_date>=#{beginTime}
+                and stb.doc_date&lt;=#{endTime}
+            </if>
+            <if test="dateType=='fscl'">
+                and stb.fscl_date>=#{beginTime}
+                and stb.fscl_date&lt;=#{endTime}
+            </if>
+            <if test="gdnNum!=null and gdnNum!=''">
+                and gdn.unit_id like concat(#{gdnNum}'%')
+            </if>
+            <if test="warehNum!=null and warehNum!=''">
+                and suo.unit_num like concat(#{warehNum},'%')
+            </if>
+            <if test="rcvUnitCode!=null and rcvUnitCode!=''">
+                and su.unit_code like concat(#{rcvUnitCode},'%')
+            </if>
+            <if test="rcvWarehNum!=null and rcvWarehNum!=''">
+                and suo1.unit_num like concat(#{rcvWarehNum},'%')
+            </if>
+            <if test="progress!=null and progress!=''">
+                and progress = #{progress}
+            </if>
+        </trim>
+    </select>
+    <select id="queryGdnStbByObj" resultMap="GdnStbResultMap">
+        select <include refid="Gdn_Column_List"></include>,<include refid="Stb_Column_List"></include> from gdn AS gdn
+        inner join stb AS stb on gdn.gdn_num=stb.stb_num and gdn.unit_id = stb.unit_id
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="srcDocType!=null">
+                and src_doc_type=#{srcDocType}
+            </if>
+            <if test="srcDocUnitId!=null">
+                and src_doc_unit_id = #{srcDocUnitId}
+            </if>
+            <if test="srcDocNum!=null">
+                and src_doc_num = #{srcDocNum}
+            </if>
+            and unit_id=#{unitId}
+        </trim>
+    </select>
+    <delete id="deleteGdn" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Gdn">
+    delete from gdn
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and gdn_num = #{gdnNum,jdbcType=VARCHAR}
+  </delete>
+    <delete id="delGdn">
+        delete from gdn where gdn_num=#{stbNum}
+    </delete>
+
+    <insert id="insertGdn" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Gdn">
+        insert into gdn
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="gdnNum != null">
+                gdn_num,
+            </if>
+            <if test="delivMode != null">
+                deliv_mode,
+            </if>
+            <if test="fsclDelivMode != null">
+                fscl_deliv_mode,
+            </if>
+            <if test="rcvUnitId != null">
+                rcv_unit_id,
+            </if>
+            <if test="rcvWarehId != null">
+                rcv_wareh_id,
+            </if>
+            <if test="rcvFsclUnitId != null">
+                rcv_fscl_unit_id,
+            </if>
+            <if test="endUnitId != null">
+                end_unit_id,
+            </if>
+            <if test="endWarehId != null">
+                end_wareh_id,
+            </if>
+            <if test="delivMthd != null">
+                deliv_mthd,
+            </if>
+            <if test="delivPstd != null">
+                deliv_pstd,
+            </if>
+            <if test="delivAddr != null">
+                deliv_addr,
+            </if>
+            <if test="pickReqd != null">
+                pick_reqd,
+            </if>
+            <if test="rckReqd != null">
+                rck_reqd,
+            </if>
+            <if test="vehReqd != null">
+                veh_reqd,
+            </if>
+            <if test="vwcNum != null">
+                vwc_num,
+            </if>
+            <if test="cnsnReqd != null">
+                cnsn_reqd,
+            </if>
+            <if test="csbNum != null">
+                csb_num,
+            </if>
+            <if test="ftchrId != null">
+                ftchr_id,
+            </if>
+            <if test="ftchStTime != null">
+                ftch_st_time,
+            </if>
+            <if test="ftchFinTime != null">
+                ftch_fin_time,
+            </if>
+            <if test="dlvrId != null">
+                dlvr_id,
+            </if>
+            <if test="delivTime != null">
+                deliv_time,
+            </if>
+            <if test="cngnrId != null">
+                cngnr_id,
+            </if>
+            <if test="cnsnTime != null">
+                cnsn_time,
+            </if>
+            <if test="progress != null">
+                progress,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="gdnNum != null">
+                #{gdnNum,jdbcType=VARCHAR},
+            </if>
+            <if test="delivMode != null">
+                #{delivMode,jdbcType=CHAR},
+            </if>
+            <if test="fsclDelivMode != null">
+                #{fsclDelivMode,jdbcType=CHAR},
+            </if>
+            <if test="rcvUnitId != null">
+                #{rcvUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="rcvWarehId != null">
+                #{rcvWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="rcvFsclUnitId != null">
+                #{rcvFsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="endUnitId != null">
+                #{endUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="endWarehId != null">
+                #{endWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="delivMthd != null">
+                #{delivMthd,jdbcType=VARCHAR},
+            </if>
+            <if test="delivPstd != null">
+                #{delivPstd,jdbcType=VARCHAR},
+            </if>
+            <if test="delivAddr != null">
+                #{delivAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="pickReqd != null">
+                #{pickReqd,jdbcType=CHAR},
+            </if>
+            <if test="rckReqd != null">
+                #{rckReqd,jdbcType=CHAR},
+            </if>
+            <if test="vehReqd != null">
+                #{vehReqd,jdbcType=CHAR},
+            </if>
+            <if test="vwcNum != null">
+                #{vwcNum,jdbcType=VARCHAR},
+            </if>
+            <if test="cnsnReqd != null">
+                #{cnsnReqd,jdbcType=CHAR},
+            </if>
+            <if test="csbNum != null">
+                #{csbNum,jdbcType=VARCHAR},
+            </if>
+            <if test="ftchrId != null">
+                #{ftchrId,jdbcType=BIGINT},
+            </if>
+            <if test="ftchStTime != null">
+                #{ftchStTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ftchFinTime != null">
+                #{ftchFinTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dlvrId != null">
+                #{dlvrId,jdbcType=BIGINT},
+            </if>
+            <if test="delivTime != null">
+                #{delivTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cngnrId != null">
+                #{cngnrId,jdbcType=BIGINT},
+            </if>
+            <if test="cnsnTime != null">
+                #{cnsnTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="progress != null">
+                #{progress,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertGdnVOGDN">
+        insert into gdn
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="gdnNum != null">
+                gdn_num,
+            </if>
+            <if test="delivMode != null">
+                deliv_mode,
+            </if>
+            <if test="fsclDelivMode != null">
+                fscl_deliv_mode,
+            </if>
+            <if test="rcvUnitId != null">
+                rcv_unit_id,
+            </if>
+            <if test="rcvWarehId != null">
+                rcv_wareh_id,
+            </if>
+            <if test="rcvFsclUnitId != null">
+                rcv_fscl_unit_id,
+            </if>
+            <if test="endUnitId != null">
+                end_unit_id,
+            </if>
+            <if test="endWarehId != null">
+                end_wareh_id,
+            </if>
+            <if test="delivMthd != null">
+                deliv_mthd,
+            </if>
+            <if test="delivPstd != null">
+                deliv_pstd,
+            </if>
+            <if test="delivAddr != null">
+                deliv_addr,
+            </if>
+            <if test="pickReqd != null">
+                pick_reqd,
+            </if>
+            <if test="rckReqd != null">
+                rck_reqd,
+            </if>
+            <if test="vehReqd != null">
+                veh_reqd,
+            </if>
+            <if test="vwcNum != null">
+                vwc_num,
+            </if>
+            <if test="cnsnReqd != null">
+                cnsn_reqd,
+            </if>
+            <if test="csbNum != null">
+                csb_num,
+            </if>
+            <if test="ftchrId != null">
+                ftchr_id,
+            </if>
+            <if test="ftchStTime != null">
+                ftch_st_time,
+            </if>
+            <if test="ftchFinTime != null">
+                ftch_fin_time,
+            </if>
+            <if test="dlvrId != null">
+                dlvr_id,
+            </if>
+            <if test="delivTime != null">
+                deliv_time,
+            </if>
+            <if test="cngnrId != null">
+                cngnr_id,
+            </if>
+            <if test="cnsnTime != null">
+                cnsn_time,
+            </if>
+            <if test="progress != null">
+                progress,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="gdnNum != null">
+                #{gdnNum,jdbcType=VARCHAR},
+            </if>
+            <if test="delivMode != null">
+                #{delivMode,jdbcType=CHAR},
+            </if>
+            <if test="fsclDelivMode != null">
+                #{fsclDelivMode,jdbcType=CHAR},
+            </if>
+            <if test="rcvUnitId != null">
+                #{rcvUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="rcvWarehId != null">
+                #{rcvWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="rcvFsclUnitId != null">
+                #{rcvFsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="endUnitId != null">
+                #{endUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="endWarehId != null">
+                #{endWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="delivMthd != null">
+                #{delivMthd,jdbcType=VARCHAR},
+            </if>
+            <if test="delivPstd != null">
+                #{delivPstd,jdbcType=VARCHAR},
+            </if>
+            <if test="delivAddr != null">
+                #{delivAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="pickReqd != null">
+                #{pickReqd,jdbcType=CHAR},
+            </if>
+            <if test="rckReqd != null">
+                #{rckReqd,jdbcType=CHAR},
+            </if>
+            <if test="vehReqd != null">
+                #{vehReqd,jdbcType=CHAR},
+            </if>
+            <if test="vwcNum != null">
+                #{vwcNum,jdbcType=VARCHAR},
+            </if>
+            <if test="cnsnReqd != null">
+                #{cnsnReqd,jdbcType=CHAR},
+            </if>
+            <if test="csbNum != null">
+                #{csbNum,jdbcType=VARCHAR},
+            </if>
+            <if test="ftchrId != null">
+                #{ftchrId,jdbcType=BIGINT},
+            </if>
+            <if test="ftchStTime != null">
+                #{ftchStTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ftchFinTime != null">
+                #{ftchFinTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dlvrId != null">
+                #{dlvrId,jdbcType=BIGINT},
+            </if>
+            <if test="delivTime != null">
+                #{delivTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cngnrId != null">
+                #{cngnrId,jdbcType=BIGINT},
+            </if>
+            <if test="cnsnTime != null">
+                #{cnsnTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="progress != null">
+                #{progress,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertGdnModel2Gdn">
+        insert into gdn
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="gdnNum != null">
+                gdn_num,
+            </if>
+            <if test="delivMode != null">
+                deliv_mode,
+            </if>
+            <if test="fsclDelivMode != null">
+                fscl_deliv_mode,
+            </if>
+            <if test="rcvUnitId != null">
+                rcv_unit_id,
+            </if>
+            <if test="rcvWarehId != null">
+                rcv_wareh_id,
+            </if>
+            <if test="rcvFsclUnitId != null">
+                rcv_fscl_unit_id,
+            </if>
+            <if test="endUnitId != null">
+                end_unit_id,
+            </if>
+            <if test="endWarehId != null">
+                end_wareh_id,
+            </if>
+            <if test="delivMthd != null">
+                deliv_mthd,
+            </if>
+            <if test="delivPstd != null">
+                deliv_pstd,
+            </if>
+            <if test="delivAddr != null">
+                deliv_addr,
+            </if>
+            <if test="pickReqd != null">
+                pick_reqd,
+            </if>
+            <if test="rckReqd != null">
+                rck_reqd,
+            </if>
+            <if test="vehReqd != null">
+                veh_reqd,
+            </if>
+            <if test="vwcNum != null">
+                vwc_num,
+            </if>
+            <if test="cnsnReqd != null">
+                cnsn_reqd,
+            </if>
+            <if test="csbNum != null">
+                csb_num,
+            </if>
+            <if test="ftchrId != null">
+                ftchr_id,
+            </if>
+            <if test="ftchStTime != null">
+                ftch_st_time,
+            </if>
+            <if test="ftchFinTime != null">
+                ftch_fin_time,
+            </if>
+            <if test="dlvrId != null">
+                dlvr_id,
+            </if>
+            <if test="delivTime != null">
+                deliv_time,
+            </if>
+            <if test="cngnrId != null">
+                cngnr_id,
+            </if>
+            <if test="cnsnTime != null">
+                cnsn_time,
+            </if>
+            <if test="progress != null">
+                progress,
+            </if>
+            <if test="showDoc != null">
+                show_doc,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="gdnNum != null">
+                #{gdnNum,jdbcType=VARCHAR},
+            </if>
+            <if test="delivMode != null">
+                #{delivMode,jdbcType=CHAR},
+            </if>
+            <if test="fsclDelivMode != null">
+                #{fsclDelivMode,jdbcType=CHAR},
+            </if>
+            <if test="rcvUnitId != null">
+                #{rcvUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="rcvWarehId != null">
+                #{rcvWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="rcvFsclUnitId != null">
+                #{rcvFsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="endUnitId != null">
+                #{endUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="endWarehId != null">
+                #{endWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="delivMthd != null">
+                #{delivMthd,jdbcType=VARCHAR},
+            </if>
+            <if test="delivPstd != null">
+                #{delivPstd,jdbcType=VARCHAR},
+            </if>
+            <if test="delivAddr != null">
+                #{delivAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="pickReqd != null">
+                #{pickReqd,jdbcType=CHAR},
+            </if>
+            <if test="rckReqd != null">
+                #{rckReqd,jdbcType=CHAR},
+            </if>
+            <if test="vehReqd != null">
+                #{vehReqd,jdbcType=CHAR},
+            </if>
+            <if test="vwcNum != null">
+                #{vwcNum,jdbcType=VARCHAR},
+            </if>
+            <if test="cnsnReqd != null">
+                #{cnsnReqd,jdbcType=CHAR},
+            </if>
+            <if test="csbNum != null">
+                #{csbNum,jdbcType=VARCHAR},
+            </if>
+            <if test="ftchrId != null">
+                #{ftchrId,jdbcType=BIGINT},
+            </if>
+            <if test="ftchStTime != null">
+                #{ftchStTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ftchFinTime != null">
+                #{ftchFinTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dlvrId != null">
+                #{dlvrId,jdbcType=BIGINT},
+            </if>
+            <if test="delivTime != null">
+                #{delivTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cngnrId != null">
+                #{cngnrId,jdbcType=BIGINT},
+            </if>
+            <if test="cnsnTime != null">
+                #{cnsnTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="progress != null">
+                #{progress,jdbcType=CHAR},
+            </if>
+            <if test="showDoc != null">
+                #{showDoc},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateGdn" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Gdn">
+        update gdn
+        <set>
+            <if test="delivMode != null">
+                deliv_mode = #{delivMode,jdbcType=CHAR},
+            </if>
+            <if test="fsclDelivMode != null">
+                fscl_deliv_mode = #{fsclDelivMode,jdbcType=CHAR},
+            </if>
+            <if test="rcvUnitId != null">
+                rcv_unit_id = #{rcvUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="rcvWarehId != null">
+                rcv_wareh_id = #{rcvWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="rcvFsclUnitId != null">
+                rcv_fscl_unit_id = #{rcvFsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="endUnitId != null">
+                end_unit_id = #{endUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="endWarehId != null">
+                end_wareh_id = #{endWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="delivMthd != null">
+                deliv_mthd = #{delivMthd,jdbcType=VARCHAR},
+            </if>
+            <if test="delivPstd != null">
+                deliv_pstd = #{delivPstd,jdbcType=VARCHAR},
+            </if>
+            <if test="delivAddr != null">
+                deliv_addr = #{delivAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="pickReqd != null">
+                pick_reqd = #{pickReqd,jdbcType=CHAR},
+            </if>
+            <if test="rckReqd != null">
+                rck_reqd = #{rckReqd,jdbcType=CHAR},
+            </if>
+            <if test="vehReqd != null">
+                veh_reqd = #{vehReqd,jdbcType=CHAR},
+            </if>
+            <if test="vwcNum != null">
+                vwc_num = #{vwcNum,jdbcType=VARCHAR},
+            </if>
+            <if test="cnsnReqd != null">
+                cnsn_reqd = #{cnsnReqd,jdbcType=CHAR},
+            </if>
+            <if test="csbNum != null">
+                csb_num = #{csbNum,jdbcType=VARCHAR},
+            </if>
+            <if test="ftchrId != null">
+                ftchr_id = #{ftchrId,jdbcType=BIGINT},
+            </if>
+            <if test="ftchStTime != null">
+                ftch_st_time = #{ftchStTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ftchFinTime != null">
+                ftch_fin_time = #{ftchFinTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dlvrId != null">
+                dlvr_id = #{dlvrId,jdbcType=BIGINT},
+            </if>
+            <if test="delivTime != null">
+                deliv_time = #{delivTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cngnrId != null">
+                cngnr_id = #{cngnrId,jdbcType=BIGINT},
+            </if>
+            <if test="cnsnTime != null">
+                cnsn_time = #{cnsnTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="progress != null">
+                progress = #{progress,jdbcType=CHAR},
+            </if>
+            <if test="showDoc != null">
+                show_doc = #{showDoc},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and gdn_num = #{gdnNum,jdbcType=VARCHAR}
+    </update>
+    <update id="updateGdnVO">
+        update gdn
+        <set>
+            <if test="delivMode != null">
+                deliv_mode = #{delivMode,jdbcType=CHAR},
+            </if>
+            <if test="fsclDelivMode != null">
+                fscl_deliv_mode = #{fsclDelivMode,jdbcType=CHAR},
+            </if>
+            <if test="rcvUnitId != null">
+                rcv_unit_id = #{rcvUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="rcvWarehId != null">
+                rcv_wareh_id = #{rcvWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="rcvFsclUnitId != null">
+                rcv_fscl_unit_id = #{rcvFsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="endUnitId != null">
+                end_unit_id = #{endUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="endWarehId != null">
+                end_wareh_id = #{endWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="delivMthd != null">
+                deliv_mthd = #{delivMthd,jdbcType=VARCHAR},
+            </if>
+            <if test="delivPstd != null">
+                deliv_pstd = #{delivPstd,jdbcType=VARCHAR},
+            </if>
+            <if test="delivAddr != null">
+                deliv_addr = #{delivAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="pickReqd != null">
+                pick_reqd = #{pickReqd,jdbcType=CHAR},
+            </if>
+            <if test="rckReqd != null">
+                rck_reqd = #{rckReqd,jdbcType=CHAR},
+            </if>
+            <if test="vehReqd != null">
+                veh_reqd = #{vehReqd,jdbcType=CHAR},
+            </if>
+            <if test="vwcNum != null">
+                vwc_num = #{vwcNum,jdbcType=VARCHAR},
+            </if>
+            <if test="cnsnReqd != null">
+                cnsn_reqd = #{cnsnReqd,jdbcType=CHAR},
+            </if>
+            <if test="csbNum != null">
+                csb_num = #{csbNum,jdbcType=VARCHAR},
+            </if>
+            <if test="ftchrId != null">
+                ftchr_id = #{ftchrId,jdbcType=BIGINT},
+            </if>
+            <if test="ftchStTime != null">
+                ftch_st_time = #{ftchStTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ftchFinTime != null">
+                ftch_fin_time = #{ftchFinTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dlvrId != null">
+                dlvr_id = #{dlvrId,jdbcType=BIGINT},
+            </if>
+            <if test="delivTime != null">
+                deliv_time = #{delivTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cngnrId != null">
+                cngnr_id = #{cngnrId,jdbcType=BIGINT},
+            </if>
+            <if test="cnsnTime != null">
+                cnsn_time = #{cnsnTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="progress != null">
+                progress = #{progress,jdbcType=CHAR},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and gdn_num = #{gdnNum,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

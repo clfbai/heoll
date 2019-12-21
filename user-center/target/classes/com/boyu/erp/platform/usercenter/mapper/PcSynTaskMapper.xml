@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.PcSynTaskMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.PcSynTask">
+    <id column="doc_type" jdbcType="CHAR" property="docType" />
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <id column="doc_num" jdbcType="VARCHAR" property="docNum" />
+    <id column="cost_unit_id" jdbcType="BIGINT" property="costUnitId" />
+    <result column="suspended" jdbcType="CHAR" property="suspended" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    doc_type, unit_id, doc_num, cost_unit_id, suspended, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.system.PcSynTask" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pc_syn_task
+    where doc_type = #{docType,jdbcType=CHAR}
+      and unit_id = #{unitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+      and cost_unit_id = #{costUnitId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.system.PcSynTask">
+    delete from pc_syn_task
+    where doc_type = #{docType,jdbcType=CHAR}
+      and unit_id = #{unitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+      and cost_unit_id = #{costUnitId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.system.PcSynTask">
+    insert into pc_syn_task (doc_type, unit_id, doc_num, 
+      cost_unit_id, suspended, remarks
+      )
+    values (#{docType,jdbcType=CHAR}, #{unitId,jdbcType=BIGINT}, #{docNum,jdbcType=VARCHAR}, 
+      #{costUnitId,jdbcType=BIGINT}, #{suspended,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.PcSynTask">
+    insert into pc_syn_task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="docType != null">
+        doc_type,
+      </if>
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="docNum != null">
+        doc_num,
+      </if>
+      <if test="costUnitId != null">
+        cost_unit_id,
+      </if>
+      <if test="suspended != null">
+        suspended,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="docType != null">
+        #{docType,jdbcType=CHAR},
+      </if>
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="docNum != null">
+        #{docNum,jdbcType=VARCHAR},
+      </if>
+      <if test="costUnitId != null">
+        #{costUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="suspended != null">
+        #{suspended,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.PcSynTask">
+    update pc_syn_task
+    <set>
+      <if test="suspended != null">
+        suspended = #{suspended,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where doc_type = #{docType,jdbcType=CHAR}
+      and unit_id = #{unitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+      and cost_unit_id = #{costUnitId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.system.PcSynTask">
+    update pc_syn_task
+    set suspended = #{suspended,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where doc_type = #{docType,jdbcType=CHAR}
+      and unit_id = #{unitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+      and cost_unit_id = #{costUnitId,jdbcType=BIGINT}
+  </update>
+</mapper>

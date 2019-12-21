@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.TfnMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.Tfn">
+    <result column="unit_id" jdbcType="DECIMAL" property="unitId" />
+    <result column="tfn_num" jdbcType="VARCHAR" property="tfnNum" />
+    <result column="doc_date" jdbcType="TIMESTAMP" property="docDate" />
+    <result column="fscl_date" jdbcType="TIMESTAMP" property="fsclDate" />
+    <result column="tfn_type" jdbcType="VARCHAR" property="tfnType" />
+    <result column="fscl_unit_id" jdbcType="DECIMAL" property="fsclUnitId" />
+    <result column="deliv_wareh_id" jdbcType="DECIMAL" property="delivWarehId" />
+    <result column="deliv_fscl_unit_id" jdbcType="DECIMAL" property="delivFsclUnitId" />
+    <result column="rcv_wareh_id" jdbcType="DECIMAL" property="rcvWarehId" />
+    <result column="rcv_fscl_unit_id" jdbcType="DECIMAL" property="rcvFsclUnitId" />
+    <result column="dr_diff_jgd" jdbcType="CHAR" property="drDiffJgd" />
+    <result column="reqd_date" jdbcType="TIMESTAMP" property="reqdDate" />
+    <result column="deliv_mthd" jdbcType="VARCHAR" property="delivMthd" />
+    <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled" />
+    <result column="ttl_qty" jdbcType="DECIMAL" property="ttlQty" />
+    <result column="ttl_box" jdbcType="DECIMAL" property="ttlBox" />
+    <result column="ttl_val" jdbcType="DECIMAL" property="ttlVal" />
+    <result column="ttl_tax" jdbcType="DECIMAL" property="ttlTax" />
+    <result column="ttl_mkv" jdbcType="DECIMAL" property="ttlMkv" />
+    <result column="ttl_deliv_qty" jdbcType="DECIMAL" property="ttlDelivQty" />
+    <result column="ttl_deliv_box" jdbcType="DECIMAL" property="ttlDelivBox" />
+    <result column="ttl_deliv_val" jdbcType="DECIMAL" property="ttlDelivVal" />
+    <result column="ttl_deliv_tax" jdbcType="DECIMAL" property="ttlDelivTax" />
+    <result column="ttl_deliv_mkv" jdbcType="DECIMAL" property="ttlDelivMkv" />
+    <result column="ttl_rcv_qty" jdbcType="DECIMAL" property="ttlRcvQty" />
+    <result column="ttl_rcv_box" jdbcType="DECIMAL" property="ttlRcvBox" />
+    <result column="ttl_rcv_val" jdbcType="DECIMAL" property="ttlRcvVal" />
+    <result column="ttl_rcv_tax" jdbcType="DECIMAL" property="ttlRcvTax" />
+    <result column="ttl_rcv_mkv" jdbcType="DECIMAL" property="ttlRcvMkv" />
+    <result column="opr_id" jdbcType="DECIMAL" property="oprId" />
+    <result column="op_time" jdbcType="TIMESTAMP" property="opTime" />
+    <result column="chkr_id" jdbcType="DECIMAL" property="chkrId" />
+    <result column="chk_time" jdbcType="TIMESTAMP" property="chkTime" />
+    <result column="effective" jdbcType="CHAR" property="effective" />
+    <result column="progress" jdbcType="CHAR" property="progress" />
+    <result column="suspended" jdbcType="CHAR" property="suspended" />
+    <result column="cancelled" jdbcType="CHAR" property="cancelled" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="tfn_attr_1" jdbcType="VARCHAR" property="tfnAttr1" />
+    <result column="tfn_attr_2" jdbcType="VARCHAR" property="tfnAttr2" />
+    <result column="unit_hier_id" jdbcType="VARCHAR" property="unitHierId" />
+    <result column="deliv_unit_id" jdbcType="DECIMAL" property="delivUnitId" />
+    <result column="rcv_unit_id" jdbcType="DECIMAL" property="rcvUnitId" />
+  </resultMap>
+  <resultMap id="BaseTfnMap" type="com.boyu.erp.platform.usercenter.vo.warehouse.TfnVo">
+    <result column="unit_id" jdbcType="DECIMAL" property="unitId" />
+    <result column="tfn_num" jdbcType="VARCHAR" property="tfnNum" />
+    <result column="doc_date" jdbcType="TIMESTAMP" property="docDate" />
+    <result column="fscl_date" jdbcType="TIMESTAMP" property="fsclDate" />
+    <result column="tfn_type" jdbcType="VARCHAR" property="tfnType" />
+    <result column="fscl_unit_id" jdbcType="DECIMAL" property="fsclUnitId" />
+    <result column="deliv_wareh_id" jdbcType="DECIMAL" property="delivWarehId" />
+    <result column="deliv_fscl_unit_id" jdbcType="DECIMAL" property="delivFsclUnitId" />
+    <result column="rcv_wareh_id" jdbcType="DECIMAL" property="rcvWarehId" />
+    <result column="rcv_fscl_unit_id" jdbcType="DECIMAL" property="rcvFsclUnitId" />
+    <result column="dr_diff_jgd" jdbcType="CHAR" property="drDiffJgd" />
+    <result column="reqd_date" jdbcType="TIMESTAMP" property="reqdDate" />
+    <result column="deliv_mthd" jdbcType="VARCHAR" property="delivMthd" />
+    <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled" />
+    <result column="ttl_qty" jdbcType="DECIMAL" property="ttlQty" />
+    <result column="ttl_box" jdbcType="DECIMAL" property="ttlBox" />
+    <result column="ttl_val" jdbcType="DECIMAL" property="ttlVal" />
+    <result column="ttl_tax" jdbcType="DECIMAL" property="ttlTax" />
+    <result column="ttl_mkv" jdbcType="DECIMAL" property="ttlMkv" />
+    <result column="ttl_deliv_qty" jdbcType="DECIMAL" property="ttlDelivQty" />
+    <result column="ttl_deliv_box" jdbcType="DECIMAL" property="ttlDelivBox" />
+    <result column="ttl_deliv_val" jdbcType="DECIMAL" property="ttlDelivVal" />
+    <result column="ttl_deliv_tax" jdbcType="DECIMAL" property="ttlDelivTax" />
+    <result column="ttl_deliv_mkv" jdbcType="DECIMAL" property="ttlDelivMkv" />
+    <result column="ttl_rcv_qty" jdbcType="DECIMAL" property="ttlRcvQty" />
+    <result column="ttl_rcv_box" jdbcType="DECIMAL" property="ttlRcvBox" />
+    <result column="ttl_rcv_val" jdbcType="DECIMAL" property="ttlRcvVal" />
+    <result column="ttl_rcv_tax" jdbcType="DECIMAL" property="ttlRcvTax" />
+    <result column="ttl_rcv_mkv" jdbcType="DECIMAL" property="ttlRcvMkv" />
+    <result column="opr_id" jdbcType="DECIMAL" property="oprId" />
+    <result column="op_time" jdbcType="TIMESTAMP" property="opTime" />
+    <result column="chkr_id" jdbcType="DECIMAL" property="chkrId" />
+    <result column="chk_time" jdbcType="TIMESTAMP" property="chkTime" />
+    <result column="effective" jdbcType="CHAR" property="effective" />
+    <result column="progress" jdbcType="CHAR" property="progress" />
+    <result column="suspended" jdbcType="CHAR" property="suspended" />
+    <result column="cancelled" jdbcType="CHAR" property="cancelled" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="tfn_attr_1" jdbcType="VARCHAR" property="tfnAttr1" />
+    <result column="tfn_attr_2" jdbcType="VARCHAR" property="tfnAttr2" />
+    <result column="unit_hier_id" jdbcType="VARCHAR" property="unitHierId" />
+    <result column="deliv_unit_id" jdbcType="DECIMAL" property="delivUnitId" />
+    <result column="rcv_unit_id" jdbcType="DECIMAL" property="rcvUnitId" />
+    <result column="fsclUnitCode" jdbcType="VARCHAR" property="fsclUnitCode" />
+    <result column="fsclUnitName" jdbcType="VARCHAR" property="fsclUnitName" />
+    <result column="unitHierName" jdbcType="VARCHAR" property="unitHierName" />
+    <result column="delivFsclUnitCode" jdbcType="VARCHAR" property="delivFsclUnitCode" />
+    <result column="delivFsclUnitName" jdbcType="VARCHAR" property="delivFsclUnitName" />
+    <result column="rcvFsclUnitCode" jdbcType="VARCHAR" property="rcvFsclUnitCode" />
+    <result column="rcvFsclUnitName" jdbcType="VARCHAR" property="rcvFsclUnitName" />
+    <result column="delivUnitCode" jdbcType="VARCHAR" property="delivUnitCode" />
+    <result column="delivUnitName" jdbcType="VARCHAR" property="delivUnitName" />
+    <result column="delivWarehCode" jdbcType="VARCHAR" property="delivWarehCode" />
+    <result column="delivWarehName" jdbcType="VARCHAR" property="delivWarehName" />
+    <result column="rcvUnitCode" jdbcType="VARCHAR" property="rcvUnitCode" />
+    <result column="rcvUnitName" jdbcType="VARCHAR" property="rcvUnitName" />
+    <result column="rcvWarehCode" jdbcType="VARCHAR" property="rcvWarehCode" />
+    <result column="rcvWarehName" jdbcType="VARCHAR" property="rcvWarehName" />
+    <result column="oprName" jdbcType="VARCHAR" property="oprName" />
+    <result column="oprCode" jdbcType="VARCHAR" property="oprCode" />
+    <result column="chkrName" jdbcType="VARCHAR" property="chkrName" />
+    <result column="chkrCode" jdbcType="VARCHAR" property="chkrCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    unit_id, tfn_num, doc_date, fscl_date, tfn_type, fscl_unit_id, deliv_wareh_id, deliv_fscl_unit_id, 
+    rcv_wareh_id, rcv_fscl_unit_id, dr_diff_jgd, reqd_date, deliv_mthd, bxi_enabled, 
+    ttl_qty, ttl_box, ttl_val, ttl_tax, ttl_mkv, ttl_deliv_qty, ttl_deliv_box, ttl_deliv_val, 
+    ttl_deliv_tax, ttl_deliv_mkv, ttl_rcv_qty, ttl_rcv_box, ttl_rcv_val, ttl_rcv_tax, 
+    ttl_rcv_mkv, opr_id, op_time, chkr_id, chk_time, effective, progress, suspended, 
+    cancelled, remarks, tfn_attr_1, tfn_attr_2, unit_hier_id, deliv_unit_id, rcv_unit_id
+  </sql>
+  <select id="getTfnByPk" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Tfn" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+      from
+      tfn t
+      where t.unit_id  =  #{unitId,jdbcType=DECIMAL}
+        and tfn_num =  #{tfnNum,jdbcType=VARCHAR}
+  </select>
+  <select id="getTfnList" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Tfn" resultMap="BaseTfnMap">
+    select
+        t.*,
+        t1.unit_code as fsclunitcode,
+        t1.unit_name as fsclunitname,
+        t2.unit_hier_name as unithiername,
+        t3.unit_code as delivfsclunitcode,
+        t3.unit_name as delivfsclunitname,
+        t4.unit_code as rcvfsclunitcode,
+        t4.unit_name as rcvfsclunitname,
+        t5.unit_code as delivunitcode,
+        t5.unit_name as delivunitname,
+        t6.unit_code as recunitcode,
+        t6.unit_name as recunitname,
+        t7.unit_code as delivwarehcode,
+        t7.unit_name as delivwarehname,
+        t8.unit_code as recwarehcode,
+        t8.unit_name as recwarehname,
+        t9.prsnl_code as oprcode,
+        t9.full_name as oprname,
+        t10.prsnl_code as chkrname,
+        t10.full_name as chkrname
+    from
+        tfn t
+        left join sys_unit t1 on t.fscl_unit_id = t1.unit_id
+        left join sys_unit_hier t2 on t.unit_hier_id = t2.unit_hier_id
+        left join sys_unit t3 on t.deliv_fscl_unit_id= t3.unit_id
+        left join sys_unit t4 on t.rcv_fscl_unit_id= t4.unit_id
+        left join sys_unit t5 on t.deliv_unit_id= t5.unit_id
+        left join sys_unit t6 on t.rcv_unit_id= t6.unit_id
+        left join sys_unit t7 on t.deliv_wareh_id = t7.unit_id
+        left join sys_unit t8 on t.rcv_wareh_id = t8.unit_id
+        left join sys_prsnl t9 on t.opr_id = t9.prsnl_id
+        left join sys_prsnl t10 on t.chkr_id = t10.prsnl_id
+    where 1 = 1
+    <if test="unitId != 0">
+      and t.unit_id  =  #{unitId,jdbcType=DECIMAL}
+    </if>
+    <if test="tfnNum !=null and tfnNum !=''">
+      and instr(t.tfn_num , #{tfnNum,jdbcType=VARCHAR}) >0
+    </if>
+    <if test="docDateFrom !=null">
+      and t.doc_date &gt;= #{docDateFrom,jdbcType=DATE}
+    </if>
+    <if test="docDateTo !=null">
+      and t.doc_date &lt;= #{docDateTo,jdbcType=DATE}
+    </if>
+    <if test="progress != null and progress != ''">
+      and t.progress  =  #{progress,jdbcType=VARCHAR}
+    </if>
+    <if test="rcvWarehCode != null and rcvWarehCode != ''">
+      and instr((select unit_code from sys_unit where t.rcv_wareh_id = unit_id) , #{rcvWarehCode,jdbcType=VARCHAR}) >0
+    </if>
+    <if test="delivWarehCode != null and delivWarehCode != ''">
+      and instr((select unit_code from sys_unit where t.deliv_wareh_id = unit_id) , #{delivWarehCode,jdbcType=VARCHAR}) >0
+    </if>
+  </select>
+
+  <select id="getTfnVoByPk" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Tfn"
+          resultMap="BaseTfnMap">
+    select
+    t.*,
+    t1.unit_code as fsclunitcode,
+    t1.unit_name as fsclunitname,
+    t2.unit_hier_name as unithiername,
+    t3.unit_code as delivfsclunitcode,
+    t3.unit_name as delivfsclunitname,
+    t4.unit_code as rcvfsclunitcode,
+    t4.unit_name as rcvfsclunitname,
+    t5.unit_code as delivunitcode,
+    t5.unit_name as delivunitname,
+    t6.unit_code as recunitcode,
+    t6.unit_name as recunitname,
+    t7.unit_code as delivwarehcode,
+    t7.unit_name as delivwarehname,
+    t8.unit_code as recwarehcode,
+    t8.unit_name as recwarehname,
+    t9.prsnl_code as oprcode,
+    t9.full_name as oprname,
+    t10.prsnl_code as chkrname,
+    t10.full_name as chkrname
+    from
+    tfn t
+    left join sys_unit t1 on t.fscl_unit_id = t1.unit_id
+    left join sys_unit_hier t2 on t.unit_hier_id = t2.unit_hier_id
+    left join sys_unit t3 on t.deliv_fscl_unit_id= t3.unit_id
+    left join sys_unit t4 on t.rcv_fscl_unit_id= t4.unit_id
+    left join sys_unit t5 on t.deliv_unit_id= t5.unit_id
+    left join sys_unit t6 on t.rcv_unit_id= t6.unit_id
+    left join sys_unit t7 on t.deliv_wareh_id = t7.unit_id
+    left join sys_unit t8 on t.rcv_wareh_id = t8.unit_id
+    left join sys_prsnl t9 on t.opr_id = t9.prsnl_id
+    left join sys_prsnl t10 on t.chkr_id = t10.prsnl_id
+    where 1 = 1
+    <if test="unitId != 0">
+      and t.unit_id  =  #{unitId,jdbcType=DECIMAL}
+    </if>
+    <if test="tfnNum !=null and tfnNum !=''">
+      and t.tfn_num = #{tfnNum,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Tfn">
+    delete from tfn
+    where unit_id = #{unitId,jdbcType=DECIMAL}
+      and tfn_num = #{tfnNum,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Tfn">
+    insert into tfn (unit_id, tfn_num, doc_date, 
+      fscl_date, tfn_type, fscl_unit_id, 
+      deliv_wareh_id, deliv_fscl_unit_id, rcv_wareh_id, 
+      rcv_fscl_unit_id, dr_diff_jgd, reqd_date, 
+      deliv_mthd, bxi_enabled, ttl_qty, 
+      ttl_box, ttl_val, ttl_tax, 
+      ttl_mkv, ttl_deliv_qty, ttl_deliv_box, 
+      ttl_deliv_val, ttl_deliv_tax, ttl_deliv_mkv, 
+      ttl_rcv_qty, ttl_rcv_box, ttl_rcv_val, 
+      ttl_rcv_tax, ttl_rcv_mkv, opr_id, 
+      op_time, chkr_id, chk_time, 
+      effective, progress, suspended, 
+      cancelled, remarks, tfn_attr_1, 
+      tfn_attr_2, unit_hier_id, deliv_unit_id, 
+      rcv_unit_id)
+    values (#{unitId,jdbcType=DECIMAL}, #{tfnNum,jdbcType=VARCHAR}, #{docDate,jdbcType=TIMESTAMP}, 
+      #{fsclDate,jdbcType=TIMESTAMP}, #{tfnType,jdbcType=VARCHAR}, #{fsclUnitId,jdbcType=DECIMAL}, 
+      #{delivWarehId,jdbcType=DECIMAL}, #{delivFsclUnitId,jdbcType=DECIMAL}, #{rcvWarehId,jdbcType=DECIMAL}, 
+      #{rcvFsclUnitId,jdbcType=DECIMAL}, #{drDiffJgd,jdbcType=CHAR}, #{reqdDate,jdbcType=TIMESTAMP}, 
+      #{delivMthd,jdbcType=VARCHAR}, #{bxiEnabled,jdbcType=CHAR}, #{ttlQty,jdbcType=DECIMAL}, 
+      #{ttlBox,jdbcType=DECIMAL}, #{ttlVal,jdbcType=DECIMAL}, #{ttlTax,jdbcType=DECIMAL}, 
+      #{ttlMkv,jdbcType=DECIMAL}, #{ttlDelivQty,jdbcType=DECIMAL}, #{ttlDelivBox,jdbcType=DECIMAL}, 
+      #{ttlDelivVal,jdbcType=DECIMAL}, #{ttlDelivTax,jdbcType=DECIMAL}, #{ttlDelivMkv,jdbcType=DECIMAL}, 
+      #{ttlRcvQty,jdbcType=DECIMAL}, #{ttlRcvBox,jdbcType=DECIMAL}, #{ttlRcvVal,jdbcType=DECIMAL}, 
+      #{ttlRcvTax,jdbcType=DECIMAL}, #{ttlRcvMkv,jdbcType=DECIMAL}, #{oprId,jdbcType=DECIMAL}, 
+      #{opTime,jdbcType=TIMESTAMP}, #{chkrId,jdbcType=DECIMAL}, #{chkTime,jdbcType=TIMESTAMP}, 
+      #{effective,jdbcType=CHAR}, #{progress,jdbcType=CHAR}, #{suspended,jdbcType=CHAR}, 
+      #{cancelled,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}, #{tfnAttr1,jdbcType=VARCHAR}, 
+      #{tfnAttr2,jdbcType=VARCHAR}, #{unitHierId,jdbcType=VARCHAR}, #{delivUnitId,jdbcType=DECIMAL}, 
+      #{rcvUnitId,jdbcType=DECIMAL})
+  </insert>
+  <update id="update" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Tfn">
+    update tfn
+    set doc_date = #{docDate,jdbcType=TIMESTAMP},
+      fscl_date = #{fsclDate,jdbcType=TIMESTAMP},
+      tfn_type = #{tfnType,jdbcType=VARCHAR},
+      fscl_unit_id = #{fsclUnitId,jdbcType=DECIMAL},
+      deliv_wareh_id = #{delivWarehId,jdbcType=DECIMAL},
+      deliv_fscl_unit_id = #{delivFsclUnitId,jdbcType=DECIMAL},
+      rcv_wareh_id = #{rcvWarehId,jdbcType=DECIMAL},
+      rcv_fscl_unit_id = #{rcvFsclUnitId,jdbcType=DECIMAL},
+      dr_diff_jgd = #{drDiffJgd,jdbcType=CHAR},
+      reqd_date = #{reqdDate,jdbcType=TIMESTAMP},
+      deliv_mthd = #{delivMthd,jdbcType=VARCHAR},
+      bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+      ttl_qty = #{ttlQty,jdbcType=DECIMAL},
+      ttl_box = #{ttlBox,jdbcType=DECIMAL},
+      ttl_val = #{ttlVal,jdbcType=DECIMAL},
+      ttl_tax = #{ttlTax,jdbcType=DECIMAL},
+      ttl_mkv = #{ttlMkv,jdbcType=DECIMAL},
+      ttl_deliv_qty = #{ttlDelivQty,jdbcType=DECIMAL},
+      ttl_deliv_box = #{ttlDelivBox,jdbcType=DECIMAL},
+      ttl_deliv_val = #{ttlDelivVal,jdbcType=DECIMAL},
+      ttl_deliv_tax = #{ttlDelivTax,jdbcType=DECIMAL},
+      ttl_deliv_mkv = #{ttlDelivMkv,jdbcType=DECIMAL},
+      ttl_rcv_qty = #{ttlRcvQty,jdbcType=DECIMAL},
+      ttl_rcv_box = #{ttlRcvBox,jdbcType=DECIMAL},
+      ttl_rcv_val = #{ttlRcvVal,jdbcType=DECIMAL},
+      ttl_rcv_tax = #{ttlRcvTax,jdbcType=DECIMAL},
+      ttl_rcv_mkv = #{ttlRcvMkv,jdbcType=DECIMAL},
+      opr_id = #{oprId,jdbcType=DECIMAL},
+      op_time = #{opTime,jdbcType=TIMESTAMP},
+      chkr_id = #{chkrId,jdbcType=DECIMAL},
+      chk_time = #{chkTime,jdbcType=TIMESTAMP},
+      effective = #{effective,jdbcType=CHAR},
+      progress = #{progress,jdbcType=CHAR},
+      suspended = #{suspended,jdbcType=CHAR},
+      cancelled = #{cancelled,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      tfn_attr_1 = #{tfnAttr1,jdbcType=VARCHAR},
+      tfn_attr_2 = #{tfnAttr2,jdbcType=VARCHAR},
+      unit_hier_id = #{unitHierId,jdbcType=VARCHAR},
+      deliv_unit_id = #{delivUnitId,jdbcType=DECIMAL},
+      rcv_unit_id = #{rcvUnitId,jdbcType=DECIMAL}
+    where unit_id = #{unitId,jdbcType=DECIMAL}
+      and tfn_num = #{tfnNum,jdbcType=VARCHAR}
+  </update>
+  <select id="getMaxTfnNum" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Tfn"
+          resultType="java.lang.String">
+    select max(tfn_num) from tfn where
+        unit_id = #{unitId,jdbcType=DECIMAL} group by unit_id
+  </select>
+</mapper>

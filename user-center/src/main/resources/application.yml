@@ -1,0 +1,19 @@
+server:
+  port: 8080
+  #30分钟，单位是秒，
+  session-timeout: 1800
+  #tomcat
+  tomcat:
+    max-threads: 1000
+    uri-encoding: UTF-8
+  #profiles
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: usercenter-server
+  profiles:
+    active: dev
+  #logger
+logging:
+  config: classpath:log4j2.xml

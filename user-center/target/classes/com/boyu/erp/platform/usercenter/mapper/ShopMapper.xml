@@ -1,0 +1,843 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.shop.ShopMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.shop.Shop">
+        <id column="shop_id" jdbcType="BIGINT" property="shopId"/>
+        <result column="owner_id" jdbcType="BIGINT" property="ownerId"/>
+        <result column="shop_type" jdbcType="VARCHAR" property="shopType"/>
+        <result column="parn_shop_id" jdbcType="BIGINT" property="parnShopId"/>
+        <result column="is_cms" jdbcType="VARCHAR" property="isCms"/>
+        <result column="cms_unit_id" jdbcType="BIGINT" property="cmsUnitId"/>
+        <result column="shop_prop" jdbcType="VARCHAR" property="shopProp"/>
+        <result column="shop_mode" jdbcType="VARCHAR" property="shopMode"/>
+        <result column="shop_stl_mode" jdbcType="VARCHAR" property="shopStlMode"/>
+        <result column="brand_id" jdbcType="VARCHAR" property="brandId"/>
+        <result column="shop_area_code" jdbcType="VARCHAR" property="shopAreaCode"/>
+        <result column="dps_id" jdbcType="VARCHAR" property="dpsId"/>
+        <result column="dflt_rcc_id" jdbcType="VARCHAR" property="dfltRccId"/>
+        <result column="ex_sys_id" jdbcType="VARCHAR" property="exSysId"/>
+        <result column="open_date" jdbcType="DATE" property="openDate"/>
+        <result column="cls_date" jdbcType="DATE" property="clsDate"/>
+        <result column="at_flr" jdbcType="BIGINT" property="atFlr"/>
+        <result column="acreage" jdbcType="REAL" property="acreage"/>
+        <result column="acr_lvl" jdbcType="VARCHAR" property="acrLvl"/>
+        <result column="sales_lvl" jdbcType="VARCHAR" property="salesLvl"/>
+        <result column="adm_wgt" jdbcType="BIGINT" property="admWgt"/>
+        <result column="abe_val" jdbcType="REAL" property="abeVal"/>
+        <result column="min_rt_disc_rate" jdbcType="REAL" property="minRtDiscRate"/>
+        <result column="gc_fml" jdbcType="VARCHAR" property="gcFml"/>
+        <result column="vip_disc_fml" jdbcType="VARCHAR" property="vipDiscFml"/>
+        <result column="pnt_acc_fml" jdbcType="VARCHAR" property="pntAccFml"/>
+        <result column="pnt_enc_fml" jdbcType="VARCHAR" property="pntEncFml"/>
+        <result column="egc_ps_fml" jdbcType="VARCHAR" property="egcPsFml"/>
+        <result column="univ_rent_val" jdbcType="VARCHAR" property="univRentVal"/>
+        <result column="rent_val" jdbcType="BIGINT" property="rentVal"/>
+        <result column="univ_sp_fml" jdbcType="VARCHAR" property="univSpFml"/>
+        <result column="sp_fml" jdbcType="VARCHAR" property="spFml"/>
+        <result column="vip_acpt" jdbcType="CHAR" property="vipAcpt"/>
+        <result column="dep_acpt" jdbcType="CHAR" property="depAcpt"/>
+        <result column="ct_dep" jdbcType="CHAR" property="ctDep"/>
+        <result column="cc_enabled" jdbcType="CHAR" property="ccEnabled"/>
+        <result column="sv_enabled" jdbcType="CHAR" property="svEnabled"/>
+        <result column="dflt_sv_wareh_id" jdbcType="DECIMAL" property="dfltSvWarehId"/>
+        <result column="ads_id" jdbcType="VARCHAR" property="adsId"/>
+        <result column="man_id" jdbcType="BIGINT" property="manId"/>
+        <result column="fscl_date" jdbcType="TIMESTAMP" property="fsclDate"/>
+        <result column="shop_status" jdbcType="CHAR" property="shopStatus"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="upd_time" jdbcType="TIMESTAMP" property="updTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    shop_id, owner_id, shop_type, parn_shop_id, is_cms, cms_unit_id, shop_prop, shop_mode, 
+    shop_stl_mode, brand_id, shop_area_code, dps_id, dflt_rcc_id, ex_sys_id, open_date, 
+    cls_date, at_flr, acreage, acr_lvl, sales_lvl, adm_wgt, abe_val, min_rt_disc_rate, 
+    gc_fml, vip_disc_fml, pnt_acc_fml, pnt_enc_fml, egc_ps_fml, univ_rent_val, rent_val, 
+    univ_sp_fml, sp_fml, vip_acpt, dep_acpt, ct_dep, cc_enabled, sv_enabled, dflt_sv_wareh_id, 
+    ads_id, man_id, fscl_date, shop_status, opr_id, upd_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from shop
+        where shop_id = #{shopId,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectByShop" parameterType="com.boyu.erp.platform.usercenter.entity.shop.Shop"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from shop
+        where shop_id = #{shopId}
+        and owner_id = #{ownerId}
+    </select>
+
+    <!--门店自定义属性查询-->
+    <select id="getRoeAndLineMap" resultType="java.util.Map">
+
+        SELECT pa.`shop_id` as `shopId`,
+        <trim suffixOverrides=",">
+            <if test="sql!=null">
+                ${sql}
+            </if>
+        </trim>
+        FROM `shop_attr` pa
+        where 1=1
+        <if test="shopId!=null and shopId!=0L">
+            and pa.`shop_id`= #{shopId}
+        </if>
+        GROUP BY pa.`shop_id`
+    </select>
+    <!--查询门店集合-->
+    <select id="selectShop" parameterType="com.boyu.erp.platform.usercenter.model.shop.ShopModel"
+            resultType="com.boyu.erp.platform.usercenter.vo.shop.ShopVo">
+        SELECT
+        bd.`brand_name` as brandName,
+        d.`dps_name` as dpsName,
+        ps.`prsnl_code` AS lmPrsnlCode,
+        ps.`full_name` AS lmFullName,
+        u4.`unit_code` AS ctrlUnitCode,
+        u4.`unit_name` AS ctrlUnitName,
+        a.`unit_code` AS dfltSvWarehCode,
+        a.`unit_name` AS dfltSvWarehName,
+        ps2.`prsnl_code` AS manCode,
+        ps2.`full_name` AS manName,
+        ps3.`prsnl_code` AS oprCode,
+        ps3.`full_name` AS oprName,
+        c16.`description` AS unitStatusCp,
+        c17.`description` AS sharedCp,
+        c18.`description` AS licTypeCp,
+        s.`dflt_rcc_id` AS dfltRccIdCp,
+        s.`ex_sys_id` AS exsysIdCp,
+        uo.`unit_num` AS shopNum,
+        us1.`unit_code` AS parnShopNum,
+        us1.`unit_name` AS parnShopName,
+        c.`description` AS shopTypeCp,
+        c2.`description` AS isCmsCp,
+        u2.`unit_code` AS parnUnitCode,
+        u2.`unit_name` AS parnUnitName,
+        u3.`unit_code` AS cmsUnitCode,
+        u3.`unit_name` AS cmsUnitName,
+        c3.`description` AS shopAreaCodeCp,
+        c4.`description` AS shopModeCp,
+        c5.`description` AS shopStlModeCp,
+        c6.`description` AS acrLvlCp,
+        c7.`description` AS salesLvlCp,
+        c8.`description` AS univRentValCp,
+        c9.`description` AS vipAcptCp,
+        c10.`description` AS univSpFmlCp,
+        c11.`description` AS depAcptCp,
+        c12.`description` AS ctDepCp,
+        c13.`description` AS ccEnabledCp,
+        c14.`description` AS svEnabledCp,
+        c15.`description` AS shopStatusCp,
+        s.is_cms AS isCms,
+        s.egc_ps_fml AS egcPsFml,
+        s.dep_acpt AS depAcpt,
+        s.sales_lvl AS salesLvl,
+        s.abe_val AS abeVal,
+        s.pnt_acc_fml AS pntAccFml,
+        s.rent_val AS rentVal,
+        s.owner_id AS ownerId,
+        s.sv_enabled AS svEnabled,
+        s.univ_rent_val AS univRentVal,
+        s.shop_prop AS shopProp,
+        s.gc_fml AS gcFml,
+        s.shop_mode AS shopMode,
+        s.cc_enabled AS ccEnabled,
+        s.shop_status AS shopStatus,
+        s.dflt_sv_wareh_id AS dfltSvWarehId,
+        s.vip_disc_fml AS vipDiscFml,
+        s.univ_sp_fml AS univSpFml,
+        DATE_FORMAT(s.upd_time, "%Y-%m-%d %T") AS updTimeCp,
+        s.dps_id AS dpsId,
+        s.shop_id AS shopId,
+        s.dflt_rcc_id AS dfltRccId,
+        s.acr_lvl AS acrLvl,
+        s.pnt_enc_fml AS pntEncFml,
+        s.adm_wgt AS admWgt,
+        s.min_rt_disc_rate AS minRtDiscRate,
+        s.sp_fml AS spFml,
+        s.fscl_date AS fsclDate,
+        s.cms_unit_id AS cmsUnitId,
+        s.acreage AS acreage,
+        s.parn_shop_id AS parnShopId,
+        s.ads_id AS adsId,
+        s.ex_sys_id AS exSysId,
+        s.shop_area_code AS shopAreaCode,
+        DATE_FORMAT(s.cls_date, "%Y-%m-%d %T") AS clsDateCp,
+        DATE_FORMAT(s.open_date, "%Y-%m-%d %T") AS openDateCp,
+        s.at_flr AS atFlr,
+        s.vip_acpt AS vipAcpt,
+        s.ct_dep AS ctDep,
+        s.shop_stl_mode AS shopStlMode,
+        s.brand_id AS brandId,
+        s.man_id AS manId,
+        s.shop_type AS shopType,
+        s.opr_id AS shopOprId,
+        u.unit_hierarchy AS unitHierarchy,
+        u.shared AS shared,
+        u.city AS city,
+        u.lic_type AS licType,
+        u.lm_id AS lmId,
+        u.unit_status AS unitStatus,
+        u.unit_type AS unitType,
+        u.ctrl_unit_id AS ctrlUnitId,
+        u.province AS province,
+        u.upd_time AS updTime,
+        u.unit_code AS unitCode,
+        u.tel_num AS telNum,
+        u.unit_id AS unitId,
+        u.recruitable AS recruitable,
+        u.lic_num AS licNum,
+        u.input_code AS inputCode,
+        u.website AS website,
+        u.address AS address,
+        u.unit_name AS unitName,
+        u.seq_num AS seqNum,
+        u.postcode AS postcode,
+        u.fax_num AS faxNum,
+        u.email_addr AS emailAddr,
+        u.district AS district,
+        u.opr_id AS unitOprId,
+        u.remarks AS remarks
+        FROM
+        shop s
+        INNER JOIN sys_unit u
+        ON s.`shop_id` = u.unit_id
+        LEFT JOIN sys_unit us1
+        ON s.`parn_shop_id` = us1.`unit_id`
+        LEFT JOIN `shop_gp_fml` g
+        ON s.`shop_id` = g.`shop_id`
+        LEFT JOIN `shop_sp_fml` f
+        ON s.`shop_id` = f.`shop_id`
+        LEFT JOIN sys_code_dtl c
+        ON s.`shop_type` = c.`code`
+        AND c.`code_type` = 'SHOP_TYPE'
+        LEFT JOIN sys_code_dtl c2
+        ON s.is_cms = c2.`code`
+        AND c2.`code_type` = 'TandF'
+        LEFT JOIN sys_unit u2
+        ON s.`parn_shop_id` = u2.`unit_id`
+        LEFT JOIN sys_unit u3
+        ON s.cms_unit_id = u3.`unit_id`
+        LEFT JOIN sys_code_dtl c3
+        ON s.`shop_area_code` = c3.`code`
+        AND c3.`code_type` = 'SHOP_PROP'
+        LEFT JOIN sys_code_dtl c4
+        ON s.`shop_mode` = c4.`code`
+        AND c4.`code_type` = 'SHOP_MODE'
+        LEFT JOIN sys_code_dtl c5
+        ON s.`shop_stl_mode` = c5.`code`
+        AND c5.`code_type` = 'SHOP_STL_MODE'
+        LEFT JOIN sys_code_dtl c6
+        ON s.`acr_lvl` = c6.`code`
+        AND c6.`code_type` = 'ACR_LVL'
+        LEFT JOIN sys_code_dtl c7
+        ON s.`sales_lvl` = c7.`code`
+        AND c7.`code_type` = 'SALES_LVL'
+        LEFT JOIN sys_code_dtl c8
+        ON s.`univ_rent_val` = c8.`code`
+        AND c8.`code_type` = 'TandF'
+        LEFT JOIN sys_code_dtl c9
+        ON s.`vip_acpt` = c9.`code`
+        AND c9.`code_type` = 'TandF'
+        LEFT JOIN sys_code_dtl c10
+        ON s.`univ_sp_fml` = c10.`code`
+        AND c10.`code_type` = 'TandF'
+        LEFT JOIN sys_code_dtl c11
+        ON s.`dep_acpt` = c11.`code`
+        AND c11.`code_type` = 'TandF'
+        LEFT JOIN sys_code_dtl c12
+        ON s.`ct_dep` = c12.`code`
+        AND c12.`code_type` = 'TandF'
+        LEFT JOIN sys_code_dtl c13
+        ON s.`cc_enabled` = c13.`code`
+        AND c13.`code_type` = 'TandF'
+        LEFT JOIN sys_code_dtl c14
+        ON s.`sv_enabled` = c14.`code`
+        AND c14.`code_type` = 'TandF'
+        LEFT JOIN sys_code_dtl c15
+        ON s.`shop_status` = c15.`code`
+        AND c15.`code_type` = 'SHOP_STATUS'
+        LEFT JOIN sys_code_dtl c16
+        ON u.`unit_status` = c16.`code`
+        AND c16.`code_type` = 'UNIT_STATUS'
+        LEFT JOIN sys_code_dtl c17
+        ON u.`shared` = c17.`code`
+        AND c17.`code_type` = 'TandF'
+        LEFT JOIN sys_prsnl ps
+        ON u.`lm_id` = ps.`prsnl_id`
+        LEFT JOIN sys_unit u4
+        ON u.`ctrl_unit_id` = u4.`unit_id`
+        LEFT JOIN sys_unit a
+        ON s.`dflt_sv_wareh_id` = a.`unit_id`
+        LEFT JOIN sys_prsnl ps2
+        ON s.`man_id` = ps2.`prsnl_id`
+        LEFT JOIN sys_code_dtl c18
+        ON u.`lic_type` = c18.`code`
+        AND c18.`code_type` = 'LIC_TYPE'
+        LEFT JOIN sys_prsnl ps3
+        ON s.`opr_id` = ps3.`prsnl_id`
+        LEFT JOIN sys_unit_owner uo
+        ON s.`owner_id` = uo.`owner_id`
+        AND s.`shop_id` = uo.`unit_id`
+        left join dps d
+        on s.`dps_id` = d.`dps_id`
+        left join brand bd
+        on s.`brand_id` = bd.`brand_id`
+        where s.`owner_id`=#{unitId}
+        /*门店代码*/
+        <if test="unitCode!='' and unitCode!=null">
+            and INSTR(u.`unit_code` ,#{unitCode})>0
+        </if>
+        /*门店编号*/
+        <if test="shopNum!='' and shopNum!=null">
+            and INSTR(u.`unit_code` ,#{shopNum})>0
+        </if>
+        /*门店名称*/
+        <if test="unitName!='' and unitName!=null">
+            and INSTR(u.`unit_name` ,#{unitName})>0
+        </if>
+        <if test="shopStatus!='' and shopStatus!=null">
+            and s.`shop_status`=#{shopStatus}
+        </if>
+
+    </select>
+
+    <select id="selectShopEmpVo" resultType="com.boyu.erp.platform.usercenter.vo.shop.ShopEmpVo">
+        SELECT
+        e.`empl_id` AS emplId,
+        p.`full_name` AS fullName,
+        p.`mobile_num` AS mobileNum,
+        p.`office_num` AS officeNum,
+        o.`prsnl_num` AS prsnlNum
+        FROM
+        employee e
+        <if test="empAll!=null and  'F'.toString()==empAll">
+            LEFT JOIN
+            (SELECT
+            e2.`empl_id` AS empl_id
+            FROM
+            shop s
+            INNER JOIN shop_emp e2
+            ON s.`shop_id` = e2.`shop_id`
+            WHERE s.`owner_id` =#{ownerId}) es
+            ON e.`empl_id` = es.empl_id
+        </if>
+        INNER JOIN sys_prsnl p
+        ON e.`empl_id` = p.`prsnl_id`
+        LEFT JOIN sys_prsnl_owner o
+        ON o.`owner_id` = e.`owner_id`
+        AND o.`prsnl_id` = e.`empl_id`
+        WHERE e.`owner_id` =#{ownerId}
+        AND p.`prsnl_status` != 'D'
+        /*员工是否能属于多个店铺*/
+        <if test="empAll!=null and 'F'.toString()==empAll">
+            AND es.empl_id IS NULL
+        </if>
+        <if test="prsnlStatus!=null and prsnlStatus!='' and prsnlStatus!='null'">
+            AND p.`prsnl_status` = #{prsnlStatus}
+        </if>
+        <if test="prsnlNum!=null and prsnlNum!=''">
+            AND INSTR(o.`prsnl_num`, #{prsnlNum}) > 0
+        </if>
+        <if test="fullName!=null and fullName!=''">
+            AND INSTR(p.`full_name`, #{fullName}) > 0
+        </if>
+        <if test="mobileNum!=null and mobileNum!=''">
+            AND INSTR(p.`mobile_num`, #{mobileNum}) > 0
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from shop
+    where shop_id = #{shopId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="shopId"
+            parameterType="com.boyu.erp.platform.usercenter.entity.shop.Shop">
+    insert into shop (shop_id, owner_id, shop_type, 
+      parn_shop_id, is_cms, cms_unit_id, 
+      shop_prop, shop_mode, shop_stl_mode, 
+      brand_id, shop_area_code, dps_id, 
+      dflt_rcc_id, ex_sys_id, open_date, 
+      cls_date, at_flr, acreage, acr_lvl, 
+      sales_lvl, adm_wgt, abe_val, 
+      min_rt_disc_rate, gc_fml, vip_disc_fml, 
+      pnt_acc_fml, pnt_enc_fml, egc_ps_fml, 
+      univ_rent_val, rent_val, univ_sp_fml, 
+      sp_fml, vip_acpt, dep_acpt, 
+      ct_dep, cc_enabled, sv_enabled, 
+      dflt_sv_wareh_id, ads_id, man_id, 
+      fscl_date, shop_status, opr_id, 
+      upd_time)
+    values (#{shopId,jdbcType=BIGINT}, #{ownerId,jdbcType=BIGINT}, #{shopType,jdbcType=VARCHAR}, 
+      #{parnShopId,jdbcType=BIGINT}, #{isCms,jdbcType=VARCHAR}, #{cmsUnitId,jdbcType=BIGINT}, 
+      #{shopProp,jdbcType=VARCHAR}, #{shopMode,jdbcType=VARCHAR}, #{shopStlMode,jdbcType=VARCHAR}, 
+      #{brandId,jdbcType=VARCHAR}, #{shopAreaCode,jdbcType=VARCHAR}, #{dpsId,jdbcType=VARCHAR}, 
+      #{dfltRccId,jdbcType=VARCHAR}, #{exSysId,jdbcType=VARCHAR}, #{openDate,jdbcType=DATE}, 
+      #{clsDate,jdbcType=DATE}, #{atFlr,jdbcType=BIGINT}, #{acreage,jdbcType=REAL}, #{acrLvl,jdbcType=VARCHAR}, 
+      #{salesLvl,jdbcType=VARCHAR}, #{admWgt,jdbcType=BIGINT}, #{abeVal,jdbcType=REAL}, 
+      #{minRtDiscRate,jdbcType=REAL}, #{gcFml,jdbcType=VARCHAR}, #{vipDiscFml,jdbcType=VARCHAR}, 
+      #{pntAccFml,jdbcType=VARCHAR}, #{pntEncFml,jdbcType=VARCHAR}, #{egcPsFml,jdbcType=VARCHAR}, 
+      #{univRentVal,jdbcType=VARCHAR}, #{rentVal,jdbcType=BIGINT}, #{univSpFml,jdbcType=VARCHAR}, 
+      #{spFml,jdbcType=VARCHAR}, #{vipAcpt,jdbcType=CHAR}, #{depAcpt,jdbcType=CHAR}, 
+      #{ctDep,jdbcType=CHAR}, #{ccEnabled,jdbcType=CHAR}, #{svEnabled,jdbcType=CHAR}, 
+      #{dfltSvWarehId,jdbcType=DECIMAL}, #{adsId,jdbcType=VARCHAR}, #{manId,jdbcType=BIGINT}, 
+      #{fsclDate,jdbcType=TIMESTAMP}, #{shopStatus,jdbcType=CHAR}, #{oprId,jdbcType=BIGINT}, 
+      #{updTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="shopId"
+            parameterType="com.boyu.erp.platform.usercenter.entity.shop.Shop">
+        insert into shop
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">
+                shop_id,
+            </if>
+            <if test="ownerId != null">
+                owner_id,
+            </if>
+            <if test="shopType != null">
+                shop_type,
+            </if>
+            <if test="parnShopId != null">
+                parn_shop_id,
+            </if>
+            <if test="isCms != null">
+                is_cms,
+            </if>
+            <if test="cmsUnitId != null">
+                cms_unit_id,
+            </if>
+            <if test="shopProp != null">
+                shop_prop,
+            </if>
+            <if test="shopMode != null">
+                shop_mode,
+            </if>
+            <if test="shopStlMode != null">
+                shop_stl_mode,
+            </if>
+            <if test="brandId != null">
+                brand_id,
+            </if>
+            <if test="shopAreaCode != null">
+                shop_area_code,
+            </if>
+            <if test="dpsId != null">
+                dps_id,
+            </if>
+            <if test="dfltRccId != null">
+                dflt_rcc_id,
+            </if>
+            <if test="exSysId != null">
+                ex_sys_id,
+            </if>
+            <if test="openDate != null">
+                open_date,
+            </if>
+            <if test="clsDate != null">
+                cls_date,
+            </if>
+            <if test="atFlr != null">
+                at_flr,
+            </if>
+            <if test="acreage != null">
+                acreage,
+            </if>
+            <if test="acrLvl != null">
+                acr_lvl,
+            </if>
+            <if test="salesLvl != null">
+                sales_lvl,
+            </if>
+            <if test="admWgt != null">
+                adm_wgt,
+            </if>
+            <if test="abeVal != null">
+                abe_val,
+            </if>
+            <if test="minRtDiscRate != null">
+                min_rt_disc_rate,
+            </if>
+            <if test="gcFml != null">
+                gc_fml,
+            </if>
+            <if test="vipDiscFml != null">
+                vip_disc_fml,
+            </if>
+            <if test="pntAccFml != null">
+                pnt_acc_fml,
+            </if>
+            <if test="pntEncFml != null">
+                pnt_enc_fml,
+            </if>
+            <if test="egcPsFml != null">
+                egc_ps_fml,
+            </if>
+            <if test="univRentVal != null">
+                univ_rent_val,
+            </if>
+            <if test="rentVal != null">
+                rent_val,
+            </if>
+            <if test="univSpFml != null">
+                univ_sp_fml,
+            </if>
+            <if test="spFml != null">
+                sp_fml,
+            </if>
+            <if test="vipAcpt != null">
+                vip_acpt,
+            </if>
+            <if test="depAcpt != null">
+                dep_acpt,
+            </if>
+            <if test="ctDep != null">
+                ct_dep,
+            </if>
+            <if test="ccEnabled != null">
+                cc_enabled,
+            </if>
+            <if test="svEnabled != null">
+                sv_enabled,
+            </if>
+            <if test="dfltSvWarehId != null">
+                dflt_sv_wareh_id,
+            </if>
+            <if test="adsId != null">
+                ads_id,
+            </if>
+            <if test="manId != null">
+                man_id,
+            </if>
+            <if test="fsclDate != null">
+                fscl_date,
+            </if>
+            <if test="shopStatus != null">
+                shop_status,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+            <if test="updTime != null">
+                upd_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">
+                #{shopId,jdbcType=BIGINT},
+            </if>
+            <if test="ownerId != null">
+                #{ownerId,jdbcType=BIGINT},
+            </if>
+            <if test="shopType != null">
+                #{shopType,jdbcType=VARCHAR},
+            </if>
+            <if test="parnShopId != null">
+                #{parnShopId,jdbcType=BIGINT},
+            </if>
+            <if test="isCms != null">
+                #{isCms,jdbcType=VARCHAR},
+            </if>
+            <if test="cmsUnitId != null">
+                #{cmsUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="shopProp != null">
+                #{shopProp,jdbcType=VARCHAR},
+            </if>
+            <if test="shopMode != null">
+                #{shopMode,jdbcType=VARCHAR},
+            </if>
+            <if test="shopStlMode != null">
+                #{shopStlMode,jdbcType=VARCHAR},
+            </if>
+            <if test="brandId != null">
+                #{brandId,jdbcType=VARCHAR},
+            </if>
+            <if test="shopAreaCode != null">
+                #{shopAreaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="dpsId != null">
+                #{dpsId,jdbcType=VARCHAR},
+            </if>
+            <if test="dfltRccId != null">
+                #{dfltRccId,jdbcType=VARCHAR},
+            </if>
+            <if test="exSysId != null">
+                #{exSysId,jdbcType=VARCHAR},
+            </if>
+            <if test="openDate != null">
+                #{openDate,jdbcType=DATE},
+            </if>
+            <if test="clsDate != null">
+                #{clsDate,jdbcType=DATE},
+            </if>
+            <if test="atFlr != null">
+                #{atFlr,jdbcType=BIGINT},
+            </if>
+            <if test="acreage != null">
+                #{acreage,jdbcType=REAL},
+            </if>
+            <if test="acrLvl != null">
+                #{acrLvl,jdbcType=VARCHAR},
+            </if>
+            <if test="salesLvl != null">
+                #{salesLvl,jdbcType=VARCHAR},
+            </if>
+            <if test="admWgt != null">
+                #{admWgt,jdbcType=BIGINT},
+            </if>
+            <if test="abeVal != null">
+                #{abeVal,jdbcType=REAL},
+            </if>
+            <if test="minRtDiscRate != null">
+                #{minRtDiscRate,jdbcType=REAL},
+            </if>
+            <if test="gcFml != null">
+                #{gcFml,jdbcType=VARCHAR},
+            </if>
+            <if test="vipDiscFml != null">
+                #{vipDiscFml,jdbcType=VARCHAR},
+            </if>
+            <if test="pntAccFml != null">
+                #{pntAccFml,jdbcType=VARCHAR},
+            </if>
+            <if test="pntEncFml != null">
+                #{pntEncFml,jdbcType=VARCHAR},
+            </if>
+            <if test="egcPsFml != null">
+                #{egcPsFml,jdbcType=VARCHAR},
+            </if>
+            <if test="univRentVal != null">
+                #{univRentVal,jdbcType=VARCHAR},
+            </if>
+            <if test="rentVal != null">
+                #{rentVal,jdbcType=BIGINT},
+            </if>
+            <if test="univSpFml != null">
+                #{univSpFml,jdbcType=VARCHAR},
+            </if>
+            <if test="spFml != null">
+                #{spFml,jdbcType=VARCHAR},
+            </if>
+            <if test="vipAcpt != null">
+                #{vipAcpt,jdbcType=CHAR},
+            </if>
+            <if test="depAcpt != null">
+                #{depAcpt,jdbcType=CHAR},
+            </if>
+            <if test="ctDep != null">
+                #{ctDep,jdbcType=CHAR},
+            </if>
+            <if test="ccEnabled != null">
+                #{ccEnabled,jdbcType=CHAR},
+            </if>
+            <if test="svEnabled != null">
+                #{svEnabled,jdbcType=CHAR},
+            </if>
+            <if test="dfltSvWarehId != null">
+                #{dfltSvWarehId,jdbcType=DECIMAL},
+            </if>
+            <if test="adsId != null">
+                #{adsId,jdbcType=VARCHAR},
+            </if>
+            <if test="manId != null">
+                #{manId,jdbcType=BIGINT},
+            </if>
+            <if test="fsclDate != null">
+                #{fsclDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="shopStatus != null">
+                #{shopStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="updTime != null">
+                #{updTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.shop.Shop">
+        update shop
+        <set>
+            <if test="ownerId != null">
+                owner_id = #{ownerId,jdbcType=BIGINT},
+            </if>
+            <if test="shopType != null">
+                shop_type = #{shopType,jdbcType=VARCHAR},
+            </if>
+            <if test="parnShopId != null">
+                parn_shop_id = #{parnShopId,jdbcType=BIGINT},
+            </if>
+            <if test="isCms != null">
+                is_cms = #{isCms,jdbcType=VARCHAR},
+            </if>
+            <if test="cmsUnitId != null">
+                cms_unit_id = #{cmsUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="shopProp != null">
+                shop_prop = #{shopProp,jdbcType=VARCHAR},
+            </if>
+            <if test="shopMode != null">
+                shop_mode = #{shopMode,jdbcType=VARCHAR},
+            </if>
+            <if test="shopStlMode != null">
+                shop_stl_mode = #{shopStlMode,jdbcType=VARCHAR},
+            </if>
+            <if test="brandId != null">
+                brand_id = #{brandId,jdbcType=VARCHAR},
+            </if>
+            <if test="shopAreaCode != null">
+                shop_area_code = #{shopAreaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="dpsId != null">
+                dps_id = #{dpsId,jdbcType=VARCHAR},
+            </if>
+            <if test="dfltRccId != null">
+                dflt_rcc_id = #{dfltRccId,jdbcType=VARCHAR},
+            </if>
+            <if test="exSysId != null">
+                ex_sys_id = #{exSysId,jdbcType=VARCHAR},
+            </if>
+            <if test="openDate != null">
+                open_date = #{openDate,jdbcType=DATE},
+            </if>
+            <if test="clsDate != null">
+                cls_date = #{clsDate,jdbcType=DATE},
+            </if>
+            <if test="atFlr != null">
+                at_flr = #{atFlr,jdbcType=BIGINT},
+            </if>
+            <if test="acreage != null">
+                acreage = #{acreage,jdbcType=REAL},
+            </if>
+            <if test="acrLvl != null">
+                acr_lvl = #{acrLvl,jdbcType=VARCHAR},
+            </if>
+            <if test="salesLvl != null">
+                sales_lvl = #{salesLvl,jdbcType=VARCHAR},
+            </if>
+            <if test="admWgt != null">
+                adm_wgt = #{admWgt,jdbcType=BIGINT},
+            </if>
+            <if test="abeVal != null">
+                abe_val = #{abeVal,jdbcType=REAL},
+            </if>
+            <if test="minRtDiscRate != null">
+                min_rt_disc_rate = #{minRtDiscRate,jdbcType=REAL},
+            </if>
+            <if test="gcFml != null">
+                gc_fml = #{gcFml,jdbcType=VARCHAR},
+            </if>
+            <if test="vipDiscFml != null">
+                vip_disc_fml = #{vipDiscFml,jdbcType=VARCHAR},
+            </if>
+            <if test="pntAccFml != null">
+                pnt_acc_fml = #{pntAccFml,jdbcType=VARCHAR},
+            </if>
+            <if test="pntEncFml != null">
+                pnt_enc_fml = #{pntEncFml,jdbcType=VARCHAR},
+            </if>
+            <if test="egcPsFml != null">
+                egc_ps_fml = #{egcPsFml,jdbcType=VARCHAR},
+            </if>
+            <if test="univRentVal != null">
+                univ_rent_val = #{univRentVal,jdbcType=VARCHAR},
+            </if>
+            <if test="rentVal != null">
+                rent_val = #{rentVal,jdbcType=BIGINT},
+            </if>
+            <if test="univSpFml != null">
+                univ_sp_fml = #{univSpFml,jdbcType=VARCHAR},
+            </if>
+            <if test="spFml != null">
+                sp_fml = #{spFml,jdbcType=VARCHAR},
+            </if>
+            <if test="vipAcpt != null">
+                vip_acpt = #{vipAcpt,jdbcType=CHAR},
+            </if>
+            <if test="depAcpt != null">
+                dep_acpt = #{depAcpt,jdbcType=CHAR},
+            </if>
+            <if test="ctDep != null">
+                ct_dep = #{ctDep,jdbcType=CHAR},
+            </if>
+            <if test="ccEnabled != null">
+                cc_enabled = #{ccEnabled,jdbcType=CHAR},
+            </if>
+            <if test="svEnabled != null">
+                sv_enabled = #{svEnabled,jdbcType=CHAR},
+            </if>
+            <if test="dfltSvWarehId != null">
+                dflt_sv_wareh_id = #{dfltSvWarehId,jdbcType=DECIMAL},
+            </if>
+            <if test="adsId != null">
+                ads_id = #{adsId,jdbcType=VARCHAR},
+            </if>
+            <if test="manId != null">
+                man_id = #{manId,jdbcType=BIGINT},
+            </if>
+            <if test="fsclDate != null">
+                fscl_date = #{fsclDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="shopStatus != null">
+                shop_status = #{shopStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="updTime != null">
+                upd_time = #{updTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where shop_id = #{shopId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.shop.Shop">
+    update shop
+    set owner_id = #{ownerId,jdbcType=BIGINT},
+      shop_type = #{shopType,jdbcType=VARCHAR},
+      parn_shop_id = #{parnShopId,jdbcType=BIGINT},
+      is_cms = #{isCms,jdbcType=VARCHAR},
+      cms_unit_id = #{cmsUnitId,jdbcType=BIGINT},
+      shop_prop = #{shopProp,jdbcType=VARCHAR},
+      shop_mode = #{shopMode,jdbcType=VARCHAR},
+      shop_stl_mode = #{shopStlMode,jdbcType=VARCHAR},
+      brand_id = #{brandId,jdbcType=VARCHAR},
+      shop_area_code = #{shopAreaCode,jdbcType=VARCHAR},
+      dps_id = #{dpsId,jdbcType=VARCHAR},
+      dflt_rcc_id = #{dfltRccId,jdbcType=VARCHAR},
+      ex_sys_id = #{exSysId,jdbcType=VARCHAR},
+      open_date = #{openDate,jdbcType=DATE},
+      cls_date = #{clsDate,jdbcType=DATE},
+      at_flr = #{atFlr,jdbcType=BIGINT},
+      acreage = #{acreage,jdbcType=REAL},
+      acr_lvl = #{acrLvl,jdbcType=VARCHAR},
+      sales_lvl = #{salesLvl,jdbcType=VARCHAR},
+      adm_wgt = #{admWgt,jdbcType=BIGINT},
+      abe_val = #{abeVal,jdbcType=REAL},
+      min_rt_disc_rate = #{minRtDiscRate,jdbcType=REAL},
+      gc_fml = #{gcFml,jdbcType=VARCHAR},
+      vip_disc_fml = #{vipDiscFml,jdbcType=VARCHAR},
+      pnt_acc_fml = #{pntAccFml,jdbcType=VARCHAR},
+      pnt_enc_fml = #{pntEncFml,jdbcType=VARCHAR},
+      egc_ps_fml = #{egcPsFml,jdbcType=VARCHAR},
+      univ_rent_val = #{univRentVal,jdbcType=VARCHAR},
+      rent_val = #{rentVal,jdbcType=BIGINT},
+      univ_sp_fml = #{univSpFml,jdbcType=VARCHAR},
+      sp_fml = #{spFml,jdbcType=VARCHAR},
+      vip_acpt = #{vipAcpt,jdbcType=CHAR},
+      dep_acpt = #{depAcpt,jdbcType=CHAR},
+      ct_dep = #{ctDep,jdbcType=CHAR},
+      cc_enabled = #{ccEnabled,jdbcType=CHAR},
+      sv_enabled = #{svEnabled,jdbcType=CHAR},
+      dflt_sv_wareh_id = #{dfltSvWarehId,jdbcType=DECIMAL},
+      ads_id = #{adsId,jdbcType=VARCHAR},
+      man_id = #{manId,jdbcType=BIGINT},
+      fscl_date = #{fsclDate,jdbcType=TIMESTAMP},
+      shop_status = #{shopStatus,jdbcType=CHAR},
+      opr_id = #{oprId,jdbcType=BIGINT},
+      upd_time = #{updTime,jdbcType=TIMESTAMP}
+    where shop_id = #{shopId,jdbcType=BIGINT}
+  </update>
+</mapper>

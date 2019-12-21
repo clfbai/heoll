@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sales.SpnScpMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.sales.SpnScp">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="spn_num" jdbcType="VARCHAR" property="spnNum"/>
+        <id column="vendee_id" jdbcType="BIGINT" property="vendeeId"/>
+        <id column="vender_id" jdbcType="BIGINT" property="venderId"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapByPpnScpVo" type="com.boyu.erp.platform.usercenter.vo.price.SpnScpVo">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="spn_num" jdbcType="VARCHAR" property="spnNum"/>
+        <id column="vendee_id" jdbcType="BIGINT" property="vendeeId"/>
+        <id column="vender_id" jdbcType="BIGINT" property="venderId"/>
+        <id column="vendeeNum" property="vendeeNum"/>
+        <id column="vendeeName" property="vendeeName"/>
+        <id column="venderNum" property="venderNum"/>
+        <id column="venderName" property="venderName"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapByPrice" type="com.boyu.erp.platform.usercenter.vo.purchase.PnScpVo">
+        <id column="unitPrice" property="unitPrice"/>
+        <id column="discRate" property="discRate"/>
+        <id column="taxRate" property="taxRate"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapBySysUnit" type="com.boyu.erp.platform.usercenter.entity.system.SysUnit">
+        <id column="unit_id" property="unitId"/>
+        <result column="unit_code" jdbcType="VARCHAR" property="unitCode"/>
+        <result column="unit_name" jdbcType="VARCHAR" property="unitName"/>
+        <result column="unit_hierarchy" jdbcType="VARCHAR" property="unitHierarchy"/>
+        <result column="unit_type" jdbcType="VARCHAR" property="unitType"/>
+        <result column="lic_type" jdbcType="CHAR" property="licType"/>
+        <result column="lic_num" jdbcType="VARCHAR" property="licNum"/>
+        <result column="tel_num" jdbcType="VARCHAR" property="telNum"/>
+        <result column="fax_num" jdbcType="VARCHAR" property="faxNum"/>
+        <result column="email_addr" jdbcType="VARCHAR" property="emailAddr"/>
+        <result column="postcode" jdbcType="VARCHAR" property="postcode"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="district" jdbcType="VARCHAR" property="district"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="website" jdbcType="VARCHAR" property="website"/>
+        <result column="lm_id" jdbcType="BIGINT" property="lmId"/>
+        <result column="ctrl_unit_id" jdbcType="BIGINT" property="ctrlUnitId"/>
+        <result column="shared" jdbcType="CHAR" property="shared"/>
+        <result column="recruitable" jdbcType="CHAR" property="recruitable"/>
+        <result column="input_code" jdbcType="VARCHAR" property="inputCode"/>
+        <result column="seq_num" jdbcType="VARCHAR" property="seqNum"/>
+        <result column="unit_status" jdbcType="CHAR" property="unitStatus"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="upd_time" jdbcType="TIMESTAMP" property="updTime"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.sales.SpnScp">
+    delete from spn_scp
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and spn_num = #{spnNum,jdbcType=VARCHAR}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and vender_id = #{venderId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.sales.SpnScp">
+    insert into spn_scp (unit_id, spn_num, vendee_id, 
+      vender_id)
+    values (#{unitId,jdbcType=BIGINT}, #{spnNum,jdbcType=VARCHAR}, #{vendeeId,jdbcType=BIGINT}, 
+      #{venderId,jdbcType=BIGINT})
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.sales.SpnScp">
+        insert into spn_scp
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="spnNum != null">
+                spn_num,
+            </if>
+            <if test="vendeeId != null">
+                vendee_id,
+            </if>
+            <if test="venderId != null">
+                vender_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="spnNum != null">
+                #{spnNum,jdbcType=VARCHAR},
+            </if>
+            <if test="vendeeId != null">
+                #{vendeeId,jdbcType=BIGINT},
+            </if>
+            <if test="venderId != null">
+                #{venderId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectByPrice" parameterType="java.lang.Long" resultMap="BaseResultMapByPrice">
+
+    SELECT
+    A.unit_price AS unitPrice,
+    A.disc_rate AS discRate,
+    A.tax_rate AS taxRate
+    FROM
+    (
+    SELECT
+    ss.spn_num,
+    sd.unit_price,
+    sd.disc_rate,
+    sd.tax_rate
+    FROM
+    spn_scp ss
+    INNER JOIN spn s ON s.spn_num = ss.spn_num
+    AND s.unit_id = ss.unit_id
+    INNER JOIN spn_dtl sd ON sd.spn_num = s.spn_num
+    AND sd.unit_id = s.unit_id
+    WHERE
+    ss.vendee_id = #{vendeeId}
+    AND ss.vender_id = #{venderId}
+    AND s.progress = 'EX'
+    AND s.prc_scp = 'U'
+    AND sd.prod_cls_id = #{prodClsId}
+    AND ( s.eff_date IS NULL OR s.eff_date &lt;	 now( ) )
+    AND ( s.expd_date IS NULL OR s.expd_date &gt; now( ) ) UNION ALL
+    SELECT
+    ss.spn_num,
+    sd.unit_price,
+    sd.disc_rate,
+    sd.tax_rate
+    FROM
+    spn_scp ss
+    INNER JOIN spn s ON s.spn_num = ss.spn_num
+    AND s.unit_id = ss.unit_id
+    INNER JOIN spn_dtl sd ON sd.spn_num = s.spn_num
+    AND sd.unit_id = s.unit_id
+    WHERE
+    ss.vender_id = #{venderId}
+    AND s.progress = 'EX'
+    AND s.prc_scp = 'D'
+    AND sd.prod_cls_id = #{prodClsId}
+    AND ( s.eff_date IS NULL OR s.eff_date &lt;  now( ) )
+    AND ( s.expd_date IS NULL OR s.expd_date &gt; now( ) )
+    ) A
+    ORDER BY
+    A.spn_num DESC
+    LIMIT 1
+
+  </select>
+
+    <insert id="insertByList" parameterType="java.util.List">
+        insert into spn_scp (unit_id, spn_num, vendee_id,
+        vender_id)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.unitId,jdbcType=BIGINT}, #{item.spnNum,jdbcType=VARCHAR}, #{item.vendeeId,jdbcType=BIGINT},
+            #{item.unitId,jdbcType=BIGINT})
+        </foreach>
+    </insert>
+
+    <delete id="deleteBySpn" parameterType="java.lang.String">
+    delete from spn_scp
+    where unit_id = #{unitId}
+      and spn_num = #{spnNum}
+  </delete>
+
+    <select id="selectBySpn" parameterType="com.boyu.erp.platform.usercenter.vo.price.SpnScpVo"
+            resultMap="BaseResultMapByPpnScpVo">
+    SELECT
+        ss.*,
+        suo.unit_num AS venderNum,
+        su.unit_name AS venderName,
+        suo1.unit_num AS vendeeNum,
+        su1.unit_name AS vendeeName
+    FROM
+        spn_scp ss
+        LEFT JOIN sys_unit su ON su.unit_id = ss.vendee_id
+        LEFT JOIN sys_unit_owner suo ON suo.unit_id = ss.vendee_id
+        AND suo.owner_id = ss.unit_id AND suo.deleted = 'F'
+        LEFT JOIN sys_unit su1 ON su1.unit_id = ss.vender_id
+        LEFT JOIN sys_unit_owner suo1 ON suo1.unit_id = ss.vender_id
+        AND suo1.owner_id = ss.unit_id AND suo1.deleted = 'F'
+    WHERE
+        ss.unit_id = #{unitId}
+        AND ss.spn_num = #{spnNum}
+  </select>
+
+    <delete id="deleteByList" parameterType="java.util.List">
+        <foreach collection="list" open="" close="" item="item" separator=";">
+            delete from spn_scp
+            where unit_id = #{item.unitId,jdbcType=BIGINT}
+            and spn_num = #{item.spnNum,jdbcType=VARCHAR}
+            and vendee_id = #{item.vendeeId,jdbcType=BIGINT}
+        </foreach>
+    </delete>
+
+
+    <select id="selectByConfirm" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+        *
+    FROM
+        spn_scp
+    WHERE
+        unit_id = vender_id
+        AND vendee_id = 0
+        AND unit_id = #{unitId}
+        AND spn_num = #{spnNum}
+  </select>
+
+    <select id="selectByLeg" parameterType="java.lang.String" resultMap="BaseResultMapByPpnScpVo">
+    SELECT
+	*
+    FROM
+        sys_unit su
+    WHERE
+        su.`unit_status` = 'A'
+        AND INSTR(
+            su.`unit_hierarchy`,
+            (
+            SELECT
+                unit_hierarchy
+            FROM
+                sys_unit su
+                INNER JOIN ( SELECT unit_id FROM spn_scp WHERE unit_id != vender_id AND vendee_id != 0 AND spn_num = #{spnNum} ) scp ON scp.unit_id = su.unit_id
+            )
+        ) > 0
+        AND su.unit_id = ( SELECT vender_id FROM spn_scp WHERE unit_id != vender_id AND vendee_id != 0 AND spn_num = #{spnNum} )
+  </select>
+
+    <insert id="insertByMap" parameterType="java.util.Map">
+        insert into spn_scp (unit_id, spn_num, vendee_id,
+        vender_id)
+        values
+        <foreach collection="scpList" item="item" index="index" separator=",">
+            (#{item.unitId,jdbcType=BIGINT}, #{spnNum,jdbcType=VARCHAR}, #{item.vendeeId,jdbcType=BIGINT},
+            #{item.unitId,jdbcType=BIGINT})
+        </foreach>
+    </insert>
+
+    <select id="selectBySysUnit" parameterType="java.util.Map"
+            resultMap="BaseResultMapBySysUnit">
+        SELECT
+            su.*
+        FROM
+            spn_scp ss
+            INNER JOIN sys_unit su ON su.unit_id = ss.${unitId}
+            WHERE ss.unit_id = #{vo.unitId}
+            AND ss.spn_num = #{vo.spnNum}
+  </select>
+</mapper>

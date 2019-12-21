@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.brand.BrandMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.brand.Brand">
+        <id column="brand_id" jdbcType="BIGINT" property="brandId"/>
+        <result column="brand_name" jdbcType="VARCHAR" property="brandName"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="hold_unit_id" jdbcType="BIGINT" property="holdUnitId"/>
+        <result column="man_id" jdbcType="BIGINT" property="manId"/>
+        <result column="seq_num" jdbcType="BIGINT" property="seqNum"/>
+        <result column="brand_status" jdbcType="CHAR" property="brandStatus"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="upd_time" jdbcType="TIMESTAMP" property="updTime"/>
+    </resultMap>
+
+
+    <resultMap id="BrandVOMap" type="com.boyu.erp.platform.usercenter.vo.BrandVo">
+        <id column="brand_id" jdbcType="BIGINT" property="brandId"/>
+        <result column="brand_name" jdbcType="VARCHAR" property="brandName"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="hold_unit_id" jdbcType="BIGINT" property="holdUnitId"/>
+        <result column="unit_code" property="holdUnitCode"/>
+        <result column="unit_name" property="holdUnitName"/>
+        <result column="man_id" jdbcType="BIGINT" property="manId"/>
+        <result column="prsnl_code" property="manCode"/>
+        <result column="full_name" property="manName"/>
+        <result column="seq_num" jdbcType="BIGINT" property="seqNum"/>
+        <result column="brand_status" jdbcType="CHAR" property="brandStatus"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="oprName" property="oprName"/>
+        <result column="oprCode" property="oprCode"/>
+        <result column="upd_time" jdbcType="TIMESTAMP" property="updTime"/>
+    </resultMap>
+
+
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+               type="com.boyu.erp.platform.usercenter.entity.brand.Brand">
+        <result column="logo" jdbcType="LONGVARBINARY" property="logo"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        brand_id, brand_name, description, hold_unit_id, man_id, seq_num, brand_status, opr_id,
+        upd_time
+      </sql>
+
+    <sql id="Blob_Column_List">
+        logo
+      </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from brand
+        where brand_id = #{brandId,jdbcType=BIGINT}
+    </select>
+
+    <!--查询所有-->
+    <select id="selectAll" parameterType="Brand" resultMap="BrandVOMap">
+        SELECT
+        a.*,
+        b.`unit_code`,
+        b.`unit_name`,
+        d.`prsnl_code`,
+        d.`full_name`,
+        d.`prsnl_code` AS oprCode,
+        d.`full_name` AS oprName
+        FROM
+        brand a
+        LEFT JOIN sys_unit b
+        ON (a.`hold_unit_id` = b.`unit_id`)
+        LEFT JOIN sys_prsnl d
+        ON (d.`prsnl_id` = a.`opr_id`)
+        WHERE a.brand_status = 'A'
+        <if test="brandId!=null">
+            and a.brand_id like CONCAT('%', #{brandId}, '%')
+        </if>
+        <if test="brandName!=null and brandName!=''">
+            and a.brand_name like CONCAT('%', #{brandName}, '%')
+        </if>
+    </select>
+
+    <!--查询组织品牌-->
+    <select id="selectUnitAll" parameterType="Brand" resultMap="BrandVOMap">
+        SELECT
+        a.*,
+        b.`unit_code`,
+        b.`unit_name`,
+        d.`prsnl_code`,
+        d.`full_name`,
+        d.`prsnl_code` AS oprCode,
+        d.`full_name` AS oprName
+        FROM
+        (SELECT DISTINCT
+        brand_id
+        FROM
+        unit_brand
+        WHERE unit_id = #{unitId}
+        AND is_del=1
+        UNION
+        SELECT DISTINCT
+        brand_id
+        FROM
+        unit_bg b
+        INNER JOIN bg_dtl d
+        ON b.`bg_id` = d.bg_id
+        WHERE b.unit_id=#{unitId}
+        AND is_del=1
+        ) s
+        INNER JOIN brand a
+        ON s.brand_id = a.`brand_id`
+        LEFT JOIN sys_unit b
+        ON (a.`hold_unit_id` = b.`unit_id`)
+        LEFT JOIN sys_prsnl d
+        ON (d.`prsnl_id` = a.`opr_id`)
+        WHERE a.brand_status = 'A'
+        <if test="brandId!=null">
+            and instr(a.brand_id,#{brandId}) > 0
+        </if>
+        <if test="brandName!=null and brandName!=''">
+            and instr(a.brand_name,#{brandName}) > 0
+        </if>
+    </select>
+    <!--用户查询品牌 通过 if 判断 组织品牌参数和用户品牌参数 来进行 sql 拼接-->
+    <select id="selectUserAll" parameterType="Brand" resultMap="BrandVOMap">
+        SELECT
+        a.*,
+        b.`unit_code`,
+        b.`unit_name`,
+        d.`prsnl_code`,
+        d.`full_name`,
+        d.`prsnl_code` AS oprCode,
+        d.`full_name` AS oprName
+        FROM
+        (SELECT
+        <if test="userParam !=null and userParam !=''">
+            t.brand_id AS brand_id
+        </if>
+        /*开启用户品牌权限 不开启 组织品牌权限*/
+        <if test="userParam ==null and unitParam !=null and unitParam !=''">
+            sy.brand_id AS brand_id
+        </if>
+        FROM
+        (
+        /*开启组织品牌权限 不开启 用户品牌权限*/
+        <if test="unitParam !=null and unitParam !='' and userParam !=null">
+            SELECT DISTINCT
+            b.brand_id AS brand_id
+            FROM
+            unit_brand b
+            WHERE b.unit_id = #{unitId} AND b.is_del=1
+            UNION
+            SELECT DISTINCT
+            d.brand_id as brand_id
+            FROM
+            unit_bg b
+            INNER JOIN bg_dtl d
+            ON b.`bg_id` = d.bg_id
+            WHERE b.unit_id=#{unitId}
+            AND b.is_del=1
+            ) sy
+            INNER JOIN
+        </if>
+        <if test="unitParam !=null and unitParam !='' and userParam ==null">
+            SELECT DISTINCT
+            b.brand_id AS brand_id
+            FROM
+            unit_brand b
+            WHERE b.unit_id = #{unitId} AND b.is_del=1
+            UNION
+            SELECT DISTINCT
+            d.brand_id as brand_id
+            FROM
+            unit_bg b
+            INNER JOIN bg_dtl d
+            ON b.`bg_id` = d.bg_id
+            WHERE b.unit_id=#{unitId}
+            AND b.is_del=1
+            ) sy
+        </if>
+        <if test="userParam !=null and userParam !=''  ">
+            ( SELECT DISTINCT
+            u.brand_id AS brand_id
+            FROM
+            user_brand u
+            WHERE u.user_id = #{userId} AND u.is_del=1
+            UNION
+            SELECT DISTINCT
+            d.brand_id AS brand_id
+            FROM
+            user_bg u
+            INNER JOIN bg_dtl d
+            ON u.bg_id = d.bg_id
+            WHERE u.user_id = #{userId}
+            AND u.is_del = 1
+
+            ) t
+        </if>
+        <if test="unitParam !=null and unitParam !='' and userParam !=null ">
+            ON sy.brand_id = t.brand_id
+        </if>
+        <!--不设置组织品牌权限 设置用户品牌权限-->
+        <if test="unitParam ==null  and userParam !=null and userParam !='' ">
+            )
+        </if>
+        ) s
+        INNER JOIN brand a
+        ON s.brand_id = a.`brand_id`
+        LEFT JOIN sys_unit b
+        ON (a.`hold_unit_id` = b.`unit_id`)
+        LEFT JOIN sys_prsnl d
+        ON (d.`prsnl_id` = a.`opr_id`)
+        WHERE a.brand_status = 'A'
+        <if test="brandId!=null">
+            and a.brand_id=#{brandId}
+        </if>
+        <if test="brandName!=null and brandName!=''">
+            and instr(a.brand_name,#{brandName}) > 0
+        </if>
+    </select>
+
+    <!--组织品牌下拉-->
+    <select id="optionList" resultMap="BaseResultMap">
+      SELECT *
+      FROM
+       brand
+      WHERE
+       brand_status='A'
+    </select>
+
+    <select id="userOperation" parameterType="Long" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        brand
+        WHERE 1=1
+        <if test="unitId!=null">
+            and hold_unit_id = #{unitId}
+        </if>
+        and brand_status='A'
+    </select>
+
+    <select id="getBrandWindow" parameterType="com.boyu.erp.platform.usercenter.entity.brand.Brand"
+            resultType="com.boyu.erp.platform.usercenter.vo.system.BrandWindowVo">
+        SELECT
+        b.brand_name AS brandName,
+        b.hold_unit_id AS holdUnitId,
+        b.seq_num AS seqNum,
+        b.description AS description,
+        b.brand_status AS brandStatus,
+        DATE_FORMAT(b.upd_time, "%Y-%m-%d %T") AS updTime,
+        b.brand_id AS brandId,
+        b.man_id AS manId,
+        b.logo AS logo,
+        b.opr_id AS oprId,
+        u.`unit_code` AS holdUnitCode,
+        u.unit_name AS holdUnitName,
+        p.`prsnl_code` AS manCode,
+        p.`full_name` AS manName,
+        d.`description` AS brandStatusCp,
+        p2.`prsnl_code` AS oprCode,
+        p2.`full_name` AS oprName
+        FROM
+        brand b
+        LEFT JOIN sys_unit u
+        ON b.hold_unit_id = u.unit_id
+        LEFT JOIN sys_prsnl P
+        ON b.`man_id` = p.`prsnl_id`
+        LEFT JOIN sys_code_dtl d
+        ON d.`code_type` = 'BRAND_STATUS'
+        AND d.`code` = b.`brand_status`
+        LEFT JOIN sys_prsnl p2
+        ON b.`opr_id` = p2.`prsnl_id`
+        WHERE b.brand_status='A'
+        <if test="brandId!=null">
+            and b.brand_id=#{brandId}
+        </if>
+        <if test="brandName!=null and brandName!=''">
+            and instr(b.brand_name,#{brandName}) > 0
+        </if>
+    </select>
+
+    <select id="selectProdCls" parameterType="list" resultType="com.boyu.erp.platform.usercenter.model.purchase.ProdClsModel">
+        SELECT
+        c.`prod_cls_id` as prodClsId,
+        c.`prod_cls_code` as prodClsCode
+        FROM
+        prod_cls c WHERE 1=1
+        <if test="list!=null">
+            and  c.`brand_id`
+            in
+            (
+            <foreach collection="list" item="item" index="index"
+                     separator=",">
+                #{item.brandId}
+            </foreach>
+            )
+        </if>
+    </select>
+
+
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="brandId"
+            parameterType="com.boyu.erp.platform.usercenter.entity.brand.Brand">
+        insert into brand
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="brandId != null">
+                brand_id,
+            </if>
+            <if test="brandName != null">
+                brand_name,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="holdUnitId != null">
+                hold_unit_id,
+            </if>
+            <if test="manId != null">
+                man_id,
+            </if>
+            <if test="seqNum != null">
+                seq_num,
+            </if>
+            <if test="brandStatus != null">
+                brand_status,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+            <if test="updTime != null">
+                upd_time,
+            </if>
+            <if test="logo != null">
+                logo,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="brandId != null">
+                #{brandId,jdbcType=BIGINT},
+            </if>
+            <if test="brandName != null">
+                #{brandName,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="holdUnitId != null">
+                #{holdUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="manId != null">
+                #{manId,jdbcType=BIGINT},
+            </if>
+            <if test="seqNum != null">
+                #{seqNum,jdbcType=BIGINT},
+            </if>
+            <if test="brandStatus != null">
+                #{brandStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="updTime != null">
+                now(),
+            </if>
+            <if test="logo != null">
+                #{logo,jdbcType=LONGVARBINARY},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.brand.Brand">
+        update brand
+        <set>
+            <if test="brandName != null">
+                brand_name = #{brandName,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="holdUnitId != null">
+                hold_unit_id = #{holdUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="manId != null">
+                man_id = #{manId,jdbcType=BIGINT},
+            </if>
+            <if test="seqNum != null">
+                seq_num = #{seqNum,jdbcType=BIGINT},
+            </if>
+            <if test="brandStatus != null">
+                brand_status = #{brandStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="updTime != null">
+                upd_time = #{updTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logo != null">
+                logo = #{logo,jdbcType=LONGVARBINARY},
+            </if>
+        </set>
+        where brand_id = #{brandId,jdbcType=BIGINT}
+    </update>
+
+
+
+
+</mapper>

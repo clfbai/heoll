@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PsiTypeMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.PsiType">
+    <id column="psi_type" jdbcType="VARCHAR" property="psiType" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="rcv_wareh_reqd" jdbcType="CHAR" property="rcvWarehReqd" />
+    <result column="pui_auto_gen" jdbcType="CHAR" property="puiAutoGen" />
+    <result column="pui_auto_chk" jdbcType="CHAR" property="puiAutoChk" />
+    <result column="deliv_wareh_reqd" jdbcType="CHAR" property="delivWarehReqd" />
+    <result column="sli_auto_gen" jdbcType="CHAR" property="sliAutoGen" />
+    <result column="sli_auto_chk" jdbcType="CHAR" property="sliAutoChk" />
+    <result column="tran_unit_reqd" jdbcType="CHAR" property="tranUnitReqd" />
+    <result column="tf_reqd" jdbcType="CHAR" property="tfReqd" />
+    <result column="rqd_ctrl" jdbcType="CHAR" property="rqdCtrl" />
+    <result column="rqd_ctrl_alt" jdbcType="CHAR" property="rqdCtrlAlt" />
+    <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled" />
+    <result column="bxi_enabled_alt" jdbcType="CHAR" property="bxiEnabledAlt" />
+    <result column="psc_type" jdbcType="VARCHAR" property="pscType" />
+    <result column="prod_cat_id" jdbcType="VARCHAR" property="prodCatId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    psi_type, description, rcv_wareh_reqd, pui_auto_gen, pui_auto_chk, deliv_wareh_reqd, 
+    sli_auto_gen, sli_auto_chk, tran_unit_reqd, tf_reqd, rqd_ctrl, rqd_ctrl_alt, bxi_enabled, 
+    bxi_enabled_alt, psc_type, prod_cat_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from psi_type
+    where psi_type = #{psiType,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from psi_type
+    where psi_type = #{psiType,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsiType">
+    insert into psi_type (psi_type, description, rcv_wareh_reqd, 
+      pui_auto_gen, pui_auto_chk, deliv_wareh_reqd, 
+      sli_auto_gen, sli_auto_chk, tran_unit_reqd, 
+      tf_reqd, rqd_ctrl, rqd_ctrl_alt, 
+      bxi_enabled, bxi_enabled_alt, psc_type, 
+      prod_cat_id)
+    values (#{psiType,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{rcvWarehReqd,jdbcType=CHAR}, 
+      #{puiAutoGen,jdbcType=CHAR}, #{puiAutoChk,jdbcType=CHAR}, #{delivWarehReqd,jdbcType=CHAR}, 
+      #{sliAutoGen,jdbcType=CHAR}, #{sliAutoChk,jdbcType=CHAR}, #{tranUnitReqd,jdbcType=CHAR}, 
+      #{tfReqd,jdbcType=CHAR}, #{rqdCtrl,jdbcType=CHAR}, #{rqdCtrlAlt,jdbcType=CHAR}, 
+      #{bxiEnabled,jdbcType=CHAR}, #{bxiEnabledAlt,jdbcType=CHAR}, #{pscType,jdbcType=VARCHAR}, 
+      #{prodCatId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsiType">
+    insert into psi_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="psiType != null">
+        psi_type,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="rcvWarehReqd != null">
+        rcv_wareh_reqd,
+      </if>
+      <if test="puiAutoGen != null">
+        pui_auto_gen,
+      </if>
+      <if test="puiAutoChk != null">
+        pui_auto_chk,
+      </if>
+      <if test="delivWarehReqd != null">
+        deliv_wareh_reqd,
+      </if>
+      <if test="sliAutoGen != null">
+        sli_auto_gen,
+      </if>
+      <if test="sliAutoChk != null">
+        sli_auto_chk,
+      </if>
+      <if test="tranUnitReqd != null">
+        tran_unit_reqd,
+      </if>
+      <if test="tfReqd != null">
+        tf_reqd,
+      </if>
+      <if test="rqdCtrl != null">
+        rqd_ctrl,
+      </if>
+      <if test="rqdCtrlAlt != null">
+        rqd_ctrl_alt,
+      </if>
+      <if test="bxiEnabled != null">
+        bxi_enabled,
+      </if>
+      <if test="bxiEnabledAlt != null">
+        bxi_enabled_alt,
+      </if>
+      <if test="pscType != null">
+        psc_type,
+      </if>
+      <if test="prodCatId != null">
+        prod_cat_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="psiType != null">
+        #{psiType,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvWarehReqd != null">
+        #{rcvWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="puiAutoGen != null">
+        #{puiAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="puiAutoChk != null">
+        #{puiAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="delivWarehReqd != null">
+        #{delivWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="sliAutoGen != null">
+        #{sliAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="sliAutoChk != null">
+        #{sliAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="tranUnitReqd != null">
+        #{tranUnitReqd,jdbcType=CHAR},
+      </if>
+      <if test="tfReqd != null">
+        #{tfReqd,jdbcType=CHAR},
+      </if>
+      <if test="rqdCtrl != null">
+        #{rqdCtrl,jdbcType=CHAR},
+      </if>
+      <if test="rqdCtrlAlt != null">
+        #{rqdCtrlAlt,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabled != null">
+        #{bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabledAlt != null">
+        #{bxiEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="pscType != null">
+        #{pscType,jdbcType=VARCHAR},
+      </if>
+      <if test="prodCatId != null">
+        #{prodCatId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsiType">
+    update psi_type
+    <set>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvWarehReqd != null">
+        rcv_wareh_reqd = #{rcvWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="puiAutoGen != null">
+        pui_auto_gen = #{puiAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="puiAutoChk != null">
+        pui_auto_chk = #{puiAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="delivWarehReqd != null">
+        deliv_wareh_reqd = #{delivWarehReqd,jdbcType=CHAR},
+      </if>
+      <if test="sliAutoGen != null">
+        sli_auto_gen = #{sliAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="sliAutoChk != null">
+        sli_auto_chk = #{sliAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="tranUnitReqd != null">
+        tran_unit_reqd = #{tranUnitReqd,jdbcType=CHAR},
+      </if>
+      <if test="tfReqd != null">
+        tf_reqd = #{tfReqd,jdbcType=CHAR},
+      </if>
+      <if test="rqdCtrl != null">
+        rqd_ctrl = #{rqdCtrl,jdbcType=CHAR},
+      </if>
+      <if test="rqdCtrlAlt != null">
+        rqd_ctrl_alt = #{rqdCtrlAlt,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabled != null">
+        bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabledAlt != null">
+        bxi_enabled_alt = #{bxiEnabledAlt,jdbcType=CHAR},
+      </if>
+      <if test="pscType != null">
+        psc_type = #{pscType,jdbcType=VARCHAR},
+      </if>
+      <if test="prodCatId != null">
+        prod_cat_id = #{prodCatId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where psi_type = #{psiType,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PsiType">
+    update psi_type
+    set description = #{description,jdbcType=VARCHAR},
+      rcv_wareh_reqd = #{rcvWarehReqd,jdbcType=CHAR},
+      pui_auto_gen = #{puiAutoGen,jdbcType=CHAR},
+      pui_auto_chk = #{puiAutoChk,jdbcType=CHAR},
+      deliv_wareh_reqd = #{delivWarehReqd,jdbcType=CHAR},
+      sli_auto_gen = #{sliAutoGen,jdbcType=CHAR},
+      sli_auto_chk = #{sliAutoChk,jdbcType=CHAR},
+      tran_unit_reqd = #{tranUnitReqd,jdbcType=CHAR},
+      tf_reqd = #{tfReqd,jdbcType=CHAR},
+      rqd_ctrl = #{rqdCtrl,jdbcType=CHAR},
+      rqd_ctrl_alt = #{rqdCtrlAlt,jdbcType=CHAR},
+      bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+      bxi_enabled_alt = #{bxiEnabledAlt,jdbcType=CHAR},
+      psc_type = #{pscType,jdbcType=VARCHAR},
+      prod_cat_id = #{prodCatId,jdbcType=VARCHAR}
+    where psi_type = #{psiType,jdbcType=VARCHAR}
+  </update>
+
+  <!--购销意向类别下拉-->
+  <select id="optionList" resultMap="BaseResultMap">
+      SELECT *
+      FROM
+       psi_type
+      WHERE
+       psi_type!=''
+    </select>
+</mapper>

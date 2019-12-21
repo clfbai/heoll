@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.shop.ShopEmpMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.shop.ShopEmp">
+        <id column="shop_id" jdbcType="BIGINT" property="shopId"/>
+        <id column="empl_id" jdbcType="BIGINT" property="emplId"/>
+        <result column="min_rt_disc_rate" jdbcType="DECIMAL" property="minRtDiscRate"/>
+        <result column="smpd_code" jdbcType="VARCHAR" property="smpdCode"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    shop_id, empl_id, min_rt_disc_rate, smpd_code
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopEmp"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from shop_emp
+        where shop_id = #{shopId,jdbcType=BIGINT}
+        and empl_id = #{emplId,jdbcType=BIGINT}
+    </select>
+    <select id="getShopEmp" parameterType="com.boyu.erp.platform.usercenter.entity.shop.Shop"
+            resultType="com.boyu.erp.platform.usercenter.vo.shop.ShopEmpVo">
+        SELECT
+        s.`empl_id` as emplId,
+        p.`full_name` as fullName,
+        s.`min_rt_disc_rate` as minRtDiscRate,
+        s.`smpd_code` as smpdCode,
+        p.`prsnl_code` as prsnlCode,
+        s.`shop_id` as shopId
+        FROM
+        shop_emp s
+        LEFT JOIN sys_prsnl p
+        ON s.empl_id = p.prsnl_id
+        WHERE s.`shop_id` = #{shopId}
+    </select>
+
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopEmp">
+        insert into shop_emp
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">
+                shop_id,
+            </if>
+            <if test="emplId != null">
+                empl_id,
+            </if>
+            <if test="minRtDiscRate != null">
+                min_rt_disc_rate,
+            </if>
+            <if test="smpdCode != null">
+                smpd_code,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">
+                #{shopId,jdbcType=BIGINT},
+            </if>
+            <if test="emplId != null">
+                #{emplId,jdbcType=BIGINT},
+            </if>
+            <if test="minRtDiscRate != null">
+                #{minRtDiscRate,jdbcType=DECIMAL},
+            </if>
+            <if test="smpdCode != null">
+                #{smpdCode,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopEmp">
+        update shop_emp
+        <set>
+            <if test="minRtDiscRate != null">
+                min_rt_disc_rate = #{minRtDiscRate,jdbcType=DECIMAL},
+            </if>
+            <if test="smpdCode != null">
+                smpd_code = #{smpdCode,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where shop_id = #{shopId,jdbcType=BIGINT}
+        and empl_id = #{emplId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopEmp">
+    update shop_emp
+    set min_rt_disc_rate = #{minRtDiscRate,jdbcType=DECIMAL},
+      smpd_code = #{smpdCode,jdbcType=VARCHAR}
+    where shop_id = #{shopId,jdbcType=BIGINT}
+      and empl_id = #{emplId,jdbcType=BIGINT}
+  </update>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopEmp">
+    delete from shop_emp
+    where shop_id = #{shopId,jdbcType=BIGINT}
+      and empl_id = #{emplId,jdbcType=BIGINT}
+  </delete>
+
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopEmp">
+    insert into shop_emp (shop_id, empl_id, min_rt_disc_rate, 
+      smpd_code)
+    values (#{shopId,jdbcType=BIGINT}, #{emplId,jdbcType=BIGINT}, #{minRtDiscRate,jdbcType=DECIMAL}, 
+      #{smpdCode,jdbcType=VARCHAR})
+  </insert>
+
+    <!--批量添加员工-->
+    <insert id="addList">
+
+        <foreach collection="list" item="emp" index="index" separator=";">
+            insert into
+            shop_emp
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="emp.shopId != null">
+            shop_id,
+        </if>
+        <if test="emp.emplId!= null">
+            empl_id,
+        </if>
+        <if test="emp.minRtDiscRate != null">
+            min_rt_disc_rate,
+        </if>
+        <if test="emp.smpdCode != null">
+            smpd_code,
+        </if>
+    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="emp.shopId != null">
+                #{emp.shopId,jdbcType=BIGINT},
+            </if>
+            <if test="emp.emplId != null">
+                #{emp.emplId,jdbcType=BIGINT},
+            </if>
+            <if test="emp.minRtDiscRate != null">
+                #{emp.minRtDiscRate,jdbcType=DECIMAL},
+            </if>
+            <if test="emp.smpdCode != null">
+                #{emp.smpdCode,jdbcType=VARCHAR},
+            </if>
+        </trim>
+
+        </foreach>
+    </insert>
+
+</mapper>

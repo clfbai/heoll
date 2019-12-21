@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.brand.UserBgMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.brand.UserBg">
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <id column="owner_id" jdbcType="BIGINT" property="ownerId"/>
+        <id column="bg_id" jdbcType="VARCHAR" property="bgId"/>
+        <result column="create_by" jdbcType="BIGINT" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="BIGINT" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="is_del" jdbcType="TINYINT" property="isDel"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    user_id, owner_id, bg_id, create_by, create_time, update_by, update_time,is_del
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.brand.UserBg"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user_bg
+        where user_id = #{userId,jdbcType=BIGINT}
+        and owner_id = #{ownerId,jdbcType=BIGINT}
+        and bg_id = #{bgId,jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="getUserBg" parameterType="com.boyu.erp.platform.usercenter.entity.brand.UserBg"
+            resultType="com.boyu.erp.platform.usercenter.vo.system.UserBgVo">
+        SELECT
+        b.`bg_id` AS bgId,
+        b.`bg_name` AS bgName
+        FROM
+        bg b
+        INNER JOIN user_bg u
+        ON b.`bg_id` = u.`bg_id`
+        WHERE u.user_id  = #{userId,jdbcType=BIGINT}
+        and u.owner_id = #{ownerId,jdbcType=BIGINT}
+        and u.is_del=1
+    </select>
+
+    <delete id="deleteUserBg" parameterType="com.boyu.erp.platform.usercenter.entity.brand.UserBg">
+    delete from user_bg
+    where user_id = #{userId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+      and bg_id = #{bgId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.brand.UserBg">
+    insert into user_bg (user_id, owner_id, bg_id, 
+      create_by, create_time, update_by, 
+      update_time)
+    values (#{userId,jdbcType=BIGINT}, #{ownerId,jdbcType=BIGINT}, #{bgId,jdbcType=VARCHAR},
+      #{createBy,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertUserBg" parameterType="com.boyu.erp.platform.usercenter.entity.brand.UserBg">
+        insert into user_bg
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="ownerId != null">
+                owner_id,
+            </if>
+            <if test="bgId != null">
+                bg_id,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test=" isDel != null">
+                is_del,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="ownerId != null">
+                #{ownerId,jdbcType=BIGINT},
+            </if>
+            <if test="bgId != null">
+                #{bgId,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                now(),
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                now(),
+            </if>
+            <if test=" isDel != null">
+                #{isDel,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateUserBg" parameterType="com.boyu.erp.platform.usercenter.entity.brand.UserBg">
+        update user_bg
+        <set>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = now(),
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = now() ,
+            </if>
+            <if test=" isDel != null">
+                is_del= #{isDel,jdbcType=TINYINT}
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=BIGINT}
+        and owner_id = #{ownerId,jdbcType=BIGINT}
+        and bg_id = #{bgId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateUserBgList" parameterType="com.boyu.erp.platform.usercenter.entity.brand.UserBg">
+        update user_bg
+        <set>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = now(),
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = now() ,
+            </if>
+            <if test=" isDel != null">
+                is_del= #{isDel,jdbcType=TINYINT}
+            </if>
+        </set>
+        where
+         owner_id = #{ownerId,jdbcType=BIGINT}
+        and
+        bg_id = #{bgId,jdbcType=VARCHAR}
+    </update>
+     <!--删除品牌分组时修改用户品牌分组-->
+    <update id="updateBgList" parameterType="com.boyu.erp.platform.usercenter.entity.brand.UserBg">
+        update user_bg
+        <set>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = now(),
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = now() ,
+            </if>
+            <if test=" isDel != null">
+                is_del= #{isDel,jdbcType=TINYINT}
+            </if>
+        </set>
+        where
+        bg_id = #{bgId,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

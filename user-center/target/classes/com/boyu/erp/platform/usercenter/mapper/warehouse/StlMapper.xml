@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.StlMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.Stl">
+        <result column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <result column="stl_num" jdbcType="VARCHAR" property="stlNum"/>
+        <result column="doc_date" jdbcType="TIMESTAMP" property="docDate"/>
+        <result column="wareh_id" jdbcType="BIGINT" property="warehId"/>
+        <result column="stt_num" jdbcType="VARCHAR" property="sttNum"/>
+        <result column="loc_adopted" jdbcType="CHAR" property="locAdopted"/>
+        <result column="stk_form" jdbcType="CHAR" property="stkForm"/>
+        <result column="ttl_qty" jdbcType="DECIMAL" property="ttlQty"/>
+        <result column="ttl_box" jdbcType="BIGINT" property="ttlBox"/>
+        <result column="stkr_id" jdbcType="BIGINT" property="stkrId"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="op_time" jdbcType="TIMESTAMP" property="opTime"/>
+        <result column="progress" jdbcType="CHAR" property="progress"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+    <resultMap id="BaseResultMapVO" type="com.boyu.erp.platform.usercenter.vo.warehouse.StlVO">
+        <result column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <result column="stl_num" jdbcType="VARCHAR" property="stlNum"/>
+        <result column="doc_date" jdbcType="TIMESTAMP" property="docDate"/>
+        <result column="wareh_id" jdbcType="BIGINT" property="warehId"/>
+        <result column="stt_num" jdbcType="VARCHAR" property="sttNum"/>
+        <result column="loc_adopted" jdbcType="CHAR" property="locAdopted"/>
+        <result column="stk_form" jdbcType="CHAR" property="stkForm"/>
+        <result column="ttl_qty" jdbcType="DECIMAL" property="ttlQty"/>
+        <result column="ttl_box" jdbcType="BIGINT" property="ttlBox"/>
+        <result column="stkr_id" jdbcType="BIGINT" property="stkrId"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="op_time" jdbcType="TIMESTAMP" property="opTime"/>
+        <result column="progress" jdbcType="CHAR" property="progress"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    unit_id,stl_num,doc_date,wareh_id,stt_num,loc_adopted,stk_form,ttl_qty,ttl_box,stkr_id,opr_id,
+    op_time,progress,suspended,remarks
+  </sql>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Stl">
+    insert into stl (UNIT_ID, STL_NUM, DOC_DATE, 
+      WAREH_ID, STT_NUM, LOC_ADOPTED, 
+      STK_FORM, TTL_QTY, TTL_BOX, 
+      STKR_ID, OPR_ID, OP_TIME, 
+      PROGRESS, SUSPENDED, REMARKS
+      )
+    values (#{unitId,jdbcType=BIGINT}, #{stlNum,jdbcType=VARCHAR}, #{docDate,jdbcType=TIMESTAMP}, 
+      #{warehId,jdbcType=BIGINT}, #{sttNum,jdbcType=VARCHAR}, #{locAdopted,jdbcType=CHAR}, 
+      #{stkForm,jdbcType=CHAR}, #{ttlQty,jdbcType=DECIMAL}, #{ttlBox,jdbcType=BIGINT}, 
+      #{stkrId,jdbcType=BIGINT}, #{oprId,jdbcType=BIGINT}, #{opTime,jdbcType=TIMESTAMP}, 
+      #{progress,jdbcType=CHAR}, #{suspended,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Stl">
+        insert into stl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                UNIT_ID,
+            </if>
+            <if test="stlNum != null">
+                STL_NUM,
+            </if>
+            <if test="docDate != null">
+                DOC_DATE,
+            </if>
+            <if test="warehId != null">
+                WAREH_ID,
+            </if>
+            <if test="sttNum != null">
+                STT_NUM,
+            </if>
+            <if test="locAdopted != null">
+                LOC_ADOPTED,
+            </if>
+            <if test="stkForm != null">
+                STK_FORM,
+            </if>
+            <if test="ttlQty != null">
+                TTL_QTY,
+            </if>
+            <if test="ttlBox != null">
+                TTL_BOX,
+            </if>
+            <if test="stkrId != null">
+                STKR_ID,
+            </if>
+            <if test="oprId != null">
+                OPR_ID,
+            </if>
+            <if test="opTime != null">
+                OP_TIME,
+            </if>
+            <if test="progress != null">
+                PROGRESS,
+            </if>
+            <if test="suspended != null">
+                SUSPENDED,
+            </if>
+            <if test="remarks != null">
+                REMARKS,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="stlNum != null">
+                #{stlNum,jdbcType=VARCHAR},
+            </if>
+            <if test="docDate != null">
+                #{docDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="warehId != null">
+                #{warehId,jdbcType=BIGINT},
+            </if>
+            <if test="sttNum != null">
+                #{sttNum,jdbcType=VARCHAR},
+            </if>
+            <if test="locAdopted != null">
+                #{locAdopted,jdbcType=CHAR},
+            </if>
+            <if test="stkForm != null">
+                #{stkForm,jdbcType=CHAR},
+            </if>
+            <if test="ttlQty != null">
+                #{ttlQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlBox != null">
+                #{ttlBox,jdbcType=BIGINT},
+            </if>
+            <if test="stkrId != null">
+                #{stkrId,jdbcType=BIGINT},
+            </if>
+            <if test="oprId != null">
+                #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="opTime != null">
+                #{opTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="progress != null">
+                #{progress,jdbcType=CHAR},
+            </if>
+            <if test="suspended != null">
+                #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateStl">
+        update stl
+        <set>
+            <if test="stlModel.warehId!=null and stlModel.warehId!=''">
+                wareh_id  = #{stlModel.warehId},
+            </if>
+            <if test="stlModel.sttNum!=null">
+                stt_num=#{stlModel.sttNum},
+            </if>
+            <if test="stlModel.locAdopted and stlModel.locAdopted!=''">
+                loc_adopted=#{stlModel.locAdopted},
+            </if>
+            <if test="stlModel.stkForm!=null and stlModel.stkForm!=''">
+                stk_form=#{stlModel.stkForm},
+            </if>
+            <if test="stlModel.ttlQty!=null and stlModel.ttlQty!=''">
+                ttl_qty=#{stlModel.ttlQty},
+            </if>
+            <if test="stlModel.ttlBox!=null and stlModel.ttlBox!=''">
+                ttl_box=#{stlModel.ttlBox},
+            </if>
+            <if test="stlModel.stkrId!=null and stlModel.stkrId!=''">
+                stkr_id=#{stlModel.stkrId},
+            </if>
+            <if test="stlModel.oprId != null and stlModel.oprId!=''">
+                opr_id=#{stlModel.oprId},
+            </if>
+            <if test="stlModel.opTime!=null">
+                op_time=#{stlModel.opTime},
+            </if>
+            <if test="stlModel.progress!=null and stlModel.progress!=''">
+                progress=#{stlModel.progress},
+            </if>
+            <if test="stlModel.suspended!=null and stlModel.suspended!=''">
+                suspended=#{stlModel.suspended},
+            </if>
+            <if test="stlModel.remarks!=null and stlModel.remarks!=''">
+                remarks=#{stlModel.remarks},
+            </if>
+        </set>
+        <trim prefix="where" prefixOverrides="and|or">
+            stl_num =#{stlModel.stlNum} and unit_id=#{unitId}
+        </trim>
+    </update>
+    <delete id="delStl">
+        delete from stl where stl_num=#{stlNum} and unit_id=#{unitId}
+    </delete>
+
+    <select id="queryStlListByFilter" resultMap="BaseResultMapVO">
+        select <include refid="Base_Column_List"></include> from stl
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="stlFilterModel.warehNum!=null and stlFilterModel.warehNum!='' and stlFilterModel.warehIds.size()>0">
+                and wareh_id in (
+                <foreach collection="stlFilterModel.warehIds" item="warehId" separator=",">
+                    #{warehId}
+                </foreach>
+                )
+            </if>
+            <if test="stlFilterModel.stlNum!=null and stlFilterModel.stlNum!=''">
+                and stl_num LIKE CONCAT(#{stlFilterModel.stlNum},'%')
+            </if>
+            <if test="stlFilterModel.minDocDate!=null">
+                and doc_date &gt;= #{stlFilterModel.minDocDate}
+            </if>
+            <if test="stlFilterModel.maxDocDate!=null">
+                and doc_date &lt;= #{stlFilterModel.maxDocDate}
+            </if>
+            <if test="stlFilterModel.sttNum!=null and stlFilterModel.sttNum!=''">
+                and sttNum LIKE CONCAT(#{stlFilterModel.sttNum},'%')
+            </if>
+            <if test="stlFilterModel.progress!=null and stlFilterModel.progress!=''">
+                and progress = #{stlFilterModel.progress}
+            </if>
+            and unit_id=#{unitId}
+        </trim>
+    </select>
+    <select id="queryStlByStlNumAndId" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from stl where stl_num=#{stlNum} and unit_id = #{unitId}
+    </select>
+    <select id="queryStlNumListBySttNumAndId" resultType="java.lang.String">
+        select stl_num from stl where stt_num = #{sttNum} and unit_id = #{unitId}
+    </select>
+</mapper>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.StlDtlMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.StlDtl">
+        <result column="UNIT_ID" jdbcType="BIGINT" property="unitId"/>
+        <result column="STL_NUM" jdbcType="VARCHAR" property="stlNum"/>
+        <result column="LINE_NUM" jdbcType="INTEGER" property="lineNum"/>
+        <result column="ROW_NUM" jdbcType="INTEGER" property="rowNum"/>
+        <result column="PROD_ID" jdbcType="BIGINT" property="prodId"/>
+        <result column="LOC_ID" jdbcType="BIGINT" property="locId"/>
+        <result column="QTY" jdbcType="DECIMAL" property="qty"/>
+        <result column="REMARKS" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+    <resultMap id="BaseResultMapVO" type="com.boyu.erp.platform.usercenter.vo.warehouse.StlDtlVO">
+        <result column="UNIT_ID" jdbcType="BIGINT" property="unitId"/>
+        <result column="STL_NUM" jdbcType="VARCHAR" property="stlNum"/>
+        <result column="LINE_NUM" jdbcType="INTEGER" property="lineNum"/>
+        <result column="ROW_NUM" jdbcType="INTEGER" property="rowNum"/>
+        <result column="PROD_ID" jdbcType="BIGINT" property="prodId"/>
+        <result column="LOC_ID" jdbcType="BIGINT" property="locId"/>
+        <result column="QTY" jdbcType="DECIMAL" property="qty"/>
+        <result column="REMARKS" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    unit_id,stl_num,line_num,row_num,prod_id,loc_id,qty,remarks
+  </sql>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StlDtl">
+    insert into stl_dtl (UNIT_ID, STL_NUM, LINE_NUM, 
+      ROW_NUM, PROD_ID, LOC_ID, 
+      QTY, REMARKS)
+    values (#{unitId,jdbcType=BIGINT}, #{stlNum,jdbcType=VARCHAR}, #{lineNum,jdbcType=INTEGER}, 
+      #{rowNum,jdbcType=INTEGER}, #{prodId,jdbcType=BIGINT}, #{locId,jdbcType=BIGINT}, 
+      #{qty,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StlDtl">
+        insert into stl_dtl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                UNIT_ID,
+            </if>
+            <if test="stlNum != null">
+                STL_NUM,
+            </if>
+            <if test="lineNum != null">
+                LINE_NUM,
+            </if>
+            <if test="rowNum != null">
+                ROW_NUM,
+            </if>
+            <if test="prodId != null">
+                PROD_ID,
+            </if>
+            <if test="locId != null">
+                LOC_ID,
+            </if>
+            <if test="qty != null">
+                QTY,
+            </if>
+            <if test="remarks != null">
+                REMARKS,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="stlNum != null">
+                #{stlNum,jdbcType=VARCHAR},
+            </if>
+            <if test="lineNum != null">
+                #{lineNum,jdbcType=INTEGER},
+            </if>
+            <if test="rowNum != null">
+                #{rowNum,jdbcType=INTEGER},
+            </if>
+            <if test="prodId != null">
+                #{prodId,jdbcType=BIGINT},
+            </if>
+            <if test="locId != null">
+                #{locId,jdbcType=BIGINT},
+            </if>
+            <if test="qty != null">
+                #{qty,jdbcType=DECIMAL},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="addStlDtlList">
+        insert into stl_dtl(<include refid="Base_Column_List"></include>) values
+        <foreach collection="stlDtlList" item="stlDtl" separator=",">
+            (#{unitId},#{stlNum},#{stlDtl.lineNum},#{stlDtl.rowNum},#{stlDtl.prodId},'0',#{stlDtl.qty},#{stlDtl.remarks})
+        </foreach>
+    </insert>
+    <delete id="delStlDtlByNumAndId">
+    delete from stl_dtl where stl_num=#{stlNum} and unit_id=#{unitId}
+  </delete>
+    <select id="queryListByStlNumAndId" resultMap="BaseResultMapVO">
+        select <include refid="Base_Column_List"></include> from stl_dtl where stl_num=#{stlNum} and unit_id=#{unitId}
+    </select>
+    <select id="queryStlDtlListByStlNumListAndId" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from stl_dtl
+        <trim prefix="where" prefixOverrides="and|or">
+        stl_num in (
+            <foreach collection="stlNumList" item="stlNum" separator=",">
+            #{stlNum}
+            </foreach>
+            ) and unit_id=#{unitId}
+        </trim>
+    </select>
+</mapper>

@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PsxMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.Psx">
+    <id column="psx_num" jdbcType="VARCHAR" property="psxNum" />
+    <result column="doc_date" jdbcType="DATE" property="docDate" />
+    <result column="psx_type" jdbcType="VARCHAR" property="psxType" />
+    <result column="vendee_id" jdbcType="BIGINT" property="vendeeId" />
+    <result column="rcv_wareh_id" jdbcType="BIGINT" property="rcvWarehId" />
+    <result column="end_unit_id" jdbcType="BIGINT" property="endUnitId" />
+    <result column="end_wareh_id" jdbcType="BIGINT" property="endWarehId" />
+    <result column="vde_invd" jdbcType="CHAR" property="vdeInvd" />
+    <result column="pua_auto_gen" jdbcType="CHAR" property="puaAutoGen" />
+    <result column="pua_gen" jdbcType="CHAR" property="puaGen" />
+    <result column="pua_auto_chk" jdbcType="CHAR" property="puaAutoChk" />
+    <result column="vender_id" jdbcType="BIGINT" property="venderId" />
+    <result column="deliv_wareh_id" jdbcType="BIGINT" property="delivWarehId" />
+    <result column="st_unit_id" jdbcType="BIGINT" property="stUnitId" />
+    <result column="st_wareh_id" jdbcType="BIGINT" property="stWarehId" />
+    <result column="vdr_invd" jdbcType="CHAR" property="vdrInvd" />
+    <result column="sla_auto_gen" jdbcType="CHAR" property="slaAutoGen" />
+    <result column="sla_gen" jdbcType="CHAR" property="slaGen" />
+    <result column="sla_auto_chk" jdbcType="CHAR" property="slaAutoChk" />
+    <result column="rqd_ctrl" jdbcType="CHAR" property="rqdCtrl" />
+    <result column="reqd_date" jdbcType="DATE" property="reqdDate" />
+    <result column="prod_cat_id" jdbcType="VARCHAR" property="prodCatId" />
+    <result column="ord_type" jdbcType="VARCHAR" property="ordType" />
+    <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled" />
+    <result column="ttl_qty" jdbcType="DECIMAL" property="ttlQty" />
+    <result column="ttl_box" jdbcType="BIGINT" property="ttlBox" />
+    <result column="ttl_val" jdbcType="DECIMAL" property="ttlVal" />
+    <result column="ttl_mkv" jdbcType="DECIMAL" property="ttlMkv" />
+    <result column="opr_id" jdbcType="BIGINT" property="oprId" />
+    <result column="op_time" jdbcType="TIMESTAMP" property="opTime" />
+    <result column="effective" jdbcType="CHAR" property="effective" />
+    <result column="progress" jdbcType="CHAR" property="progress" />
+    <result column="cancelled" jdbcType="CHAR" property="cancelled" />
+    <result column="st_psx_num" jdbcType="VARCHAR" property="stPsxNum" />
+    <result column="end_psx_num" jdbcType="VARCHAR" property="endPsxNum" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    psx_num, doc_date, psx_type, vendee_id, rcv_wareh_id, end_unit_id, end_wareh_id, 
+    vde_invd, pua_auto_gen, pua_gen, pua_auto_chk, vender_id, deliv_wareh_id, st_unit_id, 
+    st_wareh_id, vdr_invd, sla_auto_gen, sla_gen, sla_auto_chk, rqd_ctrl, reqd_date, 
+    prod_cat_id, ord_type, bxi_enabled, ttl_qty, ttl_box, ttl_val, ttl_mkv, opr_id, op_time, 
+    effective, progress, cancelled, st_psx_num, end_psx_num, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from psx
+    where psx_num = #{psxNum,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from psx
+    where psx_num = #{psxNum,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Psx">
+    insert into psx (psx_num, doc_date, psx_type, 
+      vendee_id, rcv_wareh_id, end_unit_id, 
+      end_wareh_id, vde_invd, pua_auto_gen, 
+      pua_gen, pua_auto_chk, vender_id, 
+      deliv_wareh_id, st_unit_id, st_wareh_id, 
+      vdr_invd, sla_auto_gen, sla_gen, 
+      sla_auto_chk, rqd_ctrl, reqd_date, 
+      prod_cat_id, ord_type, bxi_enabled, 
+      ttl_qty, ttl_box, ttl_val, 
+      ttl_mkv, opr_id, op_time, 
+      effective, progress, cancelled, 
+      st_psx_num, end_psx_num, remarks
+      )
+    values (#{psxNum,jdbcType=VARCHAR}, #{docDate,jdbcType=DATE}, #{psxType,jdbcType=VARCHAR}, 
+      #{vendeeId,jdbcType=BIGINT}, #{rcvWarehId,jdbcType=BIGINT}, #{endUnitId,jdbcType=BIGINT}, 
+      #{endWarehId,jdbcType=BIGINT}, #{vdeInvd,jdbcType=CHAR}, #{puaAutoGen,jdbcType=CHAR}, 
+      #{puaGen,jdbcType=CHAR}, #{puaAutoChk,jdbcType=CHAR}, #{venderId,jdbcType=BIGINT}, 
+      #{delivWarehId,jdbcType=BIGINT}, #{stUnitId,jdbcType=BIGINT}, #{stWarehId,jdbcType=BIGINT}, 
+      #{vdrInvd,jdbcType=CHAR}, #{slaAutoGen,jdbcType=CHAR}, #{slaGen,jdbcType=CHAR}, 
+      #{slaAutoChk,jdbcType=CHAR}, #{rqdCtrl,jdbcType=CHAR}, #{reqdDate,jdbcType=DATE}, 
+      #{prodCatId,jdbcType=VARCHAR}, #{ordType,jdbcType=VARCHAR}, #{bxiEnabled,jdbcType=CHAR}, 
+      #{ttlQty,jdbcType=DECIMAL}, #{ttlBox,jdbcType=BIGINT}, #{ttlVal,jdbcType=DECIMAL}, 
+      #{ttlMkv,jdbcType=DECIMAL}, #{oprId,jdbcType=BIGINT}, #{opTime,jdbcType=TIMESTAMP}, 
+      #{effective,jdbcType=CHAR}, #{progress,jdbcType=CHAR}, #{cancelled,jdbcType=CHAR}, 
+      #{stPsxNum,jdbcType=VARCHAR}, #{endPsxNum,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertByPsxVo" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsxVo">
+    insert into psx
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="psxNum != null and psxNum != '' ">
+        psx_num,
+      </if>
+        doc_date,
+      <if test="psxType != null and psxType != '' ">
+        psx_type,
+      </if>
+      <if test="vendeeId != null and vendeeId != '' ">
+        vendee_id,
+      </if>
+      <if test="rcvWarehId != null and rcvWarehId != '' ">
+        rcv_wareh_id,
+      </if>
+      <if test="endUnitId != null and endUnitId != '' ">
+        end_unit_id,
+      </if>
+      <if test="endWarehId != null and endWarehId != '' ">
+        end_wareh_id,
+      </if>
+      <if test="vdeInvd != null and vdeInvd != '' ">
+        vde_invd,
+      </if>
+      <if test="puaAutoGen != null and puaAutoGen != '' ">
+        pua_auto_gen,
+      </if>
+      <if test="puaGen != null and puaGen !='' ">
+        pua_gen,
+      </if>
+      <if test="puaAutoChk != null and puaAutoChk != '' ">
+        pua_auto_chk,
+      </if>
+      <if test="venderId != null and venderId != '' ">
+        vender_id,
+      </if>
+      <if test="delivWarehId != null and delivWarehId != '' ">
+        deliv_wareh_id,
+      </if>
+      <if test="stUnitId != null and stUnitId != '' ">
+        st_unit_id,
+      </if>
+      <if test="stWarehId != null and stWarehId != '' ">
+        st_wareh_id,
+      </if>
+      <if test="vdrInvd != null and vdrInvd != '' ">
+        vdr_invd,
+      </if>
+      <if test="slaAutoGen != null and slaAutoGen != '' ">
+        sla_auto_gen,
+      </if>
+      <if test="slaGen != null and slaGen != '' ">
+        sla_gen,
+      </if>
+      <if test="slaAutoChk != null and slaAutoChk != '' ">
+        sla_auto_chk,
+      </if>
+      <if test="rqdCtrl != null and rqdCtrl != '' ">
+        rqd_ctrl,
+      </if>
+      <if test="reqdDate != null and reqdDate != '' ">
+        reqd_date,
+      </if>
+      <if test="prodCatId != null and prodCatId != '' ">
+        prod_cat_id,
+      </if>
+      <if test="ordType != null and ordType != '' ">
+        ord_type,
+      </if>
+      <if test="bxiEnabled != null and bxiEnabled != '' ">
+        bxi_enabled,
+      </if>
+      <if test="ttlQty != null and ttlQty != '' ">
+        ttl_qty,
+      </if>
+      <if test="ttlBox != null and ttlBox != '' ">
+        ttl_box,
+      </if>
+      <if test="ttlVal != null and ttlVal != '' ">
+        ttl_val,
+      </if>
+      <if test="ttlMkv != null and ttlMkv != '' ">
+        ttl_mkv,
+      </if>
+      <if test="oprId != null and oprId != '' ">
+        opr_id,
+        op_time,
+      </if>
+      <if test="effective != null and effective != '' ">
+        effective,
+      </if>
+      <if test="progress != null and progress != '' ">
+        progress,
+      </if>
+      <if test="cancelled != null and cancelled != '' ">
+        cancelled,
+      </if>
+      <if test="remarks != null and remarks != '' ">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="psxNum != null and psxNum != '' ">
+        #{psxNum,jdbcType=VARCHAR},
+      </if>
+      now(),
+      <if test="psxType != null and psxType != '' ">
+        #{psxType,jdbcType=VARCHAR},
+      </if>
+      <if test="vendeeId != null and vendeeId != '' ">
+        #{vendeeId,jdbcType=BIGINT},
+      </if>
+      <if test="rcvWarehId != null and rcvWarehId != '' ">
+        #{rcvWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="endUnitId != null and endUnitId != '' ">
+        #{endUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="endWarehId != null and endWarehId != '' ">
+        #{endWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="vdeInvd != null and vdeInvd != '' ">
+        #{vdeInvd,jdbcType=CHAR},
+      </if>
+      <if test="puaAutoGen != null and puaAutoGen != '' ">
+        #{puaAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="puaGen != null and puaGen !='' ">
+        #{puaGen,jdbcType=CHAR},
+      </if>
+      <if test="puaAutoChk != null and puaAutoChk != '' ">
+        #{puaAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="venderId != null and venderId != '' ">
+        #{venderId,jdbcType=BIGINT},
+      </if>
+      <if test="delivWarehId != null and delivWarehId != '' ">
+        #{delivWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="stUnitId != null and stUnitId != '' ">
+        #{stUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="stWarehId != null and stWarehId != '' ">
+        #{stWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="vdrInvd != null and vdrInvd != '' ">
+        #{vdrInvd,jdbcType=CHAR},
+      </if>
+      <if test="slaAutoGen != null and slaAutoGen != '' ">
+        #{slaAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="slaGen != null and slaGen != '' ">
+        #{slaGen,jdbcType=CHAR},
+      </if>
+      <if test="slaAutoChk != null and slaAutoChk != '' ">
+        #{slaAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="rqdCtrl != null and rqdCtrl != '' ">
+        #{rqdCtrl,jdbcType=CHAR},
+      </if>
+      <if test="reqdDate != null and reqdDate != '' ">
+        #{reqdDate,jdbcType=DATE},
+      </if>
+      <if test="prodCatId != null and prodCatId != '' ">
+        #{prodCatId,jdbcType=VARCHAR},
+      </if>
+      <if test="ordType != null and ordType != '' ">
+        #{ordType,jdbcType=VARCHAR},
+      </if>
+      <if test="bxiEnabled != null and bxiEnabled != '' ">
+        #{bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="ttlQty != null and ttlQty != '' ">
+        #{ttlQty,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlBox != null and ttlBox != '' ">
+        #{ttlBox,jdbcType=BIGINT},
+      </if>
+      <if test="ttlVal != null and ttlVal != '' ">
+        #{ttlVal,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlMkv != null and ttlMkv != '' ">
+        #{ttlMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="oprId != null and oprId != '' ">
+        #{oprId,jdbcType=BIGINT},
+        now(),
+      </if>
+      <if test="effective != null and effective != '' ">
+        #{effective,jdbcType=CHAR},
+      </if>
+      <if test="progress != null and progress != '' ">
+        #{progress,jdbcType=CHAR},
+      </if>
+      <if test="cancelled != null and cancelled != '' ">
+        #{cancelled,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null and remarks != '' ">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Psx">
+    update psx
+    <set>
+      <if test="docDate != null">
+        doc_date = #{docDate,jdbcType=DATE},
+      </if>
+      <if test="psxType != null">
+        psx_type = #{psxType,jdbcType=VARCHAR},
+      </if>
+      <if test="vendeeId != null">
+        vendee_id = #{vendeeId,jdbcType=BIGINT},
+      </if>
+      <if test="rcvWarehId != null">
+        rcv_wareh_id = #{rcvWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="endUnitId != null">
+        end_unit_id = #{endUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="endWarehId != null">
+        end_wareh_id = #{endWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="vdeInvd != null">
+        vde_invd = #{vdeInvd,jdbcType=CHAR},
+      </if>
+      <if test="puaAutoGen != null">
+        pua_auto_gen = #{puaAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="puaGen != null">
+        pua_gen = #{puaGen,jdbcType=CHAR},
+      </if>
+      <if test="puaAutoChk != null">
+        pua_auto_chk = #{puaAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="venderId != null">
+        vender_id = #{venderId,jdbcType=BIGINT},
+      </if>
+      <if test="delivWarehId != null">
+        deliv_wareh_id = #{delivWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="stUnitId != null">
+        st_unit_id = #{stUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="stWarehId != null">
+        st_wareh_id = #{stWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="vdrInvd != null">
+        vdr_invd = #{vdrInvd,jdbcType=CHAR},
+      </if>
+      <if test="slaAutoGen != null">
+        sla_auto_gen = #{slaAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="slaGen != null">
+        sla_gen = #{slaGen,jdbcType=CHAR},
+      </if>
+      <if test="slaAutoChk != null">
+        sla_auto_chk = #{slaAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="rqdCtrl != null">
+        rqd_ctrl = #{rqdCtrl,jdbcType=CHAR},
+      </if>
+      <if test="reqdDate != null">
+        reqd_date = #{reqdDate,jdbcType=DATE},
+      </if>
+      <if test="prodCatId != null">
+        prod_cat_id = #{prodCatId,jdbcType=VARCHAR},
+      </if>
+      <if test="ordType != null">
+        ord_type = #{ordType,jdbcType=VARCHAR},
+      </if>
+      <if test="bxiEnabled != null">
+        bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="ttlQty != null">
+        ttl_qty = #{ttlQty,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlBox != null">
+        ttl_box = #{ttlBox,jdbcType=BIGINT},
+      </if>
+      <if test="ttlVal != null">
+        ttl_val = #{ttlVal,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlMkv != null">
+        ttl_mkv = #{ttlMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="oprId != null">
+        opr_id = #{oprId,jdbcType=BIGINT},
+      </if>
+      <if test="opTime != null">
+        op_time = #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effective != null">
+        effective = #{effective,jdbcType=CHAR},
+      </if>
+      <if test="progress != null">
+        progress = #{progress,jdbcType=CHAR},
+      </if>
+      <if test="cancelled != null">
+        cancelled = #{cancelled,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="stPsxNum != null">
+      st_psx_num = #{stPsxNum,jdbcType=VARCHAR},
+      </if>
+      <if test="endPsxNum != null">
+      end_psx_num = #{endPsxNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where psx_num = #{psxNum,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPuaVo" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsxVo">
+    update psx
+    <set>
+      <if test="docDate != null and docDate != '' ">
+        doc_date = #{docDate,jdbcType=DATE},
+      </if>
+      <if test="psxType != null and psxType != '' ">
+        psx_type = #{psxType,jdbcType=VARCHAR},
+      </if>
+      <if test="vendeeId != null and vendeeId != '' ">
+        vendee_id = #{vendeeId,jdbcType=BIGINT},
+      </if>
+      <if test="rcvWarehId != null and rcvWarehId != '' ">
+        rcv_wareh_id = #{rcvWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="endUnitId != null and endUnitId != '' ">
+        end_unit_id = #{endUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="endWarehId != null and endWarehId != '' ">
+        end_wareh_id = #{endWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="vdeInvd != null and vdeInvd != '' ">
+        vde_invd = #{vdeInvd,jdbcType=CHAR},
+      </if>
+      <if test="puaAutoGen != null and puaAutoGen != '' ">
+        pua_auto_gen = #{puaAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="puaGen != null and puaGen != '' ">
+        pua_gen = #{puaGen,jdbcType=CHAR},
+      </if>
+      <if test="puaAutoChk != null and puaAutoChk != '' ">
+        pua_auto_chk = #{puaAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="venderId != null and venderId != '' ">
+        vender_id = #{venderId,jdbcType=BIGINT},
+      </if>
+      <if test="delivWarehId != null and delivWarehId != '' ">
+        deliv_wareh_id = #{delivWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="stUnitId != null and stUnitId != '' ">
+        st_unit_id = #{stUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="stWarehId != null and stWarehId != '' ">
+        st_wareh_id = #{stWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="vdrInvd != null and vdrInvd != '' ">
+        vdr_invd = #{vdrInvd,jdbcType=CHAR},
+      </if>
+      <if test="slaAutoGen != null and slaAutoGen != '' ">
+        sla_auto_gen = #{slaAutoGen,jdbcType=CHAR},
+      </if>
+      <if test="slaGen != null and slaGen != '' ">
+        sla_gen = #{slaGen,jdbcType=CHAR},
+      </if>
+      <if test="slaAutoChk != null and slaAutoChk != '' ">
+        sla_auto_chk = #{slaAutoChk,jdbcType=CHAR},
+      </if>
+      <if test="rqdCtrl != null and rqdCtrl != '' ">
+        rqd_ctrl = #{rqdCtrl,jdbcType=CHAR},
+      </if>
+      <if test="reqdDate != null and reqdDate != '' ">
+        reqd_date = #{reqdDate,jdbcType=DATE},
+      </if>
+      <if test="prodCatId != null and prodCatId != '' ">
+        prod_cat_id = #{prodCatId,jdbcType=VARCHAR},
+      </if>
+      <if test="ordType != null and ordType != '' ">
+        ord_type = #{ordType,jdbcType=VARCHAR},
+      </if>
+      <if test="bxiEnabled != null and bxiEnabled != '' ">
+        bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="ttlQty != null and ttlQty != '' ">
+        ttl_qty = #{ttlQty,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlBox != null and ttlBox != '' ">
+        ttl_box = #{ttlBox,jdbcType=BIGINT},
+      </if>
+      <if test="ttlVal != null and ttlVal != '' ">
+        ttl_val = #{ttlVal,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlMkv != null and ttlMkv != '' ">
+        ttl_mkv = #{ttlMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="oprId != null and oprId != '' ">
+        opr_id = #{oprId,jdbcType=BIGINT},
+        op_time = now(),
+      </if>
+      <if test="effective != null and effective != '' ">
+        effective = #{effective,jdbcType=CHAR},
+      </if>
+      <if test="progress != null and progress != '' ">
+        progress = #{progress,jdbcType=CHAR},
+      </if>
+      <if test="cancelled != null and cancelled != '' ">
+        cancelled = #{cancelled,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null and remarks != '' ">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where psx_num = #{psxNum,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Psx">
+    update psx
+    set doc_date = #{docDate,jdbcType=DATE},
+      psx_type = #{psxType,jdbcType=VARCHAR},
+      vendee_id = #{vendeeId,jdbcType=BIGINT},
+      rcv_wareh_id = #{rcvWarehId,jdbcType=BIGINT},
+      end_unit_id = #{endUnitId,jdbcType=BIGINT},
+      end_wareh_id = #{endWarehId,jdbcType=BIGINT},
+      vde_invd = #{vdeInvd,jdbcType=CHAR},
+      pua_auto_gen = #{puaAutoGen,jdbcType=CHAR},
+      pua_gen = #{puaGen,jdbcType=CHAR},
+      pua_auto_chk = #{puaAutoChk,jdbcType=CHAR},
+      vender_id = #{venderId,jdbcType=BIGINT},
+      deliv_wareh_id = #{delivWarehId,jdbcType=BIGINT},
+      st_unit_id = #{stUnitId,jdbcType=BIGINT},
+      st_wareh_id = #{stWarehId,jdbcType=BIGINT},
+      vdr_invd = #{vdrInvd,jdbcType=CHAR},
+      sla_auto_gen = #{slaAutoGen,jdbcType=CHAR},
+      sla_gen = #{slaGen,jdbcType=CHAR},
+      sla_auto_chk = #{slaAutoChk,jdbcType=CHAR},
+      rqd_ctrl = #{rqdCtrl,jdbcType=CHAR},
+      reqd_date = #{reqdDate,jdbcType=DATE},
+      prod_cat_id = #{prodCatId,jdbcType=VARCHAR},
+      ord_type = #{ordType,jdbcType=VARCHAR},
+      bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+      ttl_qty = #{ttlQty,jdbcType=DECIMAL},
+      ttl_box = #{ttlBox,jdbcType=BIGINT},
+      ttl_val = #{ttlVal,jdbcType=DECIMAL},
+      ttl_mkv = #{ttlMkv,jdbcType=DECIMAL},
+      opr_id = #{oprId,jdbcType=BIGINT},
+      op_time = #{opTime,jdbcType=TIMESTAMP},
+      effective = #{effective,jdbcType=CHAR},
+      progress = #{progress,jdbcType=CHAR},
+      cancelled = #{cancelled,jdbcType=CHAR},
+      st_psx_num = #{stPsxNum,jdbcType=VARCHAR},
+      end_psx_num = #{endPsxNum,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where psx_num = #{psxNum,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updeteByGen" parameterType="java.lang.String">
+    update psx
+    <set>
+        <if test="puaGen!=null and puaGen!='' ">
+          pua_gen = #{puaGen},
+        </if>
+        <if test="slaGen!=null and slaGen!='' ">
+          sla_gen = #{slaGen},
+        </if>
+    </set>
+    where psx_num = #{psxNum}
+  </update>
+
+  <update id="updateByPsxVo" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsxVo">
+    update psx
+    <set>
+      <if test="puaGen != null and puaGen!='' ">
+        pua_gen = #{puaGen,jdbcType=CHAR},
+      </if>
+      <if test="slaGen != null and slaGen!='' ">
+        sla_gen = #{slaGen,jdbcType=CHAR},
+      </if>
+      <if test="oprId != null and oprId!='' ">
+        opr_id = #{oprId,jdbcType=BIGINT},
+        op_time = now(),
+      </if>
+      <if test="effective != null and effective!='' ">
+        effective = #{effective,jdbcType=CHAR},
+      </if>
+      <if test="progress != null and progress!='' ">
+        progress = #{progress,jdbcType=CHAR},
+      </if>
+      <if test="cancelled != null and cancelled!='' ">
+        cancelled = #{cancelled,jdbcType=CHAR},
+      </if>
+    </set>
+    where psx_num = #{psxNum,jdbcType=VARCHAR}
+  </update>
+</mapper>

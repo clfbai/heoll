@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.basic.PartnerMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.basic.Partner">
+    <id column="ptnr_id" jdbcType="BIGINT" property="ptnrId" />
+    <id column="owner_id" jdbcType="BIGINT" property="ownerId" />
+    <result column="pcr_lvl" jdbcType="VARCHAR" property="pcrLvl" />
+    <result column="dflt_fwdr_id" jdbcType="BIGINT" property="dfltFwdrId" />
+    <result column="dflt_deliv_mthd" jdbcType="VARCHAR" property="dfltDelivMthd" />
+    <result column="man_cond" jdbcType="VARCHAR" property="manCond" />
+    <result column="ptnr_status" jdbcType="CHAR" property="ptnrStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ptnr_id, owner_id, pcr_lvl, dflt_fwdr_id, dflt_deliv_mthd, man_cond, ptnr_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Partner" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from partner
+    where ptnr_id = #{ptnrId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Partner">
+    delete from partner
+    where ptnr_id = #{ptnrId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Partner">
+    insert into partner (ptnr_id, owner_id, pcr_lvl, 
+      dflt_fwdr_id, dflt_deliv_mthd, man_cond, 
+      ptnr_status)
+    values (#{ptnrId,jdbcType=BIGINT}, #{ownerId,jdbcType=BIGINT}, #{pcrLvl,jdbcType=VARCHAR}, 
+      #{dfltFwdrId,jdbcType=BIGINT}, #{dfltDelivMthd,jdbcType=VARCHAR}, #{manCond,jdbcType=VARCHAR}, 
+      #{ptnrStatus,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Partner">
+    insert into partner
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ptnrId != null">
+        ptnr_id,
+      </if>
+      <if test="ownerId != null">
+        owner_id,
+      </if>
+      <if test="pcrLvl != null">
+        pcr_lvl,
+      </if>
+      <if test="dfltFwdrId != null">
+        dflt_fwdr_id,
+      </if>
+      <if test="dfltDelivMthd != null">
+        dflt_deliv_mthd,
+      </if>
+      <if test="manCond != null">
+        man_cond,
+      </if>
+      <if test="ptnrStatus != null">
+        ptnr_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ptnrId != null">
+        #{ptnrId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="pcrLvl != null">
+        #{pcrLvl,jdbcType=VARCHAR},
+      </if>
+      <if test="dfltFwdrId != null">
+        #{dfltFwdrId,jdbcType=BIGINT},
+      </if>
+      <if test="dfltDelivMthd != null">
+        #{dfltDelivMthd,jdbcType=VARCHAR},
+      </if>
+      <if test="manCond != null">
+        #{manCond,jdbcType=VARCHAR},
+      </if>
+      <if test="ptnrStatus != null">
+        #{ptnrStatus,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Partner">
+    update partner
+    <set>
+      <if test="pcrLvl != null">
+        pcr_lvl = #{pcrLvl,jdbcType=VARCHAR},
+      </if>
+      <if test="dfltFwdrId != null">
+        dflt_fwdr_id = #{dfltFwdrId,jdbcType=BIGINT},
+      </if>
+      <if test="dfltDelivMthd != null">
+        dflt_deliv_mthd = #{dfltDelivMthd,jdbcType=VARCHAR},
+      </if>
+      <if test="manCond != null">
+        man_cond = #{manCond,jdbcType=VARCHAR},
+      </if>
+      <if test="ptnrStatus != null">
+        ptnr_status = #{ptnrStatus,jdbcType=CHAR},
+      </if>
+    </set>
+    where ptnr_id = #{ptnrId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Partner">
+    update partner
+    set pcr_lvl = #{pcrLvl,jdbcType=VARCHAR},
+      dflt_fwdr_id = #{dfltFwdrId,jdbcType=BIGINT},
+      dflt_deliv_mthd = #{dfltDelivMthd,jdbcType=VARCHAR},
+      man_cond = #{manCond,jdbcType=VARCHAR},
+      ptnr_status = #{ptnrStatus,jdbcType=CHAR}
+    where ptnr_id = #{ptnrId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+  </update>
+</mapper>

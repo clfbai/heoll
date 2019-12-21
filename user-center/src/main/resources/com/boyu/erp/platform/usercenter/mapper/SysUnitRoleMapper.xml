@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysUnitRoleMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysUnitRoleKey">
+        <id column="unit_id" property="unitId"/>
+        <id column="role_id" jdbcType="VARCHAR" property="roleId"/>
+    </resultMap>
+
+    <!--删除组织角色表(角色对应所有的组织)-->
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitRoleKey">
+    delete from sys_unit_role
+    where
+       role_id = #{roleId}
+  </delete>
+
+    <insert id="insertSelective" parameterType="SysUnitRoleKey">
+        insert into sys_unit_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId},
+            </if>
+            <if test="roleId != null">
+                #{roleId},
+            </if>
+        </trim>
+    </insert>
+    <!--查询-->
+    <select id="selectAll" parameterType="com.boyu.erp.platform.usercenter.vo.system.UnitRoleVo" resultType="SysRole">
+        SELECT
+        b.`role_id` AS roleId,
+        b.`description` AS description,
+        b.`role_type` AS roletype
+        FROM
+        sys_unit_role a
+        INNER JOIN sys_role b
+        ON (a.`role_id` = b.`role_id`)
+        where 1 = 1
+        <if test="unitId!=null">
+            and a.unit_id=#{unitId}
+        </if>
+        <if test="roleId!=null ">
+            and a.role_id like CONCAT('%', #{roleId}, '%')
+        </if>
+        <if test="description!=null and description!=''">
+            and b.description like CONCAT('%', #{description}, '%')
+        </if>
+    </select>
+    <!--系统管理员角色-->
+    <select id="getAll" parameterType="com.boyu.erp.platform.usercenter.vo.system.UnitRoleVo" resultType="SysRole">
+        SELECT
+        `role_id` AS roleId,
+        `description` AS description,
+        `role_type` AS roletype
+        FROM sys_role
+        WHERE 1=1
+        <if test="roleId!=null">
+            AND INSTR(role_id,#{roleId})>0
+        </if>
+        <if test="description!=null">
+            AND INSTR(description,#{description})>0
+        </if>
+    </select>
+
+    <select id="findByUnitId" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM sys_unit_role
+        WHERE unit_id=#{unitId}
+    </select>
+</mapper>

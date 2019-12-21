@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.CatStkLmtMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.CatStkLmt">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="cat_id" jdbcType="VARCHAR" property="catId"/>
+        <id column="prod_id" jdbcType="BIGINT" property="prodId"/>
+        <result column="max_stk" jdbcType="DECIMAL" property="maxStk"/>
+        <result column="min_stk" jdbcType="DECIMAL" property="minStk"/>
+        <result column="best_stk" jdbcType="DECIMAL" property="bestStk"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    unit_id, cat_id, prod_id, max_stk, min_stk, best_stk
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.CatStkLmt"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from cat_stk_lmt
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and cat_id = #{catId,jdbcType=VARCHAR}
+        and prod_id = #{prodId,jdbcType=BIGINT}
+    </select>
+    <!--查询分类库存预警-->
+    <select id="selectList" parameterType="com.boyu.erp.platform.usercenter.model.wareh.CatStkLmtModel"
+            resultType="com.boyu.erp.platform.usercenter.vo.warehouse.CatStkLmtVo">
+        select
+        c.best_stk AS bestStk,
+        c.cat_id AS catId,
+        c.min_stk AS minStk,
+        c.max_stk AS maxStk,
+        c.unit_id AS unitId,
+        c.prod_id AS prodId,
+        d.`description` as typeCp ,
+        u.`unit_name` as unitName,
+        u.`unit_code` as unitNum,
+        p.`prod_code` as prodCode,
+        p2.`prod_name` as prodName,
+        b.`brand_name` as brandName,
+        cl.`color_name` as colorName,
+        p2.`spec_id` as specId,
+        d2.`description` as editionCp
+        from
+        `cat_stk_lmt` c
+        inner join sys_unit u
+        on c.`unit_id` = u.`unit_id`
+        left join sys_code_dtl d
+        on c.`cat_id` = d.`code`
+        and d.`code_type` = #{catCode}
+        inner join product p
+        on c.`prod_id` = p.`prod_id`
+        inner join prod_cls p2
+        on p.`prod_cls_id` = p2.`prod_cls_id`
+        left join brand b
+        on p2.`brand_id` = b.`brand_id`
+        left join color cl
+        on p2.`color_id` = cl.`color_id`
+        left join sys_code_dtl d2
+        on p2.`edition` = d2.`code`
+        and d2.`code_type` = 'EDITION'
+        where 1=1
+        <if test="unitId!=null and sql==null ">
+            and c.`unit_id`=#{unitId}
+        </if>
+        <if test="unitId==null and sql!=null ">
+          and c.`unit_id` IN  (${sql})
+        </if>
+        <if test="catId!=null and catId!=''">
+            and c.`cat_id`=#{catId}
+        </if>
+        <if test="prodCode!=null and prodCode!=''">
+            and instr(p.`prod_code`,#{prodCode})>0
+        </if>
+        <if test="brandId!=null and brandId!=''">
+            and b.`brand_id`=#{brandId}
+        </if>
+        <if test="unitNum!=null and unitNum!=''">
+          and  INSTR( u.`unit_code`,#{unitNum})>0
+        </if>
+    </select>
+
+    <delete id="deleteProdKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.CatStkLmt">
+    delete from cat_stk_lmt
+    where prod_id = #{prodId,jdbcType=BIGINT}
+  </delete>
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.CatStkLmt">
+    delete from cat_stk_lmt
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and cat_id = #{catId,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </delete>
+
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.CatStkLmt">
+    insert into cat_stk_lmt (unit_id, cat_id, prod_id, 
+      max_stk, min_stk, best_stk
+      )
+    values (#{unitId,jdbcType=BIGINT}, #{catId,jdbcType=VARCHAR}, #{prodId,jdbcType=BIGINT}, 
+      #{maxStk,jdbcType=DECIMAL}, #{minStk,jdbcType=DECIMAL}, #{bestStk,jdbcType=DECIMAL}
+      )
+  </insert>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.CatStkLmt">
+        insert into cat_stk_lmt
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="catId != null">
+                cat_id,
+            </if>
+            <if test="prodId != null">
+                prod_id,
+            </if>
+            <if test="maxStk != null">
+                max_stk,
+            </if>
+            <if test="minStk != null">
+                min_stk,
+            </if>
+            <if test="bestStk != null">
+                best_stk,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="catId != null">
+                #{catId,jdbcType=VARCHAR},
+            </if>
+            <if test="prodId != null">
+                #{prodId,jdbcType=BIGINT},
+            </if>
+            <if test="maxStk != null">
+                #{maxStk,jdbcType=DECIMAL},
+            </if>
+            <if test="minStk != null">
+                #{minStk,jdbcType=DECIMAL},
+            </if>
+            <if test="bestStk != null">
+                #{bestStk,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.CatStkLmt">
+        update cat_stk_lmt
+        <set>
+            <if test="maxStk != null">
+                max_stk = #{maxStk,jdbcType=DECIMAL},
+            </if>
+            <if test="minStk != null">
+                min_stk = #{minStk,jdbcType=DECIMAL},
+            </if>
+            <if test="bestStk != null">
+                best_stk = #{bestStk,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and cat_id = #{catId,jdbcType=VARCHAR}
+        and prod_id = #{prodId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.CatStkLmt">
+    update cat_stk_lmt
+    set max_stk = #{maxStk,jdbcType=DECIMAL},
+      min_stk = #{minStk,jdbcType=DECIMAL},
+      best_stk = #{bestStk,jdbcType=DECIMAL}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and cat_id = #{catId,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </update>
+</mapper>

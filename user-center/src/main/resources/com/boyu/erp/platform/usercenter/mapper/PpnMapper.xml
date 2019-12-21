@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.Price.PpnMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.Price.Ppn">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="ppn_num" jdbcType="VARCHAR" property="ppnNum"/>
+        <result column="doc_date" jdbcType="DATE" property="docDate"/>
+        <result column="xp_type" jdbcType="CHAR" property="xpType"/>
+        <result column="prc_scp" jdbcType="CHAR" property="prcScp"/>
+        <result column="rsv_unit" jdbcType="CHAR" property="rsvUnit"/>
+        <result column="prc_rsn" jdbcType="VARCHAR" property="prcRsn"/>
+        <result column="eff_date" jdbcType="DATE" property="effDate"/>
+        <result column="expd_date" jdbcType="DATE" property="expdDate"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="op_time" jdbcType="TIMESTAMP" property="opTime"/>
+        <result column="chkr_id" jdbcType="BIGINT" property="chkrId"/>
+        <result column="chk_time" jdbcType="TIMESTAMP" property="chkTime"/>
+        <result column="extr_id" jdbcType="BIGINT" property="extrId"/>
+        <result column="exec_time" jdbcType="TIMESTAMP" property="execTime"/>
+        <result column="effective" jdbcType="CHAR" property="effective"/>
+        <result column="progress" jdbcType="CHAR" property="progress"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="cancelled" jdbcType="CHAR" property="cancelled"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapByPpnVo" type="com.boyu.erp.platform.usercenter.vo.price.PpnVo">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="ppn_num" jdbcType="VARCHAR" property="ppnNum"/>
+        <result column="doc_date" jdbcType="DATE" property="docDate"/>
+        <result column="xp_type" jdbcType="CHAR" property="xpType"/>
+        <result column="prc_scp" jdbcType="CHAR" property="prcScp"/>
+        <result column="rsv_unit" jdbcType="CHAR" property="rsvUnit"/>
+        <result column="prc_rsn" jdbcType="VARCHAR" property="prcRsn"/>
+        <result column="eff_date" jdbcType="DATE" property="effDate"/>
+        <result column="expd_date" jdbcType="DATE" property="expdDate"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="oprNum" property="oprNum"/>
+        <result column="oprName" property="oprName"/>
+        <result column="opTime" property="opTime"/>
+        <result column="chkr_id" jdbcType="BIGINT" property="chkrId"/>
+        <result column="chkrNum" property="chkrNum"/>
+        <result column="chkrName" property="chkrName"/>
+        <result column="chkTime" property="chkTime"/>
+        <result column="extr_id" jdbcType="BIGINT" property="extrId"/>
+        <result column="extrNum" property="extrNum"/>
+        <result column="extrName" property="extrName"/>
+        <result column="execTime" property="execTime"/>
+        <result column="effective" jdbcType="CHAR" property="effective"/>
+        <result column="progress" jdbcType="CHAR" property="progress"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="cancelled" jdbcType="CHAR" property="cancelled"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    unit_id, ppn_num, doc_date, xp_type, prc_scp, rsv_unit, prc_rsn, eff_date, expd_date, 
+    opr_id, op_time, chkr_id, chk_time, extr_id, exec_time, effective, progress, suspended, 
+    cancelled, remarks
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.Price.Ppn"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ppn
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and ppn_num = #{ppnNum,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.Price.Ppn">
+    delete from ppn
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and ppn_num = #{ppnNum,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.Price.Ppn">
+    insert into ppn (unit_id, ppn_num, doc_date, 
+      xp_type, prc_scp, rsv_unit, prc_rsn, 
+      eff_date, expd_date, opr_id, 
+      op_time, chkr_id, chk_time, 
+      extr_id, exec_time, effective, 
+      progress, suspended, cancelled, 
+      remarks)
+    values (#{unitId,jdbcType=BIGINT}, #{ppnNum,jdbcType=VARCHAR}, #{docDate,jdbcType=DATE}, 
+      #{xpType,jdbcType=CHAR}, #{prcScp,jdbcType=CHAR}, #{rsvUnit,jdbcType=CHAR}, #{prcRsn,jdbcType=VARCHAR}, 
+      #{effDate,jdbcType=DATE}, #{expdDate,jdbcType=DATE}, #{oprId,jdbcType=BIGINT}, 
+      #{opTime,jdbcType=TIMESTAMP}, #{chkrId,jdbcType=BIGINT}, #{chkTime,jdbcType=TIMESTAMP}, 
+      #{extrId,jdbcType=BIGINT}, #{execTime,jdbcType=TIMESTAMP}, #{effective,jdbcType=CHAR}, 
+      #{progress,jdbcType=CHAR}, #{suspended,jdbcType=CHAR}, #{cancelled,jdbcType=CHAR}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.vo.price.PpnVo">
+        insert into ppn
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null and unitId!='' ">
+                unit_id,
+            </if>
+            <if test="ppnNum != null and ppnNum!='' ">
+                ppn_num,
+            </if>
+                doc_date,
+            <if test="xpType != null and xpType!='' ">
+                xp_type,
+            </if>
+            <if test="prcScp != null and prcScp!='' ">
+                prc_scp,
+            </if>
+            <if test="rsvUnit != null and rsvUnit!='' ">
+                rsv_unit,
+            </if>
+            <if test="prcRsn != null and prcRsn!='' ">
+                prc_rsn,
+            </if>
+            <if test="effDate != null and effDate!='' ">
+                eff_date,
+            </if>
+            <if test="expdDate != null and expdDate!='' ">
+                expd_date,
+            </if>
+            <if test="oprId != null and oprId!='' ">
+                opr_id,
+                op_time,
+            </if>
+            <if test="chkrId != null and chkrId!='' ">
+                chkr_id,
+            </if>
+            <if test="chkTime != null and chkTime!='' ">
+                chk_time,
+            </if>
+            <if test="extrId != null and extrId!='' ">
+                extr_id,
+            </if>
+            <if test="execTime != null and execTime!='' ">
+                exec_time,
+            </if>
+            <if test="effective != null and effective!='' ">
+                effective,
+            </if>
+            <if test="progress != null and progress!='' ">
+                progress,
+            </if>
+            <if test="suspended != null and suspended!='' ">
+                suspended,
+            </if>
+            <if test="cancelled != null and cancelled!='' ">
+                cancelled,
+            </if>
+            <if test="remarks != null and remarks!='' ">
+                remarks,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null and unitId!='' ">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="ppnNum != null and ppnNum!='' ">
+                #{ppnNum,jdbcType=VARCHAR},
+            </if>
+            DATE_FORMAT( now(), '%Y-%m-%d' ),
+            <if test="xpType != null and xpType!='' ">
+                #{xpType,jdbcType=CHAR},
+            </if>
+            <if test="prcScp != null and prcScp!='' ">
+                #{prcScp,jdbcType=CHAR},
+            </if>
+            <if test="rsvUnit != null and rsvUnit!='' ">
+                #{rsvUnit,jdbcType=CHAR},
+            </if>
+            <if test="prcRsn != null and prcRsn!='' ">
+                #{prcRsn,jdbcType=VARCHAR},
+            </if>
+            <if test="effDate != null and effDate!='' ">
+                #{effDate,jdbcType=DATE},
+            </if>
+            <if test="expdDate != null and expdDate!='' ">
+                #{expdDate,jdbcType=DATE},
+            </if>
+            <if test="oprId != null and oprId!='' ">
+                #{oprId,jdbcType=BIGINT},
+                now(),
+            </if>
+            <if test="chkrId != null and chkrId!='' ">
+                #{chkrId,jdbcType=BIGINT},
+            </if>
+            <if test="chkTime != null and chkTime!='' ">
+                #{chkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="extrId != null and extrId!='' ">
+                #{extrId,jdbcType=BIGINT},
+            </if>
+            <if test="execTime != null and execTime!='' ">
+                #{execTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="effective != null and effective!='' ">
+                #{effective,jdbcType=CHAR},
+            </if>
+            <if test="progress != null and progress!='' ">
+                #{progress,jdbcType=CHAR},
+            </if>
+            <if test="suspended != null and suspended!='' ">
+                #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="cancelled != null and cancelled!='' ">
+                #{cancelled,jdbcType=CHAR},
+            </if>
+            <if test="remarks != null and remarks!='' ">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.vo.price.PpnVo">
+        update ppn
+        <set>
+            <if test="docDate != null and docDate != '' ">
+                doc_date = #{docDate,jdbcType=DATE},
+            </if>
+            <if test="xpType != null and xpType != '' ">
+                xp_type = #{xpType,jdbcType=CHAR},
+            </if>
+            <if test="prcScp != null and prcScp != '' ">
+                prc_scp = #{prcScp,jdbcType=CHAR},
+            </if>
+            <if test="rsvUnit != null and rsvUnit != '' ">
+                rsv_unit = #{rsvUnit,jdbcType=CHAR},
+            </if>
+            <if test="prcRsn != null and prcRsn != '' ">
+                prc_rsn = #{prcRsn,jdbcType=VARCHAR},
+            </if>
+            <if test="effDate != null and effDate != '' ">
+                eff_date = #{effDate,jdbcType=DATE},
+            </if>
+            <if test="expdDate != null and expdDate != '' ">
+                expd_date = #{expdDate,jdbcType=DATE},
+            </if>
+            <if test="oprId != null and oprId != '' ">
+                opr_id = #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="opTime != null and opTime != '' ">
+                op_time = #{opTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="chkrId != null and chkrId != '' ">
+                chkr_id = #{chkrId,jdbcType=BIGINT},
+            </if>
+            <if test="chkTime != null and chkTime != '' ">
+                chk_time = #{chkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="extrId != null and extrId != '' ">
+                extr_id = #{extrId,jdbcType=BIGINT},
+            </if>
+            <if test="execTime != null and execTime != '' ">
+                exec_time = #{execTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="effective != null and effective != '' ">
+                effective = #{effective,jdbcType=CHAR},
+            </if>
+            <if test="progress != null and progress != '' ">
+                progress = #{progress,jdbcType=CHAR},
+            </if>
+            <if test="suspended != null and suspended != '' ">
+                suspended = #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="cancelled != null and cancelled != '' ">
+                cancelled = #{cancelled,jdbcType=CHAR},
+            </if>
+            <if test="remarks != null and remarks != '' ">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and ppn_num = #{ppnNum,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.Price.Ppn">
+    update ppn
+    set doc_date = #{docDate,jdbcType=DATE},
+      xp_type = #{xpType,jdbcType=CHAR},
+      prc_scp = #{prcScp,jdbcType=CHAR},
+      rsv_unit = #{rsvUnit,jdbcType=CHAR},
+      prc_rsn = #{prcRsn,jdbcType=VARCHAR},
+      eff_date = #{effDate,jdbcType=DATE},
+      expd_date = #{expdDate,jdbcType=DATE},
+      opr_id = #{oprId,jdbcType=BIGINT},
+      op_time = #{opTime,jdbcType=TIMESTAMP},
+      chkr_id = #{chkrId,jdbcType=BIGINT},
+      chk_time = #{chkTime,jdbcType=TIMESTAMP},
+      extr_id = #{extrId,jdbcType=BIGINT},
+      exec_time = #{execTime,jdbcType=TIMESTAMP},
+      effective = #{effective,jdbcType=CHAR},
+      progress = #{progress,jdbcType=CHAR},
+      suspended = #{suspended,jdbcType=CHAR},
+      cancelled = #{cancelled,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and ppn_num = #{ppnNum,jdbcType=VARCHAR}
+  </update>
+
+    <!--系统管理员查询-->
+    <select id="selectALL" parameterType="com.boyu.erp.platform.usercenter.vo.price.PpnVo"
+            resultMap="BaseResultMapByPpnVo">
+    SELECT
+        p.unit_id,
+        p.ppn_num,
+        p.doc_date,
+        p.xp_type,
+        p.prc_scp,
+        p.rsv_unit,
+        p.prc_rsn,
+        p.eff_date,
+        p.expd_date,
+        p.opr_id,
+        spo.prsnl_num AS oprNum,
+        sp.full_name AS oprName,
+        DATE_FORMAT( p.op_time, '%Y-%m-%d %H:%i:%S' ) AS opTime,
+        p.chkr_id,
+        spo1.prsnl_num AS chkrNum,
+        sp1.full_name AS chkrName,
+        DATE_FORMAT( p.chk_time, '%Y-%m-%d %H:%i:%S' ) AS chkTime,
+        p.extr_id,
+        spo2.prsnl_num AS extrNum,
+        sp2.full_name AS extrName,
+        DATE_FORMAT( p.exec_time, '%Y-%m-%d %H:%i:%S' ) AS execTime,
+        p.effective,
+        p.progress,
+        p.suspended,
+        p.cancelled,
+        p.remarks
+    FROM
+        ppn p
+        LEFT JOIN sys_prsnl sp ON sp.prsnl_id = p.opr_id
+        LEFT JOIN sys_prsnl_owner spo ON spo.prsnl_id = p.opr_id
+        AND spo.owner_id = p.unit_id
+        LEFT JOIN sys_prsnl sp1 ON sp1.prsnl_id = p.chkr_id
+        LEFT JOIN sys_prsnl_owner spo1 ON spo1.prsnl_id = p.chkr_id
+        AND spo1.owner_id = p.unit_id
+        LEFT JOIN sys_prsnl sp2 ON sp2.prsnl_id = p.extr_id
+        LEFT JOIN sys_prsnl_owner spo2 ON spo2.prsnl_id = p.extr_id
+        AND spo2.owner_id = p.unit_id
+    WHERE 1 =1
+        <if test="ppnNum != null and ppnNum != '' and ppnNum != 'null'">
+            and p.ppn_num  like CONCAT( #{ppnNum}, '%')
+        </if>
+        <if test="progress != null and progress != '' and progress != 'null' ">
+            and p.progress  = #{progress}
+        </if>
+        <if test="startTime != null and startTime != '' ">
+            and  p.doc_date  &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' ">
+            and  p.doc_date  &lt;= #{endTime}
+        </if>
+  </select>
+
+    <!--组织查询-->
+    <select id="selectByUnit" parameterType="com.boyu.erp.platform.usercenter.vo.price.PpnVo"
+            resultMap="BaseResultMapByPpnVo">
+        SELECT
+        p.unit_id,
+        p.ppn_num,
+        p.doc_date,
+        p.xp_type,
+        p.prc_scp,
+        p.rsv_unit,
+        p.prc_rsn,
+        p.eff_date,
+        p.expd_date,
+        p.opr_id,
+        spo.prsnl_num AS oprNum,
+        sp.full_name AS oprName,
+        DATE_FORMAT( p.op_time, '%Y-%m-%d %H:%i:%S' ) AS opTime,
+        p.chkr_id,
+        spo1.prsnl_num AS chkrNum,
+        sp1.full_name AS chkrName,
+        DATE_FORMAT( p.chk_time, '%Y-%m-%d %H:%i:%S' ) AS chkTime,
+        p.extr_id,
+        spo2.prsnl_num AS extrNum,
+        sp2.full_name AS extrName,
+        DATE_FORMAT( p.exec_time, '%Y-%m-%d %H:%i:%S' ) AS execTime,
+        p.effective,
+        p.progress,
+        p.suspended,
+        p.cancelled,
+        p.remarks
+        FROM
+        ( SELECT a.* FROM ppn a WHERE 1 = 1
+           and a.unit_id = #{unitId}
+        ) p
+        LEFT JOIN sys_prsnl sp ON sp.prsnl_id = p.opr_id
+        LEFT JOIN sys_prsnl_owner spo ON spo.prsnl_id = p.opr_id
+        AND spo.owner_id = p.unit_id
+        LEFT JOIN sys_prsnl sp1 ON sp1.prsnl_id = p.chkr_id
+        LEFT JOIN sys_prsnl_owner spo1 ON spo1.prsnl_id = p.chkr_id
+        AND spo1.owner_id = p.unit_id
+        LEFT JOIN sys_prsnl sp2 ON sp2.prsnl_id = p.extr_id
+        LEFT JOIN sys_prsnl_owner spo2 ON spo2.prsnl_id = p.extr_id
+        AND spo2.owner_id = p.unit_id
+        WHERE 1 =1
+        <if test="ppnNum != null and ppnNum != '' and ppnNum != 'null'">
+            and p.ppn_num  like CONCAT( #{ppnNum}, '%')
+        </if>
+        <if test="progress != null and progress != '' and progress != 'null' ">
+            and p.progress  = #{progress}
+        </if>
+        <if test="startTime != null and startTime != '' ">
+            and  p.doc_date  &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' ">
+            and  p.doc_date  &lt;= #{endTime}
+        </if>
+    </select>
+
+    <delete id="deleteByPpn" parameterType="java.lang.String">
+    delete from ppn
+    where unit_id = #{unitId}
+      and ppn_num = #{ppnNum}
+  </delete>
+
+    <update id="updateByState" parameterType="com.boyu.erp.platform.usercenter.vo.price.PpnVo">
+        update ppn
+        <set>
+
+                chkr_id = #{chkrId},
+
+                chk_time = #{chkTime},
+
+            <if test="extrId != null and extrId != '' ">
+                extr_id = #{extrId,jdbcType=BIGINT},
+            </if>
+            <if test="execTime != null and execTime != '' ">
+                exec_time = #{execTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="effective != null and effective != '' ">
+                effective = #{effective,jdbcType=CHAR},
+            </if>
+            <if test="progress != null and progress != '' ">
+                progress = #{progress,jdbcType=CHAR},
+            </if>
+            <if test="suspended != null and suspended != '' ">
+                suspended = #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="cancelled != null and cancelled != '' ">
+                cancelled = #{cancelled,jdbcType=CHAR},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and ppn_num = #{ppnNum,jdbcType=VARCHAR}
+    </update>
+</mapper>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.StbDocDtMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.StbDocDtl">
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <id column="stb_num" jdbcType="VARCHAR" property="stbNum" />
+    <id column="src_doc_type" jdbcType="CHAR" property="srcDocType" />
+    <id column="src_doc_unit_id" jdbcType="DECIMAL" property="srcDocUnitId" />
+    <id column="src_doc_num" jdbcType="VARCHAR" property="srcDocNum" />
+    <id column="prod_id" jdbcType="BIGINT" property="prodId" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="disc_rate" jdbcType="DECIMAL" property="discRate" />
+    <result column="fnl_price" jdbcType="DECIMAL" property="fnlPrice" />
+    <result column="tax_rate" jdbcType="DECIMAL" property="taxRate" />
+    <result column="expd_qty" jdbcType="DECIMAL" property="expdQty" />
+    <result column="qty" jdbcType="DECIMAL" property="qty" />
+    <result column="val" jdbcType="DECIMAL" property="val" />
+    <result column="tax" jdbcType="DECIMAL" property="tax" />
+    <result column="pg_qty" jdbcType="DECIMAL" property="pgQty" />
+    <result column="clt_qty" jdbcType="DECIMAL" property="cltQty" />
+    <result column="rck_qty" jdbcType="DECIMAL" property="rckQty" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    unit_id, stb_num, src_doc_type, src_doc_unit_id, src_doc_num, prod_id, unit_price, 
+    disc_rate, fnl_price, tax_rate, expd_qty, qty, val, tax, pg_qty, clt_qty, rck_qty
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbDocDtl" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from stb_doc_dtl
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and stb_num = #{stbNum,jdbcType=VARCHAR}
+      and src_doc_type = #{srcDocType,jdbcType=CHAR}
+      and src_doc_unit_id = #{srcDocUnitId,jdbcType=DECIMAL}
+      and src_doc_num = #{srcDocNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbDocDtl">
+    delete from stb_doc_dtl
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and stb_num = #{stbNum,jdbcType=VARCHAR}
+      and src_doc_type = #{srcDocType,jdbcType=CHAR}
+      and src_doc_unit_id = #{srcDocUnitId,jdbcType=DECIMAL}
+      and src_doc_num = #{srcDocNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbDocDtl">
+    insert into stb_doc_dtl (unit_id, stb_num, src_doc_type, 
+      src_doc_unit_id, src_doc_num, prod_id, 
+      unit_price, disc_rate, fnl_price, 
+      tax_rate, expd_qty, qty, 
+      val, tax, pg_qty, clt_qty, 
+      rck_qty)
+    values (#{unitId,jdbcType=BIGINT}, #{stbNum,jdbcType=VARCHAR}, #{srcDocType,jdbcType=CHAR}, 
+      #{srcDocUnitId,jdbcType=DECIMAL}, #{srcDocNum,jdbcType=VARCHAR}, #{prodId,jdbcType=BIGINT}, 
+      #{unitPrice,jdbcType=DECIMAL}, #{discRate,jdbcType=DECIMAL}, #{fnlPrice,jdbcType=DECIMAL}, 
+      #{taxRate,jdbcType=DECIMAL}, #{expdQty,jdbcType=DECIMAL}, #{qty,jdbcType=DECIMAL}, 
+      #{val,jdbcType=DECIMAL}, #{tax,jdbcType=DECIMAL}, #{pgQty,jdbcType=DECIMAL}, #{cltQty,jdbcType=DECIMAL}, 
+      #{rckQty,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbDocDtl">
+    insert into stb_doc_dtl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="stbNum != null">
+        stb_num,
+      </if>
+      <if test="srcDocType != null">
+        src_doc_type,
+      </if>
+      <if test="srcDocUnitId != null">
+        src_doc_unit_id,
+      </if>
+      <if test="srcDocNum != null">
+        src_doc_num,
+      </if>
+      <if test="prodId != null">
+        prod_id,
+      </if>
+      <if test="unitPrice != null">
+        unit_price,
+      </if>
+      <if test="discRate != null">
+        disc_rate,
+      </if>
+      <if test="fnlPrice != null">
+        fnl_price,
+      </if>
+      <if test="taxRate != null">
+        tax_rate,
+      </if>
+      <if test="expdQty != null">
+        expd_qty,
+      </if>
+      <if test="qty != null">
+        qty,
+      </if>
+      <if test="val != null">
+        val,
+      </if>
+      <if test="tax != null">
+        tax,
+      </if>
+      <if test="pgQty != null">
+        pg_qty,
+      </if>
+      <if test="cltQty != null">
+        clt_qty,
+      </if>
+      <if test="rckQty != null">
+        rck_qty,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="stbNum != null">
+        #{stbNum,jdbcType=VARCHAR},
+      </if>
+      <if test="srcDocType != null">
+        #{srcDocType,jdbcType=CHAR},
+      </if>
+      <if test="srcDocUnitId != null">
+        #{srcDocUnitId,jdbcType=DECIMAL},
+      </if>
+      <if test="srcDocNum != null">
+        #{srcDocNum,jdbcType=VARCHAR},
+      </if>
+      <if test="prodId != null">
+        #{prodId,jdbcType=BIGINT},
+      </if>
+      <if test="unitPrice != null">
+        #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discRate != null">
+        #{discRate,jdbcType=DECIMAL},
+      </if>
+      <if test="fnlPrice != null">
+        #{fnlPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="taxRate != null">
+        #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="expdQty != null">
+        #{expdQty,jdbcType=DECIMAL},
+      </if>
+      <if test="qty != null">
+        #{qty,jdbcType=DECIMAL},
+      </if>
+      <if test="val != null">
+        #{val,jdbcType=DECIMAL},
+      </if>
+      <if test="tax != null">
+        #{tax,jdbcType=DECIMAL},
+      </if>
+      <if test="pgQty != null">
+        #{pgQty,jdbcType=DECIMAL},
+      </if>
+      <if test="cltQty != null">
+        #{cltQty,jdbcType=DECIMAL},
+      </if>
+      <if test="rckQty != null">
+        #{rckQty,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbDocDtl">
+    update stb_doc_dtl
+    <set>
+      <if test="unitPrice != null">
+        unit_price = #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discRate != null">
+        disc_rate = #{discRate,jdbcType=DECIMAL},
+      </if>
+      <if test="fnlPrice != null">
+        fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="taxRate != null">
+        tax_rate = #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="expdQty != null">
+        expd_qty = #{expdQty,jdbcType=DECIMAL},
+      </if>
+      <if test="qty != null">
+        qty = #{qty,jdbcType=DECIMAL},
+      </if>
+      <if test="val != null">
+        val = #{val,jdbcType=DECIMAL},
+      </if>
+      <if test="tax != null">
+        tax = #{tax,jdbcType=DECIMAL},
+      </if>
+      <if test="pgQty != null">
+        pg_qty = #{pgQty,jdbcType=DECIMAL},
+      </if>
+      <if test="cltQty != null">
+        clt_qty = #{cltQty,jdbcType=DECIMAL},
+      </if>
+      <if test="rckQty != null">
+        rck_qty = #{rckQty,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and stb_num = #{stbNum,jdbcType=VARCHAR}
+      and src_doc_type = #{srcDocType,jdbcType=CHAR}
+      and src_doc_unit_id = #{srcDocUnitId,jdbcType=DECIMAL}
+      and src_doc_num = #{srcDocNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbDocDtl">
+    update stb_doc_dtl
+    set unit_price = #{unitPrice,jdbcType=DECIMAL},
+      disc_rate = #{discRate,jdbcType=DECIMAL},
+      fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+      tax_rate = #{taxRate,jdbcType=DECIMAL},
+      expd_qty = #{expdQty,jdbcType=DECIMAL},
+      qty = #{qty,jdbcType=DECIMAL},
+      val = #{val,jdbcType=DECIMAL},
+      tax = #{tax,jdbcType=DECIMAL},
+      pg_qty = #{pgQty,jdbcType=DECIMAL},
+      clt_qty = #{cltQty,jdbcType=DECIMAL},
+      rck_qty = #{rckQty,jdbcType=DECIMAL}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and stb_num = #{stbNum,jdbcType=VARCHAR}
+      and src_doc_type = #{srcDocType,jdbcType=CHAR}
+      and src_doc_unit_id = #{srcDocUnitId,jdbcType=DECIMAL}
+      and src_doc_num = #{srcDocNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </update>
+</mapper>

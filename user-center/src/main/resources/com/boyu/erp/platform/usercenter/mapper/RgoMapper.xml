@@ -1,0 +1,821 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sales.RgoMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.sales.Rgo">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="rgo_num" jdbcType="VARCHAR" property="rgoNum"/>
+        <result column="doc_date" jdbcType="DATE" property="docDate"/>
+        <result column="rgo_type" jdbcType="VARCHAR" property="rgoType"/>
+        <result column="fscl_unit_id" jdbcType="BIGINT" property="fsclUnitId"/>
+        <result column="tran_wareh_id" jdbcType="BIGINT" property="tranWarehId"/>
+        <result column="src_unit_id" jdbcType="BIGINT" property="srcUnitId"/>
+        <result column="src_fscl_unit_id" jdbcType="BIGINT" property="srcFsclUnitId"/>
+        <result column="deliv_wareh_id" jdbcType="BIGINT" property="delivWarehId"/>
+        <result column="src_unit_invd" jdbcType="CHAR" property="srcUnitInvd"/>
+        <result column="prc_auto_gen" jdbcType="CHAR" property="prcAutoGen"/>
+        <result column="prc_auto_chk" jdbcType="CHAR" property="prcAutoChk"/>
+        <result column="dest_unit_id" jdbcType="BIGINT" property="destUnitId"/>
+        <result column="dest_fscl_unit_id" jdbcType="BIGINT" property="destFsclUnitId"/>
+        <result column="rcv_wareh_id" jdbcType="BIGINT" property="rcvWarehId"/>
+        <result column="dest_unit_invd" jdbcType="CHAR" property="destUnitInvd"/>
+        <result column="puc_auto_gen" jdbcType="CHAR" property="pucAutoGen"/>
+        <result column="puc_auto_chk" jdbcType="CHAR" property="pucAutoChk"/>
+        <result column="dr_diff_jgd" jdbcType="CHAR" property="drDiffJgd"/>
+        <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled"/>
+        <result column="src_doc_type" jdbcType="CHAR" property="srcDocType"/>
+        <result column="src_doc_unit_id" jdbcType="BIGINT" property="srcDocUnitId"/>
+        <result column="src_doc_num" jdbcType="VARCHAR" property="srcDocNum"/>
+        <result column="ttl_qty" jdbcType="DECIMAL" property="ttlQty"/>
+        <result column="ttl_box" jdbcType="BIGINT" property="ttlBox"/>
+        <result column="ttl_src_val" jdbcType="DECIMAL" property="ttlSrcVal"/>
+        <result column="ttl_src_tax" jdbcType="DECIMAL" property="ttlSrcTax"/>
+        <result column="ttl_src_mkv" jdbcType="DECIMAL" property="ttlSrcMkv"/>
+        <result column="ttl_dest_val" jdbcType="DECIMAL" property="ttlDestVal"/>
+        <result column="ttl_dest_tax" jdbcType="DECIMAL" property="ttlDestTax"/>
+        <result column="ttl_dest_mkv" jdbcType="DECIMAL" property="ttlDestMkv"/>
+        <result column="ttl_deliv_qty" jdbcType="DECIMAL" property="ttlDelivQty"/>
+        <result column="ttl_deliv_box" jdbcType="BIGINT" property="ttlDelivBox"/>
+        <result column="ttl_deliv_val" jdbcType="DECIMAL" property="ttlDelivVal"/>
+        <result column="ttl_deliv_tax" jdbcType="DECIMAL" property="ttlDelivTax"/>
+        <result column="ttl_deliv_mkv" jdbcType="DECIMAL" property="ttlDelivMkv"/>
+        <result column="ttl_rcv_qty" jdbcType="DECIMAL" property="ttlRcvQty"/>
+        <result column="ttl_rcv_box" jdbcType="BIGINT" property="ttlRcvBox"/>
+        <result column="ttl_rcv_val" jdbcType="DECIMAL" property="ttlRcvVal"/>
+        <result column="ttl_rcv_tax" jdbcType="DECIMAL" property="ttlRcvTax"/>
+        <result column="ttl_rcv_mkv" jdbcType="DECIMAL" property="ttlRcvMkv"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="op_time" jdbcType="TIMESTAMP" property="opTime"/>
+        <result column="chkr_id" jdbcType="BIGINT" property="chkrId"/>
+        <result column="chk_time" jdbcType="TIMESTAMP" property="chkTime"/>
+        <result column="effective" jdbcType="CHAR" property="effective"/>
+        <result column="progress" jdbcType="CHAR" property="progress"/>
+        <result column="cancelled" jdbcType="CHAR" property="cancelled"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="unit_hier_id" jdbcType="VARCHAR" property="unitHierId"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapByVo" type="com.boyu.erp.platform.usercenter.vo.sales.RgoVo">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="rgo_num" jdbcType="VARCHAR" property="rgoNum"/>
+        <result column="docDate" property="docDate"/>
+        <result column="rgo_type" jdbcType="VARCHAR" property="rgoType"/>
+        <result column="fscl_unit_id" jdbcType="BIGINT" property="fsclUnitId"/>
+        <result column="tran_wareh_id" jdbcType="BIGINT" property="tranWarehId"/>
+        <result column="src_unit_id" jdbcType="BIGINT" property="srcUnitId"/>
+        <result column="src_fscl_unit_id" jdbcType="BIGINT" property="srcFsclUnitId"/>
+        <result column="deliv_wareh_id" jdbcType="BIGINT" property="delivWarehId"/>
+        <result column="src_unit_invd" jdbcType="CHAR" property="srcUnitInvd"/>
+        <result column="prc_auto_gen" jdbcType="CHAR" property="prcAutoGen"/>
+        <result column="prc_auto_chk" jdbcType="CHAR" property="prcAutoChk"/>
+        <result column="dest_unit_id" jdbcType="BIGINT" property="destUnitId"/>
+        <result column="dest_fscl_unit_id" jdbcType="BIGINT" property="destFsclUnitId"/>
+        <result column="rcv_wareh_id" jdbcType="BIGINT" property="rcvWarehId"/>
+        <result column="dest_unit_invd" jdbcType="CHAR" property="destUnitInvd"/>
+        <result column="puc_auto_gen" jdbcType="CHAR" property="pucAutoGen"/>
+        <result column="puc_auto_chk" jdbcType="CHAR" property="pucAutoChk"/>
+        <result column="dr_diff_jgd" jdbcType="CHAR" property="drDiffJgd"/>
+        <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled"/>
+        <result column="src_doc_type" jdbcType="CHAR" property="srcDocType"/>
+        <result column="src_doc_unit_id" jdbcType="BIGINT" property="srcDocUnitId"/>
+        <result column="src_doc_num" jdbcType="VARCHAR" property="srcDocNum"/>
+        <result column="ttl_qty" jdbcType="DECIMAL" property="ttlQty"/>
+        <result column="ttl_box" jdbcType="BIGINT" property="ttlBox"/>
+        <result column="ttl_src_val" jdbcType="DECIMAL" property="ttlSrcVal"/>
+        <result column="ttl_src_tax" jdbcType="DECIMAL" property="ttlSrcTax"/>
+        <result column="ttl_src_mkv" jdbcType="DECIMAL" property="ttlSrcMkv"/>
+        <result column="ttl_dest_val" jdbcType="DECIMAL" property="ttlDestVal"/>
+        <result column="ttl_dest_tax" jdbcType="DECIMAL" property="ttlDestTax"/>
+        <result column="ttl_dest_mkv" jdbcType="DECIMAL" property="ttlDestMkv"/>
+        <result column="ttl_deliv_qty" jdbcType="DECIMAL" property="ttlDelivQty"/>
+        <result column="ttl_deliv_box" jdbcType="BIGINT" property="ttlDelivBox"/>
+        <result column="ttl_deliv_val" jdbcType="DECIMAL" property="ttlDelivVal"/>
+        <result column="ttl_deliv_tax" jdbcType="DECIMAL" property="ttlDelivTax"/>
+        <result column="ttl_deliv_mkv" jdbcType="DECIMAL" property="ttlDelivMkv"/>
+        <result column="ttl_rcv_qty" jdbcType="DECIMAL" property="ttlRcvQty"/>
+        <result column="ttl_rcv_box" jdbcType="BIGINT" property="ttlRcvBox"/>
+        <result column="ttl_rcv_val" jdbcType="DECIMAL" property="ttlRcvVal"/>
+        <result column="ttl_rcv_tax" jdbcType="DECIMAL" property="ttlRcvTax"/>
+        <result column="ttl_rcv_mkv" jdbcType="DECIMAL" property="ttlRcvMkv"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="opTime" property="opTime"/>
+        <result column="chkr_id" jdbcType="BIGINT" property="chkrId"/>
+        <result column="chkTime" property="chkTime"/>
+        <result column="effective" jdbcType="CHAR" property="effective"/>
+        <result column="progress" jdbcType="CHAR" property="progress"/>
+        <result column="cancelled" jdbcType="CHAR" property="cancelled"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="unit_hier_id" jdbcType="VARCHAR" property="unitHierId"/>
+        <result column="rgoTypeCp" property="rgoTypeCp"/>
+        <result column="srcDocTypeCp" property="srcDocTypeCp"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    unit_id, rgo_num, doc_date, rgo_type, fscl_unit_id, tran_wareh_id, src_unit_id, src_fscl_unit_id, 
+    deliv_wareh_id, src_unit_invd, prc_auto_gen, prc_auto_chk, dest_unit_id, dest_fscl_unit_id, 
+    rcv_wareh_id, dest_unit_invd, puc_auto_gen, puc_auto_chk, dr_diff_jgd, bxi_enabled, 
+    src_doc_type, src_doc_unit_id, src_doc_num, ttl_qty, ttl_box, ttl_src_val, ttl_src_tax, 
+    ttl_src_mkv, ttl_dest_val, ttl_dest_tax, ttl_dest_mkv, ttl_deliv_qty, ttl_deliv_box, 
+    ttl_deliv_val, ttl_deliv_tax, ttl_deliv_mkv, ttl_rcv_qty, ttl_rcv_box, ttl_rcv_val, 
+    ttl_rcv_tax, ttl_rcv_mkv, opr_id, op_time, chkr_id, chk_time, effective, progress, 
+    cancelled, suspended, remarks, unit_hier_id
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.sales.Rgo"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from rgo
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and rgo_num = #{rgoNum,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.sales.Rgo">
+    delete from rgo
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and rgo_num = #{rgoNum,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.sales.Rgo">
+    insert into rgo (unit_id, rgo_num, doc_date, 
+      rgo_type, fscl_unit_id, tran_wareh_id, 
+      src_unit_id, src_fscl_unit_id, deliv_wareh_id, 
+      src_unit_invd, prc_auto_gen, prc_auto_chk, 
+      dest_unit_id, dest_fscl_unit_id, rcv_wareh_id, 
+      dest_unit_invd, puc_auto_gen, puc_auto_chk, 
+      dr_diff_jgd, bxi_enabled, src_doc_type, 
+      src_doc_unit_id, src_doc_num, ttl_qty, 
+      ttl_box, ttl_src_val, ttl_src_tax, 
+      ttl_src_mkv, ttl_dest_val, ttl_dest_tax, 
+      ttl_dest_mkv, ttl_deliv_qty, ttl_deliv_box, 
+      ttl_deliv_val, ttl_deliv_tax, ttl_deliv_mkv, 
+      ttl_rcv_qty, ttl_rcv_box, ttl_rcv_val, 
+      ttl_rcv_tax, ttl_rcv_mkv, opr_id, 
+      op_time, chkr_id, chk_time, 
+      effective, progress, cancelled, 
+      suspended, remarks, unit_hier_id
+      )
+    values (#{unitId,jdbcType=BIGINT}, #{rgoNum,jdbcType=VARCHAR}, #{docDate,jdbcType=DATE}, 
+      #{rgoType,jdbcType=VARCHAR}, #{fsclUnitId,jdbcType=BIGINT}, #{tranWarehId,jdbcType=BIGINT}, 
+      #{srcUnitId,jdbcType=BIGINT}, #{srcFsclUnitId,jdbcType=BIGINT}, #{delivWarehId,jdbcType=BIGINT}, 
+      #{srcUnitInvd,jdbcType=CHAR}, #{prcAutoGen,jdbcType=CHAR}, #{prcAutoChk,jdbcType=CHAR}, 
+      #{destUnitId,jdbcType=BIGINT}, #{destFsclUnitId,jdbcType=BIGINT}, #{rcvWarehId,jdbcType=BIGINT}, 
+      #{destUnitInvd,jdbcType=CHAR}, #{pucAutoGen,jdbcType=CHAR}, #{pucAutoChk,jdbcType=CHAR}, 
+      #{drDiffJgd,jdbcType=CHAR}, #{bxiEnabled,jdbcType=CHAR}, #{srcDocType,jdbcType=CHAR}, 
+      #{srcDocUnitId,jdbcType=BIGINT}, #{srcDocNum,jdbcType=VARCHAR}, #{ttlQty,jdbcType=DECIMAL}, 
+      #{ttlBox,jdbcType=BIGINT}, #{ttlSrcVal,jdbcType=DECIMAL}, #{ttlSrcTax,jdbcType=DECIMAL}, 
+      #{ttlSrcMkv,jdbcType=DECIMAL}, #{ttlDestVal,jdbcType=DECIMAL}, #{ttlDestTax,jdbcType=DECIMAL}, 
+      #{ttlDestMkv,jdbcType=DECIMAL}, #{ttlDelivQty,jdbcType=DECIMAL}, #{ttlDelivBox,jdbcType=BIGINT}, 
+      #{ttlDelivVal,jdbcType=DECIMAL}, #{ttlDelivTax,jdbcType=DECIMAL}, #{ttlDelivMkv,jdbcType=DECIMAL}, 
+      #{ttlRcvQty,jdbcType=DECIMAL}, #{ttlRcvBox,jdbcType=BIGINT}, #{ttlRcvVal,jdbcType=DECIMAL}, 
+      #{ttlRcvTax,jdbcType=DECIMAL}, #{ttlRcvMkv,jdbcType=DECIMAL}, #{oprId,jdbcType=BIGINT}, 
+      #{opTime,jdbcType=TIMESTAMP}, #{chkrId,jdbcType=BIGINT}, #{chkTime,jdbcType=TIMESTAMP}, 
+      #{effective,jdbcType=CHAR}, #{progress,jdbcType=CHAR}, #{cancelled,jdbcType=CHAR}, 
+      #{suspended,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}, #{unitHierId,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.sales.Rgo">
+        insert into rgo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null and unitId != '' ">
+                unit_id,
+            </if>
+            <if test="rgoNum != null and rgoNum != '' ">
+                rgo_num,
+            </if>
+            doc_date,
+            <if test="rgoType != null and rgoType != '' ">
+                rgo_type,
+            </if>
+            <if test="fsclUnitId != null and fsclUnitId != '' ">
+                fscl_unit_id,
+            </if>
+            <if test="tranWarehId != null and tranWarehId != '' ">
+                tran_wareh_id,
+            </if>
+            <if test="srcUnitId != null and srcUnitId != '' ">
+                src_unit_id,
+            </if>
+            <if test="srcFsclUnitId != null and srcFsclUnitId != '' ">
+                src_fscl_unit_id,
+            </if>
+            <if test="delivWarehId != null and delivWarehId != '' ">
+                deliv_wareh_id,
+            </if>
+            <if test="srcUnitInvd != null and srcUnitInvd != '' ">
+                src_unit_invd,
+            </if>
+            <if test="prcAutoGen != null and prcAutoGen != '' ">
+                prc_auto_gen,
+            </if>
+            <if test="prcAutoChk != null and prcAutoChk != '' ">
+                prc_auto_chk,
+            </if>
+            <if test="destUnitId != null and destUnitId != '' ">
+                dest_unit_id,
+            </if>
+            <if test="destFsclUnitId != null and destFsclUnitId != '' ">
+                dest_fscl_unit_id,
+            </if>
+            <if test="rcvWarehId != null and rcvWarehId != '' ">
+                rcv_wareh_id,
+            </if>
+            <if test="destUnitInvd != null and destUnitInvd != '' ">
+                dest_unit_invd,
+            </if>
+            <if test="pucAutoGen != null and pucAutoGen != '' ">
+                puc_auto_gen,
+            </if>
+            <if test="pucAutoChk != null and pucAutoChk != '' ">
+                puc_auto_chk,
+            </if>
+            <if test="drDiffJgd != null and drDiffJgd != '' ">
+                dr_diff_jgd,
+            </if>
+            <if test="bxiEnabled != null and bxiEnabled != '' ">
+                bxi_enabled,
+            </if>
+            <if test="srcDocType != null and srcDocType != '' ">
+                src_doc_type,
+            </if>
+            <if test="srcDocUnitId != null and srcDocUnitId != '' ">
+                src_doc_unit_id,
+            </if>
+            <if test="srcDocNum != null and srcDocNum != '' ">
+                src_doc_num,
+            </if>
+            <if test="ttlQty != null and ttlQty != '' ">
+                ttl_qty,
+            </if>
+            <if test="ttlBox != null and ttlBox != '' ">
+                ttl_box,
+            </if>
+            <if test="ttlSrcVal != null and ttlSrcVal != '' ">
+                ttl_src_val,
+            </if>
+            <if test="ttlSrcTax != null and ttlSrcTax != '' ">
+                ttl_src_tax,
+            </if>
+            <if test="ttlSrcMkv != null and ttlSrcMkv != '' ">
+                ttl_src_mkv,
+            </if>
+            <if test="ttlDestVal != null and ttlDestVal != '' ">
+                ttl_dest_val,
+            </if>
+            <if test="ttlDestTax != null and ttlDestTax != '' ">
+                ttl_dest_tax,
+            </if>
+            <if test="ttlDestMkv != null and ttlDestMkv != '' ">
+                ttl_dest_mkv,
+            </if>
+            <if test="ttlDelivQty != null and ttlDelivQty != '' ">
+                ttl_deliv_qty,
+            </if>
+            <if test="ttlDelivBox != null and ttlDelivBox != '' ">
+                ttl_deliv_box,
+            </if>
+            <if test="ttlDelivVal != null and ttlDelivVal != '' ">
+                ttl_deliv_val,
+            </if>
+            <if test="ttlDelivTax != null and ttlDelivTax != '' ">
+                ttl_deliv_tax,
+            </if>
+            <if test="ttlDelivMkv != null and ttlDelivMkv != '' ">
+                ttl_deliv_mkv,
+            </if>
+            <if test="ttlRcvQty != null and ttlRcvQty != '' ">
+                ttl_rcv_qty,
+            </if>
+            <if test="ttlRcvBox != null and ttlRcvBox != '' ">
+                ttl_rcv_box,
+            </if>
+            <if test="ttlRcvVal != null and ttlRcvVal != '' ">
+                ttl_rcv_val,
+            </if>
+            <if test="ttlRcvTax != null and ttlRcvTax != '' ">
+                ttl_rcv_tax,
+            </if>
+            <if test="ttlRcvMkv != null and ttlRcvMkv != '' ">
+                ttl_rcv_mkv,
+            </if>
+            <if test="oprId != null and oprId != '' ">
+                opr_id,
+                op_time,
+            </if>
+            <if test="chkrId != null and chkrId != '' ">
+                chkr_id,
+            </if>
+            <if test="chkTime != null and chkTime != '' ">
+                chk_time,
+            </if>
+            <if test="effective != null and effective != '' ">
+                effective,
+            </if>
+            <if test="progress != null and progress != '' ">
+                progress,
+            </if>
+            <if test="cancelled != null and cancelled != '' ">
+                cancelled,
+            </if>
+            <if test="suspended != null and suspended != '' ">
+                suspended,
+            </if>
+            <if test="remarks != null and remarks != '' ">
+                remarks,
+            </if>
+            <if test="unitHierId != null and unitHierId != '' ">
+                unit_hier_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null and unitId != '' ">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="rgoNum != null and rgoNum != '' ">
+                #{rgoNum,jdbcType=VARCHAR},
+            </if>
+            now(),
+            <if test="rgoType != null and rgoType != '' ">
+                #{rgoType,jdbcType=VARCHAR},
+            </if>
+            <if test="fsclUnitId != null and fsclUnitId != '' ">
+                #{fsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="tranWarehId != null and tranWarehId != '' ">
+                #{tranWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="srcUnitId != null and srcUnitId != '' ">
+                #{srcUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="srcFsclUnitId != null and srcFsclUnitId != '' ">
+                #{srcFsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="delivWarehId != null and delivWarehId != '' ">
+                #{delivWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="srcUnitInvd != null and srcUnitInvd != '' ">
+                #{srcUnitInvd,jdbcType=CHAR},
+            </if>
+            <if test="prcAutoGen != null and prcAutoGen != '' ">
+                #{prcAutoGen,jdbcType=CHAR},
+            </if>
+            <if test="prcAutoChk != null and prcAutoChk != '' ">
+                #{prcAutoChk,jdbcType=CHAR},
+            </if>
+            <if test="destUnitId != null and destUnitId != '' ">
+                #{destUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="destFsclUnitId != null and destFsclUnitId != '' ">
+                #{destFsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="rcvWarehId != null and rcvWarehId != '' ">
+                #{rcvWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="destUnitInvd != null and destUnitInvd != '' ">
+                #{destUnitInvd,jdbcType=CHAR},
+            </if>
+            <if test="pucAutoGen != null and pucAutoGen != '' ">
+                #{pucAutoGen,jdbcType=CHAR},
+            </if>
+            <if test="pucAutoChk != null and pucAutoChk != '' ">
+                #{pucAutoChk,jdbcType=CHAR},
+            </if>
+            <if test="drDiffJgd != null and drDiffJgd != '' ">
+                #{drDiffJgd,jdbcType=CHAR},
+            </if>
+            <if test="bxiEnabled != null and bxiEnabled != '' ">
+                #{bxiEnabled,jdbcType=CHAR},
+            </if>
+            <if test="srcDocType != null and srcDocType != '' ">
+                #{srcDocType,jdbcType=CHAR},
+            </if>
+            <if test="srcDocUnitId != null and srcDocUnitId != '' ">
+                #{srcDocUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="srcDocNum != null and srcDocNum != '' ">
+                #{srcDocNum,jdbcType=VARCHAR},
+            </if>
+            <if test="ttlQty != null and ttlQty != '' ">
+                #{ttlQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlBox != null and ttlBox != '' ">
+                #{ttlBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlSrcVal != null and ttlSrcVal != '' ">
+                #{ttlSrcVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlSrcTax != null and ttlSrcTax != '' ">
+                #{ttlSrcTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlSrcMkv != null and ttlSrcMkv != '' ">
+                #{ttlSrcMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDestVal != null and ttlDestVal != '' ">
+                #{ttlDestVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDestTax != null and ttlDestTax != '' ">
+                #{ttlDestTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDestMkv != null and ttlDestMkv != '' ">
+                #{ttlDestMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivQty != null and ttlDelivQty != '' ">
+                #{ttlDelivQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivBox != null and ttlDelivBox != '' ">
+                #{ttlDelivBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlDelivVal != null and ttlDelivVal != '' ">
+                #{ttlDelivVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivTax != null and ttlDelivTax != '' ">
+                #{ttlDelivTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivMkv != null and ttlDelivMkv != '' ">
+                #{ttlDelivMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvQty != null and ttlRcvQty != '' ">
+                #{ttlRcvQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvBox != null and ttlRcvBox != '' ">
+                #{ttlRcvBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlRcvVal != null and ttlRcvVal != '' ">
+                #{ttlRcvVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvTax != null and ttlRcvTax != '' ">
+                #{ttlRcvTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvMkv != null and ttlRcvMkv != '' ">
+                #{ttlRcvMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="oprId != null and oprId != '' ">
+                #{oprId,jdbcType=BIGINT},
+                now(),
+            </if>
+            <if test="chkrId != null and chkrId != '' ">
+                #{chkrId,jdbcType=BIGINT},
+            </if>
+            <if test="chkTime != null and chkTime != '' ">
+                #{chkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="effective != null and effective != '' ">
+                #{effective,jdbcType=CHAR},
+            </if>
+            <if test="progress != null and progress != '' ">
+                #{progress,jdbcType=CHAR},
+            </if>
+            <if test="cancelled != null and cancelled != '' ">
+                #{cancelled,jdbcType=CHAR},
+            </if>
+            <if test="suspended != null and suspended != '' ">
+                #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="remarks != null and remarks != '' ">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="unitHierId != null and unitHierId != '' ">
+                #{unitHierId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.sales.Rgo">
+        update rgo
+        <set>
+            <if test="docDate != null">
+                doc_date = #{docDate,jdbcType=DATE},
+            </if>
+            <if test="rgoType != null">
+                rgo_type = #{rgoType,jdbcType=VARCHAR},
+            </if>
+            <if test="fsclUnitId != null">
+                fscl_unit_id = #{fsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="tranWarehId != null">
+                tran_wareh_id = #{tranWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="srcUnitId != null">
+                src_unit_id = #{srcUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="srcFsclUnitId != null">
+                src_fscl_unit_id = #{srcFsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="delivWarehId != null">
+                deliv_wareh_id = #{delivWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="srcUnitInvd != null">
+                src_unit_invd = #{srcUnitInvd,jdbcType=CHAR},
+            </if>
+            <if test="prcAutoGen != null">
+                prc_auto_gen = #{prcAutoGen,jdbcType=CHAR},
+            </if>
+            <if test="prcAutoChk != null">
+                prc_auto_chk = #{prcAutoChk,jdbcType=CHAR},
+            </if>
+            <if test="destUnitId != null">
+                dest_unit_id = #{destUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="destFsclUnitId != null">
+                dest_fscl_unit_id = #{destFsclUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="rcvWarehId != null">
+                rcv_wareh_id = #{rcvWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="destUnitInvd != null">
+                dest_unit_invd = #{destUnitInvd,jdbcType=CHAR},
+            </if>
+            <if test="pucAutoGen != null">
+                puc_auto_gen = #{pucAutoGen,jdbcType=CHAR},
+            </if>
+            <if test="pucAutoChk != null">
+                puc_auto_chk = #{pucAutoChk,jdbcType=CHAR},
+            </if>
+            <if test="drDiffJgd != null">
+                dr_diff_jgd = #{drDiffJgd,jdbcType=CHAR},
+            </if>
+            <if test="bxiEnabled != null">
+                bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+            </if>
+            <if test="srcDocType != null">
+                src_doc_type = #{srcDocType,jdbcType=CHAR},
+            </if>
+            <if test="srcDocUnitId != null">
+                src_doc_unit_id = #{srcDocUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="srcDocNum != null">
+                src_doc_num = #{srcDocNum,jdbcType=VARCHAR},
+            </if>
+            <if test="ttlQty != null">
+                ttl_qty = #{ttlQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlBox != null">
+                ttl_box = #{ttlBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlSrcVal != null">
+                ttl_src_val = #{ttlSrcVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlSrcTax != null">
+                ttl_src_tax = #{ttlSrcTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlSrcMkv != null">
+                ttl_src_mkv = #{ttlSrcMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDestVal != null">
+                ttl_dest_val = #{ttlDestVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDestTax != null">
+                ttl_dest_tax = #{ttlDestTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDestMkv != null">
+                ttl_dest_mkv = #{ttlDestMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivQty != null">
+                ttl_deliv_qty = #{ttlDelivQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivBox != null">
+                ttl_deliv_box = #{ttlDelivBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlDelivVal != null">
+                ttl_deliv_val = #{ttlDelivVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivTax != null">
+                ttl_deliv_tax = #{ttlDelivTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlDelivMkv != null">
+                ttl_deliv_mkv = #{ttlDelivMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvQty != null">
+                ttl_rcv_qty = #{ttlRcvQty,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvBox != null">
+                ttl_rcv_box = #{ttlRcvBox,jdbcType=BIGINT},
+            </if>
+            <if test="ttlRcvVal != null">
+                ttl_rcv_val = #{ttlRcvVal,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvTax != null">
+                ttl_rcv_tax = #{ttlRcvTax,jdbcType=DECIMAL},
+            </if>
+            <if test="ttlRcvMkv != null">
+                ttl_rcv_mkv = #{ttlRcvMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="opTime != null">
+                op_time = #{opTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="chkrId != null">
+                chkr_id = #{chkrId,jdbcType=BIGINT},
+            </if>
+            <if test="chkTime != null">
+                chk_time = #{chkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="effective != null">
+                effective = #{effective,jdbcType=CHAR},
+            </if>
+            <if test="progress != null">
+                progress = #{progress,jdbcType=CHAR},
+            </if>
+            <if test="cancelled != null">
+                cancelled = #{cancelled,jdbcType=CHAR},
+            </if>
+            <if test="suspended != null">
+                suspended = #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="unitHierId != null">
+                unit_hier_id = #{unitHierId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and rgo_num = #{rgoNum,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.sales.Rgo">
+    update rgo
+    set doc_date = #{docDate,jdbcType=DATE},
+      rgo_type = #{rgoType,jdbcType=VARCHAR},
+      fscl_unit_id = #{fsclUnitId,jdbcType=BIGINT},
+      tran_wareh_id = #{tranWarehId,jdbcType=BIGINT},
+      src_unit_id = #{srcUnitId,jdbcType=BIGINT},
+      src_fscl_unit_id = #{srcFsclUnitId,jdbcType=BIGINT},
+      deliv_wareh_id = #{delivWarehId,jdbcType=BIGINT},
+      src_unit_invd = #{srcUnitInvd,jdbcType=CHAR},
+      prc_auto_gen = #{prcAutoGen,jdbcType=CHAR},
+      prc_auto_chk = #{prcAutoChk,jdbcType=CHAR},
+      dest_unit_id = #{destUnitId,jdbcType=BIGINT},
+      dest_fscl_unit_id = #{destFsclUnitId,jdbcType=BIGINT},
+      rcv_wareh_id = #{rcvWarehId,jdbcType=BIGINT},
+      dest_unit_invd = #{destUnitInvd,jdbcType=CHAR},
+      puc_auto_gen = #{pucAutoGen,jdbcType=CHAR},
+      puc_auto_chk = #{pucAutoChk,jdbcType=CHAR},
+      dr_diff_jgd = #{drDiffJgd,jdbcType=CHAR},
+      bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+      src_doc_type = #{srcDocType,jdbcType=CHAR},
+      src_doc_unit_id = #{srcDocUnitId,jdbcType=BIGINT},
+      src_doc_num = #{srcDocNum,jdbcType=VARCHAR},
+      ttl_qty = #{ttlQty,jdbcType=DECIMAL},
+      ttl_box = #{ttlBox,jdbcType=BIGINT},
+      ttl_src_val = #{ttlSrcVal,jdbcType=DECIMAL},
+      ttl_src_tax = #{ttlSrcTax,jdbcType=DECIMAL},
+      ttl_src_mkv = #{ttlSrcMkv,jdbcType=DECIMAL},
+      ttl_dest_val = #{ttlDestVal,jdbcType=DECIMAL},
+      ttl_dest_tax = #{ttlDestTax,jdbcType=DECIMAL},
+      ttl_dest_mkv = #{ttlDestMkv,jdbcType=DECIMAL},
+      ttl_deliv_qty = #{ttlDelivQty,jdbcType=DECIMAL},
+      ttl_deliv_box = #{ttlDelivBox,jdbcType=BIGINT},
+      ttl_deliv_val = #{ttlDelivVal,jdbcType=DECIMAL},
+      ttl_deliv_tax = #{ttlDelivTax,jdbcType=DECIMAL},
+      ttl_deliv_mkv = #{ttlDelivMkv,jdbcType=DECIMAL},
+      ttl_rcv_qty = #{ttlRcvQty,jdbcType=DECIMAL},
+      ttl_rcv_box = #{ttlRcvBox,jdbcType=BIGINT},
+      ttl_rcv_val = #{ttlRcvVal,jdbcType=DECIMAL},
+      ttl_rcv_tax = #{ttlRcvTax,jdbcType=DECIMAL},
+      ttl_rcv_mkv = #{ttlRcvMkv,jdbcType=DECIMAL},
+      opr_id = #{oprId,jdbcType=BIGINT},
+      op_time = #{opTime,jdbcType=TIMESTAMP},
+      chkr_id = #{chkrId,jdbcType=BIGINT},
+      chk_time = #{chkTime,jdbcType=TIMESTAMP},
+      effective = #{effective,jdbcType=CHAR},
+      progress = #{progress,jdbcType=CHAR},
+      cancelled = #{cancelled,jdbcType=CHAR},
+      suspended = #{suspended,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      unit_hier_id = #{unitHierId,jdbcType=VARCHAR}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and rgo_num = #{rgoNum,jdbcType=VARCHAR}
+  </update>
+
+    <select id="selectALL" parameterType="com.boyu.erp.platform.usercenter.vo.sales.RgoVo"
+            resultMap="BaseResultMapByVo">
+        select
+        rgo.*,
+        DATE_FORMAT(rgo.doc_date,'%Y-%m-%d') AS docDate,
+        DATE_FORMAT(rgo.op_time,'%Y-%m-%d %H:%i:%S') AS opTime,
+        DATE_FORMAT(rgo.chk_time,'%Y-%m-%d %H:%i:%S') AS chkTime,
+        type.description AS rgoTypeCp,
+        scd.description AS srcDocTypeCp
+        FROM
+        rgo rgo
+        LEFT JOIN sys_unit_owner suo1 ON suo1.unit_id = rgo.src_unit_id
+        AND suo1.owner_id = rgo.unit_id
+        LEFT JOIN sys_unit_owner suo2 ON suo2.unit_id = rgo.dest_unit_id
+        AND suo2.owner_id = rgo.unit_id
+        LEFT JOIN rgo_type type ON type.rgo_type = rgo.rgo_type
+        LEFT JOIN sys_code_dtl scd ON scd.`code` = rgo.src_doc_type AND scd.code_type='DOC_TYPE'
+        WHERE 1=1
+        <if test="rgoNum != null and rgoNum != '' and rgoNum != 'null'">
+            and rgo.rgo_num like CONCAT( #{rgoNum} )
+        </if>
+        <if test="progress != null and progress != '' and progress != 'null' ">
+            and rgo.progress = #{progress}
+        </if>
+        <if test="srcUnitNum != null and srcUnitNum != '' and srcUnitNum != 'null'">
+            and suo1.UNIT_NUM like CONCAT( #{srcUnitNum}, '%')
+        </if>
+        <if test="destUnitNum != null and destUnitNum != '' and destUnitNum != 'null'">
+            and suo2.UNIT_NUM like CONCAT( #{destUnitNum}, '%')
+        </if>
+        <if test="startTime != null and startTime != '' ">
+            and rgo.DOC_DATE &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' ">
+            and rgo.DOC_DATE &lt;= #{endTime}
+        </if>
+    </select>
+
+    <select id="selectByUnit" parameterType="com.boyu.erp.platform.usercenter.vo.sales.RgoVo"
+            resultMap="BaseResultMapByVo">
+        select
+        rgo.*,
+        DATE_FORMAT(rgo.doc_date,'%Y-%m-%d') AS docDate,
+        DATE_FORMAT(rgo.op_time,'%Y-%m-%d %H:%i:%S') AS opTime,
+        DATE_FORMAT(rgo.chk_time,'%Y-%m-%d %H:%i:%S') AS chkTime,
+        type.description AS rgoTypeCp,
+        scd.description AS srcDocTypeCp
+        FROM
+        ( select a.* from rgo a WHERE 1 = 1 AND
+        a.unit_id = #{sUnitId}
+        ) rgo
+        LEFT JOIN sys_unit_owner suo1 ON suo1.unit_id = rgo.src_unit_id
+        AND suo1.owner_id = rgo.unit_id
+        LEFT JOIN sys_unit_owner suo2 ON suo2.unit_id = rgo.dest_unit_id
+        AND suo2.owner_id = rgo.unit_id
+        LEFT JOIN rgo_type type ON type.rgo_type = rgo.rgo_type
+        LEFT JOIN sys_code_dtl scd ON scd.`code` = rgo.src_doc_type AND scd.code_type='DOC_TYPE'
+        WHERE 1=1
+        <if test="rgoNum != null and rgoNum != '' and rgoNum != 'null'">
+            and rgo.rgo_num like CONCAT( #{rgoNum} )
+        </if>
+        <if test="progress != null and progress != '' and progress != 'null' ">
+            and rgo.progress = #{progress}
+        </if>
+        <if test="srcUnitNum != null and srcUnitNum != '' and srcUnitNum != 'null'">
+            and suo1.UNIT_NUM like CONCAT( #{srcUnitNum}, '%')
+        </if>
+        <if test="destUnitNum != null and destUnitNum != '' and destUnitNum != 'null'">
+            and suo2.UNIT_NUM like CONCAT( #{destUnitNum}, '%')
+        </if>
+        <if test="startTime != null and startTime != '' ">
+            and rgo.DOC_DATE &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' ">
+            and rgo.DOC_DATE &lt;= #{endTime}
+        </if>
+    </select>
+
+    <update id="updateByDeleteDtl" parameterType="com.boyu.erp.platform.usercenter.vo.sales.RgoVo">
+    update rgo
+    set
+      ttl_qty = 0,
+      ttl_box = 0,
+      ttl_src_val = 0,
+      ttl_src_tax = 0,
+      ttl_src_mkv = 0,
+      ttl_dest_val = 0,
+      ttl_dest_tax = 0,
+      ttl_dest_mkv = 0
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and rgo_num = #{rgoNum,jdbcType=VARCHAR}
+  </update>
+
+    <!-- 重做单据时更新主表信息 -->
+    <update id="updateByRedo" parameterType="com.boyu.erp.platform.usercenter.vo.sales.RgoVo">
+        update rgo
+        <set>
+            fscl_unit_id = null,
+            src_fscl_unit_id = null,
+            dest_fscl_unit_id = null,
+            <if test="oprId != null">
+                opr_id = #{oprId,jdbcType=BIGINT},
+                op_time = now(),
+            </if>
+            <if test="progress != null">
+                progress = #{progress,jdbcType=CHAR},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and rgo_num = #{rgoNum,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByOnly" parameterType="com.boyu.erp.platform.usercenter.vo.sales.RgoVo"
+            resultMap="BaseResultMapByVo">
+        select
+        rgo.*,
+        DATE_FORMAT(rgo.doc_date,'%Y-%m-%d') AS docDate,
+        DATE_FORMAT(rgo.op_time,'%Y-%m-%d %H:%i:%S') AS opTime,
+        DATE_FORMAT(rgo.chk_time,'%Y-%m-%d %H:%i:%S') AS chkTime,
+        type.description AS rgoTypeCp,
+        scd.description AS srcDocTypeCp
+        FROM
+        rgo rgo
+        LEFT JOIN sys_unit_owner suo1 ON suo1.unit_id = rgo.src_unit_id
+        AND suo1.owner_id = rgo.unit_id
+        LEFT JOIN sys_unit_owner suo2 ON suo2.unit_id = rgo.dest_unit_id
+        AND suo2.owner_id = rgo.unit_id
+        LEFT JOIN rgo_type type ON type.rgo_type = rgo.rgo_type
+        LEFT JOIN sys_code_dtl scd ON scd.`code` = rgo.src_doc_type AND scd.code_type='DOC_TYPE'
+        WHERE 1=1
+        and rgo.unit_id=#{unitId}
+        and rgo.rgo_num = #{rgoNum}
+    </select>
+</mapper>

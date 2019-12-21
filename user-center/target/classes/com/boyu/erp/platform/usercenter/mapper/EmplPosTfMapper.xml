@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.employye.EmplPosTfMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.employee.EmplPosTf">
+        <id column="empl_id" jdbcType="BIGINT" property="emplId"/>
+        <id column="owner_id" jdbcType="BIGINT" property="ownerId"/>
+        <id column="line_num" jdbcType="INTEGER" property="lineNum"/>
+        <result column="tf_date" jdbcType="DATE" property="tfDate"/>
+        <result column="from_dept_id" jdbcType="BIGINT" property="fromDeptId"/>
+        <result column="org_job_pos" jdbcType="VARCHAR" property="orgJobPos"/>
+        <result column="to_dept_id" jdbcType="BIGINT" property="toDeptId"/>
+        <result column="new_job_pos" jdbcType="VARCHAR" property="newJobPos"/>
+        <result column="tf_rsn" jdbcType="VARCHAR" property="tfRsn"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="tfDateCp" jdbcType="VARCHAR" property="tfDateCp"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+    empl_id, owner_id, line_num, tf_date, from_dept_id, org_job_pos, to_dept_id, new_job_pos, 
+    tf_rsn, opr_id, remarks
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmpKey"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from empl_pos_tf
+        where empl_id = #{emplId,jdbcType=BIGINT}
+        and owner_id = #{ownerId,jdbcType=BIGINT}
+        and line_num = #{lineNum,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectList" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmpKey"
+            resultType="com.boyu.erp.platform.usercenter.entity.employee.EmplPosTf">
+        select
+        b.to_dept_id AS toDeptId,
+        b.new_job_pos AS newJobPos,
+        b.from_dept_id AS fromDeptId,
+        b.tf_rsn AS tfRsn,
+        b.opr_id AS oprId,
+        b.remarks AS remarks,
+        b.tf_date AS tfDate,
+        b.org_job_pos AS orgJobPos,
+        DATE_FORMAT(b.tf_date, "%Y-%m-%d %T") AS tfDateCp,
+        o.`unit_num` as fromDeptNum,
+        o2.`unit_num` as toDeptNum,
+        u.`unit_name` as fromDeptName,
+        u2.`unit_name` as toDeptName
+        from
+        empl_pos_tf b
+        left join department d
+        on b.`from_dept_id` = d.`dept_id`
+        left join department d2
+        on b.`to_dept_id` = d2.`dept_id`
+        left join sys_unit_owner o
+        on d.`dept_id` = o.`unit_id`
+        and o.`owner_id` = d.`owner_id`
+        left join sys_unit_owner o2
+        on d2.`dept_id` = o2.`unit_id`
+        and o2.`owner_id` = d2.`owner_id`
+        left join sys_unit u
+        on d.`dept_id` = u.`unit_id`
+        left join sys_unit u2
+        on d2.`dept_id` = u2.`unit_id`
+        where b.empl_id = #{emplId,jdbcType=BIGINT}
+        and b.owner_id = #{ownerId,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmpKey">
+    delete from empl_pos_tf
+    where empl_id = #{emplId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+      and line_num = #{lineNum,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmplPosTf">
+    insert into empl_pos_tf (empl_id, owner_id, line_num, 
+      tf_date, from_dept_id, org_job_pos, 
+      to_dept_id, new_job_pos, tf_rsn, 
+      opr_id, remarks)
+    values (#{emplId,jdbcType=BIGINT}, #{ownerId,jdbcType=BIGINT}, #{lineNum,jdbcType=INTEGER}, 
+      #{tfDate,jdbcType=DATE}, #{fromDeptId,jdbcType=BIGINT}, #{orgJobPos,jdbcType=VARCHAR}, 
+      #{toDeptId,jdbcType=BIGINT}, #{newJobPos,jdbcType=VARCHAR}, #{tfRsn,jdbcType=VARCHAR}, 
+      #{oprId,jdbcType=BIGINT}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmplPosTf">
+        insert into empl_pos_tf
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="emplId != null">
+                empl_id,
+            </if>
+            <if test="ownerId != null">
+                owner_id,
+            </if>
+            <if test="lineNum != null">
+                line_num,
+            </if>
+            <if test="tfDate != null">
+                tf_date,
+            </if>
+            <if test="fromDeptId != null">
+                from_dept_id,
+            </if>
+            <if test="orgJobPos != null">
+                org_job_pos,
+            </if>
+            <if test="toDeptId != null">
+                to_dept_id,
+            </if>
+            <if test="newJobPos != null">
+                new_job_pos,
+            </if>
+            <if test="tfRsn != null">
+                tf_rsn,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="emplId != null">
+                #{emplId,jdbcType=BIGINT},
+            </if>
+            <if test="ownerId != null">
+                #{ownerId,jdbcType=BIGINT},
+            </if>
+            <if test="lineNum != null">
+                #{lineNum,jdbcType=INTEGER},
+            </if>
+            <if test="tfDate != null">
+                #{tfDate,jdbcType=DATE},
+            </if>
+            <if test="fromDeptId != null">
+                #{fromDeptId,jdbcType=BIGINT},
+            </if>
+            <if test="orgJobPos != null">
+                #{orgJobPos,jdbcType=VARCHAR},
+            </if>
+            <if test="toDeptId != null">
+                #{toDeptId,jdbcType=BIGINT},
+            </if>
+            <if test="newJobPos != null">
+                #{newJobPos,jdbcType=VARCHAR},
+            </if>
+            <if test="tfRsn != null">
+                #{tfRsn,jdbcType=VARCHAR},
+            </if>
+            <if test="oprId != null">
+                #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmplPosTf">
+        update empl_pos_tf
+        <set>
+            <if test="tfDate != null">
+                tf_date = #{tfDate,jdbcType=DATE},
+            </if>
+            <if test="fromDeptId != null">
+                from_dept_id = #{fromDeptId,jdbcType=BIGINT},
+            </if>
+            <if test="orgJobPos != null">
+                org_job_pos = #{orgJobPos,jdbcType=VARCHAR},
+            </if>
+            <if test="toDeptId != null">
+                to_dept_id = #{toDeptId,jdbcType=BIGINT},
+            </if>
+            <if test="newJobPos != null">
+                new_job_pos = #{newJobPos,jdbcType=VARCHAR},
+            </if>
+            <if test="tfRsn != null">
+                tf_rsn = #{tfRsn,jdbcType=VARCHAR},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where empl_id = #{emplId,jdbcType=BIGINT}
+        and owner_id = #{ownerId,jdbcType=BIGINT}
+        and line_num = #{lineNum,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmplPosTf">
+    update empl_pos_tf
+    set tf_date = #{tfDate,jdbcType=DATE},
+      from_dept_id = #{fromDeptId,jdbcType=BIGINT},
+      org_job_pos = #{orgJobPos,jdbcType=VARCHAR},
+      to_dept_id = #{toDeptId,jdbcType=BIGINT},
+      new_job_pos = #{newJobPos,jdbcType=VARCHAR},
+      tf_rsn = #{tfRsn,jdbcType=VARCHAR},
+      opr_id = #{oprId,jdbcType=BIGINT},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where empl_id = #{emplId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+      and line_num = #{lineNum,jdbcType=INTEGER}
+  </update>
+</mapper>

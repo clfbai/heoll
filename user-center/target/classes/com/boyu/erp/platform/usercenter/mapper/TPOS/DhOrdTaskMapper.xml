@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.TPOS.mapper.DhOrdTaskMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.TPOS.entity.DhOrdTask">
+    <id column="handle_type" jdbcType="VARCHAR" property="handleType" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="progress" jdbcType="CHAR" property="progress" />
+    <result column="biz_type" jdbcType="DECIMAL" property="bizType" />
+    <result column="waiting" jdbcType="CHAR" property="waiting" />
+    <result column="impl_times" jdbcType="DECIMAL" property="implTimes" />
+    <result column="reg_time" jdbcType="TIMESTAMP" property="regTime" />
+    <result column="op_time" jdbcType="TIMESTAMP" property="opTime" />
+    <result column="params" jdbcType="VARCHAR" property="params" />
+    <result column="err_msg" jdbcType="VARCHAR" property="errMsg" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    handle_type, id, progress, biz_type, waiting, impl_times, reg_time, op_time, params, 
+    err_msg
+  </sql>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.TPOS.entity.DhOrdTask">
+    insert into dh_ord_task (handle_type, id, progress, 
+      biz_type, waiting, impl_times, 
+      reg_time, op_time, params, 
+      err_msg)
+    values (#{handleType,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{progress,jdbcType=CHAR}, 
+      #{bizType,jdbcType=DECIMAL}, #{waiting,jdbcType=CHAR}, #{implTimes,jdbcType=DECIMAL}, 
+      #{regTime,jdbcType=TIMESTAMP}, #{opTime,jdbcType=TIMESTAMP}, #{params,jdbcType=VARCHAR}, 
+      #{errMsg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.TPOS.entity.DhOrdTask">
+    insert into dh_ord_task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="handleType != null">
+        handle_type,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="progress != null">
+        progress,
+      </if>
+      <if test="bizType != null">
+        biz_type,
+      </if>
+      <if test="waiting != null">
+        waiting,
+      </if>
+      <if test="implTimes != null">
+        impl_times,
+      </if>
+      <if test="regTime != null">
+        reg_time,
+      </if>
+      <if test="opTime != null">
+        op_time,
+      </if>
+      <if test="params != null">
+        params,
+      </if>
+      <if test="errMsg != null">
+        err_msg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="handleType != null">
+        #{handleType,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="progress != null">
+        #{progress,jdbcType=CHAR},
+      </if>
+      <if test="bizType != null">
+        #{bizType,jdbcType=DECIMAL},
+      </if>
+      <if test="waiting != null">
+        #{waiting,jdbcType=CHAR},
+      </if>
+      <if test="implTimes != null">
+        #{implTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="regTime != null">
+        #{regTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opTime != null">
+        #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="params != null">
+        #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="errMsg != null">
+        #{errMsg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.TPOS.entity.DhOrdTask">
+    update dh_ord_task
+    <set>
+      <if test="progress != null">
+        progress = #{progress,jdbcType=CHAR},
+      </if>
+      <if test="bizType != null">
+        biz_type = #{bizType,jdbcType=DECIMAL},
+      </if>
+      <if test="waiting != null">
+        waiting = #{waiting,jdbcType=CHAR},
+      </if>
+      <if test="implTimes != null">
+        impl_times = #{implTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="regTime != null">
+        reg_time = #{regTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opTime != null">
+        op_time = #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="params != null">
+        params = #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="errMsg != null">
+        err_msg = #{errMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content},
+      </if>
+      <if test="executeStatus != null">
+        execute_status = #{executeStatus},
+      </if>
+    </set>
+    where handle_type = #{handleType,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.TPOS.entity.DhOrdTask">
+    update dh_ord_task
+    set progress = #{progress,jdbcType=CHAR},
+      biz_type = #{bizType,jdbcType=DECIMAL},
+      waiting = #{waiting,jdbcType=CHAR},
+      impl_times = #{implTimes,jdbcType=DECIMAL},
+      reg_time = #{regTime,jdbcType=TIMESTAMP},
+      op_time = #{opTime,jdbcType=TIMESTAMP},
+      params = #{params,jdbcType=VARCHAR},
+      err_msg = #{errMsg,jdbcType=VARCHAR}
+    where handle_type = #{handleType,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

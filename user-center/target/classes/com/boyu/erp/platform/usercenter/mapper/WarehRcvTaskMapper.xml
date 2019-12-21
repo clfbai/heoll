@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.WarehRcvTaskMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.WarehRcvTask">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="task_doc_type" jdbcType="CHAR" property="taskDocType"/>
+        <id column="task_doc_unit_id" jdbcType="BIGINT" property="taskDocUnitId"/>
+        <id column="task_doc_num" jdbcType="VARCHAR" property="taskDocNum"/>
+        <result column="task_doc_date" jdbcType="DATE" property="taskDocDate"/>
+        <result column="wareh_id" jdbcType="BIGINT" property="warehId"/>
+        <result column="rcv_mode" jdbcType="CHAR" property="rcvMode"/>
+        <result column="deliv_unit_id" jdbcType="BIGINT" property="delivUnitId"/>
+        <result column="deliv_wareh_id" jdbcType="BIGINT" property="delivWarehId"/>
+        <result column="ttl_qty" jdbcType="REAL" property="ttlQty"/>
+        <result column="ttl_val" jdbcType="REAL" property="ttlVal"/>
+        <result column="multi_impl" jdbcType="CHAR" property="multiImpl"/>
+        <result column="impl_times" jdbcType="BIGINT" property="implTimes"/>
+        <result column="join_time" jdbcType="VARCHAR" property="joinTime"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="is_stb" jdbcType="CHAR" property="isStb"/>
+        <result column="grn_num" jdbcType="VARCHAR" property="grnNum"/>
+
+    </resultMap>
+    <resultMap id="BaseResultMapVo" type="com.boyu.erp.platform.usercenter.vo.warehouse.WarehRcvTaskVo">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="task_doc_type" jdbcType="CHAR" property="taskDocType"/>
+        <id column="task_doc_unit_id" jdbcType="BIGINT" property="taskDocUnitId"/>
+        <id column="task_doc_num" jdbcType="VARCHAR" property="taskDocNum"/>
+        <result column="task_doc_date" jdbcType="DATE" property="taskDocDate"/>
+        <result column="wareh_id" jdbcType="BIGINT" property="warehId"/>
+        <result column="rcv_mode" jdbcType="CHAR" property="rcvMode"/>
+        <result column="deliv_unit_id" jdbcType="BIGINT" property="delivUnitId"/>
+        <result column="deliv_wareh_id" jdbcType="BIGINT" property="delivWarehId"/>
+        <result column="ttl_qty" jdbcType="REAL" property="ttlQty"/>
+        <result column="ttl_val" jdbcType="REAL" property="ttlVal"/>
+        <result column="multi_impl" jdbcType="CHAR" property="multiImpl"/>
+        <result column="impl_times" jdbcType="BIGINT" property="implTimes"/>
+        <result column="join_time" jdbcType="VARCHAR" property="joinTime"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="is_stb" jdbcType="VARCHAR" property="isStb"/>
+        <result column="grn_num" jdbcType="VARCHAR" property="grnNum"/>
+
+        <!--中文别名-->
+
+        <result column="warehNum" jdbcType="VARCHAR" property="waerhNum"/>
+        <result column="warehName" jdbcType="VARCHAR" property="waerhName"/>
+        <result column="task_doc_typeCp" jdbcType="VARCHAR" property="taskDocTypeCp"/>
+        <result column="join_timeCp" jdbcType="VARCHAR" property="joinTimeCp"/>
+        <result column="task_doc_dateCp" jdbcType="VARCHAR" property="taskDocDateCp"/>
+        <result column="deliv_unit_code" jdbcType="VARCHAR" property="delivUnitCode"/>
+        <result column="deliv_unit_name" jdbcType="VARCHAR" property="delivUnitName"/>
+        <result column="deliv_wareh_code" jdbcType="VARCHAR" property="delivWarehCode"/>
+        <result column="deliv_wareh_name" jdbcType="VARCHAR" property="delivWarehName"/>
+        <result column="rcv_modeCp" jdbcType="VARCHAR" property="rcvModeCp"/>
+        <result column="multi_implCp" jdbcType="VARCHAR" property="multiImplCp"/>
+        <result column="suspendedCp" jdbcType="VARCHAR" property="suspendedCp"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+    unit_id, task_doc_type, task_doc_unit_id, task_doc_num, task_doc_date, wareh_id, 
+    rcv_mode, deliv_unit_id, deliv_wareh_id, ttl_qty, ttl_val, multi_impl, impl_times, 
+    join_time, suspended, remarks,is_stb,grn_num
+  </sql>
+    <select id="selectWarehRcvTask" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehRcvTask"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from wareh_rcv_task
+        where
+        <if test="unitId!=null">
+            unit_id = #{unitId,jdbcType=BIGINT} and
+        </if>
+        task_doc_type = #{taskDocType,jdbcType=CHAR}
+        and task_doc_unit_id = #{taskDocUnitId,jdbcType=BIGINT}
+        and task_doc_num = #{taskDocNum,jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="selectNum" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehRcvTask"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from wareh_rcv_task
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and task_doc_num = #{taskDocNum,jdbcType=VARCHAR}
+        <if test="rcvMode !='' and rcvMode !=null ">
+            and rcv_mode=#{rcvMode}
+        </if>
+        <if test="taskDocUnitId!=null ">
+            and task_doc_unit_id = #{taskDocUnitId}
+        </if>
+        <if test="taskDocType!=null ">
+            and task_doc_type = #{taskDocType}
+        </if>
+
+    </select>
+
+
+    <!--查看入库任务-->
+    <select id="getAllRcvTask" parameterType="com.boyu.erp.platform.usercenter.model.wareh.WarehRcvTaskModel"
+            resultMap="BaseResultMapVo">
+        SELECT
+        a.deliv_unit_id AS deliv_unit_id,
+        a.join_time AS join_time,
+        a.wareh_id AS wareh_id,
+        a.is_stb AS is_stb,
+        a.ttl_qty AS ttl_qty,
+        a.impl_times AS impl_times,
+        a.suspended AS suspended,
+        a.task_doc_type AS task_doc_type,
+        a.rcv_mode AS rcv_mode,
+        a.ttl_val AS ttl_val,
+        a.multi_impl AS multi_impl,
+        a.task_doc_unit_id AS task_doc_unit_id,
+        a.task_doc_date AS task_doc_date,
+        a.task_doc_num AS task_doc_num,
+        a.unit_id AS unit_id,
+        a.remarks AS remarks,
+        a.deliv_wareh_id AS deliv_wareh_id,
+        a.grn_num AS grn_num,
+        uo.`unit_num` AS warehNum,
+        b1.`unit_name` AS warehName,
+        d.`description` AS task_doc_typeCp,
+        DATE_FORMAT(a.join_time, "%Y-%m-%d %T") AS join_timeCp,
+        DATE_FORMAT(a.task_doc_date, "%Y-%m-%d %T") AS task_doc_dateCp,
+        b2.`unit_code` AS deliv_unit_code,
+        b2.`unit_name` AS deliv_unit_name,
+        b3.`unit_code` AS deliv_wareh_code,
+        b3.`unit_name` AS deliv_wareh_name,
+        d2.`description` AS rcv_modeCp,
+        d3.`description` AS multi_implCp,
+        d4.description AS suspendedCp
+        FROM
+        `wareh_rcv_task` a
+        INNER JOIN sys_unit b1
+        ON a.`wareh_id` = b1.`unit_id`
+        LEFT JOIN sys_unit_owner uo
+        ON a.`wareh_id` = uo.`unit_id`
+        AND uo.`owner_id` = a.`unit_id`
+        LEFT JOIN sys_code_dtl d
+        ON (
+        d.`code_type` = 'DOC_TYPE'
+        AND d.`code` = a.`task_doc_type`
+        )
+        LEFT JOIN sys_unit b2
+        ON a.`deliv_unit_id` = b2.`unit_id`
+        LEFT JOIN sys_unit b3
+        ON a.`deliv_wareh_id` = b3.`unit_id`
+        LEFT JOIN sys_code_dtl d2
+        ON (
+        d2.`code_type` = 'RCV_MODE'
+        AND d2.`code` = a.`rcv_mode`
+        )
+        LEFT JOIN sys_code_dtl d3
+        ON (
+        a.`multi_impl` = d3.`code`
+        AND d3.`code_type` = 'IsTorF'
+        )
+        LEFT JOIN sys_code_dtl d4
+        ON (
+        a.`suspended` = d4.`code`
+        AND d4.`code_type` = 'IsTorF'
+        )
+        WHERE
+        a.is_stb='F'
+        AND a.`unit_id`= #{unitId}
+        <if test="waerhNum != null and waerhNum !=''">
+            /*仓库编号*/
+            AND INSTR(uo.`unit_num`, #{waerhNum}) > 0
+        </if>
+        <if test="rcvMode != null and rcvMode!=''">
+            /*入库方式*/
+            AND a.`rcv_mode`= #{rcvMode}
+        </if>
+        <if test="delivUnitCode!= null and delivUnitCode!='' ">
+            /*发货方编号*/
+            AND INSTR(b2.`unit_code`, #{delivUnitCode}) > 0
+        </if>
+        <if test="delivWarehCode != null and delivWarehCode != ''">
+            /*发货仓库编号*/
+            AND INSTR(b3.`unit_code`, #{delivWarehCode}) > 0
+        </if>
+        <if test="taskDocNum!= null and taskDocNum!= ''">
+            /*任务单据编号*/
+            AND INSTR(a.`task_doc_num`, #{taskDocNum}) > 0
+        </if>
+        <if test="suspended!= null and suspended!= ''">
+            /*是否挂起*/
+            and a.suspended=#{suspended}
+        </if>
+        <if test="bengTime!= null and bengTime!= ''">
+            and a.`join_time` &gt;= #{bengTime}
+        </if>
+        <if test="endTime!= null and endTime!= ''">
+            and a.`join_time` &lt;= #{endTime}
+        </if>
+        <if test="warehId!= null">
+            and a.`wareh_id` = #{warehId}
+        </if>
+        ORDER BY a.`join_time` DESC
+    </select>
+
+
+    <!--查看入库任务-->
+    <select id="selectRcvTaskMoney" parameterType="com.boyu.erp.platform.usercenter.model.wareh.WarehRcvTaskModel"
+            resultType="com.boyu.erp.platform.usercenter.entity.warehouse.Money">
+        SELECT
+        SUM( a.`ttl_qty`) AS `ttlQty`,
+        SUM( a.`ttl_val`) AS `ttlVal`
+        FROM
+        `wareh_rcv_task` a
+        INNER JOIN sys_unit b1
+        ON a.`wareh_id` = b1.`unit_id`
+        LEFT JOIN sys_unit_owner uo
+        ON a.`wareh_id` = uo.`unit_id`
+        AND uo.`owner_id` = a.`unit_id`
+        LEFT JOIN sys_unit b2
+        ON a.`deliv_unit_id` = b2.`unit_id`
+        LEFT JOIN sys_unit b3
+        ON a.`deliv_wareh_id` = b3.`unit_id`
+        WHERE
+        a.is_stb='F'
+        AND a.`unit_id`= #{unitId}
+        <if test="waerhNum != null and waerhNum !=''">
+            /*仓库编号*/
+            AND INSTR(uo.`unit_num`, #{waerhNum}) > 0
+        </if>
+        <if test="rcvMode != null and rcvMode!=''">
+            /*入库方式*/
+            AND a.`rcv_mode`= #{rcvMode}
+        </if>
+        <if test="delivUnitCode!= null and delivUnitCode!='' ">
+            /*发货方编号*/
+            AND INSTR(b2.`unit_code`, #{delivUnitCode}) > 0
+        </if>
+        <if test="delivWarehCode != null and delivWarehCode != ''">
+            /*发货仓库编号*/
+            AND INSTR(b3.`unit_code`, #{delivWarehCode}) > 0
+        </if>
+        <if test="taskDocNum!= null and taskDocNum!= ''">
+            /*任务单据编号*/
+            AND INSTR(a.`task_doc_num`, #{taskDocNum}) > 0
+        </if>
+        <if test="suspended!= null and suspended!= ''">
+            /*是否挂起*/
+            and a.suspended=#{suspended}
+        </if>
+        <if test="bengTime!= null and bengTime!= ''">
+            and a.`join_time` &gt;= #{bengTime}
+        </if>
+        <if test="endTime!= null and endTime!= ''">
+            and a.`join_time` &lt;= #{endTime}
+        </if>
+        <if test="warehId!= null">
+            and a.`wareh_id` = #{warehId}
+        </if>
+    </select>
+
+
+    <delete id="deleteWarehRcvTask" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehRcvTask">
+    delete from wareh_rcv_task
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and task_doc_type = #{taskDocType,jdbcType=CHAR}
+      and task_doc_unit_id = #{taskDocUnitId,jdbcType=BIGINT}
+      and task_doc_num = #{taskDocNum,jdbcType=VARCHAR}
+  </delete>
+
+    <insert id="insertWarehRcvTask" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehRcvTask">
+        insert into wareh_rcv_task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="grnNum != null and grnNum!=''">
+                grn_num,
+            </if>
+            <if test="taskDocType != null">
+                task_doc_type,
+            </if>
+            <if test="taskDocUnitId != null">
+                task_doc_unit_id,
+            </if>
+            <if test="taskDocNum != null">
+                task_doc_num,
+            </if>
+            <if test="taskDocDate != null">
+                task_doc_date,
+            </if>
+            <if test="warehId != null">
+                wareh_id,
+            </if>
+            <if test="rcvMode != null">
+                rcv_mode,
+            </if>
+            <if test="delivUnitId != null">
+                deliv_unit_id,
+            </if>
+            <if test="delivWarehId != null">
+                deliv_wareh_id,
+            </if>
+            <if test="ttlQty != null">
+                ttl_qty,
+            </if>
+            <if test="ttlVal != null">
+                ttl_val,
+            </if>
+            <if test="multiImpl != null">
+                multi_impl,
+            </if>
+            <if test="implTimes != null">
+                impl_times,
+            </if>
+            <if test="joinTime != null">
+                join_time,
+            </if>
+            <if test="suspended != null">
+                suspended,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+            <if test="isStb != null and isStb !=''">
+                is_stb,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="grnNum != null and grnNum!=''">
+                #{grnNum,jdbcType=VARCHAR},
+            </if>
+            <if test="taskDocType != null">
+                #{taskDocType,jdbcType=CHAR},
+            </if>
+            <if test="taskDocUnitId != null">
+                #{taskDocUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="taskDocNum != null">
+                #{taskDocNum,jdbcType=VARCHAR},
+            </if>
+            <if test="taskDocDate != null">
+                now() ,
+            </if>
+            <if test="warehId != null">
+                #{warehId,jdbcType=BIGINT},
+            </if>
+            <if test="rcvMode != null">
+                #{rcvMode,jdbcType=CHAR},
+            </if>
+            <if test="delivUnitId != null">
+                #{delivUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="delivWarehId != null">
+                #{delivWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="ttlQty != null">
+                #{ttlQty,jdbcType=REAL},
+            </if>
+            <if test="ttlVal != null">
+                #{ttlVal,jdbcType=REAL},
+            </if>
+            <if test="multiImpl != null">
+                #{multiImpl,jdbcType=CHAR},
+            </if>
+            <if test="implTimes != null">
+                #{implTimes,jdbcType=BIGINT},
+            </if>
+            <if test="joinTime != null">
+                now() ,
+            </if>
+            <if test="suspended != null">
+                #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="isStb != null and isStb !=''">
+                #{isStb,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateWarehRcvTask" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehRcvTask">
+        update wareh_rcv_task
+        <set>
+            <if test="taskDocDate != null">
+                task_doc_date = #{taskDocDate,jdbcType=DATE},
+            </if>
+            <if test="grnNum != null and grnNum!=''">
+                grn_num= #{grnNum,jdbcType=VARCHAR},
+            </if>
+            <if test="warehId != null">
+                wareh_id = #{warehId,jdbcType=BIGINT},
+            </if>
+            <if test="rcvMode != null">
+                rcv_mode = #{rcvMode,jdbcType=CHAR},
+            </if>
+            <if test="delivUnitId != null">
+                deliv_unit_id = #{delivUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="delivWarehId != null">
+                deliv_wareh_id = #{delivWarehId,jdbcType=BIGINT},
+            </if>
+            <if test="ttlQty != null">
+                ttl_qty = #{ttlQty,jdbcType=REAL},
+            </if>
+            <if test="ttlVal != null">
+                ttl_val = #{ttlVal,jdbcType=REAL},
+            </if>
+            <if test="multiImpl != null">
+                multi_impl = #{multiImpl,jdbcType=CHAR},
+            </if>
+            <if test="implTimes != null">
+                impl_times = #{implTimes,jdbcType=BIGINT},
+            </if>
+            <if test="joinTime != null">
+                join_time = #{joinTime},
+            </if>
+            <if test="suspended != null">
+                suspended = #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="isStb != null and isStb != ''">
+                is_stb = #{isStb},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and task_doc_type = #{taskDocType,jdbcType=CHAR}
+        and task_doc_unit_id = #{taskDocUnitId,jdbcType=BIGINT}
+        and task_doc_num = #{taskDocNum,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

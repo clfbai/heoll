@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.goods.ProdAttrDefMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.goods.ProdAttrDef">
+        <id column="attr_type" jdbcType="VARCHAR" property="attrType"/>
+        <result column="line_num" jdbcType="BIGINT" property="lineNum"/>
+        <result column="attr_name" jdbcType="VARCHAR" property="attrName"/>
+        <result column="data_type" jdbcType="CHAR" property="dataType"/>
+        <result column="data_len" jdbcType="DECIMAL" property="dataLen"/>
+        <result column="data_dec" jdbcType="DECIMAL" property="dataDec"/>
+        <result column="width" jdbcType="DECIMAL" property="width"/>
+        <result column="char_case" jdbcType="CHAR" property="charCase"/>
+        <result column="val_reqd" jdbcType="CHAR" property="valReqd"/>
+        <result column="attr_dflt_src" jdbcType="CHAR" property="attrDfltSrc"/>
+        <result column="dflt_fml" jdbcType="VARCHAR" property="dfltFml"/>
+        <result column="edt_fml" jdbcType="VARCHAR" property="edtFml"/>
+        <result column="isOpetion" jdbcType="VARCHAR" property="isOpetion"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    attr_type, line_num, attr_name, data_type, data_len, data_dec, width, char_case, 
+    val_reqd, attr_dflt_src, dflt_fml, edt_fml,isOpetion
+  </sql>
+    <select id="getAllProdAttrDef" resultType="com.boyu.erp.platform.usercenter.vo.goods.ProdAttrDefVo">
+        select
+        attr_type as attrType,
+        attr_name  as attrName,
+        isOpetion as  isOpetion
+        from  prod_attr_def
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap"
+            parameterType="com.boyu.erp.platform.usercenter.entity.goods.ProdAttrDef">
+        select
+        <include refid="Base_Column_List"/>
+        from prod_attr_def where 1=1
+        <if test="attrType != null and attrType!=''">
+            and attr_type like CONCAT('%',#{attrType}, '%')
+        </if>
+        <if test="attrName != null and attrName!=''">
+            and attr_name like CONCAT('%',#{attrName}, '%')
+        </if>
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.goods.ProdAttrDef"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from prod_attr_def
+        where attr_type = #{attrType,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.goods.ProdAttrDef">
+        insert into prod_attr_def
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="attrType != null">
+                attr_type,
+            </if>
+            <if test="isOpetion != null">
+                isOpetion,
+            </if>
+            <if test="lineNum != null">
+                line_num,
+            </if>
+            <if test="attrName != null">
+                attr_name,
+            </if>
+            <if test="dataType != null">
+                data_type,
+            </if>
+            <if test="dataLen != null">
+                data_len,
+            </if>
+            <if test="dataDec != null">
+                data_dec,
+            </if>
+            <if test="width != null">
+                width,
+            </if>
+            <if test="charCase != null">
+                char_case,
+            </if>
+            <if test="valReqd != null">
+                val_reqd,
+            </if>
+            <if test="attrDfltSrc != null">
+                attr_dflt_src,
+            </if>
+            <if test="dfltFml != null">
+                dflt_fml,
+            </if>
+            <if test="edtFml != null">
+                edt_fml,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="attrType != null">
+                #{attrType,jdbcType=VARCHAR},
+            </if>
+            <if test="isOpetion != null">
+                #{isOpetion,jdbcType=VARCHAR},
+            </if>
+            <if test="lineNum != null">
+                #{lineNum,jdbcType=BIGINT},
+            </if>
+            <if test="attrName != null">
+                #{attrName,jdbcType=VARCHAR},
+            </if>
+            <if test="dataType != null">
+                #{dataType,jdbcType=CHAR},
+            </if>
+            <if test="dataLen != null">
+                #{dataLen,jdbcType=DECIMAL},
+            </if>
+            <if test="dataDec != null">
+                #{dataDec,jdbcType=DECIMAL},
+            </if>
+            <if test="width != null">
+                #{width,jdbcType=DECIMAL},
+            </if>
+            <if test="charCase != null">
+                #{charCase,jdbcType=CHAR},
+            </if>
+            <if test="valReqd != null">
+                #{valReqd,jdbcType=CHAR},
+            </if>
+            <if test="attrDfltSrc != null">
+                #{attrDfltSrc,jdbcType=CHAR},
+            </if>
+            <if test="dfltFml != null">
+                #{dfltFml,jdbcType=VARCHAR},
+            </if>
+            <if test="edtFml != null">
+                #{edtFml,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.goods.ProdAttrDef">
+        update prod_attr_def
+        <set>
+            <if test="lineNum != null">
+                line_num = #{lineNum,jdbcType=BIGINT},
+            </if>
+            <if test="isOpetion != null">
+                isOpetion= #{isOpetion,jdbcType=VARCHAR},
+            </if>
+            <if test="attrName != null">
+                attr_name = #{attrName,jdbcType=VARCHAR},
+            </if>
+            <if test="dataType != null">
+                data_type = #{dataType,jdbcType=CHAR},
+            </if>
+            <if test="dataLen != null">
+                data_len = #{dataLen,jdbcType=DECIMAL},
+            </if>
+            <if test="dataDec != null">
+                data_dec = #{dataDec,jdbcType=DECIMAL},
+            </if>
+            <if test="width != null">
+                width = #{width,jdbcType=DECIMAL},
+            </if>
+            <if test="charCase != null">
+                char_case = #{charCase,jdbcType=CHAR},
+            </if>
+            <if test="valReqd != null">
+                val_reqd = #{valReqd,jdbcType=CHAR},
+            </if>
+            <if test="attrDfltSrc != null">
+                attr_dflt_src = #{attrDfltSrc,jdbcType=CHAR},
+            </if>
+            <if test="dfltFml != null">
+                dflt_fml = #{dfltFml,jdbcType=VARCHAR},
+            </if>
+            <if test="edtFml != null">
+                edt_fml = #{edtFml,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where attr_type = #{attrType,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.goods.ProdAttrDef">
+         delete from prod_attr_def where attr_type = #{attrType,jdbcType=VARCHAR}
+    </delete>
+
+</mapper>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.LocBstPgMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.LocBstPg">
+    <id column="wareh_id" jdbcType="BIGINT" property="warehId" />
+    <id column="box_code" jdbcType="VARCHAR" property="boxCode" />
+    <id column="loc_id" jdbcType="BIGINT" property="locId" />
+    <id column="stk_type" jdbcType="CHAR" property="stkType" />
+    <id column="doc_type" jdbcType="CHAR" property="docType" />
+    <id column="doc_unit_id" jdbcType="BIGINT" property="docUnitId" />
+    <id column="doc_num" jdbcType="VARCHAR" property="docNum" />
+    <result column="qty" jdbcType="INTEGER" property="qty" />
+    <result column="est_date" jdbcType="DATE" property="estDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    wareh_id, box_code, loc_id, stk_type, doc_type, doc_unit_id, doc_num, qty, est_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.LocBstPg" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from loc_bst_pg
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and box_code = #{boxCode,jdbcType=VARCHAR}
+      and loc_id = #{locId,jdbcType=BIGINT}
+      and stk_type = #{stkType,jdbcType=CHAR}
+      and doc_type = #{docType,jdbcType=CHAR}
+      and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+  </select>
+  <!--删除仓库时删除货位装箱未决库存-->
+  <delete id="deleteLocBstPgWareh" parameterType="java.lang.Long">
+    delete from loc_bst_pg
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.LocBstPg">
+    delete from loc_bst_pg
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and box_code = #{boxCode,jdbcType=VARCHAR}
+      and loc_id = #{locId,jdbcType=BIGINT}
+      and stk_type = #{stkType,jdbcType=CHAR}
+      and doc_type = #{docType,jdbcType=CHAR}
+      and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.LocBstPg">
+    insert into loc_bst_pg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="warehId != null">
+        wareh_id,
+      </if>
+      <if test="boxCode != null">
+        box_code,
+      </if>
+      <if test="locId != null">
+        loc_id,
+      </if>
+      <if test="stkType != null">
+        stk_type,
+      </if>
+      <if test="docType != null">
+        doc_type,
+      </if>
+      <if test="docUnitId != null">
+        doc_unit_id,
+      </if>
+      <if test="docNum != null">
+        doc_num,
+      </if>
+      <if test="qty != null">
+        qty,
+      </if>
+      <if test="estDate != null">
+        est_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="warehId != null">
+        #{warehId,jdbcType=BIGINT},
+      </if>
+      <if test="boxCode != null">
+        #{boxCode,jdbcType=VARCHAR},
+      </if>
+      <if test="locId != null">
+        #{locId,jdbcType=BIGINT},
+      </if>
+      <if test="stkType != null">
+        #{stkType,jdbcType=CHAR},
+      </if>
+      <if test="docType != null">
+        #{docType,jdbcType=CHAR},
+      </if>
+      <if test="docUnitId != null">
+        #{docUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="docNum != null">
+        #{docNum,jdbcType=VARCHAR},
+      </if>
+      <if test="qty != null">
+        #{qty,jdbcType=INTEGER},
+      </if>
+      <if test="estDate != null">
+        #{estDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.LocBstPg">
+    update loc_bst_pg
+    <set>
+      <if test="qty != null">
+        qty = #{qty,jdbcType=INTEGER},
+      </if>
+      <if test="estDate != null">
+        est_date = #{estDate,jdbcType=DATE},
+      </if>
+    </set>
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and box_code = #{boxCode,jdbcType=VARCHAR}
+      and loc_id = #{locId,jdbcType=BIGINT}
+      and stk_type = #{stkType,jdbcType=CHAR}
+      and doc_type = #{docType,jdbcType=CHAR}
+      and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

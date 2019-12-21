@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysUnitHierMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysUnitHier">
+    <id column="unit_hier_id" jdbcType="VARCHAR" property="unitHierId" />
+    <result column="unit_hier_name" jdbcType="VARCHAR" property="unitHierName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="visible" jdbcType="CHAR" property="visible" />
+  </resultMap>
+  <resultMap id="BaseResultMapOption" type="com.boyu.erp.platform.usercenter.vo.system.PurKeyValue">
+    <result column="optionValue" property="optionValue"/>
+    <result column="optionName" property="optionName"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    unit_hier_id, unit_hier_name, description, visible
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_unit_hier
+    where unit_hier_id = #{unitHierId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_unit_hier
+    where unit_hier_id = #{unitHierId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitHier">
+    insert into sys_unit_hier (unit_hier_id, unit_hier_name, description, 
+      visible)
+    values (#{unitHierId,jdbcType=VARCHAR}, #{unitHierName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{visible,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitHier">
+    insert into sys_unit_hier
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitHierId != null">
+        unit_hier_id,
+      </if>
+      <if test="unitHierName != null">
+        unit_hier_name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="visible != null">
+        visible,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitHierId != null">
+        #{unitHierId,jdbcType=VARCHAR},
+      </if>
+      <if test="unitHierName != null">
+        #{unitHierName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="visible != null">
+        #{visible,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitHier">
+    update sys_unit_hier
+    <set>
+      <if test="unitHierName != null">
+        unit_hier_name = #{unitHierName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="visible != null">
+        visible = #{visible,jdbcType=CHAR},
+      </if>
+    </set>
+    where unit_hier_id = #{unitHierId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitHier">
+    update sys_unit_hier
+    set unit_hier_name = #{unitHierName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      visible = #{visible,jdbcType=CHAR}
+    where unit_hier_id = #{unitHierId,jdbcType=VARCHAR}
+  </update>
+  <select id="getSysUnitHierList" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysUnitHier" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_unit_hier
+    where 1=1
+  </select>
+
+  <!--采组织层级下拉-->
+  <select id="optionGet" resultMap="BaseResultMapOption">
+  SELECT unit_hier_id as optionValue , description as optionName
+  FROM
+   sys_unit_hier
+  WHERE
+   visible='T'
+</select>
+</mapper>

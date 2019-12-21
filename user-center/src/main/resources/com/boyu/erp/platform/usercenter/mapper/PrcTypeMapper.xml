@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PrcTypeMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.PrcType">
+    <id column="prc_type" jdbcType="VARCHAR" property="prcType" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="rtc_type" jdbcType="VARCHAR" property="rtcType" />
+    <result column="pr_brdg_mode" jdbcType="CHAR" property="prBrdgMode" />
+    <result column="pr_brdg_mode_alt" jdbcType="CHAR" property="prBrdgModeAlt" />
+    <result column="ac_reqd" jdbcType="CHAR" property="acReqd" />
+    <result column="ac_reqd_alt" jdbcType="CHAR" property="acReqdAlt" />
+    <result column="active" jdbcType="CHAR" property="active" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapRtc" type="com.boyu.erp.platform.usercenter.vo.purchase.PrcTypeVo">
+    <id column="prc_type" jdbcType="VARCHAR" property="prcType" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="rtc_type" jdbcType="VARCHAR" property="rtcType" />
+    <result column="rtcDescription" property="rtcDescription" />
+    <result column="pr_brdg_mode" jdbcType="CHAR" property="prBrdgMode" />
+    <result column="pr_brdg_mode_alt" jdbcType="CHAR" property="prBrdgModeAlt" />
+    <result column="ac_reqd" jdbcType="CHAR" property="acReqd" />
+    <result column="ac_reqd_alt" jdbcType="CHAR" property="acReqdAlt" />
+    <result column="active" jdbcType="CHAR" property="active" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapOption" type="com.boyu.erp.platform.usercenter.vo.system.PurKeyValue">
+    <result column="optionValue" property="optionValue"/>
+    <result column="optionName" property="optionName"/>
+  </resultMap>
+
+  <resultMap id="BaseResultMapByRtcAuto" type="com.boyu.erp.platform.usercenter.vo.purchase.RtcAutoVo">
+    <id column="prc_type" jdbcType="VARCHAR" property="prcType" />
+    <result column="rtc_type" jdbcType="VARCHAR" property="rtcType" />
+    <result column="pr_brdg_mode" jdbcType="CHAR" property="prBrdgMode" />
+    <result column="pr_brdg_mode_alt" jdbcType="CHAR" property="prBrdgModeAlt" />
+    <result column="ac_reqd" jdbcType="CHAR" property="acReqd" />
+    <result column="ac_reqd_alt" jdbcType="CHAR" property="acReqdAlt" />
+    <result column="psc_reqd" jdbcType="CHAR" property="pscReqd" />
+    <result column="deliv_wareh_reqd" jdbcType="CHAR" property="delivWarehReqd" />
+    <result column="prc_auto_gen" jdbcType="CHAR" property="prcAutoGen" />
+    <result column="prc_auto_chk" jdbcType="CHAR" property="prcAutoChk" />
+    <result column="is_pr_itmd" jdbcType="CHAR" property="isPrItmd" />
+    <result column="is_pr_itmd_alt" jdbcType="CHAR" property="isPrItmdAlt" />
+    <result column="rcv_wareh_reqd" jdbcType="CHAR" property="rcvWarehReqd" />
+    <result column="src_auto_gen" jdbcType="CHAR" property="srcAutoGen" />
+    <result column="src_auto_chk" jdbcType="CHAR" property="srcAutoChk" />
+    <result column="is_sr_itmd" jdbcType="CHAR" property="isSrItmd" />
+    <result column="is_sr_itmd_alt" jdbcType="CHAR" property="isSrItmdAlt" />
+    <result column="tran_unit_reqd" jdbcType="CHAR" property="tranUnitReqd" />
+    <result column="dr_diff_jgd" jdbcType="CHAR" property="drDiffJgd" />
+    <result column="dr_diff_jgd_alt" jdbcType="CHAR" property="drDiffJgdAlt" />
+    <result column="multi_impl" jdbcType="CHAR" property="multiImpl" />
+    <result column="multi_impl_alt" jdbcType="CHAR" property="multiImplAlt" />
+    <result column="prc_site" jdbcType="CHAR" property="prcSite" />
+    <result column="prc_site_alt" jdbcType="CHAR" property="prcSiteAlt" />
+    <result column="fixed_unit_price" jdbcType="CHAR" property="fixedUnitPrice" />
+    <result column="spl_enabled" jdbcType="CHAR" property="splEnabled" />
+    <result column="spl_enabled_alt" jdbcType="CHAR" property="splEnabledAlt" />
+    <result column="exbl_rate" jdbcType="DECIMAL" property="exblRate" />
+    <result column="is_cms" jdbcType="CHAR" property="isCms" />
+    <result column="is_cms_alt" jdbcType="CHAR" property="isCmsAlt" />
+    <result column="rtna_invd" jdbcType="CHAR" property="rtnaInvd" />
+    <result column="rtna_invd_alt" jdbcType="CHAR" property="rtnaInvdAlt" />
+    <result column="acc_enabled" jdbcType="CHAR" property="accEnabled" />
+    <result column="acc_enabled_alt" jdbcType="CHAR" property="accEnabledAlt" />
+    <result column="rtn_acc_site" jdbcType="CHAR" property="rtnAccSite" />
+    <result column="rtn_acc_site_alt" jdbcType="CHAR" property="rtnAccSiteAlt" />
+    <result column="acc_rate" jdbcType="DECIMAL" property="accRate" />
+    <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled" />
+    <result column="bxi_enabled_alt" jdbcType="CHAR" property="bxiEnabledAlt" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List">
+    prc_type, description, rtc_type, pr_brdg_mode, pr_brdg_mode_alt, ac_reqd, ac_reqd_alt, 
+    active
+  </sql>
+
+  <select id="selectALL" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PrcType" resultMap="BaseResultMapRtc">
+    SELECT
+    pt.*,
+    rt.description AS rtcDescription
+    FROM
+    prc_type pt
+    LEFT JOIN rtc_type rt ON rt.rtc_type = pt.rtc_type
+    WHERE
+    1 =1
+    <if test="prcType != null">
+      and pt.prc_type like CONCAT('%', #{prcType}, '%')
+    </if>
+    <if test="description != null">
+      and pt.description like CONCAT('%', #{description}, '%')
+    </if>
+    <if test="rtcType != null">
+      and pt.rtc_type = #{rtcType,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <!--退购合同类别下拉-->
+  <select id="optionGet" resultMap="BaseResultMapOption">
+  SELECT prc_type as optionValue , description as optionName
+  FROM
+   prc_type
+  WHERE
+   prc_type!=''
+</select>
+
+  <select id="selectOneRtc" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PrcType" resultMap="BaseResultMapRtc">
+    SELECT
+    pt.*,
+    rt.description AS rtcDescription
+    FROM
+    prc_type pt
+    LEFT JOIN rtc_type rt ON rt.rtc_type = pt.rtc_type
+    WHERE
+    1 =1
+    <if test="rtcType != null">
+      and pt.rtc_type = #{rtcType,jdbcType=VARCHAR}
+    </if>
+    <if test="prcType != null">
+      and pt.prc_type != #{prcType,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <delete id="deletePrcType" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PrcType">
+    delete from prc_type
+    where prc_type = #{prcType,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertPrcType" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PrcType">
+    insert into prc_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prcType != null">
+        prc_type,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="rtcType != null">
+        rtc_type,
+      </if>
+      <if test="prBrdgMode != null">
+        pr_brdg_mode,
+      </if>
+      <if test="prBrdgModeAlt != null">
+        pr_brdg_mode_alt,
+      </if>
+      <if test="acReqd != null">
+        ac_reqd,
+      </if>
+      <if test="acReqdAlt != null">
+        ac_reqd_alt,
+      </if>
+      <if test="active != null">
+        active,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prcType != null">
+        #{prcType,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="rtcType != null">
+        #{rtcType,jdbcType=VARCHAR},
+      </if>
+      <if test="prBrdgMode != null">
+        #{prBrdgMode,jdbcType=CHAR},
+      </if>
+      <if test="prBrdgModeAlt != null">
+        #{prBrdgModeAlt,jdbcType=CHAR},
+      </if>
+      <if test="acReqd != null">
+        #{acReqd,jdbcType=CHAR},
+      </if>
+      <if test="acReqdAlt != null">
+        #{acReqdAlt,jdbcType=CHAR},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updatePrcType" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PrcType">
+    update prc_type
+    <set>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="rtcType != null">
+        rtc_type = #{rtcType,jdbcType=VARCHAR},
+      </if>
+      <if test="prBrdgMode != null">
+        pr_brdg_mode = #{prBrdgMode,jdbcType=CHAR},
+      </if>
+      <if test="prBrdgModeAlt != null">
+        pr_brdg_mode_alt = #{prBrdgModeAlt,jdbcType=CHAR},
+      </if>
+      <if test="acReqd != null">
+        ac_reqd = #{acReqd,jdbcType=CHAR},
+      </if>
+      <if test="acReqdAlt != null">
+        ac_reqd_alt = #{acReqdAlt,jdbcType=CHAR},
+      </if>
+      <if test="active != null">
+        active = #{active,jdbcType=CHAR},
+      </if>
+    </set>
+    where prc_type = #{prcType,jdbcType=VARCHAR}
+  </update>
+
+  <!--退购合同类别下拉-->
+  <select id="selectByRtcAuto" parameterType="java.lang.String"
+          resultMap="BaseResultMapByRtcAuto">
+    SELECT
+        pt.prc_type,
+        pt.pr_brdg_mode,
+        pt.pr_brdg_mode_alt,
+        pt.ac_reqd,
+        pt.ac_reqd_alt,
+        rt.*
+    FROM
+	prc_type pt
+	LEFT JOIN rtc_type rt ON rt.rtc_type = pt.rtc_type
+	WHERE 1=1 AND pt.prc_type = #{prcType}
+  </select>
+
+  <select id="selectByRtcType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    prc_type
+    WHERE
+    rtc_type = #{rtcType}
+  </select>
+
+  <select id="listByPrcType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    prc_type
+    WHERE 1=1
+    <if test="prcType!=null and prcType!='' ">
+      and prc_type = #{prcType}
+    </if>
+    <if test="rtcType!=null and rtcType!='' ">
+      and rtc_type = #{rtcType}
+    </if>
+  </select>
+
+  <select id="listByRtcType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    prc_type
+    WHERE 1=1
+    <if test="prcType!=null and prcType!='' ">
+      and prc_type != #{prcType}
+    </if>
+    <if test="rtcType!=null and rtcType!='' ">
+      and rtc_type = #{rtcType}
+    </if>
+  </select>
+</mapper>

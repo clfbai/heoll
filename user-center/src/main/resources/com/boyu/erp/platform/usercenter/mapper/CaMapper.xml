@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.basic.CaMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.basic.Ca">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="ca_id" jdbcType="BIGINT" property="caId"/>
+        <result column="ca_unit_id" jdbcType="BIGINT" property="caUnitId"/>
+        <result column="ca_type" jdbcType="VARCHAR" property="caType"/>
+        <result column="bal_dir" jdbcType="CHAR" property="balDir"/>
+        <result column="db_bal" jdbcType="DECIMAL" property="dbBal"/>
+        <result column="cr_bal" jdbcType="DECIMAL" property="crBal"/>
+        <result column="db_memo_bal" jdbcType="DECIMAL" property="dbMemoBal"/>
+        <result column="cr_memo_bal" jdbcType="DECIMAL" property="crMemoBal"/>
+        <result column="db_max_bal" jdbcType="DECIMAL" property="dbMaxBal"/>
+        <result column="db_min_bal" jdbcType="DECIMAL" property="dbMinBal"/>
+        <result column="cr_max_bal" jdbcType="DECIMAL" property="crMaxBal"/>
+        <result column="cr_min_bal" jdbcType="DECIMAL" property="crMinBal"/>
+        <result column="db_acc_bal" jdbcType="DECIMAL" property="dbAccBal"/>
+        <result column="cr_acc_bal" jdbcType="DECIMAL" property="crAccBal"/>
+        <result column="db_frz_bal" jdbcType="DECIMAL" property="dbFrzBal"/>
+        <result column="cr_frz_bal" jdbcType="DECIMAL" property="crFrzBal"/>
+        <result column="rva_bal" jdbcType="DECIMAL" property="rvaBal"/>
+        <result column="pya_bal" jdbcType="DECIMAL" property="pyaBal"/>
+        <result column="blo_mode" jdbcType="CHAR" property="bloMode"/>
+        <result column="db_in_bal" jdbcType="DECIMAL" property="dbInBal"/>
+        <result column="db_daily_ir" jdbcType="DECIMAL" property="dbDailyIr"/>
+        <result column="db_in_base" jdbcType="DECIMAL" property="dbInBase"/>
+        <result column="cr_in_bal" jdbcType="DECIMAL" property="crInBal"/>
+        <result column="cr_daily_ir" jdbcType="DECIMAL" property="crDailyIr"/>
+        <result column="cr_in_base" jdbcType="DECIMAL" property="crInBase"/>
+        <result column="end_unit_id" jdbcType="BIGINT" property="endUnitId"/>
+        <result column="ex_ac_num" jdbcType="VARCHAR" property="exAcNum"/>
+        <result column="ca_status" jdbcType="CHAR" property="caStatus"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="upd_time" jdbcType="TIMESTAMP" property="updTime"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapByVo" type="com.boyu.erp.platform.usercenter.vo.system.CaVo">
+        <result column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <result column="ca_id" jdbcType="BIGINT" property="caId"/>
+        <result column="ca_unit_id" jdbcType="BIGINT" property="caUnitId"/>
+        <result column="ca_type" jdbcType="VARCHAR" property="caType"/>
+        <result column="bal_dir" jdbcType="CHAR" property="balDir"/>
+        <result column="db_bal" jdbcType="DECIMAL" property="dbBal"/>
+        <result column="cr_bal" jdbcType="DECIMAL" property="crBal"/>
+        <result column="db_memo_bal" jdbcType="DECIMAL" property="dbMemoBal"/>
+        <result column="cr_memo_bal" jdbcType="DECIMAL" property="crMemoBal"/>
+        <result column="db_max_bal" jdbcType="DECIMAL" property="dbMaxBal"/>
+        <result column="db_min_bal" jdbcType="DECIMAL" property="dbMinBal"/>
+        <result column="cr_max_bal" jdbcType="DECIMAL" property="crMaxBal"/>
+        <result column="cr_min_bal" jdbcType="DECIMAL" property="crMinBal"/>
+        <result column="db_acc_bal" jdbcType="DECIMAL" property="dbAccBal"/>
+        <result column="cr_acc_bal" jdbcType="DECIMAL" property="crAccBal"/>
+        <result column="db_frz_bal" jdbcType="DECIMAL" property="dbFrzBal"/>
+        <result column="cr_frz_bal" jdbcType="DECIMAL" property="crFrzBal"/>
+        <result column="rva_bal" jdbcType="DECIMAL" property="rvaBal"/>
+        <result column="pya_bal" jdbcType="DECIMAL" property="pyaBal"/>
+        <result column="blo_mode" jdbcType="CHAR" property="bloMode"/>
+        <result column="db_in_bal" jdbcType="DECIMAL" property="dbInBal"/>
+        <result column="db_daily_ir" jdbcType="DECIMAL" property="dbDailyIr"/>
+        <result column="db_in_base" jdbcType="DECIMAL" property="dbInBase"/>
+        <result column="cr_in_bal" jdbcType="DECIMAL" property="crInBal"/>
+        <result column="cr_daily_ir" jdbcType="DECIMAL" property="crDailyIr"/>
+        <result column="cr_in_base" jdbcType="DECIMAL" property="crInBase"/>
+        <result column="end_unit_id" jdbcType="BIGINT" property="endUnitId"/>
+        <result column="ex_ac_num" jdbcType="VARCHAR" property="exAcNum"/>
+        <result column="ca_status" jdbcType="CHAR" property="caStatus"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="upd_time" jdbcType="TIMESTAMP" property="updTime"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+
+        <result column="caUnitNum" property="caUnitNum"/>
+        <result column="caUnitName" property="caUnitCp"/>
+        <result column="endUnitNum" property="endUnitNum"/>
+        <result column="endUnitName" property="endUnitCp"/>
+        <result column="oprCode" property="oprCode"/>
+        <result column="oprName" property="oprCp"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    unit_id, ca_id, ca_unit_id, ca_type, bal_dir, db_bal, cr_bal, db_memo_bal, cr_memo_bal, 
+    db_max_bal, db_min_bal, cr_max_bal, cr_min_bal, db_acc_bal, cr_acc_bal, db_frz_bal, 
+    cr_frz_bal, rva_bal, pya_bal, blo_mode, db_in_bal, db_daily_ir, db_in_base, cr_in_bal, 
+    cr_daily_ir, cr_in_base, end_unit_id, ex_ac_num, ca_status, opr_id, upd_time, remarks
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Ca"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ca
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and ca_id = #{caId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Ca">
+    delete from ca
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and ca_unit_id = #{caUnitId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Ca">
+    insert into ca (unit_id, ca_id, ca_unit_id, 
+      ca_type, bal_dir, db_bal, 
+      cr_bal, db_memo_bal, cr_memo_bal, 
+      db_max_bal, db_min_bal, cr_max_bal, 
+      cr_min_bal, db_acc_bal, cr_acc_bal, 
+      db_frz_bal, cr_frz_bal, rva_bal, 
+      pya_bal, blo_mode, db_in_bal, 
+      db_daily_ir, db_in_base, cr_in_bal, 
+      cr_daily_ir, cr_in_base, end_unit_id, 
+      ex_ac_num, ca_status, opr_id, 
+      upd_time, remarks)
+    values (#{unitId,jdbcType=BIGINT}, #{caId,jdbcType=BIGINT}, #{caUnitId,jdbcType=BIGINT}, 
+      #{caType,jdbcType=VARCHAR}, #{balDir,jdbcType=CHAR}, #{dbBal,jdbcType=DECIMAL}, 
+      #{crBal,jdbcType=DECIMAL}, #{dbMemoBal,jdbcType=DECIMAL}, #{crMemoBal,jdbcType=DECIMAL}, 
+      #{dbMaxBal,jdbcType=DECIMAL}, #{dbMinBal,jdbcType=DECIMAL}, #{crMaxBal,jdbcType=DECIMAL}, 
+      #{crMinBal,jdbcType=DECIMAL}, #{dbAccBal,jdbcType=DECIMAL}, #{crAccBal,jdbcType=DECIMAL}, 
+      #{dbFrzBal,jdbcType=DECIMAL}, #{crFrzBal,jdbcType=DECIMAL}, #{rvaBal,jdbcType=DECIMAL}, 
+      #{pyaBal,jdbcType=DECIMAL}, #{bloMode,jdbcType=CHAR}, #{dbInBal,jdbcType=DECIMAL}, 
+      #{dbDailyIr,jdbcType=DECIMAL}, #{dbInBase,jdbcType=DECIMAL}, #{crInBal,jdbcType=DECIMAL}, 
+      #{crDailyIr,jdbcType=DECIMAL}, #{crInBase,jdbcType=DECIMAL}, #{endUnitId,jdbcType=BIGINT}, 
+      #{exAcNum,jdbcType=VARCHAR}, #{caStatus,jdbcType=CHAR}, #{oprId,jdbcType=BIGINT}, 
+      #{updTime,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Ca">
+        insert into ca
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="caId != null">
+                ca_id,
+            </if>
+            <if test="caUnitId != null">
+                ca_unit_id,
+            </if>
+            <if test="caType != null">
+                ca_type,
+            </if>
+            <if test="balDir != null">
+                bal_dir,
+            </if>
+            <if test="dbBal != null">
+                db_bal,
+            </if>
+            <if test="crBal != null">
+                cr_bal,
+            </if>
+            <if test="dbMemoBal != null">
+                db_memo_bal,
+            </if>
+            <if test="crMemoBal != null">
+                cr_memo_bal,
+            </if>
+            <if test="dbMaxBal != null">
+                db_max_bal,
+            </if>
+            <if test="dbMinBal != null">
+                db_min_bal,
+            </if>
+            <if test="crMaxBal != null">
+                cr_max_bal,
+            </if>
+            <if test="crMinBal != null">
+                cr_min_bal,
+            </if>
+            <if test="dbAccBal != null">
+                db_acc_bal,
+            </if>
+            <if test="crAccBal != null">
+                cr_acc_bal,
+            </if>
+            <if test="dbFrzBal != null">
+                db_frz_bal,
+            </if>
+            <if test="crFrzBal != null">
+                cr_frz_bal,
+            </if>
+            <if test="rvaBal != null">
+                rva_bal,
+            </if>
+            <if test="pyaBal != null">
+                pya_bal,
+            </if>
+            <if test="bloMode != null">
+                blo_mode,
+            </if>
+            <if test="dbInBal != null">
+                db_in_bal,
+            </if>
+            <if test="dbDailyIr != null">
+                db_daily_ir,
+            </if>
+            <if test="dbInBase != null">
+                db_in_base,
+            </if>
+            <if test="crInBal != null">
+                cr_in_bal,
+            </if>
+            <if test="crDailyIr != null">
+                cr_daily_ir,
+            </if>
+            <if test="crInBase != null">
+                cr_in_base,
+            </if>
+            <if test="endUnitId != null">
+                end_unit_id,
+            </if>
+            <if test="exAcNum != null">
+                ex_ac_num,
+            </if>
+            <if test="caStatus != null">
+                ca_status,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+                upd_time,
+            <if test="remarks != null">
+                remarks,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="caId != null">
+                #{caId,jdbcType=BIGINT},
+            </if>
+            <if test="caUnitId != null">
+                #{caUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="caType != null">
+                #{caType,jdbcType=VARCHAR},
+            </if>
+            <if test="balDir != null">
+                #{balDir,jdbcType=CHAR},
+            </if>
+            <if test="dbBal != null">
+                #{dbBal,jdbcType=DECIMAL},
+            </if>
+            <if test="crBal != null">
+                #{crBal,jdbcType=DECIMAL},
+            </if>
+            <if test="dbMemoBal != null">
+                #{dbMemoBal,jdbcType=DECIMAL},
+            </if>
+            <if test="crMemoBal != null">
+                #{crMemoBal,jdbcType=DECIMAL},
+            </if>
+            <if test="dbMaxBal != null">
+                #{dbMaxBal,jdbcType=DECIMAL},
+            </if>
+            <if test="dbMinBal != null">
+                #{dbMinBal,jdbcType=DECIMAL},
+            </if>
+            <if test="crMaxBal != null">
+                #{crMaxBal,jdbcType=DECIMAL},
+            </if>
+            <if test="crMinBal != null">
+                #{crMinBal,jdbcType=DECIMAL},
+            </if>
+            <if test="dbAccBal != null">
+                #{dbAccBal,jdbcType=DECIMAL},
+            </if>
+            <if test="crAccBal != null">
+                #{crAccBal,jdbcType=DECIMAL},
+            </if>
+            <if test="dbFrzBal != null">
+                #{dbFrzBal,jdbcType=DECIMAL},
+            </if>
+            <if test="crFrzBal != null">
+                #{crFrzBal,jdbcType=DECIMAL},
+            </if>
+            <if test="rvaBal != null">
+                #{rvaBal,jdbcType=DECIMAL},
+            </if>
+            <if test="pyaBal != null">
+                #{pyaBal,jdbcType=DECIMAL},
+            </if>
+            <if test="bloMode != null">
+                #{bloMode,jdbcType=CHAR},
+            </if>
+            <if test="dbInBal != null">
+                #{dbInBal,jdbcType=DECIMAL},
+            </if>
+            <if test="dbDailyIr != null">
+                #{dbDailyIr,jdbcType=DECIMAL},
+            </if>
+            <if test="dbInBase != null">
+                #{dbInBase,jdbcType=DECIMAL},
+            </if>
+            <if test="crInBal != null">
+                #{crInBal,jdbcType=DECIMAL},
+            </if>
+            <if test="crDailyIr != null">
+                #{crDailyIr,jdbcType=DECIMAL},
+            </if>
+            <if test="crInBase != null">
+                #{crInBase,jdbcType=DECIMAL},
+            </if>
+            <if test="endUnitId != null">
+                #{endUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="exAcNum != null">
+                #{exAcNum,jdbcType=VARCHAR},
+            </if>
+            <if test="caStatus != null">
+                #{caStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                #{oprId,jdbcType=BIGINT},
+            </if>
+            now(),
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Ca">
+        update ca
+        <set>
+            <if test="caUnitId != null">
+                ca_unit_id = #{caUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="caType != null">
+                ca_type = #{caType,jdbcType=VARCHAR},
+            </if>
+            <if test="balDir != null">
+                bal_dir = #{balDir,jdbcType=CHAR},
+            </if>
+            <if test="dbBal != null">
+                db_bal = #{dbBal,jdbcType=DECIMAL},
+            </if>
+            <if test="crBal != null">
+                cr_bal = #{crBal,jdbcType=DECIMAL},
+            </if>
+            <if test="dbMemoBal != null">
+                db_memo_bal = #{dbMemoBal,jdbcType=DECIMAL},
+            </if>
+            <if test="crMemoBal != null">
+                cr_memo_bal = #{crMemoBal,jdbcType=DECIMAL},
+            </if>
+            <if test="dbMaxBal != null">
+                db_max_bal = #{dbMaxBal,jdbcType=DECIMAL},
+            </if>
+            <if test="dbMinBal != null">
+                db_min_bal = #{dbMinBal,jdbcType=DECIMAL},
+            </if>
+            <if test="crMaxBal != null">
+                cr_max_bal = #{crMaxBal,jdbcType=DECIMAL},
+            </if>
+            <if test="crMinBal != null">
+                cr_min_bal = #{crMinBal,jdbcType=DECIMAL},
+            </if>
+            <if test="dbAccBal != null">
+                db_acc_bal = #{dbAccBal,jdbcType=DECIMAL},
+            </if>
+            <if test="crAccBal != null">
+                cr_acc_bal = #{crAccBal,jdbcType=DECIMAL},
+            </if>
+            <if test="dbFrzBal != null">
+                db_frz_bal = #{dbFrzBal,jdbcType=DECIMAL},
+            </if>
+            <if test="crFrzBal != null">
+                cr_frz_bal = #{crFrzBal,jdbcType=DECIMAL},
+            </if>
+            <if test="rvaBal != null">
+                rva_bal = #{rvaBal,jdbcType=DECIMAL},
+            </if>
+            <if test="pyaBal != null">
+                pya_bal = #{pyaBal,jdbcType=DECIMAL},
+            </if>
+            <if test="bloMode != null">
+                blo_mode = #{bloMode,jdbcType=CHAR},
+            </if>
+            <if test="dbInBal != null">
+                db_in_bal = #{dbInBal,jdbcType=DECIMAL},
+            </if>
+            <if test="dbDailyIr != null">
+                db_daily_ir = #{dbDailyIr,jdbcType=DECIMAL},
+            </if>
+            <if test="dbInBase != null">
+                db_in_base = #{dbInBase,jdbcType=DECIMAL},
+            </if>
+            <if test="crInBal != null">
+                cr_in_bal = #{crInBal,jdbcType=DECIMAL},
+            </if>
+            <if test="crDailyIr != null">
+                cr_daily_ir = #{crDailyIr,jdbcType=DECIMAL},
+            </if>
+            <if test="crInBase != null">
+                cr_in_base = #{crInBase,jdbcType=DECIMAL},
+            </if>
+            <if test="endUnitId != null">
+                end_unit_id = #{endUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="exAcNum != null">
+                ex_ac_num = #{exAcNum,jdbcType=VARCHAR},
+            </if>
+            <if test="caStatus != null">
+                ca_status = #{caStatus,jdbcType=CHAR},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId,jdbcType=BIGINT},
+                upd_time = now(),
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and ca_id = #{caId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Ca">
+    update ca
+    set ca_unit_id = #{caUnitId,jdbcType=BIGINT},
+      ca_type = #{caType,jdbcType=VARCHAR},
+      bal_dir = #{balDir,jdbcType=CHAR},
+      db_bal = #{dbBal,jdbcType=DECIMAL},
+      cr_bal = #{crBal,jdbcType=DECIMAL},
+      db_memo_bal = #{dbMemoBal,jdbcType=DECIMAL},
+      cr_memo_bal = #{crMemoBal,jdbcType=DECIMAL},
+      db_max_bal = #{dbMaxBal,jdbcType=DECIMAL},
+      db_min_bal = #{dbMinBal,jdbcType=DECIMAL},
+      cr_max_bal = #{crMaxBal,jdbcType=DECIMAL},
+      cr_min_bal = #{crMinBal,jdbcType=DECIMAL},
+      db_acc_bal = #{dbAccBal,jdbcType=DECIMAL},
+      cr_acc_bal = #{crAccBal,jdbcType=DECIMAL},
+      db_frz_bal = #{dbFrzBal,jdbcType=DECIMAL},
+      cr_frz_bal = #{crFrzBal,jdbcType=DECIMAL},
+      rva_bal = #{rvaBal,jdbcType=DECIMAL},
+      pya_bal = #{pyaBal,jdbcType=DECIMAL},
+      blo_mode = #{bloMode,jdbcType=CHAR},
+      db_in_bal = #{dbInBal,jdbcType=DECIMAL},
+      db_daily_ir = #{dbDailyIr,jdbcType=DECIMAL},
+      db_in_base = #{dbInBase,jdbcType=DECIMAL},
+      cr_in_bal = #{crInBal,jdbcType=DECIMAL},
+      cr_daily_ir = #{crDailyIr,jdbcType=DECIMAL},
+      cr_in_base = #{crInBase,jdbcType=DECIMAL},
+      end_unit_id = #{endUnitId,jdbcType=BIGINT},
+      ex_ac_num = #{exAcNum,jdbcType=VARCHAR},
+      ca_status = #{caStatus,jdbcType=CHAR},
+      opr_id = #{oprId,jdbcType=BIGINT},
+      upd_time = #{updTime,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and ca_id = #{caId,jdbcType=BIGINT}
+  </update>
+    <!--判断是否存在往来账户-->
+    <select id="selectByCaUnitId" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Ca"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ca
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        <if test=" caUnitId!=null and caUnitId!='' ">
+            and ca_unit_id = #{caUnitId,jdbcType=BIGINT}
+        </if>
+        <if test="caType != null and caType!='' ">
+            and ca_type = #{caType,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <!--判断是否存在往来账户-->
+    <select id="selectByCaUnitIdDesc" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Ca"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ca
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        order by ca_id desc LIMIT 1
+    </select>
+
+    <select id="selectByDelete" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Ca"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ca
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and ca_unit_id = #{caUnitId,jdbcType=BIGINT}
+        and (db_bal != 0
+        OR cr_bal != 0
+        OR db_memo_bal != 0
+        OR cr_memo_bal != 0
+        OR db_acc_bal != 0
+        OR cr_acc_bal != 0
+        OR db_frz_bal != 0
+        OR cr_frz_bal != 0
+        OR rva_bal != 0
+        OR pya_bal != 0
+        OR db_in_bal != 0
+        OR db_in_base != 0)
+    </select>
+
+    <update id="updateByRevoke" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            update ca
+            set
+            db_acc_bal = db_acc_bal-#{item.dbAccVal},
+            cr_acc_bal = cr_acc_bal-#{item.crAccVal},
+            upd_time = now()
+            where unit_id = #{item.docUnitId}
+            and ca_id = #{item.caId}
+        </foreach>
+    </update>
+
+    <!--超级管理员查询-->
+    <select id="selectALL" parameterType="com.boyu.erp.platform.usercenter.vo.system.CaVo"
+            resultMap="BaseResultMapByVo">
+        SELECT
+            suo.unit_num AS caUnitNum,
+            su.unit_name AS caUnitCp,
+            suo1.unit_num AS endUnitNum,
+            su1.unit_name AS endUnitCp,
+            sp.prsnl_code AS oprCode,
+            sp.full_name AS oprCp,
+            ca.*
+        FROM
+            ca ca
+            left JOIN sys_unit_owner suo ON suo.unit_id = ca.ca_unit_id
+            AND suo.owner_id = ca.unit_id
+            left JOIN sys_unit su ON su.unit_id = ca.ca_unit_id
+            left JOIN sys_unit_owner suo1 ON suo1.unit_id = ca.end_unit_id
+            AND suo1.owner_id = ca.unit_id
+            left join sys_unit su1 ON su1.unit_id = ca.end_unit_id
+            left join sys_prsnl sp ON sp.prsnl_id = ca.opr_id
+        WHERE
+            1=1
+            AND ca.ca_status!='D'
+        <if test="caUnitNum != null and caUnitNum != '' and caUnitNum != 'null'">
+            and suo.unit_num  like CONCAT( #{caUnitNum}, '%')
+        </if>
+        <if test="caUnitCp != null and caUnitCp != '' and caUnitCp != 'null'">
+            and su.unit_name  like CONCAT('%', #{caUnitCp}, '%')
+        </if>
+        <if test="caStatus != null and caStatus != '' and caStatus != 'null'">
+            and ca.ca_status = #{caStatus}
+        </if>
+    </select>
+
+    <!--组织/用户查询-->
+    <select id="selectByUnit" parameterType="com.boyu.erp.platform.usercenter.vo.system.CaVo"
+            resultMap="BaseResultMapByVo">
+        SELECT
+        suo.unit_num AS caUnitNum,
+        su.unit_name AS caUnitCp,
+        suo1.unit_num AS endUnitNum,
+        su1.unit_name AS endUnitCp,
+        sp.prsnl_code AS oprCode,
+        sp.full_name AS oprCp,
+        ca.*
+        FROM
+        (select * from ca a where 1=1 and a.unit_id=#{unitId})  ca
+        left JOIN sys_unit_owner suo ON suo.unit_id = ca.ca_unit_id
+        AND suo.owner_id = ca.unit_id
+        left JOIN sys_unit su ON su.unit_id = ca.ca_unit_id
+        left JOIN sys_unit_owner suo1 ON suo1.unit_id = ca.end_unit_id
+        AND suo1.owner_id = ca.unit_id
+        left join sys_unit su1 ON su1.unit_id = ca.end_unit_id
+        left join sys_prsnl sp ON sp.prsnl_id = ca.opr_id
+        WHERE
+        1=1
+        AND ca.ca_status!='D'
+        <if test="caUnitNum != null and caUnitNum != '' and caUnitNum != 'null'">
+            and suo.unit_num  like CONCAT( #{caUnitNum}, '%')
+        </if>
+        <if test="caUnitCp != null and caUnitCp != '' and caUnitCp != 'null'">
+            and su.unit_name  like CONCAT('%', #{caUnitCp}, '%')
+        </if>
+        <if test="caStatus != null and caStatus != '' and caStatus != 'null'">
+            and ca.ca_status = #{caStatus}
+        </if>
+    </select>
+    <select id="queryCaByRcvAndUnit" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from ca where unit_id=#{fsclUnitId} and ca_unit_id = #{rcvFsclUnitId} and ca_type=#{caType}
+    </select>
+</mapper>

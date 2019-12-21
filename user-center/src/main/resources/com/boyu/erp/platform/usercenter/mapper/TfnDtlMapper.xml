@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.TfnDtlMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.TfnDtl">
+    <id column="unit_id" jdbcType="DECIMAL" property="unitId" />
+    <id column="tfn_num" jdbcType="VARCHAR" property="tfnNum" />
+    <id column="prod_id" jdbcType="DECIMAL" property="prodId" />
+    <result column="row_num" jdbcType="DECIMAL" property="rowNum" />
+    <result column="line_num" jdbcType="DECIMAL" property="lineNum" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="disc_rate" jdbcType="DECIMAL" property="discRate" />
+    <result column="fnl_price" jdbcType="DECIMAL" property="fnlPrice" />
+    <result column="tax_rate" jdbcType="DECIMAL" property="taxRate" />
+    <result column="mk_unit_price" jdbcType="DECIMAL" property="mkUnitPrice" />
+    <result column="qty" jdbcType="DECIMAL" property="qty" />
+    <result column="val" jdbcType="DECIMAL" property="val" />
+    <result column="tax" jdbcType="DECIMAL" property="tax" />
+    <result column="mkv" jdbcType="DECIMAL" property="mkv" />
+    <result column="deliv_qty" jdbcType="DECIMAL" property="delivQty" />
+    <result column="deliv_val" jdbcType="DECIMAL" property="delivVal" />
+    <result column="deliv_tax" jdbcType="DECIMAL" property="delivTax" />
+    <result column="deliv_mkv" jdbcType="DECIMAL" property="delivMkv" />
+    <result column="rcv_qty" jdbcType="DECIMAL" property="rcvQty" />
+    <result column="rcv_val" jdbcType="DECIMAL" property="rcvVal" />
+    <result column="rcv_tax" jdbcType="DECIMAL" property="rcvTax" />
+    <result column="rcv_mkv" jdbcType="DECIMAL" property="rcvMkv" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <resultMap id="BaseTfnDtlMap" type="com.boyu.erp.platform.usercenter.vo.warehouse.TfnDtlVo">
+    <id column="unit_id" jdbcType="DECIMAL" property="unitId" />
+    <id column="tfn_num" jdbcType="VARCHAR" property="tfnNum" />
+    <id column="prod_id" jdbcType="DECIMAL" property="prodId" />
+    <result column="row_num" jdbcType="DECIMAL" property="rowNum" />
+    <result column="line_num" jdbcType="DECIMAL" property="lineNum" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="disc_rate" jdbcType="DECIMAL" property="discRate" />
+    <result column="fnl_price" jdbcType="DECIMAL" property="fnlPrice" />
+    <result column="tax_rate" jdbcType="DECIMAL" property="taxRate" />
+    <result column="mk_unit_price" jdbcType="DECIMAL" property="mkUnitPrice" />
+    <result column="qty" jdbcType="DECIMAL" property="qty" />
+    <result column="val" jdbcType="DECIMAL" property="val" />
+    <result column="tax" jdbcType="DECIMAL" property="tax" />
+    <result column="mkv" jdbcType="DECIMAL" property="mkv" />
+    <result column="deliv_qty" jdbcType="DECIMAL" property="delivQty" />
+    <result column="deliv_val" jdbcType="DECIMAL" property="delivVal" />
+    <result column="deliv_tax" jdbcType="DECIMAL" property="delivTax" />
+    <result column="deliv_mkv" jdbcType="DECIMAL" property="delivMkv" />
+    <result column="rcv_qty" jdbcType="DECIMAL" property="rcvQty" />
+    <result column="rcv_val" jdbcType="DECIMAL" property="rcvVal" />
+    <result column="rcv_tax" jdbcType="DECIMAL" property="rcvTax" />
+    <result column="rcv_mkv" jdbcType="DECIMAL" property="rcvMkv" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="productCode" jdbcType="VARCHAR" property="productCode" />
+    <result column="productName" jdbcType="VARCHAR" property="productName" />
+    <result column="seqNum" jdbcType="VARCHAR" property="seqNum" />
+    <result column="uom" jdbcType="VARCHAR" property="uom" />
+    <result column="colorName" jdbcType="VARCHAR" property="colorName" />
+    <result column="specName" jdbcType="VARCHAR" property="specName" />
+    <result column="edition" jdbcType="VARCHAR" property="edition" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    unit_id, tfn_num, prod_id, row_num, line_num, unit_price, disc_rate, fnl_price, tax_rate, 
+    mk_unit_price, qty, val, tax, mkv, deliv_qty, deliv_val, deliv_tax, deliv_mkv, rcv_qty, 
+    rcv_val, rcv_tax, rcv_mkv, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.TfnDtl" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tfn_dtl
+    where unit_id = #{unitId,jdbcType=DECIMAL}
+      and tfn_num = #{tfnNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.TfnDtl">
+    delete from tfn_dtl
+    where unit_id = #{unitId,jdbcType=DECIMAL}
+      and tfn_num = #{tfnNum,jdbcType=VARCHAR}
+      <if test="prodId != 0">
+        and prod_id = #{prodId,jdbcType=DECIMAL}
+      </if>
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.TfnDtl">
+    insert into tfn_dtl (unit_id, tfn_num, prod_id, 
+      row_num, line_num, unit_price, 
+      disc_rate, fnl_price, tax_rate, 
+      mk_unit_price, qty, val, 
+      tax, mkv, deliv_qty, 
+      deliv_val, deliv_tax, deliv_mkv, 
+      rcv_qty, rcv_val, rcv_tax, 
+      rcv_mkv, remarks)
+    values (#{unitId,jdbcType=DECIMAL}, #{tfnNum,jdbcType=VARCHAR}, #{prodId,jdbcType=DECIMAL}, 
+      #{rowNum,jdbcType=DECIMAL}, #{lineNum,jdbcType=DECIMAL}, #{unitPrice,jdbcType=DECIMAL}, 
+      #{discRate,jdbcType=DECIMAL}, #{fnlPrice,jdbcType=DECIMAL}, #{taxRate,jdbcType=DECIMAL}, 
+      #{mkUnitPrice,jdbcType=DECIMAL}, #{qty,jdbcType=DECIMAL}, #{val,jdbcType=DECIMAL}, 
+      #{tax,jdbcType=DECIMAL}, #{mkv,jdbcType=DECIMAL}, #{delivQty,jdbcType=DECIMAL}, 
+      #{delivVal,jdbcType=DECIMAL}, #{delivTax,jdbcType=DECIMAL}, #{delivMkv,jdbcType=DECIMAL}, 
+      #{rcvQty,jdbcType=DECIMAL}, #{rcvVal,jdbcType=DECIMAL}, #{rcvTax,jdbcType=DECIMAL}, 
+      #{rcvMkv,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.TfnDtl">
+    update tfn_dtl
+    <set>
+      <if test="rowNum != null">
+        row_num = #{rowNum,jdbcType=DECIMAL},
+      </if>
+      <if test="lineNum != null">
+        line_num = #{lineNum,jdbcType=DECIMAL},
+      </if>
+      <if test="unitPrice != null">
+        unit_price = #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discRate != null">
+        disc_rate = #{discRate,jdbcType=DECIMAL},
+      </if>
+      <if test="fnlPrice != null">
+        fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="taxRate != null">
+        tax_rate = #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="mkUnitPrice != null">
+        mk_unit_price = #{mkUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="qty != null">
+        qty = #{qty,jdbcType=DECIMAL},
+      </if>
+      <if test="val != null">
+        val = #{val,jdbcType=DECIMAL},
+      </if>
+      <if test="tax != null">
+        tax = #{tax,jdbcType=DECIMAL},
+      </if>
+      <if test="mkv != null">
+        mkv = #{mkv,jdbcType=DECIMAL},
+      </if>
+      <if test="delivQty != null">
+        deliv_qty = #{delivQty,jdbcType=DECIMAL},
+      </if>
+      <if test="delivVal != null">
+        deliv_val = #{delivVal,jdbcType=DECIMAL},
+      </if>
+      <if test="delivTax != null">
+        deliv_tax = #{delivTax,jdbcType=DECIMAL},
+      </if>
+      <if test="delivMkv != null">
+        deliv_mkv = #{delivMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvQty != null">
+        rcv_qty = #{rcvQty,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvVal != null">
+        rcv_val = #{rcvVal,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvTax != null">
+        rcv_tax = #{rcvTax,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvMkv != null">
+        rcv_mkv = #{rcvMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where unit_id = #{unitId,jdbcType=DECIMAL}
+      and tfn_num = #{tfnNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=DECIMAL}
+  </update>
+  <update id="update" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.TfnDtl">
+    update tfn_dtl
+    set row_num = #{rowNum,jdbcType=DECIMAL},
+      line_num = #{lineNum,jdbcType=DECIMAL},
+      unit_price = #{unitPrice,jdbcType=DECIMAL},
+      disc_rate = #{discRate,jdbcType=DECIMAL},
+      fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+      tax_rate = #{taxRate,jdbcType=DECIMAL},
+      mk_unit_price = #{mkUnitPrice,jdbcType=DECIMAL},
+      qty = #{qty,jdbcType=DECIMAL},
+      val = #{val,jdbcType=DECIMAL},
+      tax = #{tax,jdbcType=DECIMAL},
+      mkv = #{mkv,jdbcType=DECIMAL},
+      deliv_qty = #{delivQty,jdbcType=DECIMAL},
+      deliv_val = #{delivVal,jdbcType=DECIMAL},
+      deliv_tax = #{delivTax,jdbcType=DECIMAL},
+      deliv_mkv = #{delivMkv,jdbcType=DECIMAL},
+      rcv_qty = #{rcvQty,jdbcType=DECIMAL},
+      rcv_val = #{rcvVal,jdbcType=DECIMAL},
+      rcv_tax = #{rcvTax,jdbcType=DECIMAL},
+      rcv_mkv = #{rcvMkv,jdbcType=DECIMAL},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where unit_id = #{unitId,jdbcType=DECIMAL}
+      and tfn_num = #{tfnNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=DECIMAL}
+  </update>
+  <select id="getTfnDtlList" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.TfnDtl" resultMap="BaseTfnDtlMap">
+    SELECT
+        t.* ,
+        t2.edition as edition,
+        t2.prod_code as productCode,
+        t3.prod_name as productName,
+        t3.input_code as inputCode,
+        t3.seq_num as seqNum,
+        t3.uom as uom,
+        t4.color_name,
+        t5.spec_name
+    FROM
+        tfn_dtl t
+        left join tfn t1 on t.unit_id = t1.unit_id
+        and t.tfn_num = t1.tfn_num
+        left join product t2 on t.prod_id = t2.prod_id
+        left join prod_cls t3 on t2.prod_cls_id = t3.prod_cls_id
+        left join color t4 on t2.color_id = t4.color_id
+        left join spec t5 on t2.spec_id = t5.spec_id
+    WHERE 1 = 1
+      <if test="unitId != 0">
+        and t.unit_id  =  #{unitId,jdbcType=DECIMAL}
+      </if>
+      <if test="tfnNum !=null and tfnNum !=''">
+        and t.tfn_num = #{tfnNum,jdbcType=VARCHAR}
+      </if>
+  </select>
+</mapper>

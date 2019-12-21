@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.TfnTypeMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.TfnType">
+        <id column="tfn_type" jdbcType="VARCHAR" property="tfnType"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="fscl_date_reqd" jdbcType="CHAR" property="fsclDateReqd"/>
+        <result column="dr_diff_jgd" jdbcType="CHAR" property="drDiffJgd"/>
+        <result column="dr_diff_jgd_alt" jdbcType="CHAR" property="drDiffJgdAlt"/>
+        <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled"/>
+        <result column="bxi_enabled_alt" jdbcType="CHAR" property="bxiEnabledAlt"/>
+        <result column="active" jdbcType="CHAR" property="active"/>
+        <result column="is_del" jdbcType="TINYINT" property="isDel"/>
+        <result column="create_by" jdbcType="BIGINT" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="BIGINT" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    tfn_type, description, fscl_date_reqd, dr_diff_jgd, dr_diff_jgd_alt, bxi_enabled, 
+    bxi_enabled_alt, active, is_del, create_by, create_time, update_by, update_time
+  </sql>
+    <select id="selectByTfnType" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tfn_type
+        where tfn_type = #{tfnType,jdbcType=VARCHAR}
+    </select>
+
+    <!--获得所有调拨单类别-->
+    <select id="getAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tfn_type
+        where is_del=1
+        <if test="tfnType!=null and tfnType!=''">
+            AND INSTR(`tfn_type`,#{tfnType})>0
+        </if>
+        <if test="description!=null and description!=''">
+            AND INSTR(`description`,#{description})>0
+        </if>
+        <if test="fsclDateReqd !=null and fsclDateReqd!=''">
+            AND `fscl_date_reqd`=#{fsclDateReqd}
+        </if>
+    </select>
+
+    <delete id="deleteByTfnType" parameterType="java.lang.String">
+    delete from tfn_type
+    where tfn_type = #{tfnType,jdbcType=VARCHAR}
+  </delete>
+
+    <insert id="insertTfnType" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.TfnType">
+        insert into tfn_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tfnType != null">
+                tfn_type,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="fsclDateReqd != null">
+                fscl_date_reqd,
+            </if>
+            <if test="drDiffJgd != null">
+                dr_diff_jgd,
+            </if>
+            <if test="drDiffJgdAlt != null">
+                dr_diff_jgd_alt,
+            </if>
+            <if test="bxiEnabled != null">
+                bxi_enabled,
+            </if>
+            <if test="bxiEnabledAlt != null">
+                bxi_enabled_alt,
+            </if>
+            <if test="active != null">
+                active,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tfnType != null">
+                #{tfnType,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="fsclDateReqd != null">
+                #{fsclDateReqd,jdbcType=CHAR},
+            </if>
+            <if test="drDiffJgd != null">
+                #{drDiffJgd,jdbcType=CHAR},
+            </if>
+            <if test="drDiffJgdAlt != null">
+                #{drDiffJgdAlt,jdbcType=CHAR},
+            </if>
+            <if test="bxiEnabled != null">
+                #{bxiEnabled,jdbcType=CHAR},
+            </if>
+            <if test="bxiEnabledAlt != null">
+                #{bxiEnabledAlt,jdbcType=CHAR},
+            </if>
+            <if test="active != null">
+                #{active,jdbcType=CHAR},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                now(),
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                now(),
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByTfnType" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.TfnType">
+        update tfn_type
+        <set>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="fsclDateReqd != null">
+                fscl_date_reqd = #{fsclDateReqd,jdbcType=CHAR},
+            </if>
+            <if test="drDiffJgd != null">
+                dr_diff_jgd = #{drDiffJgd,jdbcType=CHAR},
+            </if>
+            <if test="drDiffJgdAlt != null">
+                dr_diff_jgd_alt = #{drDiffJgdAlt,jdbcType=CHAR},
+            </if>
+            <if test="bxiEnabled != null">
+                bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+            </if>
+            <if test="bxiEnabledAlt != null">
+                bxi_enabled_alt = #{bxiEnabledAlt,jdbcType=CHAR},
+            </if>
+            <if test="active != null">
+                active = #{active,jdbcType=CHAR},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = now(),
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time =now(),
+            </if>
+        </set>
+        where tfn_type = #{tfnType,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.WarehBstMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.WarehBst">
+    <id column="wareh_id" jdbcType="BIGINT" property="warehId" />
+    <id column="box_code" jdbcType="VARCHAR" property="boxCode" />
+    <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled" />
+    <result column="stk_on_hand" jdbcType="REAL" property="stkOnHand" />
+    <result column="qty_expd" jdbcType="REAL" property="qtyExpd" />
+    <result column="qty_in_tran" jdbcType="REAL" property="qtyInTran" />
+    <result column="qty_bkd" jdbcType="REAL" property="qtyBkd" />
+    <result column="qty_cmtd" jdbcType="REAL" property="qtyCmtd" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    wareh_id, box_code, bxi_enabled, stk_on_hand, qty_expd, qty_in_tran, qty_bkd, qty_cmtd
+  </sql>
+  <select id="selectWarehBst" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehBst" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wareh_bst
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and box_code = #{boxCode,jdbcType=VARCHAR}
+  </select>
+  <!--删除仓库时删除仓库装箱库存-->
+  <delete id="deleteWarehBstWareh" parameterType="java.lang.Long">
+    delete from wareh_bst
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+  </delete>
+
+  <delete id="deleteWarehBst" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehBst">
+    delete from wareh_bst
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and box_code = #{boxCode,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertWarehBst" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehBst">
+    insert into wareh_bst
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="warehId != null">
+        wareh_id,
+      </if>
+      <if test="boxCode != null">
+        box_code,
+      </if>
+      <if test="bxiEnabled != null">
+        bxi_enabled,
+      </if>
+      <if test="stkOnHand != null">
+        stk_on_hand,
+      </if>
+      <if test="qtyExpd != null">
+        qty_expd,
+      </if>
+      <if test="qtyInTran != null">
+        qty_in_tran,
+      </if>
+      <if test="qtyBkd != null">
+        qty_bkd,
+      </if>
+      <if test="qtyCmtd != null">
+        qty_cmtd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="warehId != null">
+        #{warehId,jdbcType=BIGINT},
+      </if>
+      <if test="boxCode != null">
+        #{boxCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bxiEnabled != null">
+        #{bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="stkOnHand != null">
+        #{stkOnHand,jdbcType=REAL},
+      </if>
+      <if test="qtyExpd != null">
+        #{qtyExpd,jdbcType=REAL},
+      </if>
+      <if test="qtyInTran != null">
+        #{qtyInTran,jdbcType=REAL},
+      </if>
+      <if test="qtyBkd != null">
+        #{qtyBkd,jdbcType=REAL},
+      </if>
+      <if test="qtyCmtd != null">
+        #{qtyCmtd,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateWarehBst" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehBst">
+    update wareh_bst
+    <set>
+      <if test="bxiEnabled != null">
+        bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="stkOnHand != null">
+        stk_on_hand = #{stkOnHand,jdbcType=REAL},
+      </if>
+      <if test="qtyExpd != null">
+        qty_expd = #{qtyExpd,jdbcType=REAL},
+      </if>
+      <if test="qtyInTran != null">
+        qty_in_tran = #{qtyInTran,jdbcType=REAL},
+      </if>
+      <if test="qtyBkd != null">
+        qty_bkd = #{qtyBkd,jdbcType=REAL},
+      </if>
+      <if test="qtyCmtd != null">
+        qty_cmtd = #{qtyCmtd,jdbcType=REAL},
+      </if>
+    </set>
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and box_code = #{boxCode,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

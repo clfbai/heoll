@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysRoleMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysRole">
+        <id column="role_id" property="roleId"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="role_type" jdbcType="VARCHAR" property="roleType"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    role_id, description, role_type
+  </sql>
+
+
+    <insert id="insertRole" parameterType="SysRole">
+        insert into sys_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="roleType != null">
+                role_type,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                #{roleId},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="roleType != null">
+                #{roleType},
+            </if>
+
+        </trim>
+    </insert>
+
+
+    <update id="updateByRole" parameterType="SysRole">
+        update sys_role
+        <trim prefix="set" suffixOverrides=",">
+            <if test="roleUpdateId != null">
+                role_id = #{roleUpdateId},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="roleType != null">
+                role_type = #{roleType},
+            </if>
+            <if test="roleBelongUnit != null">
+                role_belong_unit=#{roleBelongUnit},
+            </if>
+
+        </trim>
+        where role_id = #{roleId}
+    </update>
+
+    <!--查询管理员户所有角色-->
+    <select id="selectAll" parameterType="SysUser" resultMap="BaseResultMap">
+        SELECT
+        sys.*
+        FROM
+        (SELECT DISTINCT
+        ro.`role_id`
+        FROM
+        sys_user u
+        INNER JOIN sys_unit_role ro
+        ON u.`owner_id` = ro.`unit_id`
+        INNER JOIN sys_unit_pa pa
+        ON ro.`unit_id` = pa.`unit_id`
+        WHERE pa.`role_id` != ''
+        AND pa.`gr_rv` = 'G'
+        AND u.`user_id` = #{userId}
+        AND u.`owner_id` = #{ownerId}
+        UNION
+        SELECT DISTINCT
+        ro.`role_id`
+        FROM
+        sys_user u
+        INNER JOIN sys_user_role ro
+        ON u.user_Id = ro.`user_id`
+        INNER JOIN sys_user_pa pa
+        ON ro.`owner_id` = pa.`owner_id`
+        AND ro.`role_id` = pa.`role_id`
+        WHERE pa.`role_id` != ''
+        AND pa.`gr_rv` = 'G'
+        AND u.`user_id` = #{userId}
+        AND u.`owner_id` = #{ownerId}
+        ) s
+        INNER JOIN sys_role sys
+        ON s.role_id = sys.`role_id`
+        where 1=1
+        <if test="role.roleId!=null and role.roleId!=''">
+            AND INSTR(sys.`role_id`,#{role.roleId})>0
+        </if>
+        <if test="role.description!=null and role.description!=''">
+            AND INSTR(sys.`description`,#{role.description})>0
+        </if>
+
+    </select>
+
+
+    <!--删除角色-->
+    <delete id="deleteRoleId" parameterType="SysRole">
+      delete  from  `sys_role`  where  role_id=#{roleId}
+    </delete>
+
+    <!--增加角色权限-->
+    <insert id="addRolePriv" parameterType="SysRolePrivKey">
+        INSERT INTO `sys_role_priv`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="privId != null">
+                priv_id,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                #{roleId},
+            </if>
+            <if test="privId != null">
+                #{privId},
+            </if>
+        </trim>
+    </insert>
+
+    <!--删除角色权限-->
+    <delete id="deleteRolePriv" parameterType="SysRole">
+        DELETE  FROM  `sys_role_priv` WHERE 1=1
+         AND   role_id= #{roleId}
+         AND  priv_id=#{privId}
+
+    </delete>
+
+    <!--查询权限对应角色-->
+    <select id="selectPrivRole" parameterType="SysPrivilege" resultMap="BaseResultMap">
+     SELECT
+     role.*
+    FROM
+    sys_privilege p
+    INNER JOIN sys_role_priv rp
+    ON rp.priv_id = p.`priv_id`
+    INNER JOIN sys_role role ON rp.`role_id`=role.`role_id`
+    WHERE rp.`priv_id` = #{privId}
+    </select>
+
+
+    <!--查询角色类型-->
+    <select id="getRoleAll" resultMap="BaseResultMap">
+        SELECT  DISTINCT role_type  from sys_role
+    </select>
+
+
+    <select id="RoleTableAll" parameterType="SysUser" resultMap="BaseResultMap">
+        SELECT * from sys_role
+        where 1=1
+        <if test="role.roleId!=null and role.roleId!=''">
+            AND INSTR(`role_id`,#{role.roleId})>0
+        </if>
+        <if test="role.description!=null and role.description!=''">
+            AND INSTR(`description`,#{role.description})>0
+        </if>
+    </select>
+    <!-- 查询角色对应组织-->
+    <select id="getRoleUnit" parameterType="SysRole"
+            resultType="com.boyu.erp.platform.usercenter.entity.system.SysUnit">
+        SELECT
+        u.`unit_code` AS unitCode,
+        u.`unit_name` AS unitName
+        FROM
+        sys_role r
+        INNER JOIN sys_unit_role p
+        ON r.role_id = p.role_id
+        INNER JOIN sys_unit u
+        ON p.unit_id = u.UNIT_ID
+        WHERE r.role_id = #{roleId}
+        AND u.unit_status = 'A'
+    </select>
+    <!-- 查询角色对应用户-->
+    <select id="getRoleUser" parameterType="SysRole" resultType="com.boyu.erp.platform.usercenter.vo.RoleUserVo">
+        SELECT
+        ps.`prsnl_code` AS prsnlCode,
+        ps.`full_name` AS fullName,
+        ui.`unit_name` AS unitName
+        FROM
+        sys_role r
+        INNER JOIN sys_user_role p
+        ON r.role_id = p.role_id
+        INNER JOIN sys_user u
+        ON p.user_id = u.`user_id`
+        INNER JOIN sys_unit ui ON u.`owner_id` = ui.`unit_id`
+        INNER JOIN sys_prsnl ps ON u.user_id=ps.`prsnl_id`
+        WHERE r.role_id = #{roleId}
+        AND u.user_status = 'A'
+    </select>
+
+    <select id="selectRolrId" resultMap="BaseResultMap">
+        select * from `sys_role` where role_id=#{roleId}
+    </select>
+</mapper>

@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.basic.VendeeMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.basic.Vendee">
+    <id column="vendee_id" jdbcType="BIGINT" property="vendeeId" />
+    <id column="owner_id" jdbcType="BIGINT" property="ownerId" />
+    <result column="psa_ctlr" jdbcType="CHAR" property="psaCtlr" />
+    <result column="cpd_sl_wareh_id" jdbcType="BIGINT" property="cpdSlWarehId" />
+    <result column="cpd_rs_wareh_id" jdbcType="BIGINT" property="cpdRsWarehId" />
+    <result column="cms_wareh_id" jdbcType="BIGINT" property="cmsWarehId" />
+    <result column="adm_wgt" jdbcType="DECIMAL" property="admWgt" />
+    <result column="vde_status" jdbcType="CHAR" property="vdeStatus" />
+    <result column="opr_id" jdbcType="BIGINT" property="oprId" />
+    <result column="upd_time" jdbcType="TIMESTAMP" property="updTime" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapVendee" type="com.boyu.erp.platform.usercenter.vo.sales.VendeeVo">
+    <result column="unitId" property="unitId" />
+    <result column="ownerId" property="ownerId" />
+    <result column="unitCode" property="unitCode" />
+    <result column="unitNum" property="unitNum" />
+    <result column="unitName" property="unitName" />
+    <result column="psaCtlr" property="psaCtlr" />
+    <result column="admWgt" property="admWgt" />
+    <result column="cpdSlWarehId" property="cpdSlWarehId" />
+    <result column="cpdSlWarehNum" property="cpdSlWarehNum" />
+    <result column="cpdSlWarehName" property="cpdSlWarehName" />
+    <result column="cpdRsWarehId" property="cpdRsWarehId" />
+    <result column="cpdRsWarehNum" property="cpdRsWarehNum" />
+    <result column="cpdRsWarehName" property="cpdRsWarehName" />
+    <result column="cmsWarehId" property="cmsWarehId" />
+    <result column="cmsWarehNum" property="cmsWarehNum" />
+    <result column="cmsWarehName" property="cmsWarehName" />
+    <result column="vdeStatus" property="vdeStatus" />
+    <result column="natTaxNum" property="natTaxNum" />
+    <result column="locTaxNum" property="locTaxNum" />
+    <result column="regFund" property="regFund" />
+    <result column="bank" property="bank" />
+    <result column="bankAcNum" property="bankAcNum" />
+    <result column="sdPlcyId" property="sdPlcyId" />
+    <result column="licType" property="licType" />
+    <result column="licNum" property="licNum" />
+    <result column="ctrlUnitId" property="ctrlUnitId" />
+    <result column="ctrlUnitNum" property="ctrlUnitNum" />
+    <result column="ctrlUnitName" property="ctrlUnitName" />
+    <result column="recruitable" property="recruitable" />
+    <result column="shared" property="shared" />
+    <result column="inputCode" property="inputCode" />
+    <result column="seqNum" property="seqNum" />
+    <result column="unitStatus" property="unitStatus" />
+    <result column="telNum" property="telNum" />
+    <result column="faxNum" property="faxNum" />
+    <result column="emailAddr" property="emailAddr" />
+    <result column="website" property="website" />
+    <result column="postcode" property="postcode" />
+    <result column="province" property="province" />
+    <result column="city" property="city" />
+    <result column="district" property="district" />
+    <result column="address" property="address" />
+    <result column="lmId" property="lmId" />
+    <result column="lmPrsnlCode" property="lmPrsnlCode" />
+    <result column="lmFullName" property="lmFullName" />
+    <result column="manCond" property="manCond" />
+    <result column="pcrLvl" property="pcrLvl" />
+    <result column="dfltFwdrId" property="dfltFwdrId" />
+    <result column="dfltFwdrNum" property="dfltFwdrNum" />
+    <result column="dfltFwdrName" property="dfltFwdrName" />
+    <result column="dfltDelivMthd" property="dfltDelivMthd" />
+    <result column="ptnrStatus" property="ptnrStatus" />
+    <result column="remarks" property="remarks" />
+    <result column="oprId" property="oprId" />
+    <result column="oprCode" property="oprCode" />
+    <result column="oprFullName" property="oprFullName" />
+    <result column="updTime" property="updTime" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapVde" type="com.boyu.erp.platform.usercenter.vo.purchase.VdrSupplyVo">
+    <result column="venderId" property="venderId" />
+    <result column="vendeeId" property="vendeeId" />
+    <result column="unitCode" property="unitCode" />
+    <result column="unitNum" property="unitNum" />
+    <result column="unitName" property="unitName" />
+    <result column="vdeStatus" property="vdeStatus" />
+    <result column="inputCode" property="inputCode" />
+    <result column="telNum" property="telNum" />
+    <result column="faxNum" property="faxNum" />
+    <result column="emailAddr" property="emailAddr" />
+    <result column="oprId" property="oprId" />
+    <result column="oprFullName" property="oprFullName" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    vendee_id, owner_id, psa_ctlr, cpd_sl_wareh_id, cpd_rs_wareh_id, cms_wareh_id, adm_wgt, 
+    vde_status, opr_id, upd_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Vendee" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from vendee
+    where vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+      <if test="vdeStatus!=null and vdeStatus!='' ">
+        and vde_status = #{vdeStatus}
+      </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Vendee">
+    delete from vendee
+    where vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Vendee">
+    insert into vendee (vendee_id, owner_id, psa_ctlr, 
+      cpd_sl_wareh_id, cpd_rs_wareh_id, cms_wareh_id, 
+      adm_wgt, vde_status, opr_id, 
+      upd_time)
+    values (#{vendeeId,jdbcType=BIGINT}, #{ownerId,jdbcType=BIGINT}, #{psaCtlr,jdbcType=CHAR}, 
+      #{cpdSlWarehId,jdbcType=BIGINT}, #{cpdRsWarehId,jdbcType=BIGINT}, #{cmsWarehId,jdbcType=BIGINT}, 
+      #{admWgt,jdbcType=DECIMAL}, #{vdeStatus,jdbcType=CHAR}, #{oprId,jdbcType=BIGINT}, 
+      #{updTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Vendee">
+    insert into vendee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vendeeId != null">
+        vendee_id,
+      </if>
+      <if test="ownerId != null">
+        owner_id,
+      </if>
+      <if test="psaCtlr != null">
+        psa_ctlr,
+      </if>
+      <if test="cpdSlWarehId != null">
+        cpd_sl_wareh_id,
+      </if>
+      <if test="cpdRsWarehId != null">
+        cpd_rs_wareh_id,
+      </if>
+      <if test="cmsWarehId != null">
+        cms_wareh_id,
+      </if>
+      <if test="admWgt != null">
+        adm_wgt,
+      </if>
+      <if test="vdeStatus != null">
+        vde_status,
+      </if>
+      <if test="oprId != null">
+        opr_id,
+      </if>
+      <if test="updTime != null">
+        upd_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vendeeId != null">
+        #{vendeeId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="psaCtlr != null">
+        #{psaCtlr,jdbcType=CHAR},
+      </if>
+      <if test="cpdSlWarehId != null">
+        #{cpdSlWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="cpdRsWarehId != null">
+        #{cpdRsWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="cmsWarehId != null">
+        #{cmsWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="admWgt != null">
+        #{admWgt,jdbcType=DECIMAL},
+      </if>
+      <if test="vdeStatus != null">
+        #{vdeStatus,jdbcType=CHAR},
+      </if>
+      <if test="oprId != null">
+        #{oprId,jdbcType=BIGINT},
+      </if>
+      <if test="updTime != null">
+        #{updTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Vendee">
+    update vendee
+    <set>
+      <if test="psaCtlr != null">
+        psa_ctlr = #{psaCtlr,jdbcType=CHAR},
+      </if>
+      <if test="cpdSlWarehId != null">
+        cpd_sl_wareh_id = #{cpdSlWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="cpdRsWarehId != null">
+        cpd_rs_wareh_id = #{cpdRsWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="cmsWarehId != null">
+        cms_wareh_id = #{cmsWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="admWgt != null">
+        adm_wgt = #{admWgt,jdbcType=DECIMAL},
+      </if>
+      <if test="vdeStatus != null">
+        vde_status = #{vdeStatus,jdbcType=CHAR},
+      </if>
+      <if test="oprId != null">
+        opr_id = #{oprId,jdbcType=BIGINT},
+      </if>
+      <if test="updTime != null">
+        upd_time = #{updTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.Vendee">
+    update vendee
+    set psa_ctlr = #{psaCtlr,jdbcType=CHAR},
+      cpd_sl_wareh_id = #{cpdSlWarehId,jdbcType=BIGINT},
+      cpd_rs_wareh_id = #{cpdRsWarehId,jdbcType=BIGINT},
+      cms_wareh_id = #{cmsWarehId,jdbcType=BIGINT},
+      adm_wgt = #{admWgt,jdbcType=DECIMAL},
+      vde_status = #{vdeStatus,jdbcType=CHAR},
+      opr_id = #{oprId,jdbcType=BIGINT},
+      upd_time = #{updTime,jdbcType=TIMESTAMP}
+    where vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+  </update>
+
+  <select id="findByVenderVo" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.VenderVo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from vendee
+    where vendee_id = #{ownerId,jdbcType=BIGINT}
+    and owner_id = #{unitId,jdbcType=BIGINT}
+    and psa_ctlr != #{psaCtlr,jdbcType=CHAR}
+  </select>
+  <!-- 供应商中通过参数添加采购商 -->
+  <insert id="insertByVender" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.VenderVo">
+    insert into vendee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ownerId != null">
+        vendee_id,
+      </if>
+      <if test="unitId != null">
+        owner_id,
+      </if>
+      <if test="psaCtlr != null">
+        psa_ctlr,
+      </if>
+      <if test="vdrStatus != null">
+        vde_status,
+      </if>
+      <if test="oprId != null">
+        opr_id,
+      </if>
+        upd_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="psaCtlr != null">
+        #{psaCtlr,jdbcType=CHAR},
+      </if>
+      <if test="vdrStatus != null">
+        #{vdrStatus,jdbcType=CHAR},
+      </if>
+      <if test="oprId != null">
+        #{oprId,jdbcType=BIGINT},
+      </if>
+      now(),
+    </trim>
+  </insert>
+
+  <select id="selectALL" parameterType="com.boyu.erp.platform.usercenter.vo.sales.VendeeVo" resultMap="BaseResultMapVendee">
+    SELECT
+    su.UNIT_ID AS unitId ,
+    suc.owner_id AS ownerId,
+    su.UNIT_CODE AS unitCode ,
+    suo.UNIT_NUM AS unitNum ,
+    su.UNIT_NAME AS unitName ,
+    v.PSA_CTLR AS psaCtlr ,
+    v.adm_wgt AS admWgt ,
+    su1.unit_id AS cpdSlWarehId,
+    suo1.UNIT_NUM AS cpdSlWarehNum,
+    su1.UNIT_NAME AS cpdSlWarehName,
+    su2.unit_id AS cpdRsWarehId,
+    suo2.UNIT_NUM  AS cpdRsWarehNum,
+    su2.UNIT_NAME AS cpdRsWarehName,
+    su3.unit_id AS cmsWarehId,
+    suo3.UNIT_NUM  AS cmsWarehNum,
+    su3.UNIT_NAME AS cmsWarehName,
+    v.VDE_STATUS AS vdeStatus,
+    com.NAT_TAX_NUM AS natTaxNum,
+    com.LOC_TAX_NUM AS locTaxNum,
+    com.REG_FUND AS regFund,
+    com.BANK AS bank,
+    com.BANK_AC_NUM AS bankAcNum,
+    com.SD_PLCY_ID AS sdPlcyId,
+    su.LIC_TYPE AS licType,
+    su.lic_num AS licNum,
+    su.CTRL_UNIT_ID as ctrlUnitId,
+    su4.UNIT_CODE AS ctrlUnitNum,
+    su4.UNIT_NAME AS cuiUnitName,
+    su.RECRUITABLE AS recruitable,
+    su.SHARED AS shared,
+    su.INPUT_CODE AS inputCode,
+    su.SEQ_NUM AS seqNum,
+    su.UNIT_STATUS AS unitStatus,
+    su.TEL_NUM AS telNum,
+    su.FAX_NUM AS faxNum,
+    su.EMAIL_ADDR AS emailAddr,
+    su.WEBSITE AS website,
+    su.POSTCODE AS postcode,
+    su.PROVINCE AS province,
+    su.CITY AS city,
+    su.DISTRICT AS district,
+    su.ADDRESS AS address,
+    su.lm_id AS lmId,
+    sp.PRSNL_CODE AS lmPrsnlCode,
+    sp.FULL_NAME AS lmFullName ,
+    p.MAN_COND AS manCond,
+    p.pcr_lvl AS pcrLvl,
+    su5.unit_id AS dfltFwdrId,
+    suo5.UNIT_NUM AS dfltFwdrNum,
+    su5.UNIT_NAME  AS dfltFwdrName,
+    p.DFLT_DELIV_MTHD AS dfltDelivMthd,
+    p.PTNR_STATUS AS ptnrStatus ,
+    su.REMARKS AS remarks,
+    v.OPR_ID  AS oprId,
+    sp1.PRSNL_CODE AS oprCode,
+    sp1.FULL_NAME AS oprFullName,
+    v.UPD_TIME AS updTime
+    FROM
+    (SELECT a.* FROM SYS_UNIT_CLSF a WHERE 1=1 AND a.UNIT_TYPE='VE'
+    ) suc
+    INNER JOIN SYS_UNIT su ON su.UNIT_ID = suc.UNIT_ID
+    LEFT JOIN SYS_UNIT_OWNER suo ON suo.UNIT_ID = suc.UNIT_ID AND suo.OWNER_ID = suc.OWNER_ID
+    LEFT JOIN VENDEE v ON v.VENDEE_ID = suc.UNIT_ID AND  v.OWNER_ID = suc.OWNER_ID
+    LEFT JOIN COMPANY com ON com.COMPANY_ID = v.VENDEE_ID
+    LEFT JOIN PARTNER p ON p.PTNR_ID = com.COMPANY_ID AND p.OWNER_ID = suc.OWNER_ID
+
+    LEFT JOIN SYS_UNIT_OWNER suo1 ON suo1.UNIT_ID = v.CPD_SL_WAREH_ID AND suo1.OWNER_ID = suc.OWNER_ID
+    LEFT JOIN SYS_UNIT su1 ON su1.UNIT_ID = v.CPD_SL_WAREH_ID
+
+    LEFT JOIN SYS_UNIT_OWNER suo2 ON suo2.UNIT_ID = v.CPD_RS_WAREH_ID AND suo2.OWNER_ID = suc.OWNER_ID
+    LEFT JOIN SYS_UNIT su2 ON su2.UNIT_ID = v.CPD_RS_WAREH_ID
+
+    LEFT JOIN SYS_UNIT_OWNER suo3 ON suo3.UNIT_ID = v.CMS_WAREH_ID AND suo3.OWNER_ID = suc.OWNER_ID
+    LEFT JOIN SYS_UNIT su3 ON su3.UNIT_ID = v.CMS_WAREH_ID
+
+    LEFT JOIN SYS_UNIT su4 ON su4.UNIT_ID = su.CTRL_UNIT_ID
+
+    LEFT JOIN SYS_PRSNL sp ON sp.PRSNL_ID = su.LM_ID
+    LEFT JOIN SYS_PRSNL sp1 ON sp1.PRSNL_ID = v.OPR_ID
+
+    LEFT JOIN SYS_UNIT_OWNER suo5 ON suo5.UNIT_ID = p.DFLT_FWDR_ID AND suo5.OWNER_ID = suc.OWNER_ID
+    LEFT JOIN SYS_UNIT su5 ON su5.UNIT_ID = p.DFLT_FWDR_ID
+
+    WHERE 1=1
+    <if test="vdeStatus != null and vdeStatus != '' and vdeStatus != 'null'">
+      and v.VDE_STATUS = #{vdeStatus}
+    </if>
+    <if test="unitCode != null and unitCode != ''">
+      and su.UNIT_CODE like CONCAT( #{unitCode}, '%')
+    </if>
+    <if test="unitNum != null and unitNum != ''">
+      and suo.UNIT_NUM like CONCAT( #{unitNum}, '%')
+    </if>
+    <if test="unitName != null and unitName != ''">
+      and su.UNIT_NAME like CONCAT('%', #{unitName}, '%')
+    </if>
+  </select>
+
+  <select id="selectByUnit" parameterType="com.boyu.erp.platform.usercenter.vo.sales.VendeeVo" resultMap="BaseResultMapVendee">
+    SELECT
+    su.UNIT_ID AS unitId ,
+    suc.owner_id AS ownerId,
+    su.UNIT_CODE AS unitCode ,
+    suo.UNIT_NUM AS unitNum ,
+    su.UNIT_NAME AS unitName ,
+    v.PSA_CTLR AS psaCtlr ,
+    v.adm_wgt AS admWgt ,
+    su1.unit_id AS cpdSlWarehId,
+    suo1.UNIT_NUM AS cpdSlWarehNum,
+    su1.UNIT_NAME AS cpdSlWarehName,
+    su2.unit_id AS cpdRsWarehId,
+    suo2.UNIT_NUM  AS cpdRsWarehNum,
+    su2.UNIT_NAME AS cpdRsWarehName,
+    su3.unit_id AS cmsWarehId,
+    suo3.UNIT_NUM  AS cmsWarehNum,
+    su3.UNIT_NAME AS cmsWarehName,
+    v.VDE_STATUS AS vdeStatus,
+    com.NAT_TAX_NUM AS natTaxNum,
+    com.LOC_TAX_NUM AS locTaxNum,
+    com.REG_FUND AS regFund,
+    com.BANK AS bank,
+    com.BANK_AC_NUM AS bankAcNum,
+    com.SD_PLCY_ID AS sdPlcyId,
+    su.LIC_TYPE AS licType,
+    su.lic_num AS licNum,
+    su.CTRL_UNIT_ID as ctrlUnitId,
+    su4.UNIT_CODE AS ctrlUnitNum,
+    su4.UNIT_NAME AS cuiUnitName,
+    su.RECRUITABLE AS recruitable,
+    su.SHARED AS shared,
+    su.INPUT_CODE AS inputCode,
+    su.SEQ_NUM AS seqNum,
+    su.UNIT_STATUS AS unitStatus,
+    su.TEL_NUM AS telNum,
+    su.FAX_NUM AS faxNum,
+    su.EMAIL_ADDR AS emailAddr,
+    su.WEBSITE AS website,
+    su.POSTCODE AS postcode,
+    su.PROVINCE AS province,
+    su.CITY AS city,
+    su.DISTRICT AS district,
+    su.ADDRESS AS address,
+    su.lm_id AS lmId,
+    sp.PRSNL_CODE AS lmPrsnlCode,
+    sp.FULL_NAME AS lmFullName ,
+    p.MAN_COND AS manCond,
+    p.pcr_lvl AS pcrLvl,
+    su5.unit_id AS dfltFwdrId,
+    suo5.UNIT_NUM AS dfltFwdrNum,
+    su5.UNIT_NAME  AS dfltFwdrName,
+    p.DFLT_DELIV_MTHD AS dfltDelivMthd,
+    p.PTNR_STATUS AS ptnrStatus ,
+    su.REMARKS AS remarks,
+    v.OPR_ID  AS oprId,
+    sp1.PRSNL_CODE AS oprCode,
+    sp1.FULL_NAME AS oprFullName,
+    v.UPD_TIME AS updTime
+    FROM
+    (SELECT a.* FROM SYS_UNIT_CLSF a WHERE 1=1 AND a.UNIT_TYPE='VE' AND A.OWNER_ID=#{sUnitId}
+    ) suc
+    INNER JOIN SYS_UNIT su ON su.UNIT_ID = suc.UNIT_ID
+    LEFT JOIN SYS_UNIT_OWNER suo ON suo.UNIT_ID = suc.UNIT_ID AND suo.OWNER_ID = suc.OWNER_ID
+    LEFT JOIN VENDEE v ON v.VENDEE_ID = suc.UNIT_ID AND  v.OWNER_ID = suc.OWNER_ID
+    LEFT JOIN COMPANY com ON com.COMPANY_ID = v.VENDEE_ID
+    LEFT JOIN PARTNER p ON p.PTNR_ID = com.COMPANY_ID AND p.OWNER_ID = suc.OWNER_ID
+
+    LEFT JOIN SYS_UNIT_OWNER suo1 ON suo1.UNIT_ID = v.CPD_SL_WAREH_ID AND suo1.OWNER_ID = suc.OWNER_ID
+    LEFT JOIN SYS_UNIT su1 ON su1.UNIT_ID = v.CPD_SL_WAREH_ID
+
+    LEFT JOIN SYS_UNIT_OWNER suo2 ON suo2.UNIT_ID = v.CPD_RS_WAREH_ID AND suo2.OWNER_ID = suc.OWNER_ID
+    LEFT JOIN SYS_UNIT su2 ON su2.UNIT_ID = v.CPD_RS_WAREH_ID
+
+    LEFT JOIN SYS_UNIT_OWNER suo3 ON suo3.UNIT_ID = v.CMS_WAREH_ID AND suo3.OWNER_ID = suc.OWNER_ID
+    LEFT JOIN SYS_UNIT su3 ON su3.UNIT_ID = v.CMS_WAREH_ID
+
+    LEFT JOIN SYS_UNIT su4 ON su4.UNIT_ID = su.CTRL_UNIT_ID
+
+    LEFT JOIN SYS_PRSNL sp ON sp.PRSNL_ID = su.LM_ID
+    LEFT JOIN SYS_PRSNL sp1 ON sp1.PRSNL_ID = v.OPR_ID
+
+    LEFT JOIN SYS_UNIT_OWNER suo5 ON suo5.UNIT_ID = p.DFLT_FWDR_ID AND suo5.OWNER_ID = suc.OWNER_ID
+    LEFT JOIN SYS_UNIT su5 ON su5.UNIT_ID = p.DFLT_FWDR_ID
+
+    WHERE 1=1
+    <if test="vdeStatus != null and vdeStatus != '' and vdeStatus != 'null'">
+      and v.VDE_STATUS = #{vdeStatus}
+    </if>
+    <if test="unitCode != null and unitCode != ''">
+      and su.UNIT_CODE like CONCAT( #{unitCode}, '%')
+    </if>
+    <if test="unitNum != null and unitNum != ''">
+      and suo.UNIT_NUM like CONCAT( #{unitNum}, '%')
+    </if>
+    <if test="unitName != null and unitName != ''">
+      and su.UNIT_NAME like CONCAT('%', #{unitName}, '%')
+    </if>
+  </select>
+  <!-- 采购商中添加操作 -->
+  <insert id="insertVendee" parameterType="com.boyu.erp.platform.usercenter.vo.sales.VendeeVo">
+    insert into vendee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitId != null and unitId != '' ">
+        vendee_id,
+      </if>
+      <if test="ownerId != null and ownerId != '' ">
+        owner_id,
+      </if>
+      <if test="psaCtlr != null and psaCtlr != '' ">
+        psa_ctlr,
+      </if>
+      <if test="cpdSlWarehId != null and cpdSlWarehId != '' ">
+        cpd_sl_wareh_id,
+      </if>
+      <if test="cpdRsWarehId != null and cpdRsWarehId != '' ">
+        cpd_rs_wareh_id,
+      </if>
+      <if test="cmsWarehId != null and cmsWarehId != '' ">
+        cms_wareh_id,
+      </if>
+      <if test="admWgt != null and admWgt != '' ">
+        adm_wgt,
+      </if>
+      <if test="vdeStatus != null and vdeStatus != '' ">
+        vde_status,
+      </if>
+      <if test="oprId != null and oprId != '' ">
+        opr_id,
+      </if>
+        upd_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitId != null and unitId != '' ">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerId != null and ownerId != '' ">
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="psaCtlr != null and psaCtlr != '' ">
+        #{psaCtlr,jdbcType=CHAR},
+      </if>
+      <if test="cpdSlWarehId != null and cpdSlWarehId != '' ">
+        #{cpdSlWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="cpdRsWarehId != null and cpdRsWarehId != '' ">
+        #{cpdRsWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="cmsWarehId != null and cmsWarehId != '' ">
+        #{cmsWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="admWgt != null and admWgt != '' ">
+        #{admWgt,jdbcType=DECIMAL},
+      </if>
+      <if test="vdeStatus != null and vdeStatus != '' ">
+        #{vdeStatus,jdbcType=CHAR},
+      </if>
+      <if test="oprId != null and oprId != '' ">
+        #{oprId,jdbcType=BIGINT},
+      </if>
+      now(),
+    </trim>
+  </insert>
+  <!-- 采购商页面的修改 -->
+  <update id="updateVendee" parameterType="com.boyu.erp.platform.usercenter.vo.sales.VendeeVo">
+    update vendee
+    <set>
+      <if test="cpdSlWarehId != null and cpdSlWarehId != '' ">
+        cpd_sl_wareh_id = #{cpdSlWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="cpdRsWarehId != null and cpdRsWarehId != '' ">
+        cpd_rs_wareh_id = #{cpdRsWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="cmsWarehId != null and cmsWarehId != '' ">
+        cms_wareh_id = #{cmsWarehId,jdbcType=BIGINT},
+      </if>
+      <if test="admWgt != null and admWgt != '' ">
+        adm_wgt = #{admWgt,jdbcType=DECIMAL},
+      </if>
+      <if test="vdeStatus != null and vdeStatus != '' ">
+        vde_status = #{vdeStatus,jdbcType=CHAR},
+      </if>
+      <if test="oprId != null and oprId != '' ">
+        opr_id = #{oprId,jdbcType=BIGINT},
+        upd_time = now(),
+      </if>
+      <if test="psaCtlr!=null and psaCtlr !='' ">
+        psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+      </if>
+    </set>
+    where vendee_id = #{unitId,jdbcType=BIGINT}
+    and owner_id = #{ownerId,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByVendee" parameterType="com.boyu.erp.platform.usercenter.vo.sales.VendeeVo" resultMap="BaseResultMapVendee">
+   SELECT
+      su.UNIT_ID AS unitId,
+      suo.owner_id AS ownerId,
+      su.UNIT_CODE AS unitCode,
+      suo.UNIT_NUM AS unitNum,
+      su.UNIT_NAME AS unitName,
+      v.PSA_CTLR AS psaCtlr,
+      v.adm_wgt AS admWgt,
+      su1.unit_id AS cpdSlWarehId,
+      suo1.UNIT_NUM AS cpdSlWarehNum,
+      su1.UNIT_NAME AS cpdSlWarehName,
+      su2.unit_id AS cpdRsWarehId,
+      suo2.UNIT_NUM AS cpdRsWarehNum,
+      su2.UNIT_NAME AS cpdRsWarehName,
+      su3.unit_id AS cmsWarehId,
+      suo3.UNIT_NUM AS cmsWarehNum,
+      su3.UNIT_NAME AS cmsWarehName,
+      v.VDE_STATUS AS vdeStatus,
+      com.NAT_TAX_NUM AS natTaxNum,
+      com.LOC_TAX_NUM AS locTaxNum,
+      com.REG_FUND AS regFund,
+      com.BANK AS bank,
+      com.BANK_AC_NUM AS bankAcNum,
+      com.SD_PLCY_ID AS sdPlcyId,
+      su.LIC_TYPE AS licType,
+      su.lic_num AS licNum,
+      su.CTRL_UNIT_ID AS ctrlUnitId,
+      su4.UNIT_CODE AS ctrlUnitNum,
+      su4.UNIT_NAME AS cuiUnitName,
+      su.RECRUITABLE AS recruitable,
+      su.SHARED AS shared,
+      su.INPUT_CODE AS inputCode,
+      su.SEQ_NUM AS seqNum,
+      su.UNIT_STATUS AS unitStatus,
+      su.TEL_NUM AS telNum,
+      su.FAX_NUM AS faxNum,
+      su.EMAIL_ADDR AS emailAddr,
+      su.WEBSITE AS website,
+      su.POSTCODE AS postcode,
+      su.PROVINCE AS province,
+      su.CITY AS city,
+      su.DISTRICT AS district,
+      su.ADDRESS AS address,
+      su.lm_id AS lmId,
+      sp.PRSNL_CODE AS lmPrsnlCode,
+      sp.FULL_NAME AS lmFullName,
+      p.MAN_COND AS manCond,
+      p.pcr_lvl AS pcrLvl,
+      su5.unit_id AS dfltFwdrId,
+      suo5.UNIT_NUM AS dfltFwdrNum,
+      su5.UNIT_NAME AS dfltFwdrName,
+      p.DFLT_DELIV_MTHD AS dfltDelivMthd,
+      p.PTNR_STATUS AS ptnrStatus,
+      su.REMARKS AS remarks,
+      sp1.PRSNL_CODE AS oprId,
+      sp1.FULL_NAME AS oprFullName,
+      v.UPD_TIME AS updTime
+  FROM
+      SYS_UNIT su
+      LEFT JOIN ( SELECT a.* FROM SYS_UNIT_OWNER a WHERE 1 = 1 AND a.deleted = 'F' AND a.owner_id = #{sUnitId} ) suo ON suo.UNIT_ID = su.UNIT_ID
+      LEFT JOIN VENDEE v ON v.VENDEE_ID = su.UNIT_ID
+      AND v.OWNER_ID = suo.OWNER_ID
+      LEFT JOIN COMPANY com ON com.COMPANY_ID = v.VENDEE_ID
+      LEFT JOIN PARTNER p ON p.PTNR_ID = com.COMPANY_ID
+      AND p.OWNER_ID = suo.OWNER_ID
+      LEFT JOIN SYS_UNIT_OWNER suo1 ON suo1.UNIT_ID = v.cpd_sl_wareh_id
+      AND suo1.OWNER_ID = suo.OWNER_ID
+      LEFT JOIN SYS_UNIT su1 ON su1.UNIT_ID = v.cpd_sl_wareh_id
+      LEFT JOIN SYS_UNIT_OWNER suo2 ON suo2.UNIT_ID = v.CPD_RS_WAREH_ID
+      AND suo2.OWNER_ID = suo.OWNER_ID
+      LEFT JOIN SYS_UNIT su2 ON su2.UNIT_ID = v.CPD_RS_WAREH_ID
+      LEFT JOIN SYS_UNIT_OWNER suo3 ON suo3.UNIT_ID = v.CMS_WAREH_ID
+      AND suo3.OWNER_ID = suo.OWNER_ID
+      LEFT JOIN SYS_UNIT su3 ON su3.UNIT_ID = v.CMS_WAREH_ID
+      LEFT JOIN SYS_UNIT su4 ON su4.UNIT_ID = su.CTRL_UNIT_ID
+      LEFT JOIN SYS_PRSNL sp ON sp.PRSNL_ID = su.LM_ID
+      LEFT JOIN SYS_PRSNL sp1 ON sp1.PRSNL_ID = v.OPR_ID
+      LEFT JOIN SYS_UNIT_OWNER suo5 ON suo5.UNIT_ID = p.DFLT_FWDR_ID
+      AND suo5.OWNER_ID = suo.OWNER_ID
+      LEFT JOIN SYS_UNIT su5 ON su5.UNIT_ID = p.DFLT_FWDR_ID
+  WHERE
+      1 = 1
+      AND su.unit_code = #{unitCode}
+  </select>
+    <select id="queryVendeeByIdAndOwner" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from vendee where owner_id=#{ownerId} and vendee_id =#{vendeeId}
+    </select>
+
+  <select id="selectByVdeUnit" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.VdrSupplyVo" resultMap="BaseResultMapVde">
+    SELECT
+    su.unit_id AS vendeeId,
+    suc.owner_id AS venderId,
+    su.unit_code AS unitCode,
+    suo.unit_num AS unitNum,
+    su.unit_name AS unitName,
+    v.vde_status AS vdeStatus,
+    su.input_code AS inputCode,
+    su.tel_num AS telNum,
+    su.fax_num AS faxNum,
+    su.email_addr AS emailAddr,
+    sp1.prsnl_code AS oprId,
+    sp1.full_name AS oprFullName
+    FROM
+    (
+    SELECT
+    a.*
+    FROM
+    sys_unit_clsf a
+    WHERE
+    1 = 1
+    AND a.unit_type = 'VE'
+    AND frz_type = 0
+    AND a.owner_id = #{sUnitId}
+    ) suc
+    INNER JOIN sys_unit su ON su.unit_id = suc.unit_id
+    AND su.unit_status = 'A'
+    LEFT JOIN sys_unit_owner suo ON suo.owner_id = suc.unit_id
+    AND suo.unit_id = suc.owner_id
+    LEFT JOIN vendee v ON v.vendee_id = suc.unit_id
+    AND suc.owner_id = v.owner_id
+    LEFT JOIN sys_prsnl sp1 ON sp1.prsnl_id = v.opr_id
+    WHERE
+    1 =1
+    <if test="vdeStatus != null and vdeStatus != '' and vdeStatus != 'null'">
+      and v.vde_status = #{vdeStatus}
+    </if>
+    <if test="unitCode != null and unitCode != ''">
+      and su.unit_code like CONCAT( #{unitCode}, '%')
+    </if>
+    <if test="unitNum != null and unitNum != ''">
+      and suo.unit_num like CONCAT( #{unitNum}, '%')
+    </if>
+    <if test="unitName != null and unitName != ''">
+      and su.unit_name like CONCAT('%', #{unitName}, '%')
+    </if>
+  </select>
+
+</mapper>

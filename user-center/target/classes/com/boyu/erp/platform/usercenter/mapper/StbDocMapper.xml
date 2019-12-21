@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.StbDocMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.StbDoc">
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <id column="stb_num" jdbcType="VARCHAR" property="stbNum" />
+    <id column="src_doc_type" jdbcType="VARCHAR" property="srcDocType" />
+    <id column="src_doc_unit_id" jdbcType="BIGINT" property="srcDocUnitId" />
+    <id column="src_doc_num" jdbcType="VARCHAR" property="srcDocNum" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbDoc">
+    delete from stb_doc
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and stb_num = #{stbNum,jdbcType=VARCHAR}
+      and src_doc_type = #{srcDocType,jdbcType=VARCHAR}
+      and src_doc_unit_id = #{srcDocUnitId,jdbcType=BIGINT}
+      and src_doc_num = #{srcDocNum,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbDoc">
+    insert into stb_doc (unit_id, stb_num, src_doc_type, 
+      src_doc_unit_id, src_doc_num)
+    values (#{unitId,jdbcType=BIGINT}, #{stbNum,jdbcType=VARCHAR}, #{srcDocType,jdbcType=VARCHAR}, 
+      #{srcDocUnitId,jdbcType=BIGINT}, #{srcDocNum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.StbDoc">
+    insert into stb_doc
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="stbNum != null">
+        stb_num,
+      </if>
+      <if test="srcDocType != null">
+        src_doc_type,
+      </if>
+      <if test="srcDocUnitId != null">
+        src_doc_unit_id,
+      </if>
+      <if test="srcDocNum != null">
+        src_doc_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="stbNum != null">
+        #{stbNum,jdbcType=VARCHAR},
+      </if>
+      <if test="srcDocType != null">
+        #{srcDocType,jdbcType=VARCHAR},
+      </if>
+      <if test="srcDocUnitId != null">
+        #{srcDocUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="srcDocNum != null">
+        #{srcDocNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

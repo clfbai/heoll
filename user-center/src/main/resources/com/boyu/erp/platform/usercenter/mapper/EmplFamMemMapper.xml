@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.employye.EmplFamMemMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.employee.EmplFamMem">
+        <id column="empl_id" jdbcType="BIGINT" property="emplId"/>
+        <id column="owner_id" jdbcType="BIGINT" property="ownerId"/>
+        <id column="line_num" jdbcType="INTEGER" property="lineNum"/>
+        <result column="surname" jdbcType="VARCHAR" property="surname"/>
+        <result column="given_name" jdbcType="VARCHAR" property="givenName"/>
+        <result column="full_name" jdbcType="VARCHAR" property="fullName"/>
+        <result column="fam_comp" jdbcType="VARCHAR" property="famComp"/>
+        <result column="id_type" jdbcType="CHAR" property="idType"/>
+        <result column="id_num" jdbcType="VARCHAR" property="idNum"/>
+        <result column="birthday" jdbcType="TIMESTAMP" property="birthday"/>
+        <result column="company" jdbcType="VARCHAR" property="company"/>
+        <result column="tel_num" jdbcType="VARCHAR" property="telNum"/>
+        <result column="tlgp_num" jdbcType="VARCHAR" property="tlgpNum"/>
+        <result column="bank" jdbcType="VARCHAR" property="bank"/>
+        <result column="bank_ac_num" jdbcType="VARCHAR" property="bankAcNum"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="birthdayCp" jdbcType="VARCHAR" property="birthdayCp"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+    empl_id, owner_id, line_num, surname, given_name, full_name, fam_comp, id_type, id_num, 
+    birthday, company, tel_num, tlgp_num, bank, bank_ac_num, opr_id, remarks
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmpKey"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from empl_fam_mem
+        where empl_id = #{emplId,jdbcType=BIGINT}
+        and owner_id = #{ownerId,jdbcType=BIGINT}
+        and line_num = #{lineNum,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectEmplFamMem" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>,
+        DATE_FORMAT(birthday, "%Y-%m-%d %T") as birthdayCp
+        from empl_fam_mem
+        where empl_id = #{emplId,jdbcType=BIGINT}
+        and owner_id = #{ownerId,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmpKey">
+    delete from empl_fam_mem
+    where empl_id = #{emplId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+      and line_num = #{lineNum,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmplFamMem">
+    insert into empl_fam_mem (empl_id, owner_id, line_num, 
+      surname, given_name, full_name, 
+      fam_comp, id_type, id_num, 
+      birthday, company, tel_num, 
+      tlgp_num, bank, bank_ac_num, 
+      opr_id, remarks)
+    values (#{emplId,jdbcType=BIGINT}, #{ownerId,jdbcType=BIGINT}, #{lineNum,jdbcType=INTEGER}, 
+      #{surname,jdbcType=VARCHAR}, #{givenName,jdbcType=VARCHAR}, #{fullName,jdbcType=VARCHAR}, 
+      #{famComp,jdbcType=VARCHAR}, #{idType,jdbcType=CHAR}, #{idNum,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=TIMESTAMP}, #{company,jdbcType=VARCHAR}, #{telNum,jdbcType=VARCHAR}, 
+      #{tlgpNum,jdbcType=VARCHAR}, #{bank,jdbcType=VARCHAR}, #{bankAcNum,jdbcType=VARCHAR}, 
+      #{oprId,jdbcType=BIGINT}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmplFamMem">
+        insert into empl_fam_mem
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="emplId != null">
+                empl_id,
+            </if>
+            <if test="ownerId != null">
+                owner_id,
+            </if>
+            <if test="lineNum != null">
+                line_num,
+            </if>
+            <if test="surname != null">
+                surname,
+            </if>
+            <if test="givenName != null">
+                given_name,
+            </if>
+            <if test="fullName != null">
+                full_name,
+            </if>
+            <if test="famComp != null">
+                fam_comp,
+            </if>
+            <if test="idType != null">
+                id_type,
+            </if>
+            <if test="idNum != null">
+                id_num,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="company != null">
+                company,
+            </if>
+            <if test="telNum != null">
+                tel_num,
+            </if>
+            <if test="tlgpNum != null">
+                tlgp_num,
+            </if>
+            <if test="bank != null">
+                bank,
+            </if>
+            <if test="bankAcNum != null">
+                bank_ac_num,
+            </if>
+            <if test="oprId != null">
+                opr_id,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="emplId != null">
+                #{emplId,jdbcType=BIGINT},
+            </if>
+            <if test="ownerId != null">
+                #{ownerId,jdbcType=BIGINT},
+            </if>
+            <if test="lineNum != null">
+                #{lineNum,jdbcType=INTEGER},
+            </if>
+            <if test="surname != null">
+                #{surname,jdbcType=VARCHAR},
+            </if>
+            <if test="givenName != null">
+                #{givenName,jdbcType=VARCHAR},
+            </if>
+            <if test="fullName != null">
+                #{fullName,jdbcType=VARCHAR},
+            </if>
+            <if test="famComp != null">
+                #{famComp,jdbcType=VARCHAR},
+            </if>
+            <if test="idType != null">
+                #{idType,jdbcType=CHAR},
+            </if>
+            <if test="idNum != null">
+                #{idNum,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="company != null">
+                #{company,jdbcType=VARCHAR},
+            </if>
+            <if test="telNum != null">
+                #{telNum,jdbcType=VARCHAR},
+            </if>
+            <if test="tlgpNum != null">
+                #{tlgpNum,jdbcType=VARCHAR},
+            </if>
+            <if test="bank != null">
+                #{bank,jdbcType=VARCHAR},
+            </if>
+            <if test="bankAcNum != null">
+                #{bankAcNum,jdbcType=VARCHAR},
+            </if>
+            <if test="oprId != null">
+                #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmplFamMem">
+        update empl_fam_mem
+        <set>
+            <if test="surname != null">
+                surname = #{surname,jdbcType=VARCHAR},
+            </if>
+            <if test="givenName != null">
+                given_name = #{givenName,jdbcType=VARCHAR},
+            </if>
+            <if test="fullName != null">
+                full_name = #{fullName,jdbcType=VARCHAR},
+            </if>
+            <if test="famComp != null">
+                fam_comp = #{famComp,jdbcType=VARCHAR},
+            </if>
+            <if test="idType != null">
+                id_type = #{idType,jdbcType=CHAR},
+            </if>
+            <if test="idNum != null">
+                id_num = #{idNum,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="company != null">
+                company = #{company,jdbcType=VARCHAR},
+            </if>
+            <if test="telNum != null">
+                tel_num = #{telNum,jdbcType=VARCHAR},
+            </if>
+            <if test="tlgpNum != null">
+                tlgp_num = #{tlgpNum,jdbcType=VARCHAR},
+            </if>
+            <if test="bank != null">
+                bank = #{bank,jdbcType=VARCHAR},
+            </if>
+            <if test="bankAcNum != null">
+                bank_ac_num = #{bankAcNum,jdbcType=VARCHAR},
+            </if>
+            <if test="oprId != null">
+                opr_id = #{oprId,jdbcType=BIGINT},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where empl_id = #{emplId,jdbcType=BIGINT}
+        and owner_id = #{ownerId,jdbcType=BIGINT}
+        and line_num = #{lineNum,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmplFamMem">
+    update empl_fam_mem
+    set surname = #{surname,jdbcType=VARCHAR},
+      given_name = #{givenName,jdbcType=VARCHAR},
+      full_name = #{fullName,jdbcType=VARCHAR},
+      fam_comp = #{famComp,jdbcType=VARCHAR},
+      id_type = #{idType,jdbcType=CHAR},
+      id_num = #{idNum,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      company = #{company,jdbcType=VARCHAR},
+      tel_num = #{telNum,jdbcType=VARCHAR},
+      tlgp_num = #{tlgpNum,jdbcType=VARCHAR},
+      bank = #{bank,jdbcType=VARCHAR},
+      bank_ac_num = #{bankAcNum,jdbcType=VARCHAR},
+      opr_id = #{oprId,jdbcType=BIGINT},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where empl_id = #{emplId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+      and line_num = #{lineNum,jdbcType=INTEGER}
+  </update>
+</mapper>

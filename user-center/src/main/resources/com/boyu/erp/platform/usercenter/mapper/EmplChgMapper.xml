@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.employye.EmplChgMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.employee.EmplChg">
+    <id column="empl_id" jdbcType="BIGINT" property="emplId" />
+    <id column="owner_id" jdbcType="BIGINT" property="ownerId" />
+    <id column="line_num" jdbcType="INTEGER" property="lineNum" />
+    <result column="chg_date" jdbcType="TIMESTAMP" property="chgDate" />
+    <result column="chg_cnt" jdbcType="VARCHAR" property="chgCnt" />
+    <result column="opr_id" jdbcType="BIGINT" property="oprId" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="chgDateCp" jdbcType="VARCHAR" property="chgDateCp" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    empl_id, owner_id, line_num, chg_date, chg_cnt, opr_id, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmpKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from empl_chg
+    where empl_id = #{emplId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+      and line_num = #{lineNum,jdbcType=INTEGER}
+  </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />,
+      DATE_FORMAT(chg_date, "%Y-%m-%d %T") as chgDateCp
+      from empl_chg
+      where empl_id = #{emplId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmpKey">
+    delete from empl_chg
+    where empl_id = #{emplId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+      and line_num = #{lineNum,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmplChg">
+    insert into empl_chg (empl_id, owner_id, line_num, 
+      chg_date, chg_cnt, opr_id, 
+      remarks)
+    values (#{emplId,jdbcType=BIGINT}, #{ownerId,jdbcType=BIGINT}, #{lineNum,jdbcType=INTEGER}, 
+      #{chgDate,jdbcType=TIMESTAMP}, #{chgCnt,jdbcType=VARCHAR}, #{oprId,jdbcType=BIGINT}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmplChg">
+    insert into empl_chg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="emplId != null">
+        empl_id,
+      </if>
+      <if test="ownerId != null">
+        owner_id,
+      </if>
+      <if test="lineNum != null">
+        line_num,
+      </if>
+      <if test="chgDate != null">
+        chg_date,
+      </if>
+      <if test="chgCnt != null">
+        chg_cnt,
+      </if>
+      <if test="oprId != null">
+        opr_id,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="emplId != null">
+        #{emplId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="lineNum != null">
+        #{lineNum,jdbcType=INTEGER},
+      </if>
+      <if test="chgDate != null">
+        #{chgDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chgCnt != null">
+        #{chgCnt,jdbcType=VARCHAR},
+      </if>
+      <if test="oprId != null">
+        #{oprId,jdbcType=BIGINT},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmplChg">
+    update empl_chg
+    <set>
+      <if test="chgDate != null">
+        chg_date = #{chgDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chgCnt != null">
+        chg_cnt = #{chgCnt,jdbcType=VARCHAR},
+      </if>
+      <if test="oprId != null">
+        opr_id = #{oprId,jdbcType=BIGINT},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where empl_id = #{emplId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+      and line_num = #{lineNum,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.employee.EmplChg">
+    update empl_chg
+    set chg_date = #{chgDate,jdbcType=TIMESTAMP},
+      chg_cnt = #{chgCnt,jdbcType=VARCHAR},
+      opr_id = #{oprId,jdbcType=BIGINT},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where empl_id = #{emplId,jdbcType=BIGINT}
+      and owner_id = #{ownerId,jdbcType=BIGINT}
+      and line_num = #{lineNum,jdbcType=INTEGER}
+  </update>
+</mapper>

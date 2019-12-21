@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.WarehStkPgMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStkPg">
+        <id column="wareh_id" jdbcType="BIGINT" property="warehId"/>
+        <id column="prod_id" jdbcType="BIGINT" property="prodId"/>
+        <id column="stk_type" jdbcType="CHAR" property="stkType"/>
+        <id column="doc_type" jdbcType="CHAR" property="docType"/>
+        <id column="doc_unit_id" jdbcType="BIGINT" property="docUnitId"/>
+        <id column="doc_num" jdbcType="VARCHAR" property="docNum"/>
+        <result column="qty" jdbcType="REAL" property="qty"/>
+        <result column="est_date" jdbcType="DATE" property="estDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    wareh_id, prod_id, stk_type, doc_type, doc_unit_id, doc_num, qty, est_date
+  </sql>
+    <select id="selectCountWareh" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    select count(*) from  wareh_stk_pg  where  wareh_id = #{warehId,jdbcType=BIGINT}
+  </select>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStkPg"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from wareh_stk_pg
+        where wareh_id = #{warehId,jdbcType=BIGINT}
+        and prod_id = #{prodId,jdbcType=BIGINT}
+        and stk_type = #{stkType,jdbcType=CHAR}
+        and doc_type = #{docType,jdbcType=CHAR}
+        and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+        and doc_num = #{docNum,jdbcType=VARCHAR}
+    </select>
+    <!--查询仓库未决库存-->
+    <select id="selectByWareh" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStkPg"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from wareh_stk_pg
+        where wareh_id = #{warehId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteWarehId" parameterType="java.lang.Long">
+    delete from wareh_stk_pg
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+  </delete>
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStkPg">
+    delete from wareh_stk_pg
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+      and stk_type = #{stkType,jdbcType=CHAR}
+      and doc_type = #{docType,jdbcType=CHAR}
+      and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+  </delete>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStkPg">
+        insert into wareh_stk_pg
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="warehId != null">
+                wareh_id,
+            </if>
+            <if test="prodId != null">
+                prod_id,
+            </if>
+            <if test="stkType != null">
+                stk_type,
+            </if>
+            <if test="docType != null">
+                doc_type,
+            </if>
+            <if test="docUnitId != null">
+                doc_unit_id,
+            </if>
+            <if test="docNum != null">
+                doc_num,
+            </if>
+            <if test="qty != null">
+                qty,
+            </if>
+            <if test="estDate != null">
+                est_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="warehId != null">
+                #{warehId,jdbcType=BIGINT},
+            </if>
+            <if test="prodId != null">
+                #{prodId,jdbcType=BIGINT},
+            </if>
+            <if test="stkType != null">
+                #{stkType,jdbcType=CHAR},
+            </if>
+            <if test="docType != null">
+                #{docType,jdbcType=CHAR},
+            </if>
+            <if test="docUnitId != null">
+                #{docUnitId,jdbcType=BIGINT},
+            </if>
+            <if test="docNum != null">
+                #{docNum,jdbcType=VARCHAR},
+            </if>
+            <if test="qty != null">
+                #{qty,jdbcType=REAL},
+            </if>
+            <if test="estDate != null">
+                #{estDate,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.WarehStkPg">
+        update wareh_stk_pg
+        <set>
+            <if test="qty != null">
+                qty = #{qty,jdbcType=REAL},
+            </if>
+            <if test="estDate != null">
+                est_date = #{estDate,jdbcType=DATE},
+            </if>
+        </set>
+        where wareh_id = #{warehId,jdbcType=BIGINT}
+        and prod_id = #{prodId,jdbcType=BIGINT}
+        and stk_type = #{stkType,jdbcType=CHAR}
+        and doc_type = #{docType,jdbcType=CHAR}
+        and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+        and doc_num = #{docNum,jdbcType=VARCHAR}
+    </update>
+
+    <insert id="insertByDtl" parameterType="java.util.Map">
+        <foreach collection="dtlList" item="item" index="index" separator=";">
+            insert into wareh_stk_pg (wareh_id,prod_id,stk_type,doc_type,
+            doc_unit_id,doc_num,qty)
+            values
+            (
+            #{warehId},#{item.prodId},#{stkType},#{docType},
+            #{unitId},#{docNum},#{item.qty}
+            )
+        </foreach>
+    </insert>
+
+    <update id="updateByNegDtl"
+            parameterType="java.util.Map">
+        <foreach collection="dtlList" item="item" index="index" separator=";">
+            update wareh_stk_pg
+            <set>
+                <choose>
+                    <when test="flag=='stb_j'">
+                        qty = qty-#{item.qty},
+                    </when>
+                    <when test="flag=='stb_a'">
+                        qty = qty+#{item.qty},
+                    </when>
+                    <when test="flag=='psc_a'">
+                        qty = qty+#{item.delivQty},
+                    </when>
+                    <when test="flag=='psc_vdr_a'">
+                        <choose>
+                            <when test=" vdrInvd == 1 ">
+                                qty = qty+#{item.delivQty},
+                            </when>
+                            <when test=" vdrInvd == 0 ">
+                                qty = qty+#{item.qty},
+                            </when>
+                        </choose>
+                    </when>
+                </choose>
+            </set>
+            where wareh_id = #{warehId}
+            and prod_id = #{item.prodId}
+            and stk_type = #{stkType}
+            and doc_type = #{docType}
+            and doc_unit_id = #{unitId}
+            and doc_num = #{docNum}
+        </foreach>
+    </update>
+
+    <delete id="deleteByDtl" parameterType="java.util.Map">
+        delete from wareh_stk_pg
+        where wareh_id = #{warehId}
+        and stk_type in (
+        <foreach collection="stkList" item="item" separator=",">
+            #{item,jdbcType=CHAR}
+        </foreach>
+        )
+        and doc_type = #{docType}
+        and doc_unit_id = #{unitId}
+        and doc_num = #{docNum}
+        and prod_id in
+        <foreach collection="dtlList" item="dtlItem" open="("
+                 separator="," close=")">
+            #{dtlItem.prodId}
+        </foreach>
+    </delete>
+
+    <update id="updateByAdmeasure"
+            parameterType="java.util.Map">
+        INSERT INTO wareh_stk_pg(wareh_id, prod_id, stk_type, doc_type, doc_unit_id, doc_num, qty)
+        VALUES
+        <foreach collection="dtlList" item="item" index="index" separator=",">
+            (#{warehId},#{item.prodId},#{stkType},#{docType},#{vo.unitId},#{vo.docNum},#{item.qty})
+        </foreach>
+        <choose>
+            <when test="reversed">
+                ON DUPLICATE KEY UPDATE qty=qty+VALUES(qty)
+            </when>
+            <otherwise>
+                ON DUPLICATE KEY UPDATE qty=qty-VALUES(qty)
+            </otherwise>
+        </choose>
+
+    </update>
+
+    <!-- 匹配更新未决库存 -->
+    <update id="reduceStkPg"
+            parameterType="java.util.Map">
+        UPDATE wareh_stk_pg wsp
+        LEFT JOIN stb_dtl sd ON sd.prod_id = wsp.prod_id
+        SET
+        wsp.qty = wsp.qty - sd.qty
+        WHERE
+            wsp.wareh_id = #{warehId}
+            AND wsp.stk_type = #{stkType}
+            AND wsp.doc_type = #{docType}
+            AND wsp.doc_unit_id = #{unitId}
+            AND wsp.doc_num = #{docNum}
+            AND sd.unit_id = #{stbUnitId}
+            AND sd.stb_num = #{stbNum}
+    </update>
+
+    <insert id="increaseStkPg" parameterType="java.util.Map">
+            REPLACE INTO wareh_stk_pg SELECT
+                #{warehId} AS wareh_id,
+                prod_id,
+                #{stkType} AS stk_type,
+                #{docType} AS doc_type,
+                #{unitId} AS doc_unit_id,
+                #{docNum} AS doc_num,
+                qty,
+                NULL AS est_date
+                FROM
+                    stb_dtl
+                WHERE
+                    unit_id = #{stbUnitId}
+                    AND stb_num = #{stbNum}
+    </insert>
+
+    <delete id="deleteStkPg" parameterType="java.util.Map">
+        DELETE wsp
+        FROM
+            wareh_stk_pg wsp
+            INNER JOIN stb_dtl sd ON sd.prod_id = wsp.prod_id
+            AND sd.unit_id = #{stbUnitId}
+            AND sd.stb_num = #{stbNum}
+        WHERE
+            wsp.wareh_id = #{warehId}
+            AND stk_type = #{stkType}
+            AND doc_type = #{docType}
+            AND doc_unit_id = #{unitId}
+	        AND doc_num = #{docNum}
+    </delete>
+</mapper>

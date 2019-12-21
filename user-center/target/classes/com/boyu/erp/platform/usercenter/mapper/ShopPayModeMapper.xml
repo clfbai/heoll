@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.shop.ShopPayModeMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.shop.ShopPayMode">
+        <id column="shop_id" jdbcType="BIGINT" property="shopId"/>
+        <id column="pay_mode_id" jdbcType="INTEGER" property="payModeId"/>
+        <result column="pay_mode_alias" jdbcType="VARCHAR" property="payModeAlias"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    shop_id, pay_mode_id, pay_mode_alias
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopPayMode"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from shop_pay_mode
+        where shop_id = #{shopId,jdbcType=BIGINT}
+        and pay_mode_id = #{payModeId,jdbcType=INTEGER}
+    </select>
+    <select id="getShopPayMode" parameterType="com.boyu.erp.platform.usercenter.entity.shop.Shop"
+            resultType="com.boyu.erp.platform.usercenter.vo.shop.ShopPayVo">
+        SELECT
+        s.`shop_id` as shopId,
+        m.`pay_mode_code` as payModeCode ,
+        m.`pay_mode_name` as payModeName,
+        s.`pay_mode_alias` as payModeAlias,
+        s.`pay_mode_id` as  payModeId
+        FROM
+        shop_pay_mode s
+        LEFT JOIN pay_mode m
+        ON s.`pay_mode_id` = m.`pay_mode_id`
+        WHERE s.`shop_id` = #{shopId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopPayMode">
+    delete from shop_pay_mode
+    where shop_id = #{shopId,jdbcType=BIGINT}
+      and pay_mode_id = #{payModeId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopPayMode">
+    insert into shop_pay_mode (shop_id, pay_mode_id, pay_mode_alias
+      )
+    values (#{shopId,jdbcType=BIGINT}, #{payModeId,jdbcType=INTEGER}, #{payModeAlias,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopPayMode">
+        insert into shop_pay_mode
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">
+                shop_id,
+            </if>
+            <if test="payModeId != null">
+                pay_mode_id,
+            </if>
+            <if test="payModeAlias != null">
+                pay_mode_alias,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">
+                #{shopId,jdbcType=BIGINT},
+            </if>
+            <if test="payModeId != null">
+                #{payModeId,jdbcType=INTEGER},
+            </if>
+            <if test="payModeAlias != null">
+                #{payModeAlias,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopPayMode">
+        update shop_pay_mode
+        <set>
+            <if test="payModeAlias != null">
+                pay_mode_alias = #{payModeAlias,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where shop_id = #{shopId,jdbcType=BIGINT}
+        and pay_mode_id = #{payModeId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.shop.ShopPayMode">
+    update shop_pay_mode
+    set pay_mode_alias = #{payModeAlias,jdbcType=VARCHAR}
+    where shop_id = #{shopId,jdbcType=BIGINT}
+      and pay_mode_id = #{payModeId,jdbcType=INTEGER}
+  </update>
+</mapper>

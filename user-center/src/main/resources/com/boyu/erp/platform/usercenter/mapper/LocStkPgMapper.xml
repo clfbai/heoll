@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.LocStkPgMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.LocStkPg">
+    <id column="wareh_id" jdbcType="BIGINT" property="warehId" />
+    <id column="prod_id" jdbcType="BIGINT" property="prodId" />
+    <id column="loc_id" jdbcType="BIGINT" property="locId" />
+    <id column="stk_type" jdbcType="CHAR" property="stkType" />
+    <id column="doc_type" jdbcType="CHAR" property="docType" />
+    <id column="doc_unit_id" jdbcType="BIGINT" property="docUnitId" />
+    <id column="doc_num" jdbcType="VARCHAR" property="docNum" />
+    <result column="qty" jdbcType="REAL" property="qty" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    wareh_id, prod_id, loc_id, stk_type, doc_type, doc_unit_id, doc_num, qty
+  </sql>
+  <select id="selectLocStkPg" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.LocStkPg" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from loc_stk_pg
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+      and loc_id = #{locId,jdbcType=BIGINT}
+      and stk_type = #{stkType,jdbcType=CHAR}
+      and doc_type = #{docType,jdbcType=CHAR}
+      and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+  </select>
+   <!--删除仓库时货位未决库存-->
+  <delete id="deleteLocStkPgWareh" parameterType="java.lang.Long">
+    delete from loc_stk_pg
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteLocStkPg" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.LocStkPg">
+    delete from loc_stk_pg
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+      and loc_id = #{locId,jdbcType=BIGINT}
+      and stk_type = #{stkType,jdbcType=CHAR}
+      and doc_type = #{docType,jdbcType=CHAR}
+      and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertLocStkPg" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.LocStkPg">
+    insert into loc_stk_pg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="warehId != null">
+        wareh_id,
+      </if>
+      <if test="prodId != null">
+        prod_id,
+      </if>
+      <if test="locId != null">
+        loc_id,
+      </if>
+      <if test="stkType != null">
+        stk_type,
+      </if>
+      <if test="docType != null">
+        doc_type,
+      </if>
+      <if test="docUnitId != null">
+        doc_unit_id,
+      </if>
+      <if test="docNum != null">
+        doc_num,
+      </if>
+      <if test="qty != null">
+        qty,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="warehId != null">
+        #{warehId,jdbcType=BIGINT},
+      </if>
+      <if test="prodId != null">
+        #{prodId,jdbcType=BIGINT},
+      </if>
+      <if test="locId != null">
+        #{locId,jdbcType=BIGINT},
+      </if>
+      <if test="stkType != null">
+        #{stkType,jdbcType=CHAR},
+      </if>
+      <if test="docType != null">
+        #{docType,jdbcType=CHAR},
+      </if>
+      <if test="docUnitId != null">
+        #{docUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="docNum != null">
+        #{docNum,jdbcType=VARCHAR},
+      </if>
+      <if test="qty != null">
+        #{qty,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateLocStkPg" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.LocStkPg">
+    update loc_stk_pg
+    <set>
+      <if test="qty != null">
+        qty = #{qty,jdbcType=REAL},
+      </if>
+    </set>
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+      and loc_id = #{locId,jdbcType=BIGINT}
+      and stk_type = #{stkType,jdbcType=CHAR}
+      and doc_type = #{docType,jdbcType=CHAR}
+      and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

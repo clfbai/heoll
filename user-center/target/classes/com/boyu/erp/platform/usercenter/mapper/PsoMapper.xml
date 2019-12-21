@@ -1,0 +1,834 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PsoMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.Pso">
+    <id column="pso_num" jdbcType="VARCHAR" property="psoNum" />
+    <result column="doc_date" jdbcType="DATE" property="docDate" />
+    <result column="psc_num" jdbcType="VARCHAR" property="pscNum" />
+    <result column="rcv_wareh_id" jdbcType="DECIMAL" property="rcvWarehId" />
+    <result column="deliv_wareh_id" jdbcType="DECIMAL" property="delivWarehId" />
+    <result column="pso_kind" jdbcType="CHAR" property="psoKind" />
+    <result column="puo_gen" jdbcType="CHAR" property="puoGen" />
+    <result column="slo_gen" jdbcType="CHAR" property="sloGen" />
+    <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled" />
+    <result column="reqd_date" jdbcType="DATE" property="reqdDate" />
+    <result column="deliv_mthd" jdbcType="VARCHAR" property="delivMthd" />
+    <result column="deliv_pstd" jdbcType="VARCHAR" property="delivPstd" />
+    <result column="deliv_addr" jdbcType="VARCHAR" property="delivAddr" />
+    <result column="ttl_qty" jdbcType="DECIMAL" property="ttlQty" />
+    <result column="ttl_box" jdbcType="DECIMAL" property="ttlBox" />
+    <result column="ttl_val" jdbcType="DECIMAL" property="ttlVal" />
+    <result column="ttl_tax" jdbcType="DECIMAL" property="ttlTax" />
+    <result column="ttl_mkv" jdbcType="DECIMAL" property="ttlMkv" />
+    <result column="ttl_deliv_qty" jdbcType="DECIMAL" property="ttlDelivQty" />
+    <result column="ttl_deliv_box" jdbcType="DECIMAL" property="ttlDelivBox" />
+    <result column="ttl_deliv_val" jdbcType="DECIMAL" property="ttlDelivVal" />
+    <result column="ttl_deliv_tax" jdbcType="DECIMAL" property="ttlDelivTax" />
+    <result column="ttl_deliv_mkv" jdbcType="DECIMAL" property="ttlDelivMkv" />
+    <result column="ttl_rcv_qty" jdbcType="DECIMAL" property="ttlRcvQty" />
+    <result column="ttl_rcv_box" jdbcType="DECIMAL" property="ttlRcvBox" />
+    <result column="ttl_rcv_val" jdbcType="DECIMAL" property="ttlRcvVal" />
+    <result column="ttl_rcv_tax" jdbcType="DECIMAL" property="ttlRcvTax" />
+    <result column="ttl_rcv_mkv" jdbcType="DECIMAL" property="ttlRcvMkv" />
+    <result column="opr_id" jdbcType="DECIMAL" property="oprId" />
+    <result column="op_time" jdbcType="TIMESTAMP" property="opTime" />
+    <result column="effective" jdbcType="CHAR" property="effective" />
+    <result column="progress" jdbcType="CHAR" property="progress" />
+    <result column="cancelled" jdbcType="CHAR" property="cancelled" />
+    <result column="exec_pso_num" jdbcType="VARCHAR" property="execPsoNum" />
+    <result column="itmd_pso_num" jdbcType="VARCHAR" property="itmdPsoNum" />
+    <result column="st_pso_num" jdbcType="VARCHAR" property="stPsoNum" />
+    <result column="end_pso_num" jdbcType="VARCHAR" property="endPsoNum" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pso_num, doc_date, psc_num, rcv_wareh_id, deliv_wareh_id, pso_kind, puo_gen, slo_gen, 
+    bxi_enabled, reqd_date, deliv_mthd, deliv_pstd, deliv_addr, ttl_qty, ttl_box, ttl_val, 
+    ttl_tax, ttl_mkv, ttl_deliv_qty, ttl_deliv_box, ttl_deliv_val, ttl_deliv_tax, ttl_deliv_mkv, 
+    ttl_rcv_qty, ttl_rcv_box, ttl_rcv_val, ttl_rcv_tax, ttl_rcv_mkv, opr_id, op_time, 
+    effective, progress, cancelled, exec_pso_num, itmd_pso_num, st_pso_num, end_pso_num, 
+    remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pso
+    where pso_num = #{psoNum}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from pso
+    where pso_num = #{psoNum,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Pso">
+    insert into pso (pso_num, doc_date, psc_num, 
+      rcv_wareh_id, deliv_wareh_id, pso_kind, 
+      puo_gen, slo_gen, bxi_enabled, 
+      reqd_date, deliv_mthd, deliv_pstd, 
+      deliv_addr, ttl_qty, ttl_box, 
+      ttl_val, ttl_tax, ttl_mkv, 
+      ttl_deliv_qty, ttl_deliv_box, ttl_deliv_val, 
+      ttl_deliv_tax, ttl_deliv_mkv, ttl_rcv_qty, 
+      ttl_rcv_box, ttl_rcv_val, ttl_rcv_tax, 
+      ttl_rcv_mkv, opr_id, op_time, 
+      effective, progress, cancelled, 
+      exec_pso_num, itmd_pso_num, st_pso_num, 
+      end_pso_num, remarks)
+    values (#{psoNum,jdbcType=VARCHAR}, #{docDate,jdbcType=DATE}, #{pscNum,jdbcType=VARCHAR}, 
+      #{rcvWarehId,jdbcType=DECIMAL}, #{delivWarehId,jdbcType=DECIMAL}, #{psoKind,jdbcType=CHAR}, 
+      #{puoGen,jdbcType=CHAR}, #{sloGen,jdbcType=CHAR}, #{bxiEnabled,jdbcType=CHAR}, 
+      #{reqdDate,jdbcType=DATE}, #{delivMthd,jdbcType=VARCHAR}, #{delivPstd,jdbcType=VARCHAR}, 
+      #{delivAddr,jdbcType=VARCHAR}, #{ttlQty,jdbcType=DECIMAL}, #{ttlBox,jdbcType=DECIMAL}, 
+      #{ttlVal,jdbcType=DECIMAL}, #{ttlTax,jdbcType=DECIMAL}, #{ttlMkv,jdbcType=DECIMAL}, 
+      #{ttlDelivQty,jdbcType=DECIMAL}, #{ttlDelivBox,jdbcType=DECIMAL}, #{ttlDelivVal,jdbcType=DECIMAL}, 
+      #{ttlDelivTax,jdbcType=DECIMAL}, #{ttlDelivMkv,jdbcType=DECIMAL}, #{ttlRcvQty,jdbcType=DECIMAL}, 
+      #{ttlRcvBox,jdbcType=DECIMAL}, #{ttlRcvVal,jdbcType=DECIMAL}, #{ttlRcvTax,jdbcType=DECIMAL}, 
+      #{ttlRcvMkv,jdbcType=DECIMAL}, #{oprId,jdbcType=DECIMAL}, #{opTime,jdbcType=TIMESTAMP}, 
+      #{effective,jdbcType=CHAR}, #{progress,jdbcType=CHAR}, #{cancelled,jdbcType=CHAR}, 
+      #{execPsoNum,jdbcType=VARCHAR}, #{itmdPsoNum,jdbcType=VARCHAR}, #{stPsoNum,jdbcType=VARCHAR}, 
+      #{endPsoNum,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Pso">
+    insert into pso
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="psoNum != null">
+        pso_num,
+      </if>
+      <if test="docDate != null">
+        doc_date,
+      </if>
+      <if test="pscNum != null">
+        psc_num,
+      </if>
+      <if test="rcvWarehId != null">
+        rcv_wareh_id,
+      </if>
+      <if test="delivWarehId != null">
+        deliv_wareh_id,
+      </if>
+      <if test="psoKind != null">
+        pso_kind,
+      </if>
+      <if test="puoGen != null">
+        puo_gen,
+      </if>
+      <if test="sloGen != null">
+        slo_gen,
+      </if>
+      <if test="bxiEnabled != null">
+        bxi_enabled,
+      </if>
+      <if test="reqdDate != null">
+        reqd_date,
+      </if>
+      <if test="delivMthd != null">
+        deliv_mthd,
+      </if>
+      <if test="delivPstd != null">
+        deliv_pstd,
+      </if>
+      <if test="delivAddr != null">
+        deliv_addr,
+      </if>
+      <if test="ttlQty != null">
+        ttl_qty,
+      </if>
+      <if test="ttlBox != null">
+        ttl_box,
+      </if>
+      <if test="ttlVal != null">
+        ttl_val,
+      </if>
+      <if test="ttlTax != null">
+        ttl_tax,
+      </if>
+      <if test="ttlMkv != null">
+        ttl_mkv,
+      </if>
+      <if test="ttlDelivQty != null">
+        ttl_deliv_qty,
+      </if>
+      <if test="ttlDelivBox != null">
+        ttl_deliv_box,
+      </if>
+      <if test="ttlDelivVal != null">
+        ttl_deliv_val,
+      </if>
+      <if test="ttlDelivTax != null">
+        ttl_deliv_tax,
+      </if>
+      <if test="ttlDelivMkv != null">
+        ttl_deliv_mkv,
+      </if>
+      <if test="ttlRcvQty != null">
+        ttl_rcv_qty,
+      </if>
+      <if test="ttlRcvBox != null">
+        ttl_rcv_box,
+      </if>
+      <if test="ttlRcvVal != null">
+        ttl_rcv_val,
+      </if>
+      <if test="ttlRcvTax != null">
+        ttl_rcv_tax,
+      </if>
+      <if test="ttlRcvMkv != null">
+        ttl_rcv_mkv,
+      </if>
+      <if test="oprId != null">
+        opr_id,
+      </if>
+      <if test="opTime != null">
+        op_time,
+      </if>
+      <if test="effective != null">
+        effective,
+      </if>
+      <if test="progress != null">
+        progress,
+      </if>
+      <if test="cancelled != null">
+        cancelled,
+      </if>
+      <if test="execPsoNum != null">
+        exec_pso_num,
+      </if>
+      <if test="itmdPsoNum != null">
+        itmd_pso_num,
+      </if>
+      <if test="stPsoNum != null">
+        st_pso_num,
+      </if>
+      <if test="endPsoNum != null">
+        end_pso_num,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="psoNum != null">
+        #{psoNum,jdbcType=VARCHAR},
+      </if>
+      <if test="docDate != null">
+        #{docDate,jdbcType=DATE},
+      </if>
+      <if test="pscNum != null">
+        #{pscNum,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvWarehId != null">
+        #{rcvWarehId,jdbcType=DECIMAL},
+      </if>
+      <if test="delivWarehId != null">
+        #{delivWarehId,jdbcType=DECIMAL},
+      </if>
+      <if test="psoKind != null">
+        #{psoKind,jdbcType=CHAR},
+      </if>
+      <if test="puoGen != null">
+        #{puoGen,jdbcType=CHAR},
+      </if>
+      <if test="sloGen != null">
+        #{sloGen,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabled != null">
+        #{bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="reqdDate != null">
+        #{reqdDate,jdbcType=DATE},
+      </if>
+      <if test="delivMthd != null">
+        #{delivMthd,jdbcType=VARCHAR},
+      </if>
+      <if test="delivPstd != null">
+        #{delivPstd,jdbcType=VARCHAR},
+      </if>
+      <if test="delivAddr != null">
+        #{delivAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="ttlQty != null">
+        #{ttlQty,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlBox != null">
+        #{ttlBox,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlVal != null">
+        #{ttlVal,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlTax != null">
+        #{ttlTax,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlMkv != null">
+        #{ttlMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivQty != null">
+        #{ttlDelivQty,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivBox != null">
+        #{ttlDelivBox,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivVal != null">
+        #{ttlDelivVal,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivTax != null">
+        #{ttlDelivTax,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivMkv != null">
+        #{ttlDelivMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvQty != null">
+        #{ttlRcvQty,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvBox != null">
+        #{ttlRcvBox,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvVal != null">
+        #{ttlRcvVal,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvTax != null">
+        #{ttlRcvTax,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvMkv != null">
+        #{ttlRcvMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="oprId != null">
+        #{oprId,jdbcType=DECIMAL},
+      </if>
+      <if test="opTime != null">
+        #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effective != null">
+        #{effective,jdbcType=CHAR},
+      </if>
+      <if test="progress != null">
+        #{progress,jdbcType=CHAR},
+      </if>
+      <if test="cancelled != null">
+        #{cancelled,jdbcType=CHAR},
+      </if>
+      <if test="execPsoNum != null">
+        #{execPsoNum,jdbcType=VARCHAR},
+      </if>
+      <if test="itmdPsoNum != null">
+        #{itmdPsoNum,jdbcType=VARCHAR},
+      </if>
+      <if test="stPsoNum != null">
+        #{stPsoNum,jdbcType=VARCHAR},
+      </if>
+      <if test="endPsoNum != null">
+        #{endPsoNum,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Pso">
+    update pso
+    <set>
+      <if test="docDate != null">
+        doc_date = #{docDate,jdbcType=DATE},
+      </if>
+      <if test="pscNum != null">
+        psc_num = #{pscNum,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvWarehId != null">
+        rcv_wareh_id = #{rcvWarehId,jdbcType=DECIMAL},
+      </if>
+      <if test="delivWarehId != null">
+        deliv_wareh_id = #{delivWarehId,jdbcType=DECIMAL},
+      </if>
+      <if test="psoKind != null">
+        pso_kind = #{psoKind,jdbcType=CHAR},
+      </if>
+      <if test="puoGen != null">
+        puo_gen = #{puoGen,jdbcType=CHAR},
+      </if>
+      <if test="sloGen != null">
+        slo_gen = #{sloGen,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabled != null">
+        bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="reqdDate != null">
+        reqd_date = #{reqdDate,jdbcType=DATE},
+      </if>
+      <if test="delivMthd != null">
+        deliv_mthd = #{delivMthd,jdbcType=VARCHAR},
+      </if>
+      <if test="delivPstd != null">
+        deliv_pstd = #{delivPstd,jdbcType=VARCHAR},
+      </if>
+      <if test="delivAddr != null">
+        deliv_addr = #{delivAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="ttlQty != null">
+        ttl_qty = #{ttlQty,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlBox != null">
+        ttl_box = #{ttlBox,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlVal != null">
+        ttl_val = #{ttlVal,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlTax != null">
+        ttl_tax = #{ttlTax,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlMkv != null">
+        ttl_mkv = #{ttlMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivQty != null">
+        ttl_deliv_qty = #{ttlDelivQty,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivBox != null">
+        ttl_deliv_box = #{ttlDelivBox,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivVal != null">
+        ttl_deliv_val = #{ttlDelivVal,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivTax != null">
+        ttl_deliv_tax = #{ttlDelivTax,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivMkv != null">
+        ttl_deliv_mkv = #{ttlDelivMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvQty != null">
+        ttl_rcv_qty = #{ttlRcvQty,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvBox != null">
+        ttl_rcv_box = #{ttlRcvBox,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvVal != null">
+        ttl_rcv_val = #{ttlRcvVal,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvTax != null">
+        ttl_rcv_tax = #{ttlRcvTax,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvMkv != null">
+        ttl_rcv_mkv = #{ttlRcvMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="oprId != null">
+        opr_id = #{oprId,jdbcType=DECIMAL},
+      </if>
+      <if test="opTime != null">
+        op_time = #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effective != null">
+        effective = #{effective,jdbcType=CHAR},
+      </if>
+      <if test="progress != null">
+        progress = #{progress,jdbcType=CHAR},
+      </if>
+      <if test="cancelled != null">
+        cancelled = #{cancelled,jdbcType=CHAR},
+      </if>
+      <if test="execPsoNum != null">
+        exec_pso_num = #{execPsoNum,jdbcType=VARCHAR},
+      </if>
+      <if test="itmdPsoNum != null">
+        itmd_pso_num = #{itmdPsoNum,jdbcType=VARCHAR},
+      </if>
+      <if test="stPsoNum != null">
+        st_pso_num = #{stPsoNum,jdbcType=VARCHAR},
+      </if>
+      <if test="endPsoNum != null">
+        end_pso_num = #{endPsoNum,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pso_num = #{psoNum,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Pso">
+    update pso
+    set doc_date = #{docDate,jdbcType=DATE},
+      psc_num = #{pscNum,jdbcType=VARCHAR},
+      rcv_wareh_id = #{rcvWarehId,jdbcType=DECIMAL},
+      deliv_wareh_id = #{delivWarehId,jdbcType=DECIMAL},
+      pso_kind = #{psoKind,jdbcType=CHAR},
+      puo_gen = #{puoGen,jdbcType=CHAR},
+      slo_gen = #{sloGen,jdbcType=CHAR},
+      bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+      reqd_date = #{reqdDate,jdbcType=DATE},
+      deliv_mthd = #{delivMthd,jdbcType=VARCHAR},
+      deliv_pstd = #{delivPstd,jdbcType=VARCHAR},
+      deliv_addr = #{delivAddr,jdbcType=VARCHAR},
+      ttl_qty = #{ttlQty,jdbcType=DECIMAL},
+      ttl_box = #{ttlBox,jdbcType=DECIMAL},
+      ttl_val = #{ttlVal,jdbcType=DECIMAL},
+      ttl_tax = #{ttlTax,jdbcType=DECIMAL},
+      ttl_mkv = #{ttlMkv,jdbcType=DECIMAL},
+      ttl_deliv_qty = #{ttlDelivQty,jdbcType=DECIMAL},
+      ttl_deliv_box = #{ttlDelivBox,jdbcType=DECIMAL},
+      ttl_deliv_val = #{ttlDelivVal,jdbcType=DECIMAL},
+      ttl_deliv_tax = #{ttlDelivTax,jdbcType=DECIMAL},
+      ttl_deliv_mkv = #{ttlDelivMkv,jdbcType=DECIMAL},
+      ttl_rcv_qty = #{ttlRcvQty,jdbcType=DECIMAL},
+      ttl_rcv_box = #{ttlRcvBox,jdbcType=DECIMAL},
+      ttl_rcv_val = #{ttlRcvVal,jdbcType=DECIMAL},
+      ttl_rcv_tax = #{ttlRcvTax,jdbcType=DECIMAL},
+      ttl_rcv_mkv = #{ttlRcvMkv,jdbcType=DECIMAL},
+      opr_id = #{oprId,jdbcType=DECIMAL},
+      op_time = #{opTime,jdbcType=TIMESTAMP},
+      effective = #{effective,jdbcType=CHAR},
+      progress = #{progress,jdbcType=CHAR},
+      cancelled = #{cancelled,jdbcType=CHAR},
+      exec_pso_num = #{execPsoNum,jdbcType=VARCHAR},
+      itmd_pso_num = #{itmdPsoNum,jdbcType=VARCHAR},
+      st_pso_num = #{stPsoNum,jdbcType=VARCHAR},
+      end_pso_num = #{endPsoNum,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where pso_num = #{psoNum,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="insertByPso" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsoVo">
+    insert into pso
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="psoNum != null and psoNum != '' ">
+        pso_num,
+      </if>
+        doc_date,
+      <if test="pscNum != null and pscNum != '' ">
+        psc_num,
+      </if>
+      <if test="rcvWarehId != null and rcvWarehId != '' ">
+        rcv_wareh_id,
+      </if>
+      <if test="delivWarehId != null and delivWarehId != '' ">
+        deliv_wareh_id,
+      </if>
+      <if test="psoKind != null and psoKind != '' ">
+        pso_kind,
+      </if>
+      <if test="puoGen != null and puoGen != '' ">
+        puo_gen,
+      </if>
+      <if test="sloGen != null and sloGen != '' ">
+        slo_gen,
+      </if>
+      <if test="bxiEnabled != null and bxiEnabled != '' ">
+        bxi_enabled,
+      </if>
+      <if test="reqdDate != null and reqdDate != '' ">
+        reqd_date,
+      </if>
+      <if test="delivMthd != null and delivMthd != '' ">
+        deliv_mthd,
+      </if>
+      <if test="delivPstd != null and delivPstd != '' ">
+        deliv_pstd,
+      </if>
+      <if test="delivAddr != null and delivAddr != '' ">
+        deliv_addr,
+      </if>
+      <if test="ttlQty != null and ttlQty != '' ">
+        ttl_qty,
+      </if>
+      <if test="ttlBox != null and ttlBox != '' ">
+        ttl_box,
+      </if>
+      <if test="ttlVal != null and ttlVal != '' ">
+        ttl_val,
+      </if>
+      <if test="ttlTax != null and ttlTax != '' ">
+        ttl_tax,
+      </if>
+      <if test="ttlMkv != null and ttlMkv != '' ">
+        ttl_mkv,
+      </if>
+      <if test="ttlDelivQty != null and ttlDelivQty != '' ">
+        ttl_deliv_qty,
+      </if>
+      <if test="ttlDelivBox != null and ttlDelivBox != '' ">
+        ttl_deliv_box,
+      </if>
+      <if test="ttlDelivVal != null and ttlDelivVal != '' ">
+        ttl_deliv_val,
+      </if>
+      <if test="ttlDelivTax != null and ttlDelivTax != '' ">
+        ttl_deliv_tax,
+      </if>
+      <if test="ttlDelivMkv != null and ttlDelivMkv != '' ">
+        ttl_deliv_mkv,
+      </if>
+      <if test="ttlRcvQty != null and ttlRcvQty != '' ">
+        ttl_rcv_qty,
+      </if>
+      <if test="ttlRcvBox != null and ttlRcvBox != '' ">
+        ttl_rcv_box,
+      </if>
+      <if test="ttlRcvVal != null and ttlRcvVal != '' ">
+        ttl_rcv_val,
+      </if>
+      <if test="ttlRcvTax != null and ttlRcvTax != '' ">
+        ttl_rcv_tax,
+      </if>
+      <if test="ttlRcvMkv != null and ttlRcvMkv != '' ">
+        ttl_rcv_mkv,
+      </if>
+      <if test="oprId != null and oprId != '' ">
+        opr_id,
+      </if>
+        op_time,
+      <if test="effective != null and effective != '' ">
+        effective,
+      </if>
+      <if test="progress != null and progress != '' ">
+        progress,
+      </if>
+      <if test="cancelled != null and cancelled != '' ">
+        cancelled,
+      </if>
+      <if test="execPsoNum != null and execPsoNum != '' ">
+        exec_pso_num,
+      </if>
+      <if test="itmdPsoNum != null and itmdPsoNum != '' ">
+        itmd_pso_num,
+      </if>
+      <if test="stPsoNum != null and stPsoNum != '' ">
+        st_pso_num,
+      </if>
+      <if test="endPsoNum != null and endPsoNum != '' ">
+        end_pso_num,
+      </if>
+      <if test="remarks != null and remarks != '' ">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="psoNum != null and psoNum != '' ">
+        #{psoNum,jdbcType=VARCHAR},
+      </if>
+        now(),
+      <if test="pscNum != null and pscNum != '' ">
+        #{pscNum,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvWarehId != null and rcvWarehId != '' ">
+        #{rcvWarehId,jdbcType=DECIMAL},
+      </if>
+      <if test="delivWarehId != null and delivWarehId != '' ">
+        #{delivWarehId,jdbcType=DECIMAL},
+      </if>
+      <if test="psoKind != null and psoKind != '' ">
+        #{psoKind,jdbcType=CHAR},
+      </if>
+      <if test="puoGen != null and puoGen != '' ">
+        #{puoGen,jdbcType=CHAR},
+      </if>
+      <if test="sloGen != null and sloGen != '' ">
+        #{sloGen,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabled != null and bxiEnabled != '' ">
+        #{bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="reqdDate != null and reqdDate != '' ">
+        #{reqdDate,jdbcType=DATE},
+      </if>
+      <if test="delivMthd != null and delivMthd != '' ">
+        #{delivMthd,jdbcType=VARCHAR},
+      </if>
+      <if test="delivPstd != null and delivPstd != '' ">
+        #{delivPstd,jdbcType=VARCHAR},
+      </if>
+      <if test="delivAddr != null and delivAddr != '' ">
+        #{delivAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="ttlQty != null and ttlQty != '' ">
+        #{ttlQty,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlBox != null and ttlBox != '' ">
+        #{ttlBox,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlVal != null and ttlVal != '' ">
+        #{ttlVal,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlTax != null and ttlTax != '' ">
+        #{ttlTax,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlMkv != null and ttlMkv != '' ">
+        #{ttlMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivQty != null and ttlDelivQty != '' ">
+        #{ttlDelivQty,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivBox != null and ttlDelivBox != '' ">
+        #{ttlDelivBox,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivVal != null and ttlDelivVal != '' ">
+        #{ttlDelivVal,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivTax != null and ttlDelivTax != '' ">
+        #{ttlDelivTax,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivMkv != null and ttlDelivMkv != '' ">
+        #{ttlDelivMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvQty != null and ttlRcvQty != '' ">
+        #{ttlRcvQty,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvBox != null and ttlRcvBox != '' ">
+        #{ttlRcvBox,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvVal != null and ttlRcvVal != '' ">
+        #{ttlRcvVal,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvTax != null and ttlRcvTax != '' ">
+        #{ttlRcvTax,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvMkv != null and ttlRcvMkv != '' ">
+        #{ttlRcvMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="oprId != null and oprId != '' ">
+        #{oprId,jdbcType=DECIMAL},
+      </if>
+      now(),
+      <if test="effective != null and effective != '' ">
+        #{effective,jdbcType=CHAR},
+      </if>
+      <if test="progress != null and progress != '' ">
+        #{progress,jdbcType=CHAR},
+      </if>
+      <if test="cancelled != null and cancelled != '' ">
+        #{cancelled,jdbcType=CHAR},
+      </if>
+      <if test="execPsoNum != null and execPsoNum != '' ">
+        #{execPsoNum,jdbcType=VARCHAR},
+      </if>
+      <if test="itmdPsoNum != null and itmdPsoNum != '' ">
+        #{itmdPsoNum,jdbcType=VARCHAR},
+      </if>
+      <if test="stPsoNum != null and stPsoNum != '' ">
+        #{stPsoNum,jdbcType=VARCHAR},
+      </if>
+      <if test="endPsoNum != null and endPsoNum != '' ">
+        #{endPsoNum,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null and remarks != '' ">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPso" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsoVo">
+    update pso
+    <set>
+      <if test="pscNum != null and pscNum != '' ">
+        psc_num = #{pscNum,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvWarehId != null and rcvWarehId != '' ">
+        rcv_wareh_id = #{rcvWarehId,jdbcType=DECIMAL},
+      </if>
+      <if test="delivWarehId != null and delivWarehId != '' ">
+        deliv_wareh_id = #{delivWarehId,jdbcType=DECIMAL},
+      </if>
+      <if test="puoGen != null and puoGen != '' ">
+        puo_gen = #{puoGen,jdbcType=CHAR},
+      </if>
+      <if test="sloGen != null and sloGen != '' ">
+        slo_gen = #{sloGen,jdbcType=CHAR},
+      </if>
+      <if test="bxiEnabled != null and bxiEnabled != '' ">
+        bxi_enabled = #{bxiEnabled,jdbcType=CHAR},
+      </if>
+      <if test="delivMthd != null and delivMthd != '' ">
+        deliv_mthd = #{delivMthd,jdbcType=VARCHAR},
+      </if>
+      <if test="delivPstd != null and delivPstd != '' ">
+        deliv_pstd = #{delivPstd,jdbcType=VARCHAR},
+      </if>
+      <if test="delivAddr != null and delivAddr != '' ">
+        deliv_addr = #{delivAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="ttlQty != null and ttlQty != '' ">
+        ttl_qty = #{ttlQty,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlBox != null and ttlBox != '' ">
+        ttl_box = #{ttlBox,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlVal != null and ttlVal != '' ">
+        ttl_val = #{ttlVal,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlTax != null and ttlTax != '' ">
+        ttl_tax = #{ttlTax,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlMkv != null and ttlMkv != '' ">
+        ttl_mkv = #{ttlMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivQty != null and ttlDelivQty != '' ">
+        ttl_deliv_qty = #{ttlDelivQty,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivBox != null and ttlDelivBox != '' ">
+        ttl_deliv_box = #{ttlDelivBox,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivVal != null and ttlDelivVal != '' ">
+        ttl_deliv_val = #{ttlDelivVal,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivTax != null and ttlDelivTax != '' ">
+        ttl_deliv_tax = #{ttlDelivTax,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlDelivMkv != null and ttlDelivMkv != '' ">
+        ttl_deliv_mkv = #{ttlDelivMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvQty != null and ttlRcvQty != '' ">
+        ttl_rcv_qty = #{ttlRcvQty,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvBox != null and ttlRcvBox != '' ">
+        ttl_rcv_box = #{ttlRcvBox,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvVal != null and ttlRcvVal != '' ">
+        ttl_rcv_val = #{ttlRcvVal,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvTax != null and ttlRcvTax != '' ">
+        ttl_rcv_tax = #{ttlRcvTax,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlRcvMkv != null and ttlRcvMkv != '' ">
+        ttl_rcv_mkv = #{ttlRcvMkv,jdbcType=DECIMAL},
+      </if>
+      <if test="oprId != null and oprId != '' ">
+        opr_id = #{oprId,jdbcType=DECIMAL},
+      </if>
+      <if test="opTime != null and opTime != ''">
+        op_time = #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effective != null">
+        effective = #{effective,jdbcType=CHAR},
+      </if>
+      <if test="progress != null">
+        progress = #{progress,jdbcType=CHAR},
+      </if>
+      <if test="cancelled != null">
+        cancelled = #{cancelled,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null and remarks != '' ">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pso_num = #{psoNum,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByState" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsoVo">
+    update pso
+    <set>
+      <if test="sloGen != null and sloGen != '' ">
+        slo_gen = #{sloGen,jdbcType=CHAR},
+      </if>
+      <if test="puoGen != null and puoGen != '' ">
+       puo_gen = #{puoGen,jdbcType=CHAR},
+      </if>
+      <if test="effective != null">
+        effective = #{effective,jdbcType=CHAR},
+      </if>
+      <if test="progress != null">
+        progress = #{progress,jdbcType=CHAR},
+      </if>
+      <if test="cancelled != null">
+        cancelled = #{cancelled,jdbcType=CHAR},
+      </if>
+      <if test="oprId != null and oprId != '' ">
+        opr_id = #{oprId,jdbcType=DECIMAL},
+        op_time = now(),
+      </if>
+    </set>
+    where pso_num = #{psoNum,jdbcType=VARCHAR}
+  </update>
+</mapper>

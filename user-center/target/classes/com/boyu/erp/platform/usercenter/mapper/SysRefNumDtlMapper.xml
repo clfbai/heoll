@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sysmapper.SysRefNumDtlMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.system.SysRefNumDtl">
+        <id column="ref_num_id" jdbcType="VARCHAR" property="refNumId"/>
+        <result column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <result column="prefix" jdbcType="VARCHAR" property="prefix"/>
+        <result column="last_num" jdbcType="BIGINT" property="lastNum"/>
+        <result column="is_del" jdbcType="TINYINT" property="isDel"/>
+        <result column="create_by" jdbcType="BIGINT" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="BIGINT" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="step_size" jdbcType="TIMESTAMP" property="stepSize"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapadds" type="com.boyu.erp.platform.usercenter.entity.system.SysRefNumDtl">
+        <id column="ref_num_id" jdbcType="VARCHAR" property="refNumId"/>
+        <result column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <result column="prefix" jdbcType="VARCHAR" property="prefix"/>
+        <result column="last_num" jdbcType="BIGINT" property="lastNum"/>
+        <result column="is_del" jdbcType="TINYINT" property="isDel"/>
+        <result column="create_by" jdbcType="BIGINT" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="BIGINT" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="unit_name" jdbcType="TIMESTAMP" property="unitName"/>
+        <result column="unit_code" jdbcType="TIMESTAMP" property="unitCode"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    ref_num_id, unit_id, `prefix`, last_num, is_del, create_by, create_time, update_by, 
+    update_time
+  </sql>
+    <!--查询增量明细是否存在-->
+    <select id="countRefNumDtl" resultType="int">
+       SELECT
+       COUNT(*)
+        FROM
+       sys_ref_num_dtl d
+        WHERE
+        d.`ref_num_id` =#{refNumId}
+        AND
+        d.`unit_id`=#{unitId}
+    </select>
+    <!--查询最新编号-->
+    <select id="getLastNum" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysRefNumDtl"
+            resultType="long">
+        SELECT
+        d.`last_num` as `last_num`
+        FROM
+        sys_ref_num_dtl d
+        WHERE
+        d.`ref_num_id` =#{refNumId}
+        and
+        d.`unit_id` =#{unitId}
+    </select>
+
+    <select id="getLastStep" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysRefNumDtl"
+            resultMap="BaseResultMap">
+        SELECT
+        d.`last_num` as `last_num`,
+        r.`step_size` as `step_size`
+        FROM
+        sys_ref_num r
+        INNER JOIN sys_ref_num_dtl d
+        ON r.`ref_num_id` = d.`ref_num_id`
+        WHERE d.`ref_num_id` =#{refNumId}
+        <if test="unitId!=null and unitId!= '' ">
+            and d.`unit_id` = #{unitId}
+        </if>
+    </select>
+
+    <!--查询编号明细列表-->
+    <select id="selectByPrimary" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysRefNumDtl"
+            resultMap="BaseResultMapadds">
+        select
+        d.* ,
+        u.`unit_name` as unit_name,
+        u.`unit_code` AS unit_code
+        from
+        sys_ref_num_dtl d
+        INNER JOIN
+        sys_unit u
+        ON
+        d.`unit_id` = u.`unit_id`
+        where
+        1=1
+        and
+        is_del=1
+        /*系统管理员用户*/
+        <if test="adminId !=-1 ">
+            and
+            is_del=1
+        </if>
+        /*组织管理员用户*/
+        <if test="adminId!=-1 and  adminId !=null">
+            AND (d.`unit_id`=#{unitId} OR d.`create_by`=#{unitId})
+        </if>
+        <if test="refNumId !=null and refNumId!='' ">
+            and instr (d.ref_num_id , #{refNumId,jdbcType=VARCHAR})>0
+        </if>
+        /*普通用户*/
+        <if test="unitId !=null and unitId!=''and adminId ==null">
+            and d.unit_id = #{unitId}
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_ref_num_dtl
+    where ref_num_id = #{refNumId,jdbcType=VARCHAR}
+  </delete>
+    <!--查询指定编号-->
+    <select id="finbyId" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysRefNumDtl"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_ref_num_dtl
+        where
+        ref_num_id = #{refNumId,jdbcType=VARCHAR}
+        <if test="unitId !=null and unitId!=''">
+        and unit_id = #{unitId}
+        </if>
+    </select>
+    <select id="querySysRefDtlByNumIdAndUnitId"
+            resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from sys_ref_num_dtl where ref_num_id=#{refNumId} and unit_id=#{unitId}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.system.SysRefNumDtl">
+        insert into sys_ref_num_dtl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="refNumId != null">
+                ref_num_id,
+            </if>
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="prefix != null">
+                `prefix`,
+            </if>
+            <if test="lastNum != null">
+                last_num,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="refNumId != null">
+                #{refNumId,jdbcType=VARCHAR},
+            </if>
+            <if test="unitId != null">
+                #{unitId,jdbcType=VARCHAR},
+            </if>
+            <if test="prefix != null">
+                #{prefix,jdbcType=VARCHAR},
+            </if>
+            <if test="lastNum != null">
+                #{lastNum,jdbcType=BIGINT},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.boyu.erp.platform.usercenter.entity.system.SysRefNumDtl">
+        update sys_ref_num_dtl
+        <set>
+            <if test="prefix != null">
+                `prefix` = #{prefix,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUnitId !=null and updateUnitId !=''">
+                unit_id =#{updateUnitId},
+            </if>
+            <if test="lastNum != null">
+                last_num = #{lastNum,jdbcType=BIGINT},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time =now() ,
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = now(),
+            </if>
+        </set>
+        where
+        ref_num_id = #{refNumId,jdbcType=VARCHAR}
+        <if test="unitId !=null">
+            and unit_id =#{unitId}
+        </if>
+
+    </update>
+<!--    <update id="updateAutoIncrementLastNum" useGeneratedKeys="true" keyProperty="sysRefNumDtl.lastNum" >-->
+<!--        update sys_ref_num_dtl set last_num=(IF(last_num is null,#{stepSize},last_num+#{stepSize})) where ref_num_id=#{sysRefNumDtl.refNumId} and unit_id=#{sysRefNumDtl.unitId}-->
+<!--    </update>-->
+
+</mapper>

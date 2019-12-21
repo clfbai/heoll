@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.basic.DocBoxMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.basic.DocBox">
+    <id column="doc_type" jdbcType="CHAR" property="docType" />
+    <id column="doc_unit_id" jdbcType="BIGINT" property="docUnitId" />
+    <id column="doc_num" jdbcType="VARCHAR" property="docNum" />
+    <id column="box_code" jdbcType="VARCHAR" property="boxCode" />
+    <id column="wareh_id" jdbcType="BIGINT" property="warehId" />
+    <id column="stk_type" jdbcType="CHAR" property="stkType" />
+    <result column="closed" jdbcType="CHAR" property="closed" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    doc_type, doc_unit_id, doc_num, box_code, wareh_id, stk_type, closed
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.DocBox" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from doc_box
+    where doc_type = #{docType,jdbcType=CHAR}
+      and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+      and box_code = #{boxCode,jdbcType=VARCHAR}
+      and wareh_id = #{warehId,jdbcType=BIGINT}
+      and stk_type = #{stkType,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.DocBox">
+    delete from doc_box
+    where doc_type = #{docType,jdbcType=CHAR}
+      and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+      and box_code = #{boxCode,jdbcType=VARCHAR}
+      and wareh_id = #{warehId,jdbcType=BIGINT}
+      and stk_type = #{stkType,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.basic.DocBox">
+    insert into doc_box (doc_type, doc_unit_id, doc_num, 
+      box_code, wareh_id, stk_type, 
+      closed)
+    values (#{docType,jdbcType=CHAR}, #{docUnitId,jdbcType=BIGINT}, #{docNum,jdbcType=VARCHAR}, 
+      #{boxCode,jdbcType=VARCHAR}, #{warehId,jdbcType=BIGINT}, #{stkType,jdbcType=CHAR}, 
+      #{closed,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.DocBox">
+    insert into doc_box
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="docType != null">
+        doc_type,
+      </if>
+      <if test="docUnitId != null">
+        doc_unit_id,
+      </if>
+      <if test="docNum != null">
+        doc_num,
+      </if>
+      <if test="boxCode != null">
+        box_code,
+      </if>
+      <if test="warehId != null">
+        wareh_id,
+      </if>
+      <if test="stkType != null">
+        stk_type,
+      </if>
+      <if test="closed != null">
+        closed,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="docType != null">
+        #{docType,jdbcType=CHAR},
+      </if>
+      <if test="docUnitId != null">
+        #{docUnitId,jdbcType=BIGINT},
+      </if>
+      <if test="docNum != null">
+        #{docNum,jdbcType=VARCHAR},
+      </if>
+      <if test="boxCode != null">
+        #{boxCode,jdbcType=VARCHAR},
+      </if>
+      <if test="warehId != null">
+        #{warehId,jdbcType=BIGINT},
+      </if>
+      <if test="stkType != null">
+        #{stkType,jdbcType=CHAR},
+      </if>
+      <if test="closed != null">
+        #{closed,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.DocBox">
+    update doc_box
+    <set>
+      <if test="closed != null">
+        closed = #{closed,jdbcType=CHAR},
+      </if>
+    </set>
+    where doc_type = #{docType,jdbcType=CHAR}
+      and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+      and box_code = #{boxCode,jdbcType=VARCHAR}
+      and wareh_id = #{warehId,jdbcType=BIGINT}
+      and stk_type = #{stkType,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.DocBox">
+    update doc_box
+    set closed = #{closed,jdbcType=CHAR}
+    where doc_type = #{docType,jdbcType=CHAR}
+      and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+      and doc_num = #{docNum,jdbcType=VARCHAR}
+      and box_code = #{boxCode,jdbcType=VARCHAR}
+      and wareh_id = #{warehId,jdbcType=BIGINT}
+      and stk_type = #{stkType,jdbcType=CHAR}
+  </update>
+
+  <select id="selectByList" parameterType="com.boyu.erp.platform.usercenter.entity.basic.DocBox" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from doc_box
+    where doc_type = #{docType,jdbcType=CHAR}
+    and doc_unit_id = #{docUnitId,jdbcType=BIGINT}
+    and doc_num = #{docNum,jdbcType=VARCHAR}
+    <if test="warehId!=null and warehId!='' and warehId!= 'null' ">
+    and wareh_id = #{warehId,jdbcType=BIGINT}
+    </if>
+    <if test="stkType!=null and stkType!='' and stkType!= 'null' ">
+    and stk_type = #{stkType,jdbcType=CHAR}
+    </if>
+    and closed = #{closed,jdbcType=CHAR}
+  </select>
+</mapper>

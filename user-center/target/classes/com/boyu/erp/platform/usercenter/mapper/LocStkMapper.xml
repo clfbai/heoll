@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.LocStkMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.LocStk">
+    <id column="wareh_id" jdbcType="BIGINT" property="warehId" />
+    <id column="prod_id" jdbcType="BIGINT" property="prodId" />
+    <id column="loc_id" jdbcType="BIGINT" property="locId" />
+    <result column="stk_on_hand" jdbcType="REAL" property="stkOnHand" />
+    <result column="qty_expd" jdbcType="REAL" property="qtyExpd" />
+    <result column="qty_cmtd" jdbcType="REAL" property="qtyCmtd" />
+    <result column="qty_ast" jdbcType="REAL" property="qtyAst" />
+    <result column="qty_bxd" jdbcType="REAL" property="qtyBxd" />
+    <result column="qty_pckd" jdbcType="REAL" property="qtyPckd" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    wareh_id, prod_id, loc_id, stk_on_hand, qty_expd, qty_cmtd, qty_ast, qty_bxd, qty_pckd
+  </sql>
+  <select id="selectLocStk" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.LocStk" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from loc_stk
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+      and loc_id = #{locId,jdbcType=BIGINT}
+  </select>
+  <!--删除仓库时删除货位库存表数据-->
+  <delete id="deleteLocStkWareh" parameterType="java.lang.Long">
+    delete from loc_stk
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteLocStk" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.LocStk">
+    delete from loc_stk
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+      and loc_id = #{locId,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertLocStk" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.LocStk">
+    insert into loc_stk
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="warehId != null">
+        wareh_id,
+      </if>
+      <if test="prodId != null">
+        prod_id,
+      </if>
+      <if test="locId != null">
+        loc_id,
+      </if>
+      <if test="stkOnHand != null">
+        stk_on_hand,
+      </if>
+      <if test="qtyExpd != null">
+        qty_expd,
+      </if>
+      <if test="qtyCmtd != null">
+        qty_cmtd,
+      </if>
+      <if test="qtyAst != null">
+        qty_ast,
+      </if>
+      <if test="qtyBxd != null">
+        qty_bxd,
+      </if>
+      <if test="qtyPckd != null">
+        qty_pckd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="warehId != null">
+        #{warehId,jdbcType=BIGINT},
+      </if>
+      <if test="prodId != null">
+        #{prodId,jdbcType=BIGINT},
+      </if>
+      <if test="locId != null">
+        #{locId,jdbcType=BIGINT},
+      </if>
+      <if test="stkOnHand != null">
+        #{stkOnHand,jdbcType=REAL},
+      </if>
+      <if test="qtyExpd != null">
+        #{qtyExpd,jdbcType=REAL},
+      </if>
+      <if test="qtyCmtd != null">
+        #{qtyCmtd,jdbcType=REAL},
+      </if>
+      <if test="qtyAst != null">
+        #{qtyAst,jdbcType=REAL},
+      </if>
+      <if test="qtyBxd != null">
+        #{qtyBxd,jdbcType=REAL},
+      </if>
+      <if test="qtyPckd != null">
+        #{qtyPckd,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateLocStk" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.LocStk">
+    update loc_stk
+    <set>
+      <if test="stkOnHand != null">
+        stk_on_hand = #{stkOnHand,jdbcType=REAL},
+      </if>
+      <if test="qtyExpd != null">
+        qty_expd = #{qtyExpd,jdbcType=REAL},
+      </if>
+      <if test="qtyCmtd != null">
+        qty_cmtd = #{qtyCmtd,jdbcType=REAL},
+      </if>
+      <if test="qtyAst != null">
+        qty_ast = #{qtyAst,jdbcType=REAL},
+      </if>
+      <if test="qtyBxd != null">
+        qty_bxd = #{qtyBxd,jdbcType=REAL},
+      </if>
+      <if test="qtyPckd != null">
+        qty_pckd = #{qtyPckd,jdbcType=REAL},
+      </if>
+    </set>
+    where wareh_id = #{warehId,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+      and loc_id = #{locId,jdbcType=BIGINT}
+  </update>
+</mapper>

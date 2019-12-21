@@ -1,0 +1,1529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PrcMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.Prc">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <id column="prc_num" jdbcType="VARCHAR" property="prcNum"/>
+        <result column="rtc_num" jdbcType="VARCHAR" property="rtcNum"/>
+        <result column="prc_type" jdbcType="VARCHAR" property="prcType"/>
+        <result column="pr_brdg_mode" jdbcType="CHAR" property="prBrdgMode"/>
+        <result column="chkr_id" jdbcType="BIGINT" property="chkrId"/>
+        <result column="chk_time" jdbcType="TIMESTAMP" property="chkTime"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="ac_reqd" jdbcType="CHAR" property="acReqd"/>
+        <result column="ac_bnd" jdbcType="CHAR" property="acBnd"/>
+        <result column="ac_bndr_id" jdbcType="BIGINT" property="acBndrId"/>
+        <result column="ac_bnd_time" jdbcType="TIMESTAMP" property="acBndTime"/>
+        <result column="sr_fwdd" jdbcType="CHAR" property="srFwdd"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapPrcVo" type="com.boyu.erp.platform.usercenter.vo.purchase.PrcVo">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <result column="prc_num" jdbcType="VARCHAR" property="prcNum"/>
+        <result column="rtc_num" jdbcType="VARCHAR" property="rtcNum"/>
+        <result column="prc_type" jdbcType="VARCHAR" property="prcType"/>
+        <result column="rtc_type" jdbcType="VARCHAR" property="rtcType"/>
+        <result column="pr_brdg_mode" jdbcType="CHAR" property="prBrdgMode"/>
+        <result column="chkr_id" jdbcType="BIGINT" property="chkrId"/>
+        <result column="chkrNum" property="chkrNum"/>
+        <result column="chkrName" property="chkrName"/>
+        <result column="chk_time" jdbcType="TIMESTAMP" property="chkTime"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="ac_reqd" jdbcType="CHAR" property="acReqd"/>
+        <result column="ac_bnd" jdbcType="CHAR" property="acBnd"/>
+        <result column="ac_bndr_id" jdbcType="BIGINT" property="acBndrId"/>
+        <result column="acBndrNum" property="acBndrNum"/>
+        <result column="acBndrName" property="acBndrName"/>
+        <result column="ac_bnd_time" jdbcType="TIMESTAMP" property="acBndTime"/>
+        <result column="sr_fwdd" jdbcType="CHAR" property="srFwdd"/>
+        <result column="doc_date" jdbcType="DATE" property="docDate"/>
+        <result column="psc_reqd" jdbcType="CHAR" property="pscReqd"/>
+        <result column="psc_num" jdbcType="VARCHAR" property="pscNum"/>
+        <result column="vde_fscl_unit_id" jdbcType="BIGINT" property="vdeFsclUnitId"/>
+        <result column="vdeFsclUnitCode" property="vdeFsclUnitCode"/>
+        <result column="vdeFsclUnitName" property="vdeFsclUnitName"/>
+        <result column="vde_wareh_id" jdbcType="BIGINT" property="vdeWarehId"/>
+        <result column="vdeWarehNum" property="vdeWarehNum"/>
+        <result column="vdeWarehName" property="vdeWarehName"/>
+        <result column="st_unit_id" jdbcType="BIGINT" property="stUnitId"/>
+        <result column="stUnitNum" property="stUnitNum"/>
+        <result column="stUnitName" property="stUnitName"/>
+        <result column="st_wareh_id" jdbcType="BIGINT" property="stWarehId"/>
+        <result column="stWarehNum" property="stWarehNum"/>
+        <result column="stWarehName" property="stWarehName"/>
+        <result column="prc_auto_gen" jdbcType="CHAR" property="prcAutoGen"/>
+        <result column="prc_gen" jdbcType="CHAR" property="prcGen"/>
+        <result column="prc_auto_chk" jdbcType="CHAR" property="prcAutoChk"/>
+        <result column="is_pr_itmd" jdbcType="CHAR" property="isPrItmd"/>
+        <result column="vender_id" jdbcType="BIGINT" property="venderId"/>
+        <result column="venderNum" property="venderNum"/>
+        <result column="venderName" property="venderName"/>
+        <result column="vendee_id" jdbcType="BIGINT" property="vendeeId"/>
+        <result column="vendeeNum" property="vendeeNum"/>
+        <result column="vendeeName" property="vendeeName"/>
+        <result column="vdr_fscl_unit_id" jdbcType="BIGINT" property="vdrFsclUnitId"/>
+        <result column="vdrFsclUnitCode" property="vdrFsclUnitCode"/>
+        <result column="vdrFsclUnitName" property="vdrFsclUnitName"/>
+        <result column="vdr_wareh_id" jdbcType="BIGINT" property="vdrWarehId"/>
+        <result column="vdrWarehNum" property="vdrWarehNum"/>
+        <result column="vdrWarehName" property="vdrWarehName"/>
+        <result column="end_unit_id" jdbcType="BIGINT" property="endUnitId"/>
+        <result column="endUnitNum" property="endUnitNum"/>
+        <result column="endUnitName" property="endUnitName"/>
+        <result column="end_wareh_id" jdbcType="BIGINT" property="endWarehId"/>
+        <result column="endWarehNum" property="endWarehNum"/>
+        <result column="endWarehName" property="endWarehName"/>
+        <result column="vdr_invd" jdbcType="CHAR" property="vdrInvd"/>
+        <result column="vde_invd" jdbcType="CHAR" property="vdeInvd"/>
+        <result column="src_auto_gen" jdbcType="CHAR" property="srcAutoGen"/>
+        <result column="src_gen" jdbcType="CHAR" property="srcGen"/>
+        <result column="src_auto_chk" jdbcType="CHAR" property="srcAutoChk"/>
+        <result column="is_sr_itmd" jdbcType="CHAR" property="isSrItmd"/>
+        <result column="tran_unit_id" jdbcType="BIGINT" property="tranUnitId"/>
+        <result column="tranUnitNum" property="tranUnitNum"/>
+        <result column="tranUnitName" property="tranUnitName"/>
+        <result column="dr_diff_jgd" jdbcType="CHAR" property="drDiffJgd"/>
+        <result column="multi_impl" jdbcType="CHAR" property="multiImpl"/>
+        <result column="prc_site" jdbcType="CHAR" property="prcSite"/>
+        <result column="reqd_date" jdbcType="DATE" property="reqdDate"/>
+        <result column="spl_enabled" jdbcType="CHAR" property="splEnabled"/>
+        <result column="exbl_rate" jdbcType="DECIMAL" property="exblRate"/>
+        <result column="is_cms" jdbcType="CHAR" property="isCms"/>
+        <result column="rtna_invd" jdbcType="CHAR" property="rtnaInvd"/>
+        <result column="acc_enabled" jdbcType="CHAR" property="accEnabled"/>
+        <result column="rtn_acc_site" jdbcType="CHAR" property="rtnAccSite"/>
+        <result column="acc_val" jdbcType="DECIMAL" property="accVal"/>
+        <result column="src_doc_type" jdbcType="CHAR" property="srcDocType"/>
+        <result column="src_doc_unit_id" jdbcType="BIGINT" property="srcDocUnitId"/>
+        <result column="src_doc_num" jdbcType="VARCHAR" property="srcDocNum"/>
+        <result column="prod_cat_id" jdbcType="VARCHAR" property="prodCatId"/>
+        <result column="prodCatName" property="prodCatName"/>
+        <result column="rtn_type" jdbcType="VARCHAR" property="rtnType"/>
+        <result column="expd_date" jdbcType="DATE" property="expdDate"/>
+        <result column="deliv_mthd" jdbcType="VARCHAR" property="delivMthd"/>
+        <result column="deliv_pstd" jdbcType="VARCHAR" property="delivPstd"/>
+        <result column="deliv_addr" jdbcType="VARCHAR" property="delivAddr"/>
+        <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled"/>
+        <result column="ttl_qty" jdbcType="DECIMAL" property="ttlQty"/>
+        <result column="ttl_box" jdbcType="BIGINT" property="ttlBox"/>
+        <result column="ttl_val" jdbcType="DECIMAL" property="ttlVal"/>
+        <result column="ttl_tax" jdbcType="DECIMAL" property="ttlTax"/>
+        <result column="ttl_mkv" jdbcType="DECIMAL" property="ttlMkv"/>
+        <result column="ttl_deliv_qty" jdbcType="DECIMAL" property="ttlDelivQty"/>
+        <result column="ttl_deliv_box" jdbcType="BIGINT" property="ttlDelivBox"/>
+        <result column="ttl_deliv_val" jdbcType="DECIMAL" property="ttlDelivVal"/>
+        <result column="ttl_deliv_tax" jdbcType="DECIMAL" property="ttlDelivTax"/>
+        <result column="ttl_deliv_mkv" jdbcType="DECIMAL" property="ttlDelivMkv"/>
+        <result column="ttl_rcv_qty" jdbcType="DECIMAL" property="ttlRcvQty"/>
+        <result column="ttl_rcv_box" jdbcType="BIGINT" property="ttlRcvBox"/>
+        <result column="ttl_rcv_val" jdbcType="DECIMAL" property="ttlRcvVal"/>
+        <result column="ttl_rcv_tax" jdbcType="DECIMAL" property="ttlRcvTax"/>
+        <result column="ttl_rcv_mkv" jdbcType="DECIMAL" property="ttlRcvMkv"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="oprCode" property="oprCode"/>
+        <result column="oprName" property="oprName"/>
+        <result column="op_time" jdbcType="TIMESTAMP" property="opTime"/>
+        <result column="effective" jdbcType="CHAR" property="effective"/>
+        <result column="progress" jdbcType="CHAR" property="progress"/>
+        <result column="cancelled" jdbcType="CHAR" property="cancelled"/>
+        <result column="exec_rtc_num" jdbcType="VARCHAR" property="execRtcNum"/>
+        <result column="itmd_rtc_num" jdbcType="VARCHAR" property="itmdRtcNum"/>
+        <result column="st_rtc_num" jdbcType="VARCHAR" property="stRtcNum"/>
+        <result column="end_rtc_num" jdbcType="VARCHAR" property="endRtcNum"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapObject" type="com.boyu.erp.platform.usercenter.vo.purchase.PrcVo">
+        <id column="unit_id" jdbcType="BIGINT" property="unitId"/>
+        <result column="prc_num" jdbcType="VARCHAR" property="prcNum"/>
+        <result column="rtc_num" jdbcType="VARCHAR" property="rtcNum"/>
+        <result column="prc_type" jdbcType="VARCHAR" property="prcType"/>
+        <result column="rtc_type" jdbcType="VARCHAR" property="rtcType"/>
+        <result column="pr_brdg_mode" jdbcType="CHAR" property="prBrdgMode"/>
+        <result column="chkr_id" jdbcType="BIGINT" property="chkrId"/>
+        <result column="chkrNum" property="chkrNum"/>
+        <result column="chkrName" property="chkrName"/>
+        <result column="chk_time" jdbcType="TIMESTAMP" property="chkTime"/>
+        <result column="suspended" jdbcType="CHAR" property="suspended"/>
+        <result column="ac_reqd" jdbcType="CHAR" property="acReqd"/>
+        <result column="ac_bnd" jdbcType="CHAR" property="acBnd"/>
+        <result column="ac_bndr_id" jdbcType="BIGINT" property="acBndrId"/>
+        <result column="acBndrNum" property="acBndrNum"/>
+        <result column="acBndrName" property="acBndrName"/>
+        <result column="ac_bnd_time" jdbcType="TIMESTAMP" property="acBndTime"/>
+        <result column="sr_fwdd" jdbcType="CHAR" property="srFwdd"/>
+        <result column="doc_date" jdbcType="DATE" property="docDate"/>
+        <result column="psc_reqd" jdbcType="CHAR" property="pscReqd"/>
+        <result column="psc_num" jdbcType="VARCHAR" property="pscNum"/>
+        <result column="vde_fscl_unit_id" jdbcType="BIGINT" property="vdeFsclUnitId"/>
+        <result column="vdeFsclUnitCode" property="vdeFsclUnitCode"/>
+        <result column="vdeFsclUnitName" property="vdeFsclUnitName"/>
+        <result column="vde_wareh_id" jdbcType="BIGINT" property="vdeWarehId"/>
+        <result column="vdeWarehNum" property="vdeWarehNum"/>
+        <result column="vdeWarehName" property="vdeWarehName"/>
+        <result column="st_unit_id" jdbcType="BIGINT" property="stUnitId"/>
+        <result column="stUnitNum" property="stUnitNum"/>
+        <result column="stUnitName" property="stUnitName"/>
+        <result column="st_wareh_id" jdbcType="BIGINT" property="stWarehId"/>
+        <result column="stWarehNum" property="stWarehNum"/>
+        <result column="stWarehName" property="stWarehName"/>
+        <result column="prc_auto_gen" jdbcType="CHAR" property="prcAutoGen"/>
+        <result column="prc_gen" jdbcType="CHAR" property="prcGen"/>
+        <result column="prc_auto_chk" jdbcType="CHAR" property="prcAutoChk"/>
+        <result column="is_pr_itmd" jdbcType="CHAR" property="isPrItmd"/>
+        <result column="vender_id" jdbcType="BIGINT" property="venderId"/>
+        <result column="venderNum" property="venderNum"/>
+        <result column="venderName" property="venderName"/>
+        <result column="vendee_id" jdbcType="BIGINT" property="vendeeId"/>
+        <result column="vendeeNum" property="vendeeNum"/>
+        <result column="vendeeName" property="vendeeName"/>
+        <result column="vdr_fscl_unit_id" jdbcType="BIGINT" property="vdrFsclUnitId"/>
+        <result column="vdrFsclUnitCode" property="vdrFsclUnitCode"/>
+        <result column="vdrFsclUnitName" property="vdrFsclUnitName"/>
+        <result column="vdr_wareh_id" jdbcType="BIGINT" property="vdrWarehId"/>
+        <result column="vdrWarehNum" property="vdrWarehNum"/>
+        <result column="vdrWarehName" property="vdrWarehName"/>
+        <result column="end_unit_id" jdbcType="BIGINT" property="endUnitId"/>
+        <result column="endUnitNum" property="endUnitNum"/>
+        <result column="endUnitName" property="endUnitName"/>
+        <result column="end_wareh_id" jdbcType="BIGINT" property="endWarehId"/>
+        <result column="endWarehNum" property="endWarehNum"/>
+        <result column="endWarehName" property="endWarehName"/>
+        <result column="vdr_invd" jdbcType="CHAR" property="vdrInvd"/>
+        <result column="vde_invd" jdbcType="CHAR" property="vdeInvd"/>
+        <result column="src_auto_gen" jdbcType="CHAR" property="srcAutoGen"/>
+        <result column="src_gen" jdbcType="CHAR" property="srcGen"/>
+        <result column="src_auto_chk" jdbcType="CHAR" property="srcAutoChk"/>
+        <result column="is_sr_itmd" jdbcType="CHAR" property="isSrItmd"/>
+        <result column="tran_unit_id" jdbcType="BIGINT" property="tranUnitId"/>
+        <result column="tranUnitNum" property="tranUnitNum"/>
+        <result column="tranUnitName" property="tranUnitName"/>
+        <result column="dr_diff_jgd" jdbcType="CHAR" property="drDiffJgd"/>
+        <result column="multi_impl" jdbcType="CHAR" property="multiImpl"/>
+        <result column="prc_site" jdbcType="CHAR" property="prcSite"/>
+        <result column="reqd_date" jdbcType="DATE" property="reqdDate"/>
+        <result column="spl_enabled" jdbcType="CHAR" property="splEnabled"/>
+        <result column="exbl_rate" jdbcType="DECIMAL" property="exblRate"/>
+        <result column="is_cms" jdbcType="CHAR" property="isCms"/>
+        <result column="rtna_invd" jdbcType="CHAR" property="rtnaInvd"/>
+        <result column="acc_enabled" jdbcType="CHAR" property="accEnabled"/>
+        <result column="rtn_acc_site" jdbcType="CHAR" property="rtnAccSite"/>
+        <result column="acc_val" jdbcType="DECIMAL" property="accVal"/>
+        <result column="src_doc_type" jdbcType="CHAR" property="srcDocType"/>
+        <result column="src_doc_unit_id" jdbcType="BIGINT" property="srcDocUnitId"/>
+        <result column="src_doc_num" jdbcType="VARCHAR" property="srcDocNum"/>
+        <result column="prod_cat_id" jdbcType="VARCHAR" property="prodCatId"/>
+        <result column="prodCatName" property="prodCatName"/>
+        <result column="rtn_type" jdbcType="VARCHAR" property="rtnType"/>
+        <result column="expd_date" jdbcType="DATE" property="expdDate"/>
+        <result column="deliv_mthd" jdbcType="VARCHAR" property="delivMthd"/>
+        <result column="deliv_pstd" jdbcType="VARCHAR" property="delivPstd"/>
+        <result column="deliv_addr" jdbcType="VARCHAR" property="delivAddr"/>
+        <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled"/>
+        <result column="ttl_qty" jdbcType="DECIMAL" property="ttlQty"/>
+        <result column="ttl_box" jdbcType="BIGINT" property="ttlBox"/>
+        <result column="ttl_val" jdbcType="DECIMAL" property="ttlVal"/>
+        <result column="ttl_tax" jdbcType="DECIMAL" property="ttlTax"/>
+        <result column="ttl_mkv" jdbcType="DECIMAL" property="ttlMkv"/>
+        <result column="ttl_deliv_qty" jdbcType="DECIMAL" property="ttlDelivQty"/>
+        <result column="ttl_deliv_box" jdbcType="BIGINT" property="ttlDelivBox"/>
+        <result column="ttl_deliv_val" jdbcType="DECIMAL" property="ttlDelivVal"/>
+        <result column="ttl_deliv_tax" jdbcType="DECIMAL" property="ttlDelivTax"/>
+        <result column="ttl_deliv_mkv" jdbcType="DECIMAL" property="ttlDelivMkv"/>
+        <result column="ttl_rcv_qty" jdbcType="DECIMAL" property="ttlRcvQty"/>
+        <result column="ttl_rcv_box" jdbcType="BIGINT" property="ttlRcvBox"/>
+        <result column="ttl_rcv_val" jdbcType="DECIMAL" property="ttlRcvVal"/>
+        <result column="ttl_rcv_tax" jdbcType="DECIMAL" property="ttlRcvTax"/>
+        <result column="ttl_rcv_mkv" jdbcType="DECIMAL" property="ttlRcvMkv"/>
+        <result column="opr_id" jdbcType="BIGINT" property="oprId"/>
+        <result column="oprCode" property="oprCode"/>
+        <result column="oprName" property="oprName"/>
+        <result column="op_time" jdbcType="TIMESTAMP" property="opTime"/>
+        <result column="effective" jdbcType="CHAR" property="effective"/>
+        <result column="progress" jdbcType="CHAR" property="progress"/>
+        <result column="cancelled" jdbcType="CHAR" property="cancelled"/>
+        <result column="exec_rtc_num" jdbcType="VARCHAR" property="execRtcNum"/>
+        <result column="itmd_rtc_num" jdbcType="VARCHAR" property="itmdRtcNum"/>
+        <result column="st_rtc_num" jdbcType="VARCHAR" property="stRtcNum"/>
+        <result column="end_rtc_num" jdbcType="VARCHAR" property="endRtcNum"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <collection property="rtcDtlList" resultMap="rtcDtlResultMap"></collection>
+    </resultMap>
+    <resultMap id="rtcDtlResultMap" type="com.boyu.erp.platform.usercenter.vo.purchase.RtcDtlVo">
+        <id column="rtc_num" jdbcType="VARCHAR" property="rtcNum"/>
+        <id column="prod_id" jdbcType="BIGINT" property="prodId"/>
+        <result column="line_num" jdbcType="BIGINT" property="lineNum"/>
+        <result column="row_num" jdbcType="BIGINT" property="rowNum"/>
+        <result column="unit_price" jdbcType="DECIMAL" property="unitPrice"/>
+        <result column="disc_rate" jdbcType="DECIMAL" property="discRate"/>
+        <result column="fnl_price" jdbcType="DECIMAL" property="fnlPrice"/>
+        <result column="tax_rate" jdbcType="DECIMAL" property="taxRate"/>
+        <result column="mk_unit_price" jdbcType="DECIMAL" property="mkUnitPrice"/>
+        <result column="qty" jdbcType="DECIMAL" property="qty"/>
+        <result column="val" jdbcType="DECIMAL" property="val"/>
+        <result column="tax" jdbcType="DECIMAL" property="tax"/>
+        <result column="mkv" jdbcType="DECIMAL" property="mkv"/>
+        <result column="deliv_qty" jdbcType="DECIMAL" property="delivQty"/>
+        <result column="deliv_val" jdbcType="DECIMAL" property="delivVal"/>
+        <result column="deliv_tax" jdbcType="DECIMAL" property="delivTax"/>
+        <result column="deliv_mkv" jdbcType="DECIMAL" property="delivMkv"/>
+        <result column="rcv_qty" jdbcType="DECIMAL" property="rcvQty"/>
+        <result column="rcv_val" jdbcType="DECIMAL" property="rcvVal"/>
+        <result column="rcv_tax" jdbcType="DECIMAL" property="rcvTax"/>
+        <result column="rcv_mkv" jdbcType="DECIMAL" property="rcvMkv"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="prodCatId" property="prodCatId"/>
+        <result column="prodCode" property="prodCode"/>
+        <result column="inputCode" property="inputCode"/>
+        <result column="seqNum" property="seqNum"/>
+        <result column="uom" property="uom"/>
+        <result column="prodName" property="prodName"/>
+        <result column="color" property="color"/>
+        <result column="spec" property="spec"/>
+        <result column="edition" property="edition"/>
+        <result column="prodClsCode" property="prodClsCode"/>
+        <result column="prodClsId" property="prodClsId"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapWareh" type="com.boyu.erp.platform.usercenter.vo.warehouse.WarehSrcInfoVo">
+        <result column="cntrNum" property="cntrNum"/>
+        <result column="bxiEnabled" property="bxiEnabled"/>
+        <result column="ttlQty" property="ttlQty"/>
+        <result column="ttlBox" property="ttlBox"/>
+        <result column="ttlVal" property="ttlVal"/>
+        <result column="ttlTax" property="ttlTax"/>
+        <result column="ttlMkv" property="ttlMkv"/>
+        <result column="brdgMode" property="brdgMode"/>
+        <result column="tranUnitId" property="tranUnitId"/>
+        <result column="rcvUnitId" property="rcvUnitId"/>
+        <result column="rcvWarehId" property="rcvWarehId"/>
+        <result column="endUnitId" property="endUnitId"/>
+        <result column="endWarehId" property="endWarehId"/>
+        <result column="delivUnitId" property="delivUnitId"/>
+        <result column="delivWarehId" property="delivWarehId"/>
+        <result column="stUnitId" property="stUnitId"/>
+        <result column="stWarehId" property="stWarehId"/>
+        <result column="delivMthd" property="delivMthd"/>
+        <result column="delivPstd" property="delivPstd"/>
+        <result column="delivAddr" property="delivAddr"/>
+        <result column="intervene" property="intervene"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    unit_id, prc_num, rtc_num, prc_type, pr_brdg_mode, chkr_id, chk_time, suspended, 
+    ac_reqd, ac_bnd, ac_bndr_id, ac_bnd_time, sr_fwdd
+  </sql>
+
+
+    <select id="selectByUnit" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PrcVo"
+            resultMap="BaseResultMapPrcVo">
+        SELECT
+        prc.unit_id,
+        prc.prc_num,
+        rtc.doc_date,
+        prc.prc_type,
+        rtc.vender_id,
+        suo.unit_num AS venderNum,
+        su.unit_name AS venderName,
+        rtc.vendee_id,
+        suo10.unit_num AS vendeeNum,
+        su10.unit_name AS vendeeName,
+        v.psa_ctlr AS psaCtrl,
+        rtc.vde_wareh_id,
+        suo1.unit_num AS vdeWarehNum,
+        su1.unit_name AS vdeWarehName,
+        rtc.vdr_wareh_id,
+        suo2.unit_num AS vdrWarehNum,
+        su2.unit_name AS vdrWarehName,
+        rtc.st_unit_id,
+        suo3.unit_num AS stUnitNum,
+        su3.unit_name AS stUnitName,
+        rtc.st_wareh_id,
+        suo4.unit_num AS stWarehNum,
+        su4.unit_name AS stWarehName,
+        rtc.end_unit_id,
+        suo5.unit_num AS endUnitNum,
+        su5.unit_name AS endUnitName,
+        rtc.end_wareh_id,
+        suo6.unit_num AS endWarehNum,
+        su6.unit_name AS endWarehName,
+        rtc.tran_unit_id,
+        suo7.unit_num AS tranUnitNum,
+        su7.unit_name AS tranUnitName,
+        rtc.vde_fscl_unit_id,
+        su8.unit_code AS vdeFsclUnitCode,
+        su8.unit_name AS vdeFsclUnitName,
+        rtc.vdr_fscl_unit_id,
+        su9.unit_code AS vdrFsclUnitCode,
+        su9.unit_name AS vdrFsclUnitName,
+        rtc.vdr_invd,
+        rtc.vde_invd,
+        rtc.src_auto_gen,
+        rtc.src_auto_chk,
+        rtc.prc_auto_gen,
+        rtc.src_gen,
+        rtc.prc_gen,
+        rtc.prc_auto_chk,
+        rtc.prc_site,
+        rtc.reqd_date,
+        rtc.is_cms,
+        rtc.psc_reqd,
+        rtc.psc_num,
+        prc.pr_brdg_mode,
+        rtc.is_pr_itmd,
+        rtc.is_sr_itmd,
+        rtc.multi_impl,
+        rtc.dr_diff_jgd,
+        rtc.rtna_invd,
+        rtc.acc_enabled,
+        rtc.rtn_acc_site,
+        rtc.spl_enabled,
+        rtc.exbl_rate,
+        rtc.acc_val,
+        rtc.src_doc_type,
+        rtc.src_doc_num,
+        rtc.prod_cat_id,
+        pc.prod_cat_name AS prodCatName,
+        rtc.rtn_type,
+        rtc.expd_date,
+        rtc.deliv_mthd,
+        rtc.deliv_pstd,
+        rtc.deliv_addr,
+        rtc.bxi_enabled,
+        rtc.ttl_qty,
+        rtc.ttl_box,
+        rtc.ttl_val,
+        rtc.ttl_tax,
+        rtc.ttl_mkv,
+        rtc.ttl_deliv_qty,
+        rtc.ttl_deliv_box,
+        rtc.ttl_deliv_val,
+        rtc.ttl_deliv_tax,
+        rtc.ttl_deliv_mkv,
+        rtc.ttl_rcv_qty,
+        rtc.ttl_rcv_box,
+        rtc.ttl_rcv_val,
+        rtc.ttl_rcv_tax,
+        rtc.ttl_rcv_mkv,
+        rtc.opr_id,
+        sp.prsnl_code AS oprCode,
+        sp.full_name AS oprName,
+        rtc.op_time,
+        prc.chkr_id,
+        spo1.prsnl_num AS chkrNum,
+        sp1.full_name AS chkrName,
+        prc.chk_time,
+        rtc.effective,
+        rtc.progress,
+        prc.suspended,
+        rtc.cancelled,
+        rtc.exec_rtc_num,
+        rtc.itmd_rtc_num,
+        rtc.st_rtc_num,
+        rtc.end_rtc_num,
+        prc.ac_reqd,
+        prc.ac_bnd,
+        prc.ac_bndr_id,
+        spo2.prsnl_num AS acBndrNum,
+        sp2.full_name AS acBndrName,
+        prc.ac_bnd_time,
+        prc.sr_fwdd,
+        prc.rtc_num,
+        rtc.remarks,
+        rtc.src_doc_unit_id,
+        rtc.rtc_type
+        FROM
+        ( SELECT a.* FROM prc a WHERE 1 = 1 AND
+        a.unit_id = #{sUnitId}
+        )
+        prc
+        INNER JOIN rtc rtc ON rtc.rtc_num = prc.rtc_num
+        LEFT JOIN sys_unit su ON su.unit_id = rtc.vender_id
+        LEFT JOIN sys_unit_owner suo ON suo.unit_id = rtc.vender_id AND suo.owner_id = rtc.vendee_id AND suo.deleted =
+        'F'
+        LEFT JOIN sys_unit su10 ON su10.unit_id = rtc.vendee_id
+        LEFT JOIN sys_unit_owner suo10 ON suo10.unit_id = rtc.vendee_id AND suo10.owner_id = rtc.vender_id AND
+        suo10.deleted = 'F'
+        LEFT JOIN vender v ON v.vender_id = rtc.vender_id AND v.owner_id = rtc.vendee_id AND v.vdr_status='A'
+        LEFT JOIN sys_unit su1 ON su1.unit_id = rtc.vde_wareh_id
+        LEFT JOIN sys_unit_owner suo1 ON suo1.unit_id = rtc.vde_wareh_id AND suo1.owner_id = rtc.vendee_id AND
+        suo1.deleted = 'F'
+        LEFT JOIN sys_unit su2 ON su2.unit_id = rtc.vdr_wareh_id
+        LEFT JOIN sys_unit_owner suo2 ON suo2.unit_id = rtc.vdr_wareh_id AND suo2.owner_id = rtc.vender_id AND
+        suo2.deleted = 'F'
+        LEFT JOIN sys_unit su3 ON su3.unit_id = rtc.st_unit_id
+        LEFT JOIN sys_unit_owner suo3 ON suo3.unit_id = rtc.st_unit_id AND suo3.owner_id = rtc.vendee_id AND
+        suo3.deleted = 'F'
+        LEFT JOIN sys_unit su4 ON su4.unit_id = rtc.st_wareh_id
+        LEFT JOIN sys_unit_owner suo4 ON suo4.unit_id = rtc.st_wareh_id AND suo4.owner_id = rtc.st_unit_id AND
+        suo4.deleted = 'F'
+        LEFT JOIN sys_unit su5 ON su5.unit_id = rtc.end_unit_id
+        LEFT JOIN sys_unit_owner suo5 ON suo5.unit_id = rtc.end_unit_id AND suo5.owner_id = rtc.vendee_id AND
+        suo5.deleted = 'F'
+        LEFT JOIN sys_unit su6 ON su6.unit_id = rtc.end_wareh_id
+        LEFT JOIN sys_unit_owner suo6 ON suo6.unit_id = rtc.end_wareh_id AND suo6.owner_id = rtc.end_unit_id AND
+        suo6.deleted = 'F'
+        LEFT JOIN sys_unit su7 ON su7.unit_id = rtc.tran_unit_id
+        LEFT JOIN sys_unit_owner suo7 ON suo7.unit_id = rtc.tran_unit_id AND suo7.owner_id = rtc.vendee_id AND
+        suo7.deleted = 'F'
+        LEFT JOIN sys_unit su8 ON su8.unit_id = rtc.vde_fscl_unit_id AND su8.unit_status='A'
+        LEFT JOIN sys_unit su9 ON su9.unit_id = rtc.vdr_fscl_unit_id AND su8.unit_status='A'
+        LEFT JOIN prod_cat pc ON pc.prod_cat_id = rtc.prod_cat_id
+        LEFT JOIN sys_prsnl sp ON sp.prsnl_id = rtc.opr_id
+        LEFT JOIN sys_prsnl sp1 ON sp1.prsnl_id = prc.chkr_id
+        LEFT JOIN sys_prsnl_owner spo1 ON spo1.prsnl_id = prc.chkr_id
+        LEFT JOIN sys_prsnl sp2 ON sp2.prsnl_id = prc.ac_bndr_id
+        LEFT JOIN sys_prsnl_owner spo2 ON spo2.prsnl_id = prc.ac_bndr_id
+        WHERE 1=1
+        <if test="prcNum != null and prcNum != '' and prcNum != 'null'">
+            and prc.prc_num like CONCAT( #{prcNum}, '%')
+        </if>
+        <if test="venderNum != null and venderNum != '' and venderNum != 'null'">
+            and suo.unit_num like CONCAT( #{venderNum}, '%')
+        </if>
+        <if test="vdrWarehNum != null and vdrWarehNum != '' and vdrWarehNum != 'null'">
+            and suo1.unit_num like CONCAT( #{vdrWarehNum}, '%')
+        </if>
+        <if test="vdeWarehNum != null and vdeWarehNum != '' and vdeWarehNum != 'null'">
+            and suo2.unit_num like CONCAT( #{vdeWarehNum}, '%')
+        </if>
+        <if test="progress != null and progress != '' and progress != 'null' ">
+            and rtc.progress = #{progress}
+        </if>
+        <if test="startTime != null and startTime != '' ">
+            and rtc.doc_date &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' ">
+            and rtc.doc_date &lt;= #{endTime}
+        </if>
+    </select>
+
+    <select id="selectALL" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PrcVo"
+            resultMap="BaseResultMapPrcVo">
+        SELECT
+        prc.unit_id,
+        prc.prc_num,
+        rtc.doc_date,
+        prc.prc_type,
+        rtc.vender_id,
+        suo.unit_num AS venderNum,
+        su.unit_name AS venderName,
+        rtc.vendee_id,
+        suo10.unit_num AS vendeeNum,
+        su10.unit_name AS vendeeName,
+        v.psa_ctlr AS psaCtrl,
+        rtc.vde_wareh_id,
+        suo1.unit_num AS vdeWarehNum,
+        su1.unit_name AS vdeWarehName,
+        rtc.vdr_wareh_id,
+        suo2.unit_num AS vdrWarehNum,
+        su2.unit_name AS vdrWarehName,
+        rtc.st_unit_id,
+        suo3.unit_num AS stUnitNum,
+        su3.unit_name AS stUnitName,
+        rtc.st_wareh_id,
+        suo4.unit_num AS stWarehNum,
+        su4.unit_name AS stWarehName,
+        rtc.end_unit_id,
+        suo5.unit_num AS endUnitNum,
+        su5.unit_name AS endUnitName,
+        rtc.end_wareh_id,
+        suo6.unit_num AS endWarehNum,
+        su6.unit_name AS endWarehName,
+        rtc.tran_unit_id,
+        suo7.unit_num AS tranUnitNum,
+        su7.unit_name AS tranUnitName,
+        rtc.vde_fscl_unit_id,
+        su8.unit_code AS vdeFsclUnitCode,
+        su8.unit_name AS vdeFsclUnitName,
+        rtc.vdr_fscl_unit_id,
+        su9.unit_code AS vdrFsclUnitCode,
+        su9.unit_name AS vdrFsclUnitName,
+        rtc.vdr_invd,
+        rtc.vde_invd,
+        rtc.src_auto_gen,
+        rtc.src_auto_chk,
+        rtc.prc_auto_gen,
+        rtc.src_gen,
+        rtc.prc_gen,
+        rtc.prc_auto_chk,
+        rtc.prc_site,
+        rtc.reqd_date,
+        rtc.is_cms,
+        rtc.psc_reqd,
+        rtc.psc_num,
+        prc.pr_brdg_mode,
+        rtc.is_pr_itmd,
+        rtc.is_sr_itmd,
+        rtc.multi_impl,
+        rtc.dr_diff_jgd,
+        rtc.rtna_invd,
+        rtc.acc_enabled,
+        rtc.rtn_acc_site,
+        rtc.spl_enabled,
+        rtc.exbl_rate,
+        rtc.acc_val,
+        rtc.src_doc_type,
+        rtc.src_doc_num,
+        rtc.prod_cat_id,
+        pc.prod_cat_name AS prodCatName,
+        rtc.rtn_type,
+        rtc.expd_date,
+        rtc.deliv_mthd,
+        rtc.deliv_pstd,
+        rtc.deliv_addr,
+        rtc.bxi_enabled,
+        rtc.ttl_qty,
+        rtc.ttl_box,
+        rtc.ttl_val,
+        rtc.ttl_tax,
+        rtc.ttl_mkv,
+        rtc.ttl_deliv_qty,
+        rtc.ttl_deliv_box,
+        rtc.ttl_deliv_val,
+        rtc.ttl_deliv_tax,
+        rtc.ttl_deliv_mkv,
+        rtc.ttl_rcv_qty,
+        rtc.ttl_rcv_box,
+        rtc.ttl_rcv_val,
+        rtc.ttl_rcv_tax,
+        rtc.ttl_rcv_mkv,
+        rtc.opr_id,
+        sp.prsnl_code AS oprCode,
+        sp.full_name AS oprName,
+        rtc.op_time,
+        prc.chkr_id,
+        spo1.prsnl_num AS chkrNum,
+        sp1.full_name AS chkrName,
+        prc.chk_time,
+        rtc.effective,
+        rtc.progress,
+        prc.suspended,
+        rtc.cancelled,
+        rtc.exec_rtc_num,
+        rtc.itmd_rtc_num,
+        rtc.st_rtc_num,
+        rtc.end_rtc_num,
+        prc.ac_reqd,
+        prc.ac_bnd,
+        prc.ac_bndr_id,
+        spo2.prsnl_num AS acBndrNum,
+        sp2.full_name AS acBndrName,
+        prc.ac_bnd_time,
+        prc.sr_fwdd,
+        prc.rtc_num,
+        rtc.remarks,
+        rtc.src_doc_unit_id,
+        rtc.rtc_type
+        FROM
+        ( SELECT a.* FROM prc a WHERE 1 = 1
+        )
+        prc
+        INNER JOIN rtc rtc ON rtc.rtc_num = prc.rtc_num
+        LEFT JOIN sys_unit su ON su.unit_id = rtc.vender_id
+        LEFT JOIN sys_unit_owner suo ON suo.unit_id = rtc.vender_id AND suo.owner_id = rtc.vendee_id AND suo.deleted =
+        'F'
+        LEFT JOIN sys_unit su10 ON su10.unit_id = rtc.vendee_id
+        LEFT JOIN sys_unit_owner suo10 ON suo10.unit_id = rtc.vendee_id AND suo10.owner_id = rtc.vender_id AND
+        suo10.deleted = 'F'
+        LEFT JOIN vender v ON v.vender_id = rtc.vender_id AND v.owner_id = rtc.vendee_id AND v.vdr_status='A'
+        LEFT JOIN sys_unit su1 ON su1.unit_id = rtc.vde_wareh_id
+        LEFT JOIN sys_unit_owner suo1 ON suo1.unit_id = rtc.vde_wareh_id AND suo1.owner_id = rtc.vendee_id AND
+        suo1.deleted = 'F'
+        LEFT JOIN sys_unit su2 ON su2.unit_id = rtc.vdr_wareh_id
+        LEFT JOIN sys_unit_owner suo2 ON suo2.unit_id = rtc.vdr_wareh_id AND suo2.owner_id = rtc.vender_id AND
+        suo2.deleted = 'F'
+        LEFT JOIN sys_unit su3 ON su3.unit_id = rtc.st_unit_id
+        LEFT JOIN sys_unit_owner suo3 ON suo3.unit_id = rtc.st_unit_id AND suo3.owner_id = rtc.vendee_id AND
+        suo3.deleted = 'F'
+        LEFT JOIN sys_unit su4 ON su4.unit_id = rtc.st_wareh_id
+        LEFT JOIN sys_unit_owner suo4 ON suo4.unit_id = rtc.st_wareh_id AND suo4.owner_id = rtc.st_unit_id AND
+        suo4.deleted = 'F'
+        LEFT JOIN sys_unit su5 ON su5.unit_id = rtc.end_unit_id
+        LEFT JOIN sys_unit_owner suo5 ON suo5.unit_id = rtc.end_unit_id AND suo5.owner_id = rtc.vendee_id AND
+        suo5.deleted = 'F'
+        LEFT JOIN sys_unit su6 ON su6.unit_id = rtc.end_wareh_id
+        LEFT JOIN sys_unit_owner suo6 ON suo6.unit_id = rtc.end_wareh_id AND suo6.owner_id = rtc.end_unit_id AND
+        suo6.deleted = 'F'
+        LEFT JOIN sys_unit su7 ON su7.unit_id = rtc.tran_unit_id
+        LEFT JOIN sys_unit_owner suo7 ON suo7.unit_id = rtc.tran_unit_id AND suo7.owner_id = rtc.vendee_id AND
+        suo7.deleted = 'F'
+        LEFT JOIN sys_unit su8 ON su8.unit_id = rtc.vde_fscl_unit_id AND su8.unit_status='A'
+        LEFT JOIN sys_unit su9 ON su9.unit_id = rtc.vdr_fscl_unit_id AND su8.unit_status='A'
+        LEFT JOIN prod_cat pc ON pc.prod_cat_id = rtc.prod_cat_id
+        LEFT JOIN sys_prsnl sp ON sp.prsnl_id = rtc.opr_id
+        LEFT JOIN sys_prsnl sp1 ON sp1.prsnl_id = prc.chkr_id
+        LEFT JOIN sys_prsnl_owner spo1 ON spo1.prsnl_id = prc.chkr_id
+        LEFT JOIN sys_prsnl sp2 ON sp2.prsnl_id = prc.ac_bndr_id
+        LEFT JOIN sys_prsnl_owner spo2 ON spo2.prsnl_id = prc.ac_bndr_id
+        WHERE 1=1
+        <if test="prcNum != null and prcNum != '' and prcNum != 'null'">
+            and prc.prc_num like CONCAT( #{prcNum}, '%')
+        </if>
+        <if test="rtcNum != null and rtcNum != '' and rtcNum != 'null'">
+            and prc.rtc_num = #{rtcNum}
+        </if>
+        <if test="venderNum != null and venderNum != '' and venderNum != 'null'">
+            and suo.unit_num like CONCAT( #{venderNum}, '%')
+        </if>
+        <if test="vdrWarehNum != null and vdrWarehNum != '' and vdrWarehNum != 'null'">
+            and suo1.unit_num like CONCAT( #{vdrWarehNum}, '%')
+        </if>
+        <if test="vdeWarehNum != null and vdeWarehNum != '' and vdeWarehNum != 'null'">
+            and suo2.unit_num like CONCAT( #{vdeWarehNum}, '%')
+        </if>
+        <if test="progress != null and progress != '' and progress != 'null' ">
+            and rtc.progress = #{progress}
+        </if>
+        <if test="effective != null and effective != '' and effective != 'null' ">
+            and rtc.effective = #{effective}
+        </if>
+        <if test="startTime != null and startTime != '' ">
+            and rtc.doc_date &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' ">
+            and rtc.doc_date &lt;= #{endTime}
+        </if>
+    </select>
+
+
+    <insert id="insertByPrcVo" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PrcVo">
+        insert into prc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null and unitId != '' ">
+                unit_id,
+            </if>
+            <if test="prcNum != null and prcNum != '' ">
+                prc_num,
+            </if>
+            <if test="rtcNum != null and rtcNum != '' ">
+                rtc_num,
+            </if>
+            <if test="prcType != null and prcType != '' ">
+                prc_type,
+            </if>
+            <if test="prBrdgMode != null and prBrdgMode != '' ">
+                pr_brdg_mode,
+            </if>
+            <if test="chkrId != null and chkrId != '' ">
+                chkr_id,
+                chk_time,
+            </if>
+            <if test="suspended != null and suspended != '' ">
+                suspended,
+            </if>
+            <if test="acReqd != null and acReqd != '' ">
+                ac_reqd,
+            </if>
+            <if test="acBnd != null and acBnd != '' ">
+                ac_bnd,
+            </if>
+            <if test="acBndrId != null and acBndrId != '' ">
+                ac_bndr_id,
+            </if>
+            <if test="acBndTime != null and acBndTime != '' ">
+                ac_bnd_time,
+            </if>
+            <if test="srFwdd != null and srFwdd != '' ">
+                sr_fwdd,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null and unitId != '' ">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="prcNum != null and prcNum != '' ">
+                #{prcNum,jdbcType=VARCHAR},
+            </if>
+            <if test="rtcNum != null and rtcNum != '' ">
+                #{rtcNum,jdbcType=VARCHAR},
+            </if>
+            <if test="prcType != null and prcType != '' ">
+                #{prcType,jdbcType=VARCHAR},
+            </if>
+            <if test="prBrdgMode != null and prBrdgMode != '' ">
+                #{prBrdgMode,jdbcType=CHAR},
+            </if>
+            <if test="chkrId != null and chkrId != '' ">
+                #{chkrId,jdbcType=BIGINT},
+                now(),
+            </if>
+            <if test="suspended != null and suspended != '' ">
+                #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="acReqd != null and acReqd != '' ">
+                #{acReqd,jdbcType=CHAR},
+            </if>
+            <if test="acBnd != null and acBnd != '' ">
+                #{acBnd,jdbcType=CHAR},
+            </if>
+            <if test="acBndrId != null and acBndrId != '' ">
+                #{acBndrId,jdbcType=BIGINT},
+            </if>
+            <if test="acBndTime != null and acBndTime != '' ">
+                #{acBndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="srFwdd != null and srFwdd != '' ">
+                #{srFwdd,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateByPrcVo" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PrcVo">
+        update prc
+        <set>
+            <if test="prcType != null">
+                prc_type = #{prcType,jdbcType=VARCHAR},
+            </if>
+            <if test="prBrdgMode != null">
+                pr_brdg_mode = #{prBrdgMode,jdbcType=CHAR},
+            </if>
+            <if test="chkrId != null">
+                chkr_id = #{chkrId,jdbcType=BIGINT},
+            </if>
+            <if test="chkTime != null">
+                chk_time = #{chkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="suspended != null">
+                suspended = #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="acReqd != null">
+                ac_reqd = #{acReqd,jdbcType=CHAR},
+            </if>
+            <if test="acBnd != null">
+                ac_bnd = #{acBnd,jdbcType=CHAR},
+            </if>
+            <if test="acBndrId != null">
+                ac_bndr_id = #{acBndrId,jdbcType=BIGINT},
+            </if>
+            <if test="acBndTime != null">
+                ac_bnd_time = #{acBndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="srFwdd != null">
+                sr_fwdd = #{srFwdd,jdbcType=CHAR},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and prc_num = #{prcNum,jdbcType=VARCHAR}
+        and rtc_num = #{rtcNum,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByChkr" parameterType="java.lang.String">
+        update prc
+        <set>
+            <choose>
+                <when test="chkrId!=null">
+                    chkr_id = #{chkrId},
+                    chk_time = now()
+                </when>
+                <when test="chkrId==null">
+                    chkr_id = null,
+                    chk_time = null
+                </when>
+            </choose>
+        </set>
+        where rtc_num = #{rtcNum}
+    </update>
+
+    <delete id="deletePrcVo" parameterType="java.lang.String">
+    delete from prc
+    where unit_id = #{unitId}
+      and prc_num = #{prcNum}
+  </delete>
+
+    <delete id="deleteByRtcNum" parameterType="java.lang.String">
+    delete from prc
+    where rtc_num = #{rtcNum}
+  </delete>
+
+
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Prc"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from prc
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and prc_num = #{prcNum,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByRtcNum" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from prc
+        where rtc_num = #{rtcNum}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Prc">
+    delete from prc
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and prc_num = #{prcNum,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Prc">
+    insert into prc (unit_id, prc_num, rtc_num, 
+      prc_type, pr_brdg_mode, chkr_id, 
+      chk_time, suspended, ac_reqd, 
+      ac_bnd, ac_bndr_id, ac_bnd_time, 
+      sr_fwdd)
+    values (#{unitId,jdbcType=BIGINT}, #{prcNum,jdbcType=VARCHAR}, #{rtcNum,jdbcType=VARCHAR}, 
+      #{prcType,jdbcType=VARCHAR}, #{prBrdgMode,jdbcType=CHAR}, #{chkrId,jdbcType=BIGINT}, 
+      #{chkTime,jdbcType=TIMESTAMP}, #{suspended,jdbcType=CHAR}, #{acReqd,jdbcType=CHAR}, 
+      #{acBnd,jdbcType=CHAR}, #{acBndrId,jdbcType=BIGINT}, #{acBndTime,jdbcType=TIMESTAMP}, 
+      #{srFwdd,jdbcType=CHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Prc">
+        insert into prc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                unit_id,
+            </if>
+            <if test="prcNum != null">
+                prc_num,
+            </if>
+            <if test="rtcNum != null">
+                rtc_num,
+            </if>
+            <if test="prcType != null">
+                prc_type,
+            </if>
+            <if test="prBrdgMode != null">
+                pr_brdg_mode,
+            </if>
+            <if test="chkrId != null">
+                chkr_id,
+            </if>
+            <if test="chkTime != null">
+                chk_time,
+            </if>
+            <if test="suspended != null">
+                suspended,
+            </if>
+            <if test="acReqd != null">
+                ac_reqd,
+            </if>
+            <if test="acBnd != null">
+                ac_bnd,
+            </if>
+            <if test="acBndrId != null">
+                ac_bndr_id,
+            </if>
+            <if test="acBndTime != null">
+                ac_bnd_time,
+            </if>
+            <if test="srFwdd != null">
+                sr_fwdd,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitId != null">
+                #{unitId,jdbcType=BIGINT},
+            </if>
+            <if test="prcNum != null">
+                #{prcNum,jdbcType=VARCHAR},
+            </if>
+            <if test="rtcNum != null">
+                #{rtcNum,jdbcType=VARCHAR},
+            </if>
+            <if test="prcType != null">
+                #{prcType,jdbcType=VARCHAR},
+            </if>
+            <if test="prBrdgMode != null">
+                #{prBrdgMode,jdbcType=CHAR},
+            </if>
+            <if test="chkrId != null">
+                #{chkrId,jdbcType=BIGINT},
+            </if>
+            <if test="chkTime != null">
+                #{chkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="suspended != null">
+                #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="acReqd != null">
+                #{acReqd,jdbcType=CHAR},
+            </if>
+            <if test="acBnd != null">
+                #{acBnd,jdbcType=CHAR},
+            </if>
+            <if test="acBndrId != null">
+                #{acBndrId,jdbcType=BIGINT},
+            </if>
+            <if test="acBndTime != null">
+                #{acBndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="srFwdd != null">
+                #{srFwdd,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Prc">
+        update prc
+        <set>
+            <if test="rtcNum != null">
+                rtc_num = #{rtcNum,jdbcType=VARCHAR},
+            </if>
+            <if test="prcType != null">
+                prc_type = #{prcType,jdbcType=VARCHAR},
+            </if>
+            <if test="prBrdgMode != null">
+                pr_brdg_mode = #{prBrdgMode,jdbcType=CHAR},
+            </if>
+            <if test="chkrId != null">
+                chkr_id = #{chkrId,jdbcType=BIGINT},
+            </if>
+            <if test="chkTime != null">
+                chk_time = #{chkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="suspended != null">
+                suspended = #{suspended,jdbcType=CHAR},
+            </if>
+            <if test="acReqd != null">
+                ac_reqd = #{acReqd,jdbcType=CHAR},
+            </if>
+            <if test="acBnd != null">
+                ac_bnd = #{acBnd,jdbcType=CHAR},
+            </if>
+            <if test="acBndrId != null">
+                ac_bndr_id = #{acBndrId,jdbcType=BIGINT},
+            </if>
+            <if test="acBndTime != null">
+                ac_bnd_time = #{acBndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="srFwdd != null">
+                sr_fwdd = #{srFwdd,jdbcType=CHAR},
+            </if>
+        </set>
+        where unit_id = #{unitId,jdbcType=BIGINT}
+        and prc_num = #{prcNum,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Prc">
+    update prc
+    set rtc_num = #{rtcNum,jdbcType=VARCHAR},
+      prc_type = #{prcType,jdbcType=VARCHAR},
+      pr_brdg_mode = #{prBrdgMode,jdbcType=CHAR},
+      chkr_id = #{chkrId,jdbcType=BIGINT},
+      chk_time = #{chkTime,jdbcType=TIMESTAMP},
+      suspended = #{suspended,jdbcType=CHAR},
+      ac_reqd = #{acReqd,jdbcType=CHAR},
+      ac_bnd = #{acBnd,jdbcType=CHAR},
+      ac_bndr_id = #{acBndrId,jdbcType=BIGINT},
+      ac_bnd_time = #{acBndTime,jdbcType=TIMESTAMP},
+      sr_fwdd = #{srFwdd,jdbcType=CHAR}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and prc_num = #{prcNum,jdbcType=VARCHAR}
+  </update>
+
+    <select id="selectByOnly" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PrcVo"
+            resultMap="BaseResultMapPrcVo">
+    SELECT
+    prc.unit_id,
+    prc.prc_num,
+    rtc.doc_date,
+    prc.prc_type,
+    rtc.vender_id,
+    suo.unit_num AS venderNum,
+    su.unit_name AS venderName,
+    rtc.vendee_id,
+    suo10.unit_num AS vendeeNum,
+    su10.unit_name AS vendeeName,
+    v.psa_ctlr AS psaCtrl,
+    rtc.vde_wareh_id,
+    suo1.unit_num AS vdeWarehNum,
+    su1.unit_name AS vdeWarehName,
+    rtc.vdr_wareh_id,
+    suo2.unit_num AS vdrWarehNum,
+    su2.unit_name AS vdrWarehName,
+    rtc.st_unit_id,
+    suo3.unit_num AS stUnitNum,
+    su3.unit_name AS stUnitName,
+    rtc.st_wareh_id,
+    suo4.unit_num AS stWarehNum,
+    su4.unit_name AS stWarehName,
+    rtc.end_unit_id,
+    suo5.unit_num AS endUnitNum,
+    su5.unit_name AS endUnitName,
+    rtc.end_wareh_id,
+    suo6.unit_num AS endWarehNum,
+    su6.unit_name AS endWarehName,
+    rtc.tran_unit_id,
+    suo7.unit_num AS tranUnitNum,
+    su7.unit_name AS tranUnitName,
+    rtc.vde_fscl_unit_id,
+    su8.unit_code AS vdeFsclUnitCode,
+    su8.unit_name AS vdeFsclUnitName,
+    rtc.vdr_fscl_unit_id,
+    su9.unit_code AS vdrFsclUnitCode,
+    su9.unit_name AS vdrFsclUnitName,
+    rtc.vdr_invd,
+    rtc.vde_invd,
+    rtc.src_auto_gen,
+    rtc.src_auto_chk,
+    rtc.prc_auto_gen,
+    rtc.src_gen,
+    rtc.prc_gen,
+    rtc.prc_auto_chk,
+    rtc.prc_site,
+    rtc.reqd_date,
+    rtc.is_cms,
+    rtc.psc_reqd,
+    rtc.psc_num,
+    prc.pr_brdg_mode,
+    rtc.is_pr_itmd,
+    rtc.is_sr_itmd,
+    rtc.multi_impl,
+    rtc.dr_diff_jgd,
+    rtc.rtna_invd,
+    rtc.acc_enabled,
+    rtc.rtn_acc_site,
+    rtc.spl_enabled,
+    rtc.exbl_rate,
+    rtc.acc_val,
+    rtc.src_doc_type,
+    rtc.src_doc_num,
+    rtc.prod_cat_id,
+    pc.prod_cat_name AS prodCatName,
+    rtc.rtn_type,
+    rtc.expd_date,
+    rtc.deliv_mthd,
+    rtc.deliv_pstd,
+    rtc.deliv_addr,
+    rtc.bxi_enabled,
+    rtc.ttl_qty,
+    rtc.ttl_box,
+    rtc.ttl_val,
+    rtc.ttl_tax,
+    rtc.ttl_mkv,
+    rtc.ttl_deliv_qty,
+    rtc.ttl_deliv_box,
+    rtc.ttl_deliv_val,
+    rtc.ttl_deliv_tax,
+    rtc.ttl_deliv_mkv,
+    rtc.ttl_rcv_qty,
+    rtc.ttl_rcv_box,
+    rtc.ttl_rcv_val,
+    rtc.ttl_rcv_tax,
+    rtc.ttl_rcv_mkv,
+    rtc.opr_id,
+    sp.prsnl_code AS oprCode,
+    sp.full_name AS oprName,
+    rtc.op_time,
+    prc.chkr_id,
+    spo1.prsnl_num AS chkrNum,
+    sp1.full_name AS chkrName,
+    prc.chk_time,
+    rtc.effective,
+    rtc.progress,
+    prc.suspended,
+    rtc.cancelled,
+    rtc.exec_rtc_num,
+    rtc.itmd_rtc_num,
+    rtc.st_rtc_num,
+    rtc.end_rtc_num,
+    prc.ac_reqd,
+    prc.ac_bnd,
+    prc.ac_bndr_id,
+    spo2.prsnl_num AS acBndrNum,
+    sp2.full_name AS acBndrName,
+    prc.ac_bnd_time,
+    prc.sr_fwdd,
+    prc.rtc_num,
+    rtc.remarks,
+    rtc.src_doc_unit_id,
+    rtc.rtc_type
+    FROM
+    ( SELECT a.* FROM prc a WHERE 1 = 1
+    )
+    prc
+    INNER JOIN rtc rtc ON rtc.rtc_num = prc.rtc_num
+    LEFT JOIN sys_unit su ON su.unit_id = rtc.vender_id
+    LEFT JOIN sys_unit_owner suo ON suo.unit_id = rtc.vender_id AND suo.owner_id = rtc.vendee_id AND suo.deleted = 'F'
+    LEFT JOIN sys_unit su10 ON su10.unit_id = rtc.vendee_id
+    LEFT JOIN sys_unit_owner suo10 ON suo10.unit_id = rtc.vendee_id AND suo10.owner_id = rtc.vender_id AND suo10.deleted = 'F'
+    LEFT JOIN vender v ON v.vender_id = rtc.vender_id AND v.owner_id = rtc.vendee_id AND v.vdr_status='A'
+    LEFT JOIN sys_unit su1 ON su1.unit_id = rtc.vde_wareh_id
+    LEFT JOIN sys_unit_owner suo1 ON suo1.unit_id = rtc.vde_wareh_id AND suo1.owner_id = rtc.vendee_id AND suo1.deleted = 'F'
+    LEFT JOIN sys_unit su2 ON su2.unit_id = rtc.vdr_wareh_id
+    LEFT JOIN sys_unit_owner suo2 ON suo2.unit_id = rtc.vdr_wareh_id AND suo2.owner_id = rtc.vender_id AND suo2.deleted = 'F'
+    LEFT JOIN sys_unit su3 ON su3.unit_id = rtc.st_unit_id
+    LEFT JOIN sys_unit_owner suo3 ON suo3.unit_id = rtc.st_unit_id AND suo3.owner_id = rtc.vendee_id AND suo3.deleted = 'F'
+    LEFT JOIN sys_unit su4 ON su4.unit_id = rtc.st_wareh_id
+    LEFT JOIN sys_unit_owner suo4 ON suo4.unit_id = rtc.st_wareh_id AND suo4.owner_id = rtc.st_unit_id AND suo4.deleted = 'F'
+    LEFT JOIN sys_unit su5 ON su5.unit_id = rtc.end_unit_id
+    LEFT JOIN sys_unit_owner suo5 ON suo5.unit_id = rtc.end_unit_id AND suo5.owner_id = rtc.vendee_id AND suo5.deleted = 'F'
+    LEFT JOIN sys_unit su6 ON su6.unit_id = rtc.end_wareh_id
+    LEFT JOIN sys_unit_owner suo6 ON suo6.unit_id = rtc.end_wareh_id AND suo6.owner_id = rtc.end_unit_id AND suo6.deleted = 'F'
+    LEFT JOIN sys_unit su7 ON su7.unit_id = rtc.tran_unit_id
+    LEFT JOIN sys_unit_owner suo7 ON suo7.unit_id = rtc.tran_unit_id AND suo7.owner_id = rtc.vendee_id AND suo7.deleted = 'F'
+    LEFT JOIN sys_unit su8 ON su8.unit_id = rtc.vde_fscl_unit_id AND su8.unit_status='A'
+    LEFT JOIN sys_unit su9 ON su9.unit_id = rtc.vdr_fscl_unit_id AND su8.unit_status='A'
+    LEFT JOIN prod_cat pc ON pc.prod_cat_id = rtc.prod_cat_id
+    LEFT JOIN sys_prsnl sp ON sp.prsnl_id = rtc.opr_id
+    LEFT JOIN sys_prsnl sp1 ON sp1.prsnl_id = prc.chkr_id
+    LEFT JOIN sys_prsnl_owner spo1 ON spo1.prsnl_id = prc.chkr_id
+    LEFT JOIN sys_prsnl sp2 ON sp2.prsnl_id = prc.ac_bndr_id
+    LEFT JOIN sys_prsnl_owner spo2 ON spo2.prsnl_id = prc.ac_bndr_id
+    WHERE 1=1
+    and prc.rtc_num  = #{rtcNum}
+  </select>
+
+    <select id="selectObject" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PrcVo"
+            resultMap="BaseResultMapObject">
+        SELECT
+        prc.unit_id,
+        prc.prc_num,
+        rtc.doc_date,
+        prc.prc_type,
+        rtc.vender_id,
+        suo.unit_num AS venderNum,
+        su.unit_name AS venderName,
+        rtc.vendee_id,
+        suo10.unit_num AS vendeeNum,
+        su10.unit_name AS vendeeName,
+        v.psa_ctlr AS psaCtrl,
+        rtc.vde_wareh_id,
+        suo1.unit_num AS vdeWarehNum,
+        su1.unit_name AS vdeWarehName,
+        rtc.vdr_wareh_id,
+        suo2.unit_num AS vdrWarehNum,
+        su2.unit_name AS vdrWarehName,
+        rtc.st_unit_id,
+        suo3.unit_num AS stUnitNum,
+        su3.unit_name AS stUnitName,
+        rtc.st_wareh_id,
+        suo4.unit_num AS stWarehNum,
+        su4.unit_name AS stWarehName,
+        rtc.end_unit_id,
+        suo5.unit_num AS endUnitNum,
+        su5.unit_name AS endUnitName,
+        rtc.end_wareh_id,
+        suo6.unit_num AS endWarehNum,
+        su6.unit_name AS endWarehName,
+        rtc.tran_unit_id,
+        suo7.unit_num AS tranUnitNum,
+        su7.unit_name AS tranUnitName,
+        rtc.vde_fscl_unit_id,
+        su8.unit_code AS vdeFsclUnitCode,
+        su8.unit_name AS vdeFsclUnitName,
+        rtc.vdr_fscl_unit_id,
+        su9.unit_code AS vdrFsclUnitCode,
+        su9.unit_name AS vdrFsclUnitName,
+        rtc.vdr_invd,
+        rtc.vde_invd,
+        rtc.src_auto_gen,
+        rtc.src_auto_chk,
+        rtc.prc_auto_gen,
+        rtc.src_gen,
+        rtc.prc_gen,
+        rtc.prc_auto_chk,
+        rtc.prc_site,
+        rtc.reqd_date,
+        rtc.is_cms,
+        rtc.psc_reqd,
+        rtc.psc_num,
+        prc.pr_brdg_mode,
+        rtc.is_pr_itmd,
+        rtc.is_sr_itmd,
+        rtc.multi_impl,
+        rtc.dr_diff_jgd,
+        rtc.rtna_invd,
+        rtc.acc_enabled,
+        rtc.rtn_acc_site,
+        rtc.spl_enabled,
+        rtc.exbl_rate,
+        rtc.acc_val,
+        rtc.src_doc_type,
+        rtc.src_doc_num,
+        rtc.prod_cat_id,
+        pc.prod_cat_name AS prodCatName,
+        rtc.rtn_type,
+        rtc.expd_date,
+        rtc.deliv_mthd,
+        rtc.deliv_pstd,
+        rtc.deliv_addr,
+        rtc.bxi_enabled,
+        rtc.ttl_qty,
+        rtc.ttl_box,
+        rtc.ttl_val,
+        rtc.ttl_tax,
+        rtc.ttl_mkv,
+        rtc.ttl_deliv_qty,
+        rtc.ttl_deliv_box,
+        rtc.ttl_deliv_val,
+        rtc.ttl_deliv_tax,
+        rtc.ttl_deliv_mkv,
+        rtc.ttl_rcv_qty,
+        rtc.ttl_rcv_box,
+        rtc.ttl_rcv_val,
+        rtc.ttl_rcv_tax,
+        rtc.ttl_rcv_mkv,
+        rtc.opr_id,
+        sp.prsnl_code AS oprCode,
+        sp.full_name AS oprName,
+        rtc.op_time,
+        prc.chkr_id,
+        spo1.prsnl_num AS chkrNum,
+        sp1.full_name AS chkrName,
+        prc.chk_time,
+        rtc.effective,
+        rtc.progress,
+        prc.suspended,
+        rtc.cancelled,
+        rtc.exec_rtc_num,
+        rtc.itmd_rtc_num,
+        rtc.st_rtc_num,
+        rtc.end_rtc_num,
+        prc.ac_reqd,
+        prc.ac_bnd,
+        prc.ac_bndr_id,
+        spo2.prsnl_num AS acBndrNum,
+        sp2.full_name AS acBndrName,
+        prc.ac_bnd_time,
+        prc.sr_fwdd,
+        rtc.remarks,
+        rtc.src_doc_unit_id,
+        rtc.rtc_type,
+        pCls.prod_cls_code AS prodClsCode,
+        pCls.prod_cls_id AS prodClsId,
+        pCls.prod_cat_id AS prodCatId,
+        pCls.prod_name AS prodName,
+        pCls.input_code AS inputCode,
+        scd1.description AS uom,
+        c.color_name AS color,
+        s.spec_name AS spec,
+        scd.description AS edition,
+        p.prod_code AS prodCode,
+        pCls.seq_num AS seqNum,
+        rDtl.*
+        FROM
+        ( SELECT a.* FROM prc a WHERE 1 = 1 and a.unit_id=#{unitId} and a.prc_num=#{prcNum}
+        )
+        prc
+        INNER JOIN rtc rtc ON rtc.rtc_num = prc.rtc_num
+        LEFT JOIN sys_unit su ON su.unit_id = rtc.vender_id
+        LEFT JOIN sys_unit_owner suo ON suo.unit_id = rtc.vender_id AND suo.owner_id = rtc.vendee_id AND suo.deleted =
+        'F'
+        LEFT JOIN sys_unit su10 ON su10.unit_id = rtc.vendee_id
+        LEFT JOIN sys_unit_owner suo10 ON suo10.unit_id = rtc.vendee_id AND suo10.owner_id = rtc.vender_id AND
+        suo10.deleted = 'F'
+        LEFT JOIN vender v ON v.vender_id = rtc.vender_id AND v.owner_id = rtc.vendee_id AND v.vdr_status='A'
+        LEFT JOIN sys_unit su1 ON su1.unit_id = rtc.vde_wareh_id
+        LEFT JOIN sys_unit_owner suo1 ON suo1.unit_id = rtc.vde_wareh_id AND suo1.owner_id = rtc.vendee_id AND
+        suo1.deleted = 'F'
+        LEFT JOIN sys_unit su2 ON su2.unit_id = rtc.vdr_wareh_id
+        LEFT JOIN sys_unit_owner suo2 ON suo2.unit_id = rtc.vdr_wareh_id AND suo2.owner_id = rtc.vender_id AND
+        suo2.deleted = 'F'
+        LEFT JOIN sys_unit su3 ON su3.unit_id = rtc.st_unit_id
+        LEFT JOIN sys_unit_owner suo3 ON suo3.unit_id = rtc.st_unit_id AND suo3.owner_id = rtc.vendee_id AND
+        suo3.deleted = 'F'
+        LEFT JOIN sys_unit su4 ON su4.unit_id = rtc.st_wareh_id
+        LEFT JOIN sys_unit_owner suo4 ON suo4.unit_id = rtc.st_wareh_id AND suo4.owner_id = rtc.st_unit_id AND
+        suo4.deleted = 'F'
+        LEFT JOIN sys_unit su5 ON su5.unit_id = rtc.end_unit_id
+        LEFT JOIN sys_unit_owner suo5 ON suo5.unit_id = rtc.end_unit_id AND suo5.owner_id = rtc.vendee_id AND
+        suo5.deleted = 'F'
+        LEFT JOIN sys_unit su6 ON su6.unit_id = rtc.end_wareh_id
+        LEFT JOIN sys_unit_owner suo6 ON suo6.unit_id = rtc.end_wareh_id AND suo6.owner_id = rtc.end_unit_id AND
+        suo6.deleted = 'F'
+        LEFT JOIN sys_unit su7 ON su7.unit_id = rtc.tran_unit_id
+        LEFT JOIN sys_unit_owner suo7 ON suo7.unit_id = rtc.tran_unit_id AND suo7.owner_id = rtc.vendee_id AND
+        suo7.deleted = 'F'
+        LEFT JOIN sys_unit su8 ON su8.unit_id = rtc.vde_fscl_unit_id AND su8.unit_status='A'
+        LEFT JOIN sys_unit su9 ON su9.unit_id = rtc.vdr_fscl_unit_id AND su8.unit_status='A'
+        LEFT JOIN prod_cat pc ON pc.prod_cat_id = rtc.prod_cat_id
+        LEFT JOIN sys_prsnl sp ON sp.prsnl_id = rtc.opr_id
+        LEFT JOIN sys_prsnl sp1 ON sp1.prsnl_id = prc.chkr_id
+        LEFT JOIN sys_prsnl_owner spo1 ON spo1.prsnl_id = prc.chkr_id
+        LEFT JOIN sys_prsnl sp2 ON sp2.prsnl_id = prc.ac_bndr_id
+        LEFT JOIN sys_prsnl_owner spo2 ON spo2.prsnl_id = prc.ac_bndr_id
+        LEFT JOIN rtc_dtl rDtl on rDtl.rtc_num = rtc.rtc_num
+        left join product p on p.prod_id = rdtl.prod_id
+        left join prod_cls pcls on pcls.prod_cls_id = p.prod_cls_id
+        left join sys_code_dtl scd on scd.code = p.edition and scd.code_type='EDITION'
+        left join sys_code_dtl scd1 on scd1.code = pcls.uom and scd1.code_type='UOM'
+        left join color c on c.color_id = p.color_id
+        left join spec s on s.spec_id = p.spec_id
+        WHERE 1=1
+    </select>
+
+    <select id="selectByWareh" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PrcVo"
+            resultMap="BaseResultMapWareh">
+        SELECT
+        prc.rtc_num AS cntrNum,
+        rtc.vender_id AS delivUnitId,
+        rtc.vendee_id AS rcvUnitId,
+        rtc.vdr_wareh_id AS delivWarehId,
+        rtc.vde_wareh_id AS rcvWarehId,
+        rtc.st_unit_id AS stUnitId,
+        rtc.st_wareh_id AS stWarehId,
+        rtc.end_unit_id AS endUnitId,
+        rtc.end_wareh_id AS endWarehId,
+        rtc.tran_unit_id AS tranUnitId,
+        prc.pr_brdg_mode AS brdgMode,
+        rtc.deliv_mthd AS delivMthd,
+        rtc.deliv_pstd AS delivPstd,
+        rtc.deliv_addr AS delivAddr,
+        rtc.bxi_enabled AS bxiEnabled,
+        rtc.ttl_qty AS ttlQty,
+        rtc.ttl_box AS ttlBox,
+        rtc.ttl_val AS ttlVal,
+        rtc.ttl_tax AS ttlTax,
+        rtc.ttl_mkv AS ttlMkv
+        FROM
+        ( SELECT a.* FROM prc a WHERE 1 = 1 and a.unit_id=#{unitId} and a.prc_num=#{prcNum}
+        )
+        prc
+        INNER JOIN rtc rtc ON rtc.rtc_num = prc.rtc_num
+        WHERE 1=1
+    </select>
+
+    <select id="findByWareh" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PrcVo"
+            resultMap="BaseResultMapWareh">
+        SELECT
+        prc.rtc_num AS cntrNum,
+        rtc.vender_id AS delivUnitId,
+        rtc.vendee_id AS rcvUnitId,
+        rtc.vdr_wareh_id AS delivWarehId,
+        rtc.vde_wareh_id AS rcvWarehId,
+        rtc.st_unit_id AS stUnitId,
+        rtc.st_wareh_id AS stWarehId,
+        rtc.end_unit_id AS endUnitId,
+        rtc.end_wareh_id AS endWarehId,
+        rtc.tran_unit_id AS tranUnitId,
+        prc.pr_brdg_mode AS brdgMode,
+        rtc.deliv_mthd AS delivMthd,
+        rtc.deliv_pstd AS delivPstd,
+        rtc.deliv_addr AS delivAddr,
+        rtc.bxi_enabled AS bxiEnabled,
+        IF
+        (
+            rtc.vdr_invd = 'T',
+            1 ,
+            0
+        ) AS intervene,
+		SUM(IFNULL(rDtl.qty,0)-IFNULL(rDtl.deliv_qty,0)) AS ttlQty,
+		SUM(IFNULL(rDtl.val,0)-IFNULL(rDtl.deliv_val,0)) AS ttlVal,
+		SUM(IFNULL(rDtl.tax,0)-IFNULL(rDtl.deliv_tax,0)) AS ttlTax,
+		SUM(IFNULL(rDtl.mkv,0)-IFNULL(rDtl.deliv_mkv,0)) AS ttlMkv,
+        (IFNULL(rtc.ttl_box,0)-IFNULL(rtc.ttl_deliv_box,0)) AS ttlBox
+        FROM
+        ( SELECT a.* FROM prc a WHERE 1 = 1 and a.unit_id=#{unitId} and a.prc_num=#{prcNum}
+        )
+        prc
+        INNER JOIN rtc rtc ON rtc.rtc_num = prc.rtc_num
+		LEFT JOIN rtc_dtl rDtl ON rDtl.rtc_num = prc.rtc_num AND IFNULL(rDtl.qty,0) &gt; IFNULL(rDtl.deliv_qty,0)
+        WHERE 1=1
+    </select>
+
+    <select id="getPrcByStb"
+            resultMap="BaseResultMapPrcVo">
+        SELECT
+            prc.unit_id,
+            prc.prc_num,
+            rtc.doc_date,
+            prc.prc_type,
+            rtc.vender_id,
+            rtc.vendee_id,
+            v.psa_ctlr AS psaCtrl,
+            rtc.vde_wareh_id,
+            rtc.vdr_wareh_id,
+            rtc.st_unit_id,
+            rtc.st_wareh_id,
+            rtc.end_unit_id,
+            rtc.end_wareh_id,
+            rtc.tran_unit_id,
+            rtc.vde_fscl_unit_id,
+            rtc.vdr_fscl_unit_id,
+            rtc.vdr_invd,
+            rtc.vde_invd,
+            rtc.src_auto_gen,
+            rtc.src_auto_chk,
+            rtc.prc_auto_gen,
+            rtc.src_gen,
+            rtc.prc_gen,
+            rtc.prc_auto_chk,
+            rtc.prc_site,
+            rtc.reqd_date,
+            rtc.is_cms,
+            rtc.psc_reqd,
+            rtc.psc_num,
+            prc.pr_brdg_mode,
+            rtc.is_pr_itmd,
+            rtc.is_sr_itmd,
+            rtc.multi_impl,
+            rtc.dr_diff_jgd,
+            rtc.rtna_invd,
+            rtc.acc_enabled,
+            rtc.rtn_acc_site,
+            rtc.spl_enabled,
+            rtc.exbl_rate,
+            rtc.acc_val,
+            rtc.src_doc_type,
+            rtc.src_doc_num,
+            rtc.prod_cat_id,
+            rtc.rtn_type,
+            rtc.expd_date,
+            rtc.deliv_mthd,
+            rtc.deliv_pstd,
+            rtc.deliv_addr,
+            rtc.bxi_enabled,
+            rtc.ttl_qty,
+            rtc.ttl_box,
+            rtc.ttl_val,
+            rtc.ttl_tax,
+            rtc.ttl_mkv,
+            <choose>
+                <when test="flag">
+                    ifnull( rtc.ttl_deliv_qty, 0 ) + stb.ttl_qty AS ttl_deliv_qty,
+                    ifnull( rtc.ttl_deliv_box, 0 ) + stb.ttl_box AS ttl_deliv_box,
+                    ifnull( rtc.ttl_deliv_val, 0 ) + stb.ttl_val AS ttl_deliv_val,
+                    ifnull( rtc.ttl_deliv_tax, 0 ) + stb.ttl_tax AS ttl_deliv_tax,
+                    ifnull( rtc.ttl_deliv_mkv, 0 ) + stb.ttl_mkv AS ttl_deliv_mkv,
+                </when>
+                <otherwise>
+                    ifnull(rtc.ttl_deliv_qty,0)-stb.ttl_qty AS ttl_deliv_qty,
+                    ifnull(rtc.ttl_deliv_box,0)-stb.ttl_box AS ttl_deliv_box,
+                    ifnull(rtc.ttl_deliv_val,0)-stb.ttl_val AS ttl_deliv_val,
+                    ifnull(rtc.ttl_deliv_tax,0)-stb.ttl_tax AS ttl_deliv_tax,
+                    ifnull(rtc.ttl_deliv_mkv,0)-stb.ttl_mkv AS ttl_deliv_mkv,
+                </otherwise>
+            </choose>
+            rtc.ttl_rcv_qty,
+            rtc.ttl_rcv_box,
+            rtc.ttl_rcv_val,
+            rtc.ttl_rcv_tax,
+            rtc.ttl_rcv_mkv,
+            rtc.opr_id,
+            rtc.op_time,
+            prc.chkr_id,
+            prc.chk_time,
+            rtc.effective,
+            rtc.progress,
+            prc.suspended,
+            rtc.cancelled,
+            rtc.exec_rtc_num,
+            rtc.itmd_rtc_num,
+            rtc.st_rtc_num,
+            rtc.end_rtc_num,
+            prc.ac_reqd,
+            prc.ac_bnd,
+            prc.ac_bndr_id,
+            prc.ac_bnd_time,
+            prc.sr_fwdd,
+            prc.rtc_num,
+            rtc.remarks,
+            rtc.src_doc_unit_id,
+            rtc.rtc_type
+        FROM( SELECT a.* FROM prc a WHERE 1 = 1 and a.unit_id=#{srcDocUnitId}
+        and a.prc_num=#{srcDocNum} ) prc
+
+            INNER JOIN rtc rtc ON rtc.rtc_num = prc.rtc_num
+            LEFT JOIN stb stb ON stb.src_doc_unit_id = prc.unit_id
+            AND stb.src_doc_num = prc.prc_num
+            LEFT JOIN vender v ON v.vender_id = rtc.vender_id
+            AND v.owner_id = rtc.vendee_id
+            AND v.vdr_status = 'A'
+        WHERE
+            1 = 1
+            and stb.unit_id=#{docUnitId} and stb.stb_num=#{docNum}
+    </select>
+</mapper>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.sales.SrcTypeMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.sales.SrcType">
+    <id column="src_type" jdbcType="VARCHAR" property="srcType" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="rtc_type" jdbcType="VARCHAR" property="rtcType" />
+    <result column="sr_brdg_mode" jdbcType="CHAR" property="srBrdgMode" />
+    <result column="sr_brdg_mode_alt" jdbcType="CHAR" property="srBrdgModeAlt" />
+    <result column="af_reqd" jdbcType="CHAR" property="afReqd" />
+    <result column="af_reqd_alt" jdbcType="CHAR" property="afReqdAlt" />
+    <result column="active" jdbcType="CHAR" property="active" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapOption" type="com.boyu.erp.platform.usercenter.vo.system.PurKeyValue">
+    <result column="optionValue" property="optionValue"/>
+    <result column="optionName" property="optionName"/>
+  </resultMap>
+
+  <resultMap id="BaseResultMapByRtcAuto" type="com.boyu.erp.platform.usercenter.vo.purchase.RtcAutoVo">
+    <id column="src_type" jdbcType="VARCHAR" property="srcType" />
+    <result column="rtc_type" jdbcType="VARCHAR" property="rtcType" />
+    <result column="sr_brdg_mode" jdbcType="CHAR" property="srBrdgMode" />
+    <result column="sr_brdg_mode_alt" jdbcType="CHAR" property="srBrdgModeAlt" />
+    <result column="af_reqd" jdbcType="CHAR" property="afReqd" />
+    <result column="af_reqd_alt" jdbcType="CHAR" property="afReqdAlt" />
+    <result column="psc_reqd" jdbcType="CHAR" property="pscReqd" />
+    <result column="deliv_wareh_reqd" jdbcType="CHAR" property="delivWarehReqd" />
+    <result column="prc_auto_gen" jdbcType="CHAR" property="prcAutoGen" />
+    <result column="prc_auto_chk" jdbcType="CHAR" property="prcAutoChk" />
+    <result column="is_pr_itmd" jdbcType="CHAR" property="isPrItmd" />
+    <result column="is_pr_itmd_alt" jdbcType="CHAR" property="isPrItmdAlt" />
+    <result column="rcv_wareh_reqd" jdbcType="CHAR" property="rcvWarehReqd" />
+    <result column="src_auto_gen" jdbcType="CHAR" property="srcAutoGen" />
+    <result column="src_auto_chk" jdbcType="CHAR" property="srcAutoChk" />
+    <result column="is_sr_itmd" jdbcType="CHAR" property="isSrItmd" />
+    <result column="is_sr_itmd_alt" jdbcType="CHAR" property="isSrItmdAlt" />
+    <result column="tran_unit_reqd" jdbcType="CHAR" property="tranUnitReqd" />
+    <result column="dr_diff_jgd" jdbcType="CHAR" property="drDiffJgd" />
+    <result column="dr_diff_jgd_alt" jdbcType="CHAR" property="drDiffJgdAlt" />
+    <result column="multi_impl" jdbcType="CHAR" property="multiImpl" />
+    <result column="multi_impl_alt" jdbcType="CHAR" property="multiImplAlt" />
+    <result column="prc_site" jdbcType="CHAR" property="prcSite" />
+    <result column="prc_site_alt" jdbcType="CHAR" property="prcSiteAlt" />
+    <result column="fixed_unit_price" jdbcType="CHAR" property="fixedUnitPrice" />
+    <result column="spl_enabled" jdbcType="CHAR" property="splEnabled" />
+    <result column="spl_enabled_alt" jdbcType="CHAR" property="splEnabledAlt" />
+    <result column="exbl_rate" jdbcType="DECIMAL" property="exblRate" />
+    <result column="is_cms" jdbcType="CHAR" property="isCms" />
+    <result column="is_cms_alt" jdbcType="CHAR" property="isCmsAlt" />
+    <result column="rtna_invd" jdbcType="CHAR" property="rtnaInvd" />
+    <result column="rtna_invd_alt" jdbcType="CHAR" property="rtnaInvdAlt" />
+    <result column="acc_enabled" jdbcType="CHAR" property="accEnabled" />
+    <result column="acc_enabled_alt" jdbcType="CHAR" property="accEnabledAlt" />
+    <result column="rtn_acc_site" jdbcType="CHAR" property="rtnAccSite" />
+    <result column="rtn_acc_site_alt" jdbcType="CHAR" property="rtnAccSiteAlt" />
+    <result column="acc_rate" jdbcType="DECIMAL" property="accRate" />
+    <result column="bxi_enabled" jdbcType="CHAR" property="bxiEnabled" />
+    <result column="bxi_enabled_alt" jdbcType="CHAR" property="bxiEnabledAlt" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    src_type, description, rtc_type, sr_brdg_mode, sr_brdg_mode_alt, af_reqd, af_reqd_alt,
+    active
+  </sql>
+  <select id="getSrcTypeList" parameterType="com.boyu.erp.platform.usercenter.entity.sales.SrcType" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from src_type
+    where 1=1
+    <if test="srcType !=null and srcType !=''">
+      and instr(src_type , #{srcType,jdbcType=VARCHAR}) >0
+    </if>
+    <if test="description !=null and description !=''">
+      and instr(description , #{description,jdbcType=VARCHAR}) >0
+    </if>
+  </select>
+
+  <select id="selectByRtcType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from src_type
+    where 1=1
+    <if test="rtcType !=null and rtcType !=''">
+      and instr(rtc_type , #{rtcType}) >0
+    </if>
+  </select>
+
+  <delete id="deleteBySrcType" parameterType="com.boyu.erp.platform.usercenter.entity.sales.SrcType">
+    delete from src_type
+    where src_type = #{srcType,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.sales.SrcType">
+    insert into src_type (src_type, description, rtc_type,
+      sr_brdg_mode, sr_brdg_mode_alt, af_reqd,
+      af_reqd_alt, active)
+    values (#{srcType,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{rtcType,jdbcType=VARCHAR}, 
+      #{srBrdgMode,jdbcType=CHAR}, #{srBrdgModeAlt,jdbcType=CHAR}, #{afReqd,jdbcType=CHAR}, 
+      #{afReqdAlt,jdbcType=CHAR}, #{active,jdbcType=CHAR})
+  </insert>
+  <update id="updateBySrcType" parameterType="com.boyu.erp.platform.usercenter.entity.sales.SrcType">
+    update src_type
+    set description = #{description,jdbcType=VARCHAR},
+      rtc_type = #{rtcType,jdbcType=VARCHAR},
+      sr_brdg_mode = #{srBrdgMode,jdbcType=CHAR},
+      sr_brdg_mode_alt = #{srBrdgModeAlt,jdbcType=CHAR},
+      af_reqd = #{afReqd,jdbcType=CHAR},
+      af_reqd_alt = #{afReqdAlt,jdbcType=CHAR},
+      active = #{active,jdbcType=CHAR}
+    where src_type = #{srcType,jdbcType=VARCHAR}
+  </update>
+
+  <select id="optionGet" resultMap="BaseResultMapOption">
+  SELECT src_type as optionValue , description as optionName
+  FROM
+   src_type
+  WHERE
+   src_type!=''
+</select>
+
+  <!--退购合同类别下拉-->
+  <select id="selectByRtcAuto" parameterType="java.lang.String"
+          resultMap="BaseResultMapByRtcAuto">
+    SELECT
+        st.src_type,
+        st.sr_brdg_mode,
+        st.sr_brdg_mode_alt,
+        st.af_reqd,
+        st.af_reqd_alt,
+        rt.*
+    FROM
+	src_type st
+	LEFT JOIN rtc_type rt ON rt.rtc_type = st.rtc_type
+	WHERE 1=1 AND st.src_type = #{srcType}
+  </select>
+
+  <select id="listBySrcType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from src_type
+    where 1=1
+    <if test="srcType !=null and srcType !=''">
+      and src_type = #{srcType}
+    </if>
+    <if test="rtcType !=null and rtcType !=''">
+      and rtc_type = #{rtcType}
+    </if>
+  </select>
+
+  <select id="listByRtcType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from src_type
+    where 1=1
+    <if test="srcType !=null and srcType !=''">
+      and src_type != #{srcType}
+    </if>
+    <if test="rtcType !=null and rtcType !=''">
+      and rtc_type = #{rtcType}
+    </if>
+  </select>
+</mapper>

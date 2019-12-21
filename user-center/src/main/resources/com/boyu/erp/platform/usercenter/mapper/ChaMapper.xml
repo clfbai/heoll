@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.ChaMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.Cha">
+        <id column="vender_id" jdbcType="BIGINT" property="venderId"/>
+        <id column="vendee_id" jdbcType="BIGINT" property="vendeeId"/>
+        <id column="psa_ctlr" jdbcType="CHAR" property="psaCtlr"/>
+        <result column="auth_mode" jdbcType="VARCHAR" property="authMode"/>
+        <result column="man_mode" jdbcType="VARCHAR" property="manMode"/>
+        <result column="auth_area" jdbcType="VARCHAR" property="authArea"/>
+        <result column="lic_fee" jdbcType="DECIMAL" property="licFee"/>
+        <result column="rt_prl_ref_id" jdbcType="BIGINT" property="rtPrlRefId"/>
+        <result column="stl_dly_days" jdbcType="BIGINT" property="stlDlyDays"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapVo" type="com.boyu.erp.platform.usercenter.vo.purchase.ChaVo">
+        <id column="vender_id" jdbcType="BIGINT" property="venderId"/>
+        <id column="vendee_id" jdbcType="BIGINT" property="vendeeId"/>
+        <id column="psa_ctlr" jdbcType="CHAR" property="psaCtlr"/>
+        <result column="auth_mode" jdbcType="VARCHAR" property="authMode"/>
+        <result column="man_mode" jdbcType="VARCHAR" property="manMode"/>
+        <result column="auth_area" jdbcType="VARCHAR" property="authArea"/>
+        <result column="lic_fee" jdbcType="DECIMAL" property="licFee"/>
+        <result column="rtPrlRefId" property="rtPrlRefId"/>
+        <result column="stl_dly_days" jdbcType="BIGINT" property="stlDlyDays"/>
+        <result column="rtPrlRefName" property="rtPrlRefName"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    vender_id, vendee_id, psa_ctlr, auth_mode, man_mode, auth_area, lic_fee, rt_prl_ref_id, 
+    stl_dly_days
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Cha"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from cha
+        where vender_id = #{venderId,jdbcType=BIGINT}
+        and vendee_id = #{vendeeId,jdbcType=BIGINT}
+        and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+    </select>
+
+    <select id="selectByPsa" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaVo"
+            resultMap="BaseResultMapVo">
+    SELECT
+	cha.vender_id,
+	cha.vendee_id,
+	cha.psa_ctlr,
+	cha.auth_mode,
+	cha.man_mode,
+	cha.auth_area,
+	cha.lic_fee,
+	( SELECT UNIT_NUM FROM SYS_UNIT_OWNER WHERE UNIT_ID = cha.RT_PRL_REF_ID AND OWNER_ID = #{vendeeId,jdbcType=BIGINT} ) AS rtPrlRefId,
+	cha.stl_dly_days,
+	su.unit_name AS rtPrlRefName
+    FROM
+	CHA cha
+	LEFT JOIN SYS_UNIT su ON su.UNIT_ID = cha.RT_PRL_REF_ID
+	where cha.vender_id = #{venderId,jdbcType=BIGINT}
+      and cha.vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and cha.psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+  </select>
+
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Cha">
+    insert into cha (vender_id, vendee_id, psa_ctlr, 
+      auth_mode, man_mode, auth_area, 
+      lic_fee, rt_prl_ref_id, stl_dly_days
+      )
+    values (#{venderId,jdbcType=BIGINT}, #{vendeeId,jdbcType=BIGINT}, #{psaCtlr,jdbcType=CHAR}, 
+      #{authMode,jdbcType=VARCHAR}, #{manMode,jdbcType=VARCHAR}, #{authArea,jdbcType=VARCHAR}, 
+      #{licFee,jdbcType=DECIMAL}, #{rtPrlRefId,jdbcType=BIGINT}, #{stlDlyDays,jdbcType=BIGINT}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Cha">
+        insert into cha
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="venderId != null">
+                vender_id,
+            </if>
+            <if test="vendeeId != null">
+                vendee_id,
+            </if>
+            <if test="psaCtlr != null">
+                psa_ctlr,
+            </if>
+            <if test="authMode != null">
+                auth_mode,
+            </if>
+            <if test="manMode != null">
+                man_mode,
+            </if>
+            <if test="authArea != null">
+                auth_area,
+            </if>
+            <if test="licFee != null">
+                lic_fee,
+            </if>
+            <if test="rtPrlRefId != null">
+                rt_prl_ref_id,
+            </if>
+            <if test="stlDlyDays != null">
+                stl_dly_days,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="venderId != null">
+                #{venderId,jdbcType=BIGINT},
+            </if>
+            <if test="vendeeId != null">
+                #{vendeeId,jdbcType=BIGINT},
+            </if>
+            <if test="psaCtlr != null">
+                #{psaCtlr,jdbcType=CHAR},
+            </if>
+            <if test="authMode != null">
+                #{authMode,jdbcType=VARCHAR},
+            </if>
+            <if test="manMode != null">
+                #{manMode,jdbcType=VARCHAR},
+            </if>
+            <if test="authArea != null">
+                #{authArea,jdbcType=VARCHAR},
+            </if>
+            <if test="licFee != null">
+                #{licFee,jdbcType=DECIMAL},
+            </if>
+            <if test="rtPrlRefId != null">
+                #{rtPrlRefId,jdbcType=BIGINT},
+            </if>
+            <if test="stlDlyDays != null">
+                #{stlDlyDays,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.Cha">
+    update cha
+    set auth_mode = #{authMode,jdbcType=VARCHAR},
+      man_mode = #{manMode,jdbcType=VARCHAR},
+      auth_area = #{authArea,jdbcType=VARCHAR},
+      lic_fee = #{licFee,jdbcType=DECIMAL},
+      rt_prl_ref_id = #{rtPrlRefId,jdbcType=BIGINT},
+      stl_dly_days = #{stlDlyDays,jdbcType=BIGINT}
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+  </update>
+    <!-- 采购协议中创建渠道协议 -->
+    <insert id="insertByPsa" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaVo">
+        insert into cha
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="venderId != null">
+                vender_id,
+            </if>
+            <if test="vendeeId != null">
+                vendee_id,
+            </if>
+            <if test="psaCtlr != null">
+                psa_ctlr,
+            </if>
+            <if test="chaVo.authMode != null and chaVo.authMode !=''">
+                auth_mode,
+            </if>
+            <if test="chaVo.manMode != null and chaVo.manMode !=''">
+                man_mode,
+            </if>
+            <if test="chaVo.authArea != null and chaVo.authArea !=''">
+                auth_area,
+            </if>
+            <if test="chaVo.licFee != null and chaVo.licFee !=''">
+                lic_fee,
+            </if>
+            <if test="chaVo.rtPrlRefId != null and chaVo.rtPrlRefId !=''">
+                rt_prl_ref_id,
+            </if>
+            <if test="chaVo.stlDlyDays != null and chaVo.stlDlyDays !=''">
+                stl_dly_days,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="venderId != null">
+                #{venderId,jdbcType=BIGINT},
+            </if>
+            <if test="vendeeId != null">
+                #{vendeeId,jdbcType=BIGINT},
+            </if>
+            <if test="psaCtlr != null">
+                #{psaCtlr,jdbcType=CHAR} ,
+            </if>
+            <if test="chaVo != null">
+                <if test="chaVo.authMode != null and chaVo.authMode !=''">
+                    #{chaVo.authMode,jdbcType=VARCHAR} ,
+                </if>
+                <if test="chaVo.manMode != null and chaVo.manMode !=''">
+                    #{chaVo.manMode,jdbcType=VARCHAR},
+                </if>
+                <if test="chaVo.authArea != null and chaVo.authArea !=''">
+                    #{chaVo.authArea,jdbcType=VARCHAR} ,
+                </if>
+                <if test="chaVo.licFee != null and chaVo.licFee !='' ">
+                    #{chaVo.licFee,jdbcType=DECIMAL},
+                </if>
+                <if test="chaVo.rtPrlRefId != null and chaVo.rtPrlRefId !=''">
+                    #{chaVo.rtPrlRefId},
+                </if>
+                <if test="chaVo.stlDlyDays != null and chaVo.stlDlyDays !=''">
+                    #{chaVo.stlDlyDays,jdbcType=BIGINT},
+                </if>
+            </if>
+        </trim>
+    </insert>
+    <!--购销协议中的删除 -->
+    <delete id="deleteByPsa" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaVo">
+    delete from cha
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and psa_ctlr = #{psaCtlr,jdbcType=CHAR}
+  </delete>
+    <!--购销协议中的更新 -->
+    <update id="updateByPsa" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PsaVo">
+        update cha
+        <set>
+            <if test=" chaVo.authMode != null and chaVo.authMode!= '' ">
+                auth_mode = #{chaVo.authMode,jdbcType=VARCHAR},
+            </if>
+            <if test=" chaVo.manMode != null and chaVo.manMode!= ''   ">
+                man_mode = #{chaVo.manMode,jdbcType=VARCHAR},
+            </if>
+            <if test=" chaVo.authArea != null and chaVo.authArea!= ''  ">
+                auth_area = #{chaVo.authArea,jdbcType=VARCHAR},
+            </if>
+            <if test=" chaVo.licFee != null and chaVo.licFee!= ''    ">
+                lic_fee = #{chaVo.licFee,jdbcType=DECIMAL},
+            </if>
+            <if test=" chaVo.rtPrlRefId != null and chaVo.rtPrlRefId!= ''  ">
+                rt_prl_ref_id = #{chaVo.rtPrlRefId,jdbcType=BIGINT},
+            </if>
+            <if test=" chaVo.stlDlyDays != null and chaVo.stlDlyDays!= ''  ">
+                stl_dly_days = #{chaVo.stlDlyDays,jdbcType=BIGINT},
+            </if>
+        </set>
+        where vender_id = #{venderId}
+        and vendee_id = #{vendeeId}
+        and psa_ctlr = #{psaCtlr}
+    </update>
+</mapper>

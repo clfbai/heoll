@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.basic.AbMtrMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.basic.AbMtrKey">
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <id column="mtr_unit_id" jdbcType="BIGINT" property="mtrUnitId" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    unit_id, mtr_unit_id
+  </sql>
+
+  <select id="selectByAbMtrKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.AbMtrKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ab_mtr
+    where unit_id = #{unitId,jdbcType=BIGINT}
+    and mtr_unit_id = #{mtrUnitId,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.basic.AbMtrKey">
+    delete from ab_mtr
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and mtr_unit_id = #{mtrUnitId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.basic.AbMtrKey">
+    insert into ab_mtr (unit_id, mtr_unit_id)
+    values (#{unitId,jdbcType=BIGINT}, #{mtrUnitId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.basic.AbMtrKey">
+    insert into ab_mtr
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="mtrUnitId != null">
+        mtr_unit_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="mtrUnitId != null">
+        #{mtrUnitId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

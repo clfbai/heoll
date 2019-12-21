@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PscChgMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.PscChg">
+    <id column="psc_num" jdbcType="VARCHAR" property="pscNum" />
+    <id column="rcd_num" jdbcType="BIGINT" property="rcdNum" />
+    <result column="opr_id" jdbcType="BIGINT" property="oprId" />
+    <result column="op_time" jdbcType="TIMESTAMP" property="opTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    psc_num, rcd_num, opr_id, op_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscChg" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from psc_chg
+    where psc_num = #{pscNum,jdbcType=VARCHAR}
+      and rcd_num = #{rcdNum,jdbcType=BIGINT}
+  </select>
+  <!--查询rcdNum最大的那条记录-->
+  <select id="selectByPscDtl" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from psc_chg
+    where psc_num = #{pscNum,jdbcType=VARCHAR}
+    ORDER BY rcd_num desc limit 1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscChg">
+    delete from psc_chg
+    where psc_num = #{pscNum,jdbcType=VARCHAR}
+      and rcd_num = #{rcdNum,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscChg">
+    insert into psc_chg (psc_num, rcd_num, opr_id, 
+      op_time)
+    values (#{pscNum,jdbcType=VARCHAR}, #{rcdNum,jdbcType=BIGINT}, #{oprId,jdbcType=BIGINT}, 
+      #{opTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscChg">
+    insert into psc_chg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pscNum != null">
+        psc_num,
+      </if>
+      <if test="rcdNum != null">
+        rcd_num,
+      </if>
+      <if test="oprId != null">
+        opr_id,
+      </if>
+        op_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pscNum != null">
+        #{pscNum},
+      </if>
+      <if test="rcdNum != null">
+        #{rcdNum},
+      </if>
+      <if test="oprId != null">
+        #{oprId},
+      </if>
+      now(),
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscChg">
+    update psc_chg
+    <set>
+      <if test="oprId != null">
+        opr_id = #{oprId,jdbcType=BIGINT},
+      </if>
+      <if test="opTime != null">
+        op_time = #{opTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where psc_num = #{pscNum,jdbcType=VARCHAR}
+      and rcd_num = #{rcdNum,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscChg">
+    update psc_chg
+    set opr_id = #{oprId,jdbcType=BIGINT},
+      op_time = #{opTime,jdbcType=TIMESTAMP}
+    where psc_num = #{pscNum,jdbcType=VARCHAR}
+      and rcd_num = #{rcdNum,jdbcType=BIGINT}
+  </update>
+</mapper>

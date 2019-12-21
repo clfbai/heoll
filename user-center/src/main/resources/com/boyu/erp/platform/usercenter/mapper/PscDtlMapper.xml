@@ -1,0 +1,1364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PscDtlMapper">
+    <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.PscDtl">
+        <id column="psc_num" jdbcType="VARCHAR" property="pscNum"/>
+        <id column="prod_id" jdbcType="BIGINT" property="prodId"/>
+        <result column="line_num" jdbcType="BIGINT" property="lineNum"/>
+        <result column="row_num" jdbcType="BIGINT" property="rowNum"/>
+        <result column="reqd_date" jdbcType="DATE" property="reqdDate"/>
+        <result column="rtna_rate" jdbcType="DECIMAL" property="rtnaRate"/>
+        <result column="unit_price" jdbcType="DECIMAL" property="unitPrice"/>
+        <result column="disc_rate" jdbcType="DECIMAL" property="discRate"/>
+        <result column="fnl_price" jdbcType="DECIMAL" property="fnlPrice"/>
+        <result column="tax_rate" jdbcType="DECIMAL" property="taxRate"/>
+        <result column="mk_unit_price" jdbcType="DECIMAL" property="mkUnitPrice"/>
+        <result column="qty" jdbcType="DECIMAL" property="qty"/>
+        <result column="val" jdbcType="DECIMAL" property="val"/>
+        <result column="tax" jdbcType="DECIMAL" property="tax"/>
+        <result column="mkv" jdbcType="DECIMAL" property="mkv"/>
+        <result column="deliv_qty" jdbcType="DECIMAL" property="delivQty"/>
+        <result column="deliv_val" jdbcType="DECIMAL" property="delivVal"/>
+        <result column="deliv_tax" jdbcType="DECIMAL" property="delivTax"/>
+        <result column="deliv_mkv" jdbcType="DECIMAL" property="delivMkv"/>
+        <result column="rcv_qty" jdbcType="DECIMAL" property="rcvQty"/>
+        <result column="rcv_val" jdbcType="DECIMAL" property="rcvVal"/>
+        <result column="rcv_tax" jdbcType="DECIMAL" property="rcvTax"/>
+        <result column="rcv_mkv" jdbcType="DECIMAL" property="rcvMkv"/>
+        <result column="rs_qty" jdbcType="DECIMAL" property="rsQty"/>
+        <result column="rs_val" jdbcType="DECIMAL" property="rsVal"/>
+        <result column="rs_tax" jdbcType="DECIMAL" property="rsTax"/>
+        <result column="rs_mkv" jdbcType="DECIMAL" property="rsMkv"/>
+        <result column="rp_qty" jdbcType="DECIMAL" property="rpQty"/>
+        <result column="rp_val" jdbcType="DECIMAL" property="rpVal"/>
+        <result column="rp_tax" jdbcType="DECIMAL" property="rpTax"/>
+        <result column="rp_mkv" jdbcType="DECIMAL" property="rpMkv"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+
+
+    <resultMap id="BaseResultMapPscNum" type="com.boyu.erp.platform.usercenter.vo.purchase.PscDtlVo">
+        <id column="psc_num" jdbcType="VARCHAR" property="pscNum"/>
+        <id column="prod_id" jdbcType="BIGINT" property="prodId"/>
+        <result column="prodCode" property="prodCode"/>
+        <result column="seqNum" property="seqNum"/>
+        <result column="qty" jdbcType="DECIMAL" property="qty"/>
+        <result column="prodName" property="prodName"/>
+        <result column="inputCode" property="inputCode"/>
+        <result column="uom" property="uom"/>
+        <result column="color" property="color"/>
+        <result column="spec" property="spec"/>
+        <result column="edition" property="edition"/>
+        <result column="unit_price" jdbcType="DECIMAL" property="unitPrice"/>
+        <result column="mk_unit_price" jdbcType="DECIMAL" property="mkUnitPrice"/>
+        <result column="val" jdbcType="DECIMAL" property="val"/>
+        <result column="mkv" jdbcType="DECIMAL" property="mkv"/>
+        <result column="deliv_qty" jdbcType="DECIMAL" property="delivQty"/>
+        <result column="deliv_val" jdbcType="DECIMAL" property="delivVal"/>
+        <result column="deliv_tax" jdbcType="DECIMAL" property="delivTax"/>
+        <result column="deliv_mkv" jdbcType="DECIMAL" property="delivMkv"/>
+        <result column="rcv_qty" jdbcType="DECIMAL" property="rcvQty"/>
+        <result column="rcv_tax" jdbcType="DECIMAL" property="rcvTax"/>
+        <result column="rcv_val" jdbcType="DECIMAL" property="rcvVal"/>
+        <result column="rcv_mkv" jdbcType="DECIMAL" property="rcvMkv"/>
+        <result column="rs_qty" jdbcType="DECIMAL" property="rsQty"/>
+        <result column="rs_val" jdbcType="DECIMAL" property="rsVal"/>
+        <result column="rs_mkv" jdbcType="DECIMAL" property="rsMkv"/>
+        <result column="rs_val" jdbcType="DECIMAL" property="rsVal"/>
+        <result column="rp_qty" jdbcType="DECIMAL" property="rpQty"/>
+        <result column="rp_val" jdbcType="DECIMAL" property="rpVal"/>
+        <result column="rp_tax" jdbcType="DECIMAL" property="rpTax"/>
+        <result column="rp_mkv" jdbcType="DECIMAL" property="rpMkv"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="rtna_rate" jdbcType="DECIMAL" property="rtnaRate"/>
+        <result column="prodCatId" property="prodCatId"/>
+        <result column="tax" jdbcType="DECIMAL" property="tax"/>
+        <result column="disc_rate" jdbcType="DECIMAL" property="discRate"/>
+        <result column="fnl_price" jdbcType="DECIMAL" property="fnlPrice"/>
+        <result column="tax_rate" jdbcType="DECIMAL" property="taxRate"/>
+        <result column="prodClsId" property="prodClsId"/>
+        <result column="stkAdopted" property="stkAdopted"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapOrderItems" type="com.boyu.erp.platform.usercenter.entity.mq.order.OrderItemsToB">
+        <result column="productSKUId" property="productSKUId"/>
+        <result column="quantity" property="quantity"/>
+        <result column="salePrice" property="salePrice"/>
+        <result column="fnlPrice" property="fnlPrice"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapByCommonDtl" type="com.boyu.erp.platform.usercenter.vo.CommonDtl">
+        <result column="prodId" property="prodId"/>
+        <result column="prodClsId" property="prodClsId"/>
+        <result column="stkAdopted" property="stkAdopted"/>
+        <result column="lineNum" property="lineNum"/>
+        <result column="rowNum" property="rowNum"/>
+        <result column="unitPrice" property="unitPrice"/>
+        <result column="discRate" property="discRate"/>
+        <result column="fnlPrice" property="fnlPrice"/>
+        <result column="taxRate" property="taxRate"/>
+        <result column="qty" property="qty"/>
+        <result column="val" property="val"/>
+        <result column="tax" property="tax"/>
+        <result column="mkUnitPrice" property="mkUnitPrice"/>
+        <result column="mkv" property="mkv"/>
+        <result column="remarks" property="remarks"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapBillCls" type="com.boyu.erp.platform.usercenter.vo.sales.ProdClsDtlVo">
+        <result column="prodClsId" property="prodClsId"/>
+        <result column="delivQty" property="delivQty"/>
+        <result column="delivVal" property="delivVal"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    psc_num, prod_id, line_num, row_num, reqd_date, rtna_rate, unit_price, disc_rate, 
+    fnl_price, tax_rate, mk_unit_price, qty, val, tax, mkv, deliv_qty, deliv_val, deliv_tax, 
+    deliv_mkv, rcv_qty, rcv_val, rcv_tax, rcv_mkv, rs_qty, rs_val, rs_tax, rs_mkv, rp_qty, 
+    rp_val, rp_tax, rp_mkv, remarks
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscDtl"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from psc_dtl
+        where psc_num = #{pscNum,jdbcType=VARCHAR}
+        and prod_id = #{prodId,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectByPscAndCat" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from psc_dtl
+        where psc_num = #{pscNum}
+        and prod_id = #{prodCatId}
+    </select>
+
+    <select id="selectByPscDtl" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        psc_dtl
+        WHERE
+        psc_num = #{pscNum}
+        ORDER BY
+        line_num DESC
+        LIMIT 1
+    </select>
+    <!-- 采购协议中明细 -->
+    <select id="findByPscNum" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PscDtlVo"
+            resultMap="BaseResultMapPscNum">
+        SELECT
+        <choose>
+            <when test="false">
+                pDtl.prod_id,
+                p.prod_code as prodCode,
+                pCls.input_code as inputCode,
+                pCls.seq_num as seqNum,
+                scd1.description AS uom,
+                c.color_name AS color,
+                s.spec_name AS spec,
+                scd.description AS edition,
+                pDtl.unit_price,
+                pDtl.disc_rate AS discRate,
+                pDtl.fnl_price AS fnlPrice,
+                pDtl.tax_rate AS taxRate,
+                pDtl.mk_unit_price,
+                pDtl.QTY
+            </when>
+            <otherwise>
+                pDtl.*,
+                p.prod_code as prodCode,
+                pCls.seq_num as seqNum,
+                pCls.prod_name as prodName,
+                pCls.input_code as inputCode,
+                scd1.description AS uom,
+                c.color_name AS color,
+                s.spec_name AS spec,
+                scd.description AS edition,
+                pCls.prod_cat_id AS prodCatId
+            </otherwise>
+        </choose>
+        FROM
+        psc_dtl pDtl
+        LEFT JOIN product p ON p.prod_id = pDtl.prod_id
+        LEFT JOIN prod_cls pCls ON pCls.prod_cls_id = p.prod_cls_id
+        LEFT JOIN SYS_CODE_DTL scd ON scd.code = p.EDITION AND scd.CODE_TYPE='EDITION'
+        LEFT JOIN SYS_CODE_DTL scd1 ON scd1.code = pCls.UOM AND scd1.CODE_TYPE='UOM'
+        LEFT JOIN COLOR c ON c.COLOR_ID = p.COLOR_ID
+        LEFT JOIN SPEC s ON s.SPEC_ID = p.SPEC_ID
+        WHERE pDtl.PSC_NUM = #{pscNum}
+        <if test="prodId!=null and prodId!='' ">
+            and pDtl.PROD_ID =#{prodId}
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscDtl">
+    delete from psc_dtl
+    where psc_num = #{pscNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </delete>
+
+    <delete id="deleteByPscNum" parameterType="java.lang.String">
+    delete from psc_dtl
+    where psc_num = #{pscNum}
+  </delete>
+
+    <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscDtl">
+    insert into psc_dtl (psc_num, prod_id, line_num, 
+      row_num, reqd_date, rtna_rate, 
+      unit_price, disc_rate, fnl_price, 
+      tax_rate, mk_unit_price, qty, 
+      val, tax, mkv, deliv_qty, 
+      deliv_val, deliv_tax, deliv_mkv, 
+      rcv_qty, rcv_val, rcv_tax, 
+      rcv_mkv, rs_qty, rs_val, 
+      rs_tax, rs_mkv, rp_qty, 
+      rp_val, rp_tax, rp_mkv, 
+      remarks)
+    values (#{pscNum,jdbcType=VARCHAR}, #{prodId,jdbcType=BIGINT}, #{lineNum,jdbcType=BIGINT}, 
+      #{rowNum,jdbcType=BIGINT}, #{reqdDate,jdbcType=DATE}, #{rtnaRate,jdbcType=DECIMAL}, 
+      #{unitPrice,jdbcType=DECIMAL}, #{discRate,jdbcType=DECIMAL}, #{fnlPrice,jdbcType=DECIMAL}, 
+      #{taxRate,jdbcType=DECIMAL}, #{mkUnitPrice,jdbcType=DECIMAL}, #{qty,jdbcType=DECIMAL}, 
+      #{val,jdbcType=DECIMAL}, #{tax,jdbcType=DECIMAL}, #{mkv,jdbcType=DECIMAL}, #{delivQty,jdbcType=DECIMAL}, 
+      #{delivVal,jdbcType=DECIMAL}, #{delivTax,jdbcType=DECIMAL}, #{delivMkv,jdbcType=DECIMAL}, 
+      #{rcvQty,jdbcType=DECIMAL}, #{rcvVal,jdbcType=DECIMAL}, #{rcvTax,jdbcType=DECIMAL}, 
+      #{rcvMkv,jdbcType=DECIMAL}, #{rsQty,jdbcType=DECIMAL}, #{rsVal,jdbcType=DECIMAL}, 
+      #{rsTax,jdbcType=DECIMAL}, #{rsMkv,jdbcType=DECIMAL}, #{rpQty,jdbcType=DECIMAL}, 
+      #{rpVal,jdbcType=DECIMAL}, #{rpTax,jdbcType=DECIMAL}, #{rpMkv,jdbcType=DECIMAL}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertByPscNum" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PscDtlVo">
+        insert into psc_dtl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pscNum != null">
+                psc_num,
+            </if>
+            <if test="prodId != null">
+                prod_id,
+            </if>
+            <if test="lineNum != null">
+                line_num,
+            </if>
+            <if test="rowNum != null">
+                row_num,
+            </if>
+            <if test="reqdDate != null">
+                reqd_date,
+            </if>
+            <if test="rtnaRate != null">
+                rtna_rate,
+            </if>
+            <if test="unitPrice != null">
+                unit_price,
+            </if>
+            <if test="discRate != null">
+                disc_rate,
+            </if>
+            <if test="fnlPrice != null">
+                fnl_price,
+            </if>
+            <if test="taxRate != null">
+                tax_rate,
+            </if>
+            <if test="mkUnitPrice != null">
+                mk_unit_price,
+            </if>
+            <if test="qty != null">
+                qty,
+            </if>
+            <if test="val != null">
+                val,
+            </if>
+            <if test="tax != null">
+                tax,
+            </if>
+            <if test="mkv != null">
+                mkv,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pscNum != null">
+                #{pscNum,jdbcType=VARCHAR},
+            </if>
+            <if test="prodId != null">
+                #{prodId,jdbcType=BIGINT},
+            </if>
+            <if test="lineNum != null">
+                #{lineNum,jdbcType=BIGINT},
+            </if>
+            <if test="rowNum != null">
+                #{rowNum,jdbcType=BIGINT},
+            </if>
+            <if test="reqdDate != null">
+                #{reqdDate,jdbcType=DATE},
+            </if>
+            <if test="rtnaRate != null">
+                #{rtnaRate,jdbcType=DECIMAL},
+            </if>
+            <if test="unitPrice != null">
+                #{unitPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="discRate != null">
+                #{discRate,jdbcType=DECIMAL},
+            </if>
+            <if test="fnlPrice != null">
+                #{fnlPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="taxRate != null">
+                #{taxRate,jdbcType=DECIMAL},
+            </if>
+            <if test="mkUnitPrice != null">
+                #{mkUnitPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="qty != null">
+                #{qty,jdbcType=DECIMAL},
+            </if>
+            <if test="val != null">
+                #{val,jdbcType=DECIMAL},
+            </if>
+            <if test="tax != null">
+                #{tax,jdbcType=DECIMAL},
+            </if>
+            <if test="mkv != null">
+                #{mkv,jdbcType=DECIMAL},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscDtl">
+        update psc_dtl
+        <set>
+            <if test="lineNum != null">
+                line_num = #{lineNum,jdbcType=BIGINT},
+            </if>
+            <if test="rowNum != null">
+                row_num = #{rowNum,jdbcType=BIGINT},
+            </if>
+            <if test="reqdDate != null">
+                reqd_date = #{reqdDate,jdbcType=DATE},
+            </if>
+            <if test="rtnaRate != null">
+                rtna_rate = #{rtnaRate,jdbcType=DECIMAL},
+            </if>
+            <if test="unitPrice != null">
+                unit_price = #{unitPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="discRate != null">
+                disc_rate = #{discRate,jdbcType=DECIMAL},
+            </if>
+            <if test="fnlPrice != null">
+                fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="taxRate != null">
+                tax_rate = #{taxRate,jdbcType=DECIMAL},
+            </if>
+            <if test="mkUnitPrice != null">
+                mk_unit_price = #{mkUnitPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="qty != null">
+                qty = #{qty,jdbcType=DECIMAL},
+            </if>
+            <if test="val != null">
+                val = #{val,jdbcType=DECIMAL},
+            </if>
+            <if test="tax != null">
+                tax = #{tax,jdbcType=DECIMAL},
+            </if>
+            <if test="mkv != null">
+                mkv = #{mkv,jdbcType=DECIMAL},
+            </if>
+            <if test="delivQty != null">
+                deliv_qty = #{delivQty,jdbcType=DECIMAL},
+            </if>
+            <if test="delivVal != null">
+                deliv_val = #{delivVal,jdbcType=DECIMAL},
+            </if>
+            <if test="delivTax != null">
+                deliv_tax = #{delivTax,jdbcType=DECIMAL},
+            </if>
+            <if test="delivMkv != null">
+                deliv_mkv = #{delivMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="rcvQty != null">
+                rcv_qty = #{rcvQty,jdbcType=DECIMAL},
+            </if>
+            <if test="rcvVal != null">
+                rcv_val = #{rcvVal,jdbcType=DECIMAL},
+            </if>
+            <if test="rcvTax != null">
+                rcv_tax = #{rcvTax,jdbcType=DECIMAL},
+            </if>
+            <if test="rcvMkv != null">
+                rcv_mkv = #{rcvMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="rsQty != null">
+                rs_qty = #{rsQty,jdbcType=DECIMAL},
+            </if>
+            <if test="rsVal != null">
+                rs_val = #{rsVal,jdbcType=DECIMAL},
+            </if>
+            <if test="rsTax != null">
+                rs_tax = #{rsTax,jdbcType=DECIMAL},
+            </if>
+            <if test="rsMkv != null">
+                rs_mkv = #{rsMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="rpQty != null">
+                rp_qty = #{rpQty,jdbcType=DECIMAL},
+            </if>
+            <if test="rpVal != null">
+                rp_val = #{rpVal,jdbcType=DECIMAL},
+            </if>
+            <if test="rpTax != null">
+                rp_tax = #{rpTax,jdbcType=DECIMAL},
+            </if>
+            <if test="rpMkv != null">
+                rp_mkv = #{rpMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where psc_num = #{pscNum,jdbcType=VARCHAR}
+        and prod_id = #{prodId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscDtl">
+    update psc_dtl
+    set line_num = #{lineNum,jdbcType=BIGINT},
+      row_num = #{rowNum,jdbcType=BIGINT},
+      reqd_date = #{reqdDate,jdbcType=DATE},
+      rtna_rate = #{rtnaRate,jdbcType=DECIMAL},
+      unit_price = #{unitPrice,jdbcType=DECIMAL},
+      disc_rate = #{discRate,jdbcType=DECIMAL},
+      fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+      tax_rate = #{taxRate,jdbcType=DECIMAL},
+      mk_unit_price = #{mkUnitPrice,jdbcType=DECIMAL},
+      qty = #{qty,jdbcType=DECIMAL},
+      val = #{val,jdbcType=DECIMAL},
+      tax = #{tax,jdbcType=DECIMAL},
+      mkv = #{mkv,jdbcType=DECIMAL},
+      deliv_qty = #{delivQty,jdbcType=DECIMAL},
+      deliv_val = #{delivVal,jdbcType=DECIMAL},
+      deliv_tax = #{delivTax,jdbcType=DECIMAL},
+      deliv_mkv = #{delivMkv,jdbcType=DECIMAL},
+      rcv_qty = #{rcvQty,jdbcType=DECIMAL},
+      rcv_val = #{rcvVal,jdbcType=DECIMAL},
+      rcv_tax = #{rcvTax,jdbcType=DECIMAL},
+      rcv_mkv = #{rcvMkv,jdbcType=DECIMAL},
+      rs_qty = #{rsQty,jdbcType=DECIMAL},
+      rs_val = #{rsVal,jdbcType=DECIMAL},
+      rs_tax = #{rsTax,jdbcType=DECIMAL},
+      rs_mkv = #{rsMkv,jdbcType=DECIMAL},
+      rp_qty = #{rpQty,jdbcType=DECIMAL},
+      rp_val = #{rpVal,jdbcType=DECIMAL},
+      rp_tax = #{rpTax,jdbcType=DECIMAL},
+      rp_mkv = #{rpMkv,jdbcType=DECIMAL},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where psc_num = #{pscNum,jdbcType=VARCHAR}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+  </update>
+
+    <update id="updateByPsc" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PscDtlVo">
+        update psc_dtl
+        <set>
+            <if test="lineNum != null">
+                line_num = #{lineNum,jdbcType=BIGINT},
+            </if>
+            <if test="rowNum != null">
+                row_num = #{rowNum,jdbcType=BIGINT},
+            </if>
+            <if test="reqdDate != null">
+                reqd_date = #{reqdDate,jdbcType=DATE},
+            </if>
+            <if test="rtnaRate != null">
+                rtna_rate = #{rtnaRate,jdbcType=DECIMAL},
+            </if>
+            <if test="unitPrice != null">
+                unit_price = #{unitPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="discRate != null">
+                disc_rate = #{discRate,jdbcType=DECIMAL},
+            </if>
+            <if test="fnlPrice != null">
+                fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="taxRate != null">
+                tax_rate = #{taxRate,jdbcType=DECIMAL},
+            </if>
+            <if test="mkUnitPrice != null">
+                mk_unit_price = #{mkUnitPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="qty != null">
+                qty = #{qty,jdbcType=DECIMAL},
+            </if>
+            <if test="val != null">
+                val = #{val,jdbcType=DECIMAL},
+            </if>
+            <if test="tax != null">
+                tax = #{tax,jdbcType=DECIMAL},
+            </if>
+            <if test="mkv != null">
+                mkv = #{mkv,jdbcType=DECIMAL},
+            </if>
+            <if test="delivQty != null">
+                deliv_qty = #{delivQty,jdbcType=DECIMAL},
+            </if>
+            <if test="delivVal != null">
+                deliv_val = #{delivVal,jdbcType=DECIMAL},
+            </if>
+            <if test="delivTax != null">
+                deliv_tax = #{delivTax,jdbcType=DECIMAL},
+            </if>
+            <if test="delivMkv != null">
+                deliv_mkv = #{delivMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="rcvQty != null">
+                rcv_qty = #{rcvQty,jdbcType=DECIMAL},
+            </if>
+            <if test="rcvVal != null">
+                rcv_val = #{rcvVal,jdbcType=DECIMAL},
+            </if>
+            <if test="rcvTax != null">
+                rcv_tax = #{rcvTax,jdbcType=DECIMAL},
+            </if>
+            <if test="rcvMkv != null">
+                rcv_mkv = #{rcvMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="rsQty != null">
+                rs_qty = #{rsQty,jdbcType=DECIMAL},
+            </if>
+            <if test="rsVal != null">
+                rs_val = #{rsVal,jdbcType=DECIMAL},
+            </if>
+            <if test="rsTax != null">
+                rs_tax = #{rsTax,jdbcType=DECIMAL},
+            </if>
+            <if test="rsMkv != null">
+                rs_mkv = #{rsMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="rpQty != null">
+                rp_qty = #{rpQty,jdbcType=DECIMAL},
+            </if>
+            <if test="rpVal != null">
+                rp_val = #{rpVal,jdbcType=DECIMAL},
+            </if>
+            <if test="rpTax != null">
+                rp_tax = #{rpTax,jdbcType=DECIMAL},
+            </if>
+            <if test="rpMkv != null">
+                rp_mkv = #{rpMkv,jdbcType=DECIMAL},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where psc_num = #{pscNum,jdbcType=VARCHAR}
+        and prod_id = #{prodId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByRqdCtrl" parameterType="java.util.Map">
+        update psc_dtl
+        <set>
+            reqd_date = #{reqdDate},
+        </set>
+        where psc_num = #{pscNum}
+    </update>
+
+    <insert id="insertList" parameterType="java.util.List">
+        insert into psc_dtl (psc_num, prod_id, line_num,
+        row_num, reqd_date, rtna_rate,
+        unit_price, disc_rate, fnl_price,
+        tax_rate, mk_unit_price, qty,
+        val, tax, mkv, deliv_qty,
+        deliv_val, deliv_tax, deliv_mkv,
+        rcv_qty, rcv_tax,
+        rcv_mkv, rs_qty, rs_val,
+        rs_mkv,
+        remarks)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.pscNum,jdbcType=VARCHAR}, #{item.prodId,jdbcType=BIGINT}, #{item.lineNum,jdbcType=BIGINT},
+            #{item.rowNum,jdbcType=BIGINT}, #{item.reqdDate,jdbcType=DATE}, #{item.rtnaRate,jdbcType=DECIMAL},
+            #{item.unitPrice,jdbcType=DECIMAL}, #{item.discRate,jdbcType=DECIMAL}, #{item.fnlPrice,jdbcType=DECIMAL},
+            #{item.taxRate,jdbcType=DECIMAL}, #{item.mkUnitPrice,jdbcType=DECIMAL}, #{item.qty,jdbcType=DECIMAL},
+            #{item.val,jdbcType=DECIMAL}, #{item.tax,jdbcType=DECIMAL}, #{item.mkv,jdbcType=DECIMAL},
+            #{item.delivQty,jdbcType=DECIMAL},
+            #{item.delivVal,jdbcType=DECIMAL}, #{item.delivTax,jdbcType=DECIMAL}, #{item.delivMkv,jdbcType=DECIMAL},
+            #{item.rcvQty,jdbcType=DECIMAL}, #{item.rcvTax,jdbcType=DECIMAL},
+            #{item.rcvMkv,jdbcType=DECIMAL}, #{item.rsQty,jdbcType=DECIMAL}, #{item.rsVal,jdbcType=DECIMAL},
+            #{item.rsMkv,jdbcType=DECIMAL},
+            #{item.remarks,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+    <delete id="deleteList" parameterType="java.util.List">
+        <foreach collection="list" open="" close="" item="item" separator=";">
+            delete from psc_dtl
+            where psc_num = #{item.pscNum,jdbcType=VARCHAR}
+            and prod_id = #{item.prodId,jdbcType=BIGINT}
+        </foreach>
+    </delete>
+
+    <update id="updateList" parameterType="java.util.List">
+        <foreach collection="list" separator=";" item="item">
+            update psc_dtl
+            <set>
+                <if test="item.rtnaRate != null">
+                    rtna_rate = #{item.rtnaRate,jdbcType=DECIMAL},
+                </if>
+                <if test="item.discRate != null">
+                    disc_rate = #{item.discRate,jdbcType=DECIMAL},
+                </if>
+                <if test="item.taxRate != null">
+                    tax_rate = #{item.taxRate,jdbcType=DECIMAL},
+                </if>
+                <if test="item.mkUnitPrice != null">
+                    mk_unit_price = #{item.mkUnitPrice,jdbcType=DECIMAL},
+                </if>
+                <if test="item.qty != null">
+                    qty = #{item.qty,jdbcType=DECIMAL},
+                </if>
+                <if test="item.val != null">
+                    val = #{item.val,jdbcType=DECIMAL},
+                </if>
+                <if test="item.tax != null">
+                    tax = #{item.tax,jdbcType=DECIMAL},
+                </if>
+                <if test="item.mkv != null">
+                    mkv = #{item.mkv,jdbcType=DECIMAL},
+                </if>
+            </set>
+            where psc_num = #{item.pscNum,jdbcType=VARCHAR}
+            and prod_id = #{item.prodId,jdbcType=BIGINT}
+        </foreach>
+    </update>
+
+    <select id="selectByBill" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+        select
+        prod_id
+        <if test="sql!=null and sql!='' ">
+            ${sql}
+        </if>
+        from psc_dtl
+        where psc_num = #{pscNum,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByOperation" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from psc_dtl
+        where psc_num = #{pscNum,jdbcType=VARCHAR}
+        <if test="sql!=null and sql!='' ">
+            and ${sql}
+        </if>
+    </select>
+
+    <select id="selectByOrderItems" parameterType="java.lang.String"
+            resultMap="BaseResultMapOrderItems">
+        SELECT
+            concat('ER_',p.`prod_id`) AS productSKUId,
+            pd.qty AS quantity,
+            pd.unit_price AS salePrice,
+            pd.fnl_price  AS fnlPrice
+        FROM
+            psc_dtl pd
+            INNER JOIN `product` p ON p.prod_id = pd.prod_id
+        WHERE
+            p.`skuStatus` = 'A'
+            AND pd.psc_num = #{pscNum}
+    </select>
+
+    <select id="selectDtlByRgo" parameterType="com.boyu.erp.platform.usercenter.entity.sales.Rgo"
+            resultMap="BaseResultMapPscNum">
+        SELECT
+            prod_id,
+            IFNULL(NULL, 0) AS rtna_rate,
+            sl_unit_price AS unit_price,
+            sl_disc_rate AS disc_rate,
+            sl_fnl_price AS fnl_price,
+            sl_tax_rate AS tax_rate,
+            qty,
+            sl_val AS val,
+	        sl_tax AS tax,
+	        sl_mkv AS mkv
+        FROM
+            rgo_dtl
+        WHERE
+            unit_id = #{unitId}
+            AND rgo_num = #{rgoNum}
+    </select>
+
+    <select id="selectByStbDtl" resultMap="BaseResultMap">
+        SELECT
+        pDtl.psc_num,
+        pDtl.prod_id,
+        pDtl.line_num,
+        pDtl.row_num,
+        pDtl.reqd_date,
+        pDtl.rtna_rate,
+        pDtl.unit_price,
+        pDtl.disc_rate,
+        pDtl.fnl_price,
+        pDtl.tax_rate,
+        pDtl.mk_unit_price,
+        pDtl.qty,
+        pDtl.val,
+        pDtl.tax,
+        pDtl.mkv,
+        <choose>
+            <when test=" type=='SLC' ">
+                <choose>
+                    <when test="flag">
+                        IFNULL(pDtl.deliv_qty, 0)+sDtl.qty AS deliv_qty,
+                        IFNULL(pDtl.deliv_val, 0)+sDtl.val AS deliv_val,
+                        IFNULL(pDtl.deliv_tax, 0)+sDtl.tax AS deliv_tax,
+                        IFNULL(pDtl.deliv_mkv, 0)+sDtl.mkv AS deliv_mkv,
+                        pDtl.rcv_qty,
+                        pDtl.rcv_val,
+                        pDtl.rcv_tax,
+                        pDtl.rcv_mkv,
+                    </when>
+                    <otherwise>
+                        IFNULL(pDtl.deliv_qty, 0)-sDtl.qty AS deliv_qty,
+                        IFNULL(pDtl.deliv_val, 0)-sDtl.val AS deliv_val,
+                        IFNULL(pDtl.deliv_tax, 0)-sDtl.tax AS deliv_tax,
+                        IFNULL(pDtl.deliv_mkv, 0)-sDtl.mkv AS deliv_mkv,
+                        pDtl.rcv_qty,
+                        pDtl.rcv_val,
+                        pDtl.rcv_tax,
+                        pDtl.rcv_mkv,
+                    </otherwise>
+                </choose>
+            </when>
+            <when test=" type=='PUC' ">
+                <choose>
+                    <when test="flag">
+                        pDtl.deliv_qty,
+                        pDtl.deliv_val,
+                        pDtl.deliv_tax,
+                        pDtl.deliv_mkv,
+                        IFNULL(pDtl.rcv_qty, 0)+sDtl.qty AS rcv_qty,
+                        IFNULL(pDtl.rcv_val, 0)+sDtl.val AS rcv_val,
+                        IFNULL(pDtl.rcv_tax, 0)+sDtl.tax AS rcv_tax,
+                        IFNULL(pDtl.rcv_mkv, 0)+sDtl.mkv AS rcv_mkv,
+                    </when>
+                    <otherwise>
+                        pDtl.deliv_qty,
+                        pDtl.deliv_val,
+                        pDtl.deliv_tax,
+                        pDtl.deliv_mkv,
+                        IFNULL(pDtl.rcv_qty, 0)-sDtl.qty AS rcv_qty,
+                        IFNULL(pDtl.rcv_val, 0)-sDtl.val AS rcv_val,
+                        IFNULL(pDtl.rcv_tax, 0)-sDtl.tax AS rcv_tax,
+                        IFNULL(pDtl.rcv_mkv, 0)-sDtl.mkv AS rcv_mkv,
+                    </otherwise>
+                </choose>
+            </when>
+        </choose>
+        pDtl.rs_qty,
+        pDtl.rs_val,
+        pDtl.rs_tax,
+        pDtl.rs_mkv,
+        pDtl.rp_qty,
+        pDtl.rp_val,
+        pDtl.rp_tax,
+        pDtl.rp_mkv,
+        pDtl.remarks
+        FROM
+        (select * from psc_dtl where psc_num=#{pscNum}) pDtl
+        INNER JOIN stb_dtl sDtl ON sDtl.prod_id = pDtl.prod_id
+        AND sDtl.unit_id = #{docUnitId} and sDtl.stb_num = #{docNum}
+    </select>
+
+    <select id="findByStbDtl" resultMap="BaseResultMap">
+        SELECT
+        pDtl.psc_num,
+        pDtl.prod_id,
+        pDtl.line_num,
+        pDtl.row_num,
+        pDtl.reqd_date,
+        pDtl.rtna_rate,
+        pDtl.unit_price,
+        pDtl.disc_rate,
+        pDtl.fnl_price,
+        pDtl.tax_rate,
+        pDtl.mk_unit_price,
+        pDtl.qty,
+        pDtl.val,
+        pDtl.tax,
+        pDtl.mkv,
+        <choose>
+            <when test="flag">
+                IFNULL(pDtl.deliv_qty, 0)+sDtl.qty AS deliv_qty,
+                IFNULL(pDtl.deliv_val, 0)+sDtl.val AS deliv_val,
+                IFNULL(pDtl.deliv_tax, 0)+sDtl.tax AS deliv_tax,
+                IFNULL(pDtl.deliv_mkv, 0)+sDtl.mkv AS deliv_mkv,
+                IFNULL(pDtl.rcv_qty, 0)+sDtl.qty AS rcv_qty,
+                IFNULL(pDtl.rcv_val, 0)+sDtl.val AS rcv_val,
+                IFNULL(pDtl.rcv_tax, 0)+sDtl.tax AS rcv_tax,
+                IFNULL(pDtl.rcv_mkv, 0)+sDtl.mkv AS rcv_mkv,
+            </when>
+            <otherwise>
+                IFNULL(pDtl.deliv_qty, 0)-sDtl.qty AS deliv_qty,
+                IFNULL(pDtl.deliv_val, 0)-sDtl.val AS deliv_val,
+                IFNULL(pDtl.deliv_tax, 0)-sDtl.tax AS deliv_tax,
+                IFNULL(pDtl.deliv_mkv, 0)-sDtl.mkv AS deliv_mkv,
+                IFNULL(pDtl.rcv_qty, 0)-sDtl.qty AS rcv_qty,
+                IFNULL(pDtl.rcv_val, 0)-sDtl.val AS rcv_val,
+                IFNULL(pDtl.rcv_tax, 0)-sDtl.tax AS rcv_tax,
+                IFNULL(pDtl.rcv_mkv, 0)-sDtl.mkv AS rcv_mkv,
+            </otherwise>
+        </choose>
+        pDtl.rs_qty,
+        pDtl.rs_val,
+        pDtl.rs_tax,
+        pDtl.rs_mkv,
+        pDtl.rp_qty,
+        pDtl.rp_val,
+        pDtl.rp_tax,
+        pDtl.rp_mkv,
+        pDtl.remarks
+        FROM
+        (select * from psc_dtl where psc_num=#{pscNum}) pDtl
+        INNER JOIN stb_dtl sDtl ON sDtl.prod_id = pDtl.prod_id
+        AND sDtl.unit_id = #{docUnitId} and sDtl.stb_num = #{docNum}
+    </select>
+
+    <update id="updateDtlList" parameterType="java.util.List">
+        <foreach collection="list" separator=";" item="item">
+            update psc_dtl
+            <set>
+                <if test="item.lineNum != null">
+                    line_num = #{item.lineNum,jdbcType=BIGINT},
+                </if>
+                <if test="item.rowNum != null">
+                    row_num = #{item.rowNum,jdbcType=BIGINT},
+                </if>
+                <if test="item.reqdDate != null">
+                    reqd_date = #{item.reqdDate,jdbcType=DATE},
+                </if>
+                <if test="item.rtnaRate != null">
+                    rtna_rate = #{item.rtnaRate,jdbcType=DECIMAL},
+                </if>
+                <if test="item.unitPrice != null">
+                    unit_price = #{item.unitPrice,jdbcType=DECIMAL},
+                </if>
+                <if test="item.discRate != null">
+                    disc_rate = #{item.discRate,jdbcType=DECIMAL},
+                </if>
+                <if test="item.fnlPrice != null">
+                    fnl_price = #{item.fnlPrice,jdbcType=DECIMAL},
+                </if>
+                <if test="item.taxRate != null">
+                    tax_rate = #{item.taxRate,jdbcType=DECIMAL},
+                </if>
+                <if test="item.mkUnitPrice != null">
+                    mk_unit_price = #{item.mkUnitPrice,jdbcType=DECIMAL},
+                </if>
+                <if test="item.qty != null">
+                    qty = #{item.qty,jdbcType=DECIMAL},
+                </if>
+                <if test="item.val != null">
+                    val = #{item.val,jdbcType=DECIMAL},
+                </if>
+                <if test="item.tax != null">
+                    tax = #{item.tax,jdbcType=DECIMAL},
+                </if>
+                <if test="item.mkv != null">
+                    mkv = #{item.mkv,jdbcType=DECIMAL},
+                </if>
+                <if test="item.delivQty != null">
+                    deliv_qty = #{item.delivQty,jdbcType=DECIMAL},
+                </if>
+                <if test="item.delivVal != null">
+                    deliv_val = #{item.delivVal,jdbcType=DECIMAL},
+                </if>
+                <if test="item.delivTax != null">
+                    deliv_tax = #{item.delivTax,jdbcType=DECIMAL},
+                </if>
+                <if test="item.delivMkv != null">
+                    deliv_mkv = #{item.delivMkv,jdbcType=DECIMAL},
+                </if>
+                <if test="item.rcvQty != null">
+                    rcv_qty = #{item.rcvQty,jdbcType=DECIMAL},
+                </if>
+                <if test="item.rcvVal != null">
+                    rcv_val = #{item.rcvVal,jdbcType=DECIMAL},
+                </if>
+                <if test="item.rcvTax != null">
+                    rcv_tax = #{item.rcvTax,jdbcType=DECIMAL},
+                </if>
+                <if test="item.rcvMkv != null">
+                    rcv_mkv = #{item.rcvMkv,jdbcType=DECIMAL},
+                </if>
+                <if test="item.rsQty != null">
+                    rs_qty = #{item.rsQty,jdbcType=DECIMAL},
+                </if>
+                <if test="item.rsVal != null">
+                    rs_val = #{item.rsVal,jdbcType=DECIMAL},
+                </if>
+                <if test="item.rsTax != null">
+                    rs_tax = #{item.rsTax,jdbcType=DECIMAL},
+                </if>
+                <if test="item.rsMkv != null">
+                    rs_mkv = #{item.rsMkv,jdbcType=DECIMAL},
+                </if>
+                <if test="item.rpQty != null">
+                    rp_qty = #{item.rpQty,jdbcType=DECIMAL},
+                </if>
+                <if test="item.rpVal != null">
+                    rp_val = #{item.rpVal,jdbcType=DECIMAL},
+                </if>
+                <if test="item.rpTax != null">
+                    rp_tax = #{item.rpTax,jdbcType=DECIMAL},
+                </if>
+                <if test="item.rpMkv != null">
+                    rp_mkv = #{item.rpMkv,jdbcType=DECIMAL},
+                </if>
+                <if test="item.remarks != null">
+                    remarks = #{item.remarks,jdbcType=VARCHAR},
+                </if>
+            </set>
+            where psc_num = #{item.pscNum,jdbcType=VARCHAR}
+            and prod_id = #{item.prodId,jdbcType=BIGINT}
+        </foreach>
+    </update>
+
+    <select id="selectByBillQty"
+            resultMap="BaseResultMapBillCls">
+        SELECT
+            p.prod_cls_id AS prodClsId,
+            SUM(sDtl.qty) AS delivQty,
+			SUM(sDtl.val) AS delivVal
+        FROM
+            stb_dtl sDtl
+            INNER JOIN product p ON p.prod_id = sDtl.prod_id
+        WHERE
+            sDtl.unit_id = #{docUnitId} and sDtl.stb_num = #{docNum}
+            GROUP BY prodClsId
+    </select>
+
+    <select id="selectByBillVal"
+            resultMap="BaseResultMapBillCls">
+        SELECT
+			SUM(sDtl.val) AS delivVal
+        FROM
+            stb_dtl sDtl
+        WHERE
+            sDtl.unit_id = #{docUnitId} and sDtl.stb_num = #{docNum}
+    </select>
+
+    <select id="selectByDelivOrRcv" parameterType="java.lang.String"
+            resultMap="BaseResultMapBillCls">
+        SELECT
+			pDtl.qty as delivQty
+        FROM
+            psc_dtl pDtl
+        WHERE
+            pDtl.psc_num = #{pscNum}
+            and pDtl.deliv_qty &gt; IFNULL(pDtl.rcv_qty,0)
+    </select>
+
+    <select id="selectDtlByStb"
+            resultMap="BaseResultMapBillCls">
+        SELECT
+			pDtl.qty as delivQty
+        FROM
+            psc_dtl pDtl
+            INNER JOIN stb_dtl sDtl ON sDtl.prod_id = pDtl.prod_id
+            and sDtl.unit_id=#{docUnitId} and sDtl.stb_num=#{docNum}
+        WHERE
+            pDtl.psc_num = #{pscNum}
+            and (pDtl.deliv_qty-sDtl.qty) &gt; pDtl.rcv_qty
+    </select>
+
+    <!--生成出入库单时明细-->
+    <select id="findByDtlInfo" parameterType="java.util.Map"
+            resultMap="BaseResultMapByCommonDtl">
+        <choose>
+            <when test=" type=='PUC' ">
+                SELECT
+                pDtl.prod_id AS prodId,
+                pCls.prod_cls_id AS prodClsId,
+                pCls.stk_adopted AS stkAdopted,
+                pDtl.line_num AS lineNum,
+                pDtl.row_num AS rowNum,
+                pDtl.unit_price AS unitPrice,
+                pDtl.disc_rate AS discRate,
+                pDtl.fnl_price AS fnlPrice,
+                pDtl.tax_rate AS taxRate,
+                pDtl.mk_unit_price AS mkUnitPrice,
+                pDtl.remarks AS remarks,
+                IF
+                (
+                psc.vdr_invd = 'F',
+                ( pDtl.qty - IFNULL( pDtl.rcv_qty, 0 ) ),
+                ( pDtl.deliv_qty - IFNULL( pDtl.rcv_qty, 0 ) )
+                ) AS qty,
+                IF
+                (
+                psc.vdr_invd = 'F',
+                ( pDtl.val - IFNULL( pDtl.rcv_val, 0 ) ),
+                ( pDtl.deliv_val - IFNULL( pDtl.rcv_val, 0 ) )
+                ) AS val,
+                IF
+                (
+                psc.vdr_invd = 'F',
+                ( pDtl.tax - IFNULL( pDtl.rcv_tax, 0 ) ),
+                ( pDtl.deliv_tax - IFNULL( pDtl.rcv_tax, 0 ) )
+                ) AS tax,
+                IF
+                (
+                psc.vdr_invd = 'F',
+                ( pDtl.mkv - IFNULL( pDtl.rcv_mkv, 0 ) ),
+                ( pDtl.deliv_mkv - IFNULL( pDtl.rcv_mkv, 0 ) )
+                ) AS mkv
+                FROM
+                psc_dtl pDtl
+                LEFT JOIN product p ON p.prod_id = pDtl.prod_id
+                LEFT JOIN prod_cls pCls ON pCls.prod_cls_id = p.prod_cls_id
+                LEFT JOIN psc psc ON psc.psc_num = pDtl.psc_num
+                WHERE
+                pDtl.psc_num = #{num}
+                AND
+                IF
+                (
+                psc.vdr_invd = 'F',
+                pDtl.qty &gt; IFNULL( pDtl.rcv_qty, 0 ),
+                pDtl.deliv_qty &gt; IFNULL( pDtl.rcv_qty, 0 )
+                )
+            </when>
+            <when test=" type=='SLC' ">
+                SELECT
+                pDtl.prod_id AS prodId,
+                pCls.prod_cls_id AS prodClsId,
+                pCls.stk_adopted AS stkAdopted,
+                pDtl.line_num AS lineNum,
+                pDtl.row_num AS rowNum,
+                pDtl.unit_price AS unitPrice,
+                pDtl.disc_rate AS discRate,
+                pDtl.fnl_price AS fnlPrice,
+                pDtl.tax_rate AS taxRate,
+                pDtl.mk_unit_price AS mkUnitPrice,
+                pDtl.remarks AS remarks,
+                ( pDtl.qty - IFNULL( pDtl.deliv_qty, 0 ) ) AS qty,
+                ( pDtl.val - IFNULL( pDtl.deliv_val, 0 ) ) AS val,
+                ( pDtl.tax - IFNULL( pDtl.deliv_tax, 0 ) ) AS tax,
+                ( pDtl.mkv - IFNULL( pDtl.deliv_mkv, 0 ) ) AS mkv
+                FROM
+                psc_dtl pDtl
+                LEFT JOIN product p ON p.prod_id = pDtl.prod_id
+                LEFT JOIN prod_cls pCls ON pCls.prod_cls_id = p.prod_cls_id
+                WHERE
+                pDtl.psc_num = #{num}
+                AND pDtl.qty &gt; IFNULL( pDtl.deliv_qty, 0 )
+            </when>
+        </choose>
+        <if test=" prodId!=null and prodId!='' ">
+            and pDtl.prod_id = #{prodId}
+        </if>
+    </select>
+
+    <select id="getJudgeDtlByPuo" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PscDtlVo"
+            resultMap="BaseResultMapPscNum">
+        SELECT
+        pDtl.prod_id,
+        pDtl.rtna_rate,
+        pDtl.unit_price,
+        pDtl.disc_rate,
+        pDtl.fnl_price,
+        pDtl.tax_rate,
+        pDtl.mk_unit_price,
+				IF(psc.multi_impl='T',
+                ( pDtl.qty - IFNULL( pDtl.deliv_qty, 0 )
+                ),pDtl.qty)
+         as qty,
+				 IF(psc.multi_impl='T',
+                ( pDtl.val - IFNULL( pDtl.deliv_val, 0 )
+                ),pDtl.val)
+         as val,
+				IF(psc.multi_impl='T',
+                ( pDtl.tax - IFNULL( pDtl.deliv_tax, 0 )
+                ),pDtl.tax)
+         as tax,
+				IF(psc.multi_impl='T',
+                ( pDtl.mkv - IFNULL( pDtl.deliv_mkv, 0 )
+                ),pDtl.mkv)
+         as mkv,
+        pDtl.remarks,
+        p.prod_code as prodCode,
+        pCls.seq_num as seqNum,
+        pCls.prod_name as prodName,
+        pCls.input_code as inputCode,
+        scd1.description AS uom,
+        c.color_name AS color,
+        s.spec_name AS spec,
+        scd.description AS edition,
+        pCls.prod_cat_id AS prodCatId
+        FROM
+        psc_dtl pDtl
+        LEFT JOIN product p ON p.prod_id = pDtl.prod_id
+        LEFT JOIN prod_cls pCls ON pCls.prod_cls_id = p.prod_cls_id
+        LEFT JOIN sys_code_dtl scd ON scd.code = p.edition AND scd.code_type='EDITION'
+        LEFT JOIN sys_code_dtl scd1 ON scd1.code = pCls.uom AND scd1.code_type='UOM'
+        LEFT JOIN color c ON c.color_id = p.color_id
+        LEFT JOIN spec s ON s.spec_id = p.spec_id
+        LEFT JOIN psc psc ON psc.psc_num = pDtl.psc_num
+        WHERE pDtl.psc_num = #{pscNum} and pDtl.prod_id =#{prodId}
+    </select>
+
+    <select id="getJudgeDtlBySlo" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.PscDtlVo"
+            resultMap="BaseResultMapPscNum">
+            SELECT
+                pDtl.prod_id,
+                pDtl.rtna_rate,
+                pDtl.unit_price,
+                pDtl.disc_rate,
+                pDtl.fnl_price,
+                pDtl.tax_rate,
+                pDtl.mk_unit_price,
+            IF
+                (
+                    pDtl.qty &gt; pDtl.deliv_qty,
+                IF
+                    ( psc.multi_impl = 'T', ( pDtl.qty - IFNULL( pDtl.deliv_qty, 0 ) ), pDtl.qty ),
+                    0
+                ) AS qty,
+            IF
+                (
+                    pDtl.qty &gt; pDtl.deliv_qty,
+                IF
+                    ( psc.multi_impl = 'T', ( pDtl.val - IFNULL( pDtl.deliv_val, 0 ) ), pDtl.val ),
+                    0
+                ) AS val,
+            IF
+                (
+                    pDtl.qty &gt; pDtl.deliv_qty,
+                IF
+                    ( psc.multi_impl = 'T', ( pDtl.tax - IFNULL( pDtl.deliv_tax, 0 ) ), pDtl.tax ),
+                    0
+                ) AS tax,
+            IF
+                (
+                    pDtl.qty &gt; pDtl.deliv_qty,
+                IF
+                    ( psc.multi_impl = 'T', ( pDtl.mkv - IFNULL( pDtl.deliv_mkv, 0 ) ), pDtl.mkv ),
+                    0
+                ) AS mkv,
+                pDtl.remarks,
+                p.prod_code AS prodCode,
+                pCls.seq_num AS seqNum,
+                pCls.prod_name AS prodName,
+                pCls.input_code AS inputCode,
+                scd1.description AS uom,
+                c.color_name AS color,
+                s.spec_name AS spec,
+                scd.description AS edition,
+                pCls.prod_cat_id AS prodCatId
+            FROM
+                psc_dtl pDtl
+                LEFT JOIN product p ON p.prod_id = pDtl.prod_id
+                LEFT JOIN prod_cls pCls ON pCls.prod_cls_id = p.prod_cls_id
+                LEFT JOIN sys_code_dtl scd ON scd.CODE = p.edition
+                AND scd.code_type = 'EDITION'
+                LEFT JOIN sys_code_dtl scd1 ON scd1.CODE = pCls.uom
+                AND scd1.code_type = 'UOM'
+                LEFT JOIN color c ON c.color_id = p.color_id
+                LEFT JOIN spec s ON s.spec_id = p.spec_id
+                LEFT JOIN psc psc ON psc.psc_num = pDtl.psc_num
+            WHERE pDtl.psc_num = #{pscNum} and pDtl.prod_id =#{prodId}
+    </select>
+
+    <select id="importBill" parameterType="java.lang.String"
+            resultMap="BaseResultMapPscNum">
+        SELECT
+            pDtl.psc_num,
+            pDtl.prod_id,
+            pDtl.line_num,
+            pDtl.row_num,
+            pDtl.reqd_date,
+            pDtl.rtna_rate,
+            pDtl.unit_price,
+            pDtl.disc_rate,
+            pDtl.fnl_price,
+            pDtl.tax_rate,
+            pDtl.mk_unit_price,
+            ( pDtl.qty - IFNULL( pDtl.deliv_qty, 0 ) ) AS qty,
+            ( pDtl.val - IFNULL( pDtl.deliv_val, 0 ) ) AS val,
+            ( pDtl.tax - IFNULL( pDtl.deliv_tax, 0 ) ) AS tax,
+            ( pDtl.mkv - IFNULL( pDtl.deliv_mkv, 0 ) ) AS mkv,
+            pDtl.remarks,
+            p.prod_code AS prodCode,
+            pCls.seq_num AS seqNum,
+            pCls.prod_name AS prodName,
+            pCls.input_code AS inputCode,
+            scd1.description AS uom,
+            c.color_name AS color,
+            s.spec_name AS spec,
+            scd.description AS edition,
+            pCls.prod_cat_id AS prodCatId
+        FROM
+            psc_dtl pDtl
+            LEFT JOIN product p ON p.prod_id = pDtl.prod_id
+            LEFT JOIN prod_cls pCls ON pCls.prod_cls_id = p.prod_cls_id
+            LEFT JOIN SYS_CODE_DTL scd ON scd.CODE = p.EDITION
+            AND scd.CODE_TYPE = 'EDITION'
+            LEFT JOIN SYS_CODE_DTL scd1 ON scd1.CODE = pCls.UOM
+            AND scd1.CODE_TYPE = 'UOM'
+            LEFT JOIN COLOR c ON c.COLOR_ID = p.COLOR_ID
+            LEFT JOIN SPEC s ON s.SPEC_ID = p.SPEC_ID
+        WHERE
+            pDtl.psc_num = #{pscNum}
+            AND pDtl.qty &gt; IFNULL( pDtl.deliv_qty, 0 )
+    </select>
+
+    <select id="judge"
+            resultMap="BaseResultMapPscNum">
+            SELECT
+                pDtl.prod_id
+            FROM
+                psc_dtl pDtl
+                LEFT JOIN psc psc ON psc.psc_num = pDtl.psc_num
+            WHERE
+                1 = 1
+                AND psc.psc_num = #{pscNum}
+                AND IFNULL( pDtl.rcv_qty, 0 ) &gt;
+            IF
+                ( psc.vdr_invd = 'T', IFNULL( pDtl.deliv_qty, 0 ), pDtl.qty )
+    </select>
+
+    <select id="findByQtyEqRcv" resultMap="BaseResultMap">
+        SELECT
+        pDtl.prod_id
+        FROM
+        psc_dtl pDtl
+        where psc_num = #{pscNum} and #{sql}
+    </select>
+
+    <select id="getException" resultMap="BaseResultMap">
+        SELECT
+        sDtl.prod_id
+        FROM
+        stb_dtl sDtl
+        WHERE
+        sDtl.unit_id = #{docUnitId}
+        AND sDtl.stb_num = #{docNum}
+        AND sDtl.prod_id NOT IN ( SELECT prod_id FROM psc_dtl WHERE psc_num = #{pscNum} ) UNION
+        SELECT
+        pDtl.prod_id
+        FROM
+        psc_dtl pDtl
+        LEFT JOIN stb_dtl sDtl ON sDtl.prod_id = pDtl.prod_id
+        WHERE
+        1 = 1
+        AND pDtl.psc_num = #{pscNum}
+        AND sDtl.unit_id = #{docUnitId}
+        AND sDtl.stb_num = #{docNum}
+        AND #{sql} pDtl.rcv_qty &lt; (IFNULL( pDtl.rp_qty, 0 ) + sDTL.qty)
+    </select>
+
+    <update id="updateByStbToRp" >
+        UPDATE psc_dtl pDtl
+        INNER JOIN stb_dtl sDtl ON sDtl.prod_id = pDtl.prod_id
+        <set>
+        <choose>
+            <when test="flag">
+                pDtl.rp_qty = IFNULL( pDtl.rp_qty, 0 ) + sDtl.qty,
+                pDtl.rp_val = IFNULL( pDtl.rp_val, 0 ) + sDtl.qty,
+                pDtl.rp_tax = IFNULL( pDtl.rp_tax, 0 ) + sDtl.qty,
+                pDtl.rp_mkv = IFNULL( pDtl.rp_mkv, 0 ) + sDtl.qty,
+            </when>
+            <otherwise>
+                pDtl.rp_qty = IFNULL( pDtl.rp_qty, 0 ) - sDtl.qty,
+                pDtl.rp_val = IFNULL( pDtl.rp_val, 0 ) - sDtl.qty,
+                pDtl.rp_tax = IFNULL( pDtl.rp_tax, 0 ) - sDtl.qty,
+                pDtl.rp_mkv = IFNULL( pDtl.rp_mkv, 0 ) - sDtl.qty,
+            </otherwise>
+        </choose>
+        </set>
+        WHERE
+            1 = 1
+            AND pDtl.psc_num = #{pscNum}
+            AND sDtl.unit_id = #{docUnitId}
+            AND sDtl.stb_num = #{docNum}
+  </update>
+
+    <update id="updateByStbToRs" >
+        UPDATE psc_dtl pDtl
+        INNER JOIN stb_dtl sDtl ON sDtl.prod_id = pDtl.prod_id
+        <set>
+            <choose>
+                <when test="flag">
+                    pDtl.rs_qty = IFNULL( pDtl.rs_qty, 0 ) + sDtl.qty,
+                    pDtl.rs_val = IFNULL( pDtl.rs_val, 0 ) + sDtl.qty,
+                    pDtl.rs_tax = IFNULL( pDtl.rs_tax, 0 ) + sDtl.qty,
+                    pDtl.rs_mkv = IFNULL( pDtl.rs_mkv, 0 ) + sDtl.qty,
+                </when>
+                <otherwise>
+                    pDtl.rs_qty = IFNULL( pDtl.rs_qty, 0 ) - sDtl.qty,
+                    pDtl.rs_val = IFNULL( pDtl.rs_val, 0 ) - sDtl.qty,
+                    pDtl.rs_tax = IFNULL( pDtl.rs_tax, 0 ) - sDtl.qty,
+                    pDtl.rs_mkv = IFNULL( pDtl.rs_mkv, 0 ) - sDtl.qty,
+                </otherwise>
+            </choose>
+        </set>
+        WHERE
+        1 = 1
+        AND pDtl.psc_num = #{pscNum}
+        AND sDtl.unit_id = #{docUnitId}
+        AND sDtl.stb_num = #{docNum}
+    </update>
+
+    <select id="findByDiff"
+            resultMap="BaseResultMapByCommonDtl">
+                SELECT
+                pDtl.prod_id AS prodId,
+                pDtl.qty AS qty
+                FROM
+                psc_dtl pDtl
+                WHERE
+                pDtl.psc_num = #{pscNum}
+    </select>
+
+    <select id="findByOrderItem"
+            resultMap="BaseResultMapPscNum">
+        SELECT
+            a.prodId as prod_id,
+            a.rtnaRate as rtna_rate,
+            a.unitPrice as unit_price,
+            a.discRate as disc_rate,
+            a.fnlPrice as fnl_price,
+            a.taxRate as tax_rate,
+            a.mkUnitPrice as mk_unit_price,
+            a.qty,
+            (a.fnlPrice*a.qty) AS val,
+            (a.fnlPrice*a.qty*a.taxRate) AS tax,
+            (a.mkUnitPrice*a.qty) AS mkv
+        FROM
+            (
+        <foreach collection="items" item="item" separator=" UNION ALL ">
+            SELECT
+                p.prod_id AS prodId,
+                ( SELECT parm_val FROM sys_parameter WHERE parm_id = 'DEFAULT_PURCHASE_RETURN_RATE' ) AS rtnaRate,
+                #{item.salePrice} AS unitPrice,
+                (#{item.fnlPrice} / #{item.salePrice}) AS discRate,
+                #{item.fnlPrice} AS fnlPrice,
+                ( SELECT parm_val FROM sys_parameter WHERE parm_id = 'DEFAULT_TAX_RATE' ) AS taxRate,
+                0 AS mkUnitPrice,
+                #{item.quantity} AS qty
+            FROM
+                product p
+                INNER JOIN prod_cls pc ON pc.prod_cls_id = p.prod_cls_id
+            WHERE
+            p.prod_id = #{item.productSKUId}
+        </foreach>
+            ) a
+    </select>
+</mapper>

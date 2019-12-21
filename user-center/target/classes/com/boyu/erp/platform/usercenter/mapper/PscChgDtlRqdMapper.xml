@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.PscChgDtlRqdMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.PscChgDtlRqd">
+    <id column="psc_num" jdbcType="VARCHAR" property="pscNum" />
+    <id column="rcd_num" jdbcType="BIGINT" property="rcdNum" />
+    <id column="prod_id" jdbcType="BIGINT" property="prodId" />
+    <id column="reqd_date" jdbcType="DATE" property="reqdDate" />
+    <result column="adj_qty" jdbcType="DECIMAL" property="adjQty" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    psc_num, rcd_num, prod_id, reqd_date, adj_qty
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscChgDtlRqd" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from psc_chg_dtl_rqd
+    where psc_num = #{pscNum,jdbcType=VARCHAR}
+      and rcd_num = #{rcdNum,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+      and reqd_date = #{reqdDate,jdbcType=DATE}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscChgDtlRqd">
+    delete from psc_chg_dtl_rqd
+    where psc_num = #{pscNum,jdbcType=VARCHAR}
+      and rcd_num = #{rcdNum,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+      and reqd_date = #{reqdDate,jdbcType=DATE}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscChgDtlRqd">
+    insert into psc_chg_dtl_rqd (psc_num, rcd_num, prod_id, 
+      reqd_date, adj_qty)
+    values (#{pscNum,jdbcType=VARCHAR}, #{rcdNum,jdbcType=BIGINT}, #{prodId,jdbcType=BIGINT}, 
+      #{reqdDate,jdbcType=DATE}, #{adjQty,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscChgDtlRqd">
+    insert into psc_chg_dtl_rqd
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pscNum != null">
+        psc_num,
+      </if>
+      <if test="rcdNum != null">
+        rcd_num,
+      </if>
+      <if test="prodId != null">
+        prod_id,
+      </if>
+      <if test="reqdDate != null">
+        reqd_date,
+      </if>
+      <if test="adjQty != null">
+        adj_qty,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pscNum != null">
+        #{pscNum,jdbcType=VARCHAR},
+      </if>
+      <if test="rcdNum != null">
+        #{rcdNum,jdbcType=BIGINT},
+      </if>
+      <if test="prodId != null">
+        #{prodId,jdbcType=BIGINT},
+      </if>
+      <if test="reqdDate != null">
+        #{reqdDate,jdbcType=DATE},
+      </if>
+      <if test="adjQty != null">
+        #{adjQty,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscChgDtlRqd">
+    update psc_chg_dtl_rqd
+    <set>
+      <if test="adjQty != null">
+        adj_qty = #{adjQty,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where psc_num = #{pscNum,jdbcType=VARCHAR}
+      and rcd_num = #{rcdNum,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+      and reqd_date = #{reqdDate,jdbcType=DATE}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.PscChgDtlRqd">
+    update psc_chg_dtl_rqd
+    set adj_qty = #{adjQty,jdbcType=DECIMAL}
+    where psc_num = #{pscNum,jdbcType=VARCHAR}
+      and rcd_num = #{rcdNum,jdbcType=BIGINT}
+      and prod_id = #{prodId,jdbcType=BIGINT}
+      and reqd_date = #{reqdDate,jdbcType=DATE}
+  </update>
+
+  <insert id="insertList" parameterType="java.util.List">
+    insert into psc_chg_dtl_rqd (psc_num, rcd_num, prod_id,
+      reqd_date, adj_qty)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (#{item.pscNum,jdbcType=VARCHAR}, #{item.rcdNum,jdbcType=BIGINT}, #{item.prodId,jdbcType=BIGINT},
+      #{item.reqdDate,jdbcType=DATE}, #{item.adjQty,jdbcType=DECIMAL})
+    </foreach>
+  </insert>
+</mapper>

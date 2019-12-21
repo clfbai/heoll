@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.purchase.VdrSupplyProdMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.purchase.VdrSupplyProd">
+  <id column="vender_id" jdbcType="BIGINT" property="venderId" />
+  <id column="vendee_id" jdbcType="BIGINT" property="vendeeId" />
+  <id column="prod_cls_id" jdbcType="BIGINT" property="prodClsId" />
+  <result column="is_del" jdbcType="TINYINT" property="isDel" />
+  <result column="create_by" jdbcType="BIGINT" property="createBy" />
+  <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  <result column="update_by" jdbcType="BIGINT" property="updateBy" />
+  <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+</resultMap>
+
+  <resultMap id="BaseResultMapByVdr" type="com.boyu.erp.platform.usercenter.vo.purchase.VdrSupplyProdVo">
+    <result column="prodClsId" property="prodClsId" />
+    <result column="prodClsCode" property="prodClsCode" />
+    <result column="prodName" property="prodName" />
+    <result column="inputCode" property="inputCode" />
+    <result column="model" property="model" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    vender_id, vendee_id, prod_cls_id, is_del, create_by, create_time, update_by, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.VdrSupplyProd" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from vdr_supply_prod
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.VdrSupplyProd">
+    delete from vdr_supply_prod
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.VdrSupplyProd">
+    insert into vdr_supply_prod (vender_id, vendee_id, prod_id,
+      is_del, create_by, create_time, 
+      update_by, update_time)
+    values (#{venderId,jdbcType=BIGINT}, #{vendeeId,jdbcType=BIGINT}, #{prodId,jdbcType=BIGINT},
+      #{isDel,jdbcType=TINYINT}, #{createBy,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.VdrSupplyProd">
+    insert into vdr_supply_prod
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="venderId != null">
+        vender_id,
+      </if>
+      <if test="vendeeId != null">
+        vendee_id,
+      </if>
+      <if test="prodClsId != null">
+        prod_cls_id,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="venderId != null">
+        #{venderId,jdbcType=BIGINT},
+      </if>
+      <if test="vendeeId != null">
+        #{vendeeId,jdbcType=BIGINT},
+      </if>
+      <if test="prodClsId != null">
+        #{prodClsId,jdbcType=BIGINT},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=TINYINT},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.VdrSupplyProd">
+    update vdr_supply_prod
+    <set>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=TINYINT},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.purchase.VdrSupplyProd">
+    update vdr_supply_prod
+    set is_del = #{isDel,jdbcType=TINYINT},
+      create_by = #{createBy,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where vender_id = #{venderId,jdbcType=BIGINT}
+      and vendee_id = #{vendeeId,jdbcType=BIGINT}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+  </update>
+
+
+  <select id="selectAll" parameterType="com.boyu.erp.platform.usercenter.vo.purchase.VdrSupplyProdVo" resultMap="BaseResultMapByVdr">
+    SELECT
+    pc.prod_cls_id AS prodClsId,
+    pc.prod_cls_code AS prodClsCode,
+    pc.prod_name AS prodName,
+    pc.input_code AS inputCode,
+    pc.model AS model
+    FROM
+    vdr_supply_prod vsp
+    INNER JOIN prod_cls pc ON pc.prod_cls_id = vsp.prod_cls_id
+    where 1=1
+    <if test="venderId!=null and venderId!='' ">
+      and vsp.vender_id = #{venderId}
+    </if>
+    <if test="vendeeId!=null and vendeeId!='' ">
+      and vsp.vendee_id = #{vendeeId}
+    </if>
+    <if test="prodClsId!=null and prodClsId!='' ">
+      and pc.prod_cls_id = #{prodClsId}
+    </if>
+    <if test="prodName!=null and prodName!='' ">
+      and pc.prod_name like CONCAT( #{prodName}, '%')
+    </if>
+    <if test="inputCode!=null and inputCode!='' ">
+      and pc.input_code like CONCAT( #{inputCode}, '%')
+    </if>
+    <if test="prodClsCode!=null and prodClsCode!='' ">
+      and pc.prod_cls_code like CONCAT( #{prodClsCode}, '%')
+    </if>
+    <if test="model!=null and model!='' ">
+      and pc.model like CONCAT( #{model}, '%')
+    </if>
+  </select>
+
+  <insert id="add" parameterType="com.boyu.erp.platform.usercenter.model.purchase.VdrSupplyProdModel">
+    insert into vdr_supply_prod (vender_id, vendee_id, prod_cls_id,
+       create_by, create_time)
+    values
+    <foreach collection="add" item="item" index= "index" separator =",">
+    (#{venderId}, #{vendeeId}, #{item.prodClsId},
+       #{oprId}, now())
+    </foreach>
+  </insert>
+
+  <delete id="delete" parameterType="com.boyu.erp.platform.usercenter.model.purchase.VdrSupplyProdModel">
+    delete from vdr_supply_prod
+    where vender_id = #{venderId}
+    and vendee_id = #{vendeeId}
+    and  prod_cls_id in
+    <foreach item="item" collection="delete" open="(" separator="," close=")">
+      #{item.prodClsId}
+    </foreach>
+  </delete>
+
+  <select id="selectByVer" parameterType="java.util.Map" resultMap="BaseResultMap">
+    SELECT
+    vsp.*
+    FROM
+    vdr_supply_prod vsp
+    INNER JOIN product p ON p.prod_cls_id = vsp.prod_cls_id
+    where 1=1
+    <if test="venderId!=null and venderId!='' ">
+      and vsp.vender_id = #{venderId}
+    </if>
+    <if test="vendeeId!=null and vendeeId!='' ">
+      and vsp.vendee_id = #{vendeeId}
+    </if>
+    <if test="prodId!=null and prodId!='' ">
+      and p.prod_id = #{prodId}
+    </if>
+  </select>
+
+</mapper>

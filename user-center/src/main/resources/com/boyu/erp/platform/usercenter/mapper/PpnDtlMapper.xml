@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.Price.PpnDtlMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.Price.PpnDtl">
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <id column="ppn_num" jdbcType="VARCHAR" property="ppnNum" />
+    <id column="prod_cls_id" jdbcType="BIGINT" property="prodClsId" />
+    <result column="line_num" jdbcType="BIGINT" property="lineNum" />
+    <result column="prc_plcy" jdbcType="CHAR" property="prcPlcy" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="disc_rate" jdbcType="DECIMAL" property="discRate" />
+    <result column="fnl_price" jdbcType="DECIMAL" property="fnlPrice" />
+    <result column="tax_rate" jdbcType="DECIMAL" property="taxRate" />
+    <result column="spec_ofr" jdbcType="CHAR" property="specOfr" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapByPpnDtlVo" type="com.boyu.erp.platform.usercenter.vo.price.PpnDtlVo">
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <id column="ppn_num" jdbcType="VARCHAR" property="ppnNum" />
+    <id column="prod_cls_id" jdbcType="BIGINT" property="prodClsId" />
+    <result column="line_num" jdbcType="BIGINT" property="lineNum" />
+    <result column="prc_plcy" jdbcType="CHAR" property="prcPlcy" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="disc_rate" jdbcType="DECIMAL" property="discRate" />
+    <result column="fnl_price" jdbcType="DECIMAL" property="fnlPrice" />
+    <result column="tax_rate" jdbcType="DECIMAL" property="taxRate" />
+    <result column="spec_ofr" jdbcType="CHAR" property="specOfr" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="prodClsCode" property="prodClsCode" />
+    <result column="prodName" property="prodName" />
+    <result column="inputCode" property="inputCode" />
+    <result column="seqNum" property="seqNum" />
+    <result column="uom" property="uom" />
+    <result column="rtUnitPrice" property="rtUnitPrice" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    unit_id, ppn_num, prod_cls_id, line_num, prc_plcy, unit_price, disc_rate, fnl_price, 
+    tax_rate, spec_ofr, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.Price.PpnDtl" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ppn_dtl
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and ppn_num = #{ppnNum,jdbcType=VARCHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.Price.PpnDtl">
+    delete from ppn_dtl
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and ppn_num = #{ppnNum,jdbcType=VARCHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.Price.PpnDtl">
+    insert into ppn_dtl (unit_id, ppn_num, prod_cls_id, 
+      line_num, prc_plcy, unit_price, 
+      disc_rate, fnl_price, tax_rate, 
+      spec_ofr, remarks)
+    values (#{unitId,jdbcType=BIGINT}, #{ppnNum,jdbcType=VARCHAR}, #{prodClsId,jdbcType=BIGINT}, 
+      #{lineNum,jdbcType=BIGINT}, #{prcPlcy,jdbcType=CHAR}, #{unitPrice,jdbcType=DECIMAL}, 
+      #{discRate,jdbcType=DECIMAL}, #{fnlPrice,jdbcType=DECIMAL}, #{taxRate,jdbcType=DECIMAL}, 
+      #{specOfr,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.Price.PpnDtl">
+    insert into ppn_dtl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="ppnNum != null">
+        ppn_num,
+      </if>
+      <if test="prodClsId != null">
+        prod_cls_id,
+      </if>
+      <if test="lineNum != null">
+        line_num,
+      </if>
+      <if test="prcPlcy != null">
+        prc_plcy,
+      </if>
+      <if test="unitPrice != null">
+        unit_price,
+      </if>
+      <if test="discRate != null">
+        disc_rate,
+      </if>
+      <if test="fnlPrice != null">
+        fnl_price,
+      </if>
+      <if test="taxRate != null">
+        tax_rate,
+      </if>
+      <if test="specOfr != null">
+        spec_ofr,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="ppnNum != null">
+        #{ppnNum,jdbcType=VARCHAR},
+      </if>
+      <if test="prodClsId != null">
+        #{prodClsId,jdbcType=BIGINT},
+      </if>
+      <if test="lineNum != null">
+        #{lineNum,jdbcType=BIGINT},
+      </if>
+      <if test="prcPlcy != null">
+        #{prcPlcy,jdbcType=CHAR},
+      </if>
+      <if test="unitPrice != null">
+        #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discRate != null">
+        #{discRate,jdbcType=DECIMAL},
+      </if>
+      <if test="fnlPrice != null">
+        #{fnlPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="taxRate != null">
+        #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="specOfr != null">
+        #{specOfr,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.Price.PpnDtl">
+    update ppn_dtl
+    <set>
+      <if test="lineNum != null">
+        line_num = #{lineNum,jdbcType=BIGINT},
+      </if>
+      <if test="prcPlcy != null">
+        prc_plcy = #{prcPlcy,jdbcType=CHAR},
+      </if>
+      <if test="unitPrice != null">
+        unit_price = #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discRate != null">
+        disc_rate = #{discRate,jdbcType=DECIMAL},
+      </if>
+      <if test="fnlPrice != null">
+        fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="taxRate != null">
+        tax_rate = #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="specOfr != null">
+        spec_ofr = #{specOfr,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and ppn_num = #{ppnNum,jdbcType=VARCHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.Price.PpnDtl">
+    update ppn_dtl
+    set line_num = #{lineNum,jdbcType=BIGINT},
+      prc_plcy = #{prcPlcy,jdbcType=CHAR},
+      unit_price = #{unitPrice,jdbcType=DECIMAL},
+      disc_rate = #{discRate,jdbcType=DECIMAL},
+      fnl_price = #{fnlPrice,jdbcType=DECIMAL},
+      tax_rate = #{taxRate,jdbcType=DECIMAL},
+      spec_ofr = #{specOfr,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and ppn_num = #{ppnNum,jdbcType=VARCHAR}
+      and prod_cls_id = #{prodClsId,jdbcType=BIGINT}
+  </update>
+  <!-- 删除采购价格单时删除明细 -->
+  <delete id="deleteByPpn" parameterType="java.lang.String">
+    delete from ppn_dtl
+    where unit_id = #{unitId}
+      and ppn_num = #{ppnNum}
+  </delete>
+
+  <select id="selectByPpn" parameterType="com.boyu.erp.platform.usercenter.vo.price.PpnDtlVo" resultMap="BaseResultMapByPpnDtlVo">
+    SELECT
+	pd.unit_id,
+	pd.ppn_num,
+	pd.prod_cls_id,
+	pd.line_num,
+	pd.prc_plcy,
+	pd.unit_price,
+	pd.disc_rate,
+	pd.fnl_price,
+	pd.tax_rate,
+	pd.spec_ofr,
+	pd.remarks,
+	pc.prod_cls_code AS prodClsCode,
+	pc.prod_name AS prodName,
+	pc.input_code AS inputCode,
+	pc.seq_num AS seqNum,
+	pc.uom AS uom,
+	upc.rt_unit_price AS rtUnitPrice
+FROM
+	ppn_dtl pd
+	INNER JOIN prod_cls pc ON pc.prod_cls_id = pd.prod_cls_id
+	INNER JOIN unit_prod_cls upc ON upc.prod_cls_id = pc.prod_cls_id AND upc.unit_id = pd.unit_id
+	WHERE pd.ppn_num = #{ppnNum} and pd.unit_id = #{unitId}
+  </select>
+
+  <insert id="insertByList" parameterType="java.util.List">
+    insert into ppn_dtl (unit_id, ppn_num, prod_cls_id,
+       prc_plcy, unit_price,
+      disc_rate, fnl_price, tax_rate,
+      spec_ofr, remarks)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+     (#{item.unitId,jdbcType=BIGINT}, #{item.ppnNum,jdbcType=VARCHAR}, #{item.prodClsId,jdbcType=BIGINT},
+      #{item.prcPlcy,jdbcType=CHAR}, #{item.unitPrice,jdbcType=DECIMAL},
+      #{item.discRate,jdbcType=DECIMAL}, #{item.fnlPrice,jdbcType=DECIMAL}, #{item.taxRate,jdbcType=DECIMAL},
+      #{item.specOfr,jdbcType=CHAR}, #{item.remarks,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <update id="updateByList" parameterType="java.util.List">
+    <foreach collection="list" separator=";" item="item">
+      update ppn_dtl
+      <set>
+        <if test="item.prcPlcy != null and item.prcPlcy!='' ">
+          prc_plcy = #{item.prcPlcy,jdbcType=CHAR},
+        </if>
+        <if test="item.unitPrice != null and item.unitPrice!='' ">
+          unit_price = #{item.unitPrice,jdbcType=DECIMAL},
+        </if>
+        <if test="item.discRate != null and item.discRate!='' ">
+          disc_rate = #{item.discRate,jdbcType=DECIMAL},
+        </if>
+        <if test="item.fnlPrice != null and item.fnlPrice!='' ">
+          fnl_price = #{item.fnlPrice,jdbcType=DECIMAL},
+        </if>
+        <if test="item.taxRate != null and item.taxRate!='' ">
+          tax_rate = #{item.taxRate,jdbcType=DECIMAL},
+        </if>
+        <if test="item.specOfr != null and item.specOfr!='' ">
+          spec_ofr = #{item.specOfr,jdbcType=CHAR},
+        </if>
+        <if test="item.remarks != null and item.remarks!='' ">
+          remarks = #{item.remarks,jdbcType=VARCHAR},
+        </if>
+      </set>
+      where unit_id = #{item.unitId,jdbcType=BIGINT}
+      and ppn_num = #{item.ppnNum,jdbcType=VARCHAR}
+      and prod_cls_id = #{item.prodClsId,jdbcType=BIGINT}
+    </foreach>
+  </update>
+
+  <delete id="deleteByList" parameterType="java.util.List">
+    <foreach collection="list" open="" close="" item="item" separator=";">
+      delete from ppn_dtl
+      where unit_id = #{item.unitId,jdbcType=BIGINT}
+        and ppn_num = #{item.ppnNum,jdbcType=VARCHAR}
+        and prod_cls_id = #{item.prodClsId,jdbcType=BIGINT}
+    </foreach>
+  </delete>
+
+  <insert id="insertByMap" parameterType="java.util.Map">
+    insert into ppn_dtl (unit_id, ppn_num, prod_cls_id,
+    prc_plcy, unit_price,
+    disc_rate, fnl_price, tax_rate,
+    spec_ofr, remarks)
+    values
+    <foreach collection="dtlList" item="item" index="index" separator=",">
+      (#{item.unitId,jdbcType=BIGINT}, #{ppnNum,jdbcType=VARCHAR}, #{item.prodClsId,jdbcType=BIGINT},
+      #{item.prcPlcy,jdbcType=CHAR}, #{item.unitPrice,jdbcType=DECIMAL},
+      #{item.discRate,jdbcType=DECIMAL}, #{item.fnlPrice,jdbcType=DECIMAL}, #{item.taxRate,jdbcType=DECIMAL},
+      #{item.specOfr,jdbcType=CHAR}, #{item.remarks,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+</mapper>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.DelivDiffEvtMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.DelivDiffEvt">
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <id column="gdn_num" jdbcType="VARCHAR" property="gdnNum" />
+    <result column="ddf_stl_mthd" jdbcType="VARCHAR" property="ddfStlMthd" />
+    <result column="progress" jdbcType="CHAR" property="progress" />
+    <result column="hdlr_id" jdbcType="BIGINT" property="hdlrId" />
+    <result column="hdl_time" jdbcType="TIMESTAMP" property="hdlTime" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    unit_id, gdn_num, ddf_stl_mthd, progress, hdlr_id, hdl_time, remarks
+  </sql>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.DelivDiffEvt">
+    insert into deliv_diff_evt (unit_id, gdn_num, ddf_stl_mthd, 
+      progress, hdlr_id, hdl_time, 
+      remarks)
+    values (#{unitId,jdbcType=BIGINT}, #{gdnNum,jdbcType=VARCHAR}, #{ddfStlMthd,jdbcType=VARCHAR}, 
+      #{progress,jdbcType=CHAR}, #{hdlrId,jdbcType=BIGINT}, #{hdlTime,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.DelivDiffEvt">
+    insert into deliv_diff_evt
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="gdnNum != null">
+        gdn_num,
+      </if>
+      <if test="ddfStlMthd != null">
+        ddf_stl_mthd,
+      </if>
+      <if test="progress != null">
+        progress,
+      </if>
+      <if test="hdlrId != null">
+        hdlr_id,
+      </if>
+      <if test="hdlTime != null">
+        hdl_time,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="gdnNum != null">
+        #{gdnNum,jdbcType=VARCHAR},
+      </if>
+      <if test="ddfStlMthd != null">
+        #{ddfStlMthd,jdbcType=VARCHAR},
+      </if>
+      <if test="progress != null">
+        #{progress,jdbcType=CHAR},
+      </if>
+      <if test="hdlrId != null">
+        #{hdlrId,jdbcType=BIGINT},
+      </if>
+      <if test="hdlTime != null">
+        #{hdlTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.DelivDiffEvt">
+    update deliv_diff_evt
+    <set>
+      <if test="ddfStlMthd != null">
+        ddf_stl_mthd = #{ddfStlMthd,jdbcType=VARCHAR},
+      </if>
+      <if test="progress != null">
+        progress = #{progress,jdbcType=CHAR},
+      </if>
+      <if test="hdlrId != null">
+        hdlr_id = #{hdlrId,jdbcType=BIGINT},
+      </if>
+      <if test="hdlTime != null">
+        hdl_time = #{hdlTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and gdn_num = #{gdnNum,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.DelivDiffEvt">
+    update deliv_diff_evt
+    set ddf_stl_mthd = #{ddfStlMthd,jdbcType=VARCHAR},
+      progress = #{progress,jdbcType=CHAR},
+      hdlr_id = #{hdlrId,jdbcType=BIGINT},
+      hdl_time = #{hdlTime,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and gdn_num = #{gdnNum,jdbcType=VARCHAR}
+  </update>
+    <delete id="delete">
+      delete from deliv_diff_evt where gdn_num=#{gdnNum} and unit_id=#{unitId}
+    </delete>
+</mapper>

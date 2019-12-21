@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boyu.erp.platform.usercenter.mapper.warehouse.PknMapper">
+  <resultMap id="BaseResultMap" type="com.boyu.erp.platform.usercenter.entity.warehouse.Pkn">
+    <id column="unit_id" jdbcType="BIGINT" property="unitId" />
+    <id column="pkn_num" jdbcType="VARCHAR" property="pknNum" />
+    <result column="doc_date" jdbcType="TIMESTAMP" property="docDate" />
+    <result column="gdn_num" jdbcType="VARCHAR" property="gdnNum" />
+    <result column="alloc_stk_form" jdbcType="CHAR" property="allocStkForm" />
+    <result column="act_stk_form" jdbcType="CHAR" property="actStkForm" />
+    <result column="ttl_alloc_qty" jdbcType="DECIMAL" property="ttlAllocQty" />
+    <result column="ttl_alloc_box" jdbcType="DECIMAL" property="ttlAllocBox" />
+    <result column="ttl_act_qty" jdbcType="DECIMAL" property="ttlActQty" />
+    <result column="ttl_act_box" jdbcType="DECIMAL" property="ttlActBox" />
+    <result column="picker_id" jdbcType="BIGINT" property="pickerId" />
+    <result column="opr_id" jdbcType="BIGINT" property="oprId" />
+    <result column="op_time" jdbcType="TIMESTAMP" property="opTime" />
+    <result column="progress" jdbcType="CHAR" property="progress" />
+    <result column="suspended" jdbcType="CHAR" property="suspended" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    unit_id, pkn_num, doc_date, gdn_num, alloc_stk_form, act_stk_form, ttl_alloc_qty, 
+    ttl_alloc_box, ttl_act_qty, ttl_act_box, picker_id, opr_id, op_time, progress, suspended, 
+    remarks
+  </sql>
+  <insert id="insert" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Pkn">
+    insert into pkn (unit_id, pkn_num, doc_date, 
+      gdn_num, alloc_stk_form, act_stk_form, 
+      ttl_alloc_qty, ttl_alloc_box, ttl_act_qty, 
+      ttl_act_box, picker_id, opr_id, 
+      op_time, progress, suspended, 
+      remarks)
+    values (#{unitId,jdbcType=BIGINT}, #{pknNum,jdbcType=VARCHAR}, #{docDate,jdbcType=TIMESTAMP}, 
+      #{gdnNum,jdbcType=VARCHAR}, #{allocStkForm,jdbcType=CHAR}, #{actStkForm,jdbcType=CHAR}, 
+      #{ttlAllocQty,jdbcType=DECIMAL}, #{ttlAllocBox,jdbcType=DECIMAL}, #{ttlActQty,jdbcType=DECIMAL}, 
+      #{ttlActBox,jdbcType=DECIMAL}, #{pickerId,jdbcType=BIGINT}, #{oprId,jdbcType=BIGINT}, 
+      #{opTime,jdbcType=TIMESTAMP}, #{progress,jdbcType=CHAR}, #{suspended,jdbcType=CHAR}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Pkn">
+    insert into pkn
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        unit_id,
+      </if>
+      <if test="pknNum != null">
+        pkn_num,
+      </if>
+      <if test="docDate != null">
+        doc_date,
+      </if>
+      <if test="gdnNum != null">
+        gdn_num,
+      </if>
+      <if test="allocStkForm != null">
+        alloc_stk_form,
+      </if>
+      <if test="actStkForm != null">
+        act_stk_form,
+      </if>
+      <if test="ttlAllocQty != null">
+        ttl_alloc_qty,
+      </if>
+      <if test="ttlAllocBox != null">
+        ttl_alloc_box,
+      </if>
+      <if test="ttlActQty != null">
+        ttl_act_qty,
+      </if>
+      <if test="ttlActBox != null">
+        ttl_act_box,
+      </if>
+      <if test="pickerId != null">
+        picker_id,
+      </if>
+      <if test="oprId != null">
+        opr_id,
+      </if>
+      <if test="opTime != null">
+        op_time,
+      </if>
+      <if test="progress != null">
+        progress,
+      </if>
+      <if test="suspended != null">
+        suspended,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitId != null">
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="pknNum != null">
+        #{pknNum,jdbcType=VARCHAR},
+      </if>
+      <if test="docDate != null">
+        #{docDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gdnNum != null">
+        #{gdnNum,jdbcType=VARCHAR},
+      </if>
+      <if test="allocStkForm != null">
+        #{allocStkForm,jdbcType=CHAR},
+      </if>
+      <if test="actStkForm != null">
+        #{actStkForm,jdbcType=CHAR},
+      </if>
+      <if test="ttlAllocQty != null">
+        #{ttlAllocQty,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlAllocBox != null">
+        #{ttlAllocBox,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlActQty != null">
+        #{ttlActQty,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlActBox != null">
+        #{ttlActBox,jdbcType=DECIMAL},
+      </if>
+      <if test="pickerId != null">
+        #{pickerId,jdbcType=BIGINT},
+      </if>
+      <if test="oprId != null">
+        #{oprId,jdbcType=BIGINT},
+      </if>
+      <if test="opTime != null">
+        #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="progress != null">
+        #{progress,jdbcType=CHAR},
+      </if>
+      <if test="suspended != null">
+        #{suspended,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Pkn">
+    update pkn
+    <set>
+      <if test="docDate != null">
+        doc_date = #{docDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gdnNum != null">
+        gdn_num = #{gdnNum,jdbcType=VARCHAR},
+      </if>
+      <if test="allocStkForm != null">
+        alloc_stk_form = #{allocStkForm,jdbcType=CHAR},
+      </if>
+      <if test="actStkForm != null">
+        act_stk_form = #{actStkForm,jdbcType=CHAR},
+      </if>
+      <if test="ttlAllocQty != null">
+        ttl_alloc_qty = #{ttlAllocQty,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlAllocBox != null">
+        ttl_alloc_box = #{ttlAllocBox,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlActQty != null">
+        ttl_act_qty = #{ttlActQty,jdbcType=DECIMAL},
+      </if>
+      <if test="ttlActBox != null">
+        ttl_act_box = #{ttlActBox,jdbcType=DECIMAL},
+      </if>
+      <if test="pickerId != null">
+        picker_id = #{pickerId,jdbcType=BIGINT},
+      </if>
+      <if test="oprId != null">
+        opr_id = #{oprId,jdbcType=BIGINT},
+      </if>
+      <if test="opTime != null">
+        op_time = #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="progress != null">
+        progress = #{progress,jdbcType=CHAR},
+      </if>
+      <if test="suspended != null">
+        suspended = #{suspended,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and pkn_num = #{pknNum,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boyu.erp.platform.usercenter.entity.warehouse.Pkn">
+    update pkn
+    set doc_date = #{docDate,jdbcType=TIMESTAMP},
+      gdn_num = #{gdnNum,jdbcType=VARCHAR},
+      alloc_stk_form = #{allocStkForm,jdbcType=CHAR},
+      act_stk_form = #{actStkForm,jdbcType=CHAR},
+      ttl_alloc_qty = #{ttlAllocQty,jdbcType=DECIMAL},
+      ttl_alloc_box = #{ttlAllocBox,jdbcType=DECIMAL},
+      ttl_act_qty = #{ttlActQty,jdbcType=DECIMAL},
+      ttl_act_box = #{ttlActBox,jdbcType=DECIMAL},
+      picker_id = #{pickerId,jdbcType=BIGINT},
+      opr_id = #{oprId,jdbcType=BIGINT},
+      op_time = #{opTime,jdbcType=TIMESTAMP},
+      progress = #{progress,jdbcType=CHAR},
+      suspended = #{suspended,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+      and pkn_num = #{pknNum,jdbcType=VARCHAR}
+  </update>
+</mapper>
